@@ -12,7 +12,7 @@ namespace doNet5781_9050_6032
         {
             Welcome9050();
             Wellcome6032();
-            //blabla
+            
         }
 
         private static void Welcome9050()
