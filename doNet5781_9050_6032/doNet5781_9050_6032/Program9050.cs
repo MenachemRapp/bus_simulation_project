@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace doNet5781_9050_6032
+namespace doNet5781_00_9050_6032
 {
     partial class Program
     {
         static void Main(string[] args)
         {
             Welcome9050();
-            Wellcome6032();
+            Welcome6032();
             
         }
 
@@ -21,6 +21,6 @@ namespace doNet5781_9050_6032
             String userName = Console.ReadLine();
             Console.WriteLine("{0}, welcome to my first console application", userName);
         }
-        static partial void Wellcome6032();
+        static partial void Welcome6032();
     }
 }
