@@ -20,6 +20,7 @@ namespace doNet5781_00_9050_6032
             Console.Write("Enter your name: ");
             String userName = Console.ReadLine();
             Console.WriteLine("{0}, welcome to my first console application", userName);
+            Console.ReadKey();
         }
         static partial void Welcome6032();
     }
