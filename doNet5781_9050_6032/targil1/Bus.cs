@@ -67,6 +67,22 @@ namespace Targil1
             return String.Format("[ {0}, {1} ]", registrationString, aliya.ToShortDateString());
         }
 
+ /*
+ * The function checks if the bus is suitable for travel.
+If not returns false.
+If so, returns true, and updates the mileage and fuel
+ */
+        public bool drive(int km)
+        {
+            //
+            if (kilometer_maintanence+km>=20000 || (DateTime.Now.AddYears(-1)>= maintanence_date) || kilometer_fuel+km>1200)
+             return false;
+            kilometer_fuel += km;
+            kilometer_maintanence += km;
+            kilometer_total += km;
+            return true;
+        }
+
      
     }
 }

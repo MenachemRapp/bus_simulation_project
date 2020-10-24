@@ -10,6 +10,7 @@ namespace Targil1
 {
     class Program
     {
+        static Random rand = new Random(DateTime.Now.Millisecond);
         static void Main(string[] args)
         {
             List<Bus> buses = new List<Bus>
@@ -23,7 +24,7 @@ namespace Targil1
             {
                 insertBus(buses);
             }
-
+           
             CHOICE choice;
             bool success = true;
             do
@@ -49,6 +50,8 @@ namespace Targil1
                         if (bus != null)
                         {
                             Console.WriteLine("the bus is {0} ", bus);
+                            if (!bus.drive(rand.Next(1200)))
+                                Console.WriteLine("the drive not possible!!!");
                         }
                         else
                         {
