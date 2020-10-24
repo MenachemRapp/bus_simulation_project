@@ -5,13 +5,20 @@ namespace Targil1
     public class Bus
     {
         private string registration;
-        private DateTime aliya;
+        private DateTime aliya, maintanence_date;
+        private int kilometer_total, kilometer_fuel, kilometer_maintanence;
+        private bool dangerous;
 
 
         public Bus(string registration, DateTime aliya)
         {
             this.aliya = aliya;
             this.Registration = registration;
+            this.maintanence_date = aliya;
+            this.kilometer_total = 0;
+            this.kilometer_maintanence = 0;
+            this.kilometer_fuel = 0;
+            this.dangerous = false;
         }
 
         public string Registration
@@ -59,5 +66,7 @@ namespace Targil1
 
             return String.Format("[ {0}, {1} ]", registrationString, aliya.ToShortDateString());
         }
+
+     
     }
 }
