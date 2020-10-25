@@ -84,5 +84,18 @@ If so, returns true, and updates the mileage and fuel
         }
 
      
+        public void refuel()
+        {
+            this.kilometer_fuel =0;
+        }
+
+        public void maintain()
+        {
+            this.kilometer_maintanence = 0;
+            this.maintanence_date= DateTime.Now;
+        }
+        
+
+
     }
 }

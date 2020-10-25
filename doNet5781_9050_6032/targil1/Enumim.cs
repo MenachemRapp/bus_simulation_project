@@ -8,6 +8,11 @@ namespace Targil1
 {
     public enum CHOICE
     {
-        ADD_BUS, PICK_BUS, REFUEL_BUS, MAINTENANCE_BUS, EXIT = -1
+        ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE, EXIT = -1
+    }
+
+    public enum FUEL_MAINTAIN
+    {
+        REFUEL_BUS, MAINTENANCE_BUS
     }
 }

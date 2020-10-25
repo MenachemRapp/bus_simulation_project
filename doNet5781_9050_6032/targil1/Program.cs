@@ -26,11 +26,13 @@ namespace Targil1
             }
            
             CHOICE choice;
+            FUEL_MAINTAIN fuel_maintain;
+
             bool success = true;
             do
             {
                 Console.WriteLine("Please, make your choce:");
-                Console.WriteLine("ADD_BUS, PICK_BUS, REFUEL_BUS, MAINTENANCE_BUS,  EXIT");
+                Console.WriteLine("ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE,  EXIT");
 
                 success = Enum.TryParse(Console.ReadLine(), out choice);
                 if (!success)
@@ -58,10 +60,40 @@ namespace Targil1
                             Console.WriteLine("ein kaze!!!");
                         }
                         break;
-                    case CHOICE.REFUEL_BUS:
+                    case CHOICE.REFUEL_OR_MAINTENANCE:
+                        Console.WriteLine("Please, fill in the bus regestration number:");
+                        printall(buses);
+                        registration = Console.ReadLine();
+                        bus = findBuses(buses, registration);
+                        if (bus != null)
+                        {
+                            Console.WriteLine("the bus is {0} ", bus);
+                            Console.WriteLine("Please, make your choce:");
+                            Console.WriteLine("REFUEL_BUS, MAINTENANCE_BUS");
+                            success = Enum.TryParse(Console.ReadLine(), out fuel_maintain);
+                            if (!success)
+                            {
+                                continue;
+                            }
+                            switch (fuel_maintain)
+                            {
+                                case FUEL_MAINTAIN.REFUEL_BUS:
+                                    bus.refuel();
+                                    break;
+
+                                case FUEL_MAINTAIN.MAINTENANCE_BUS:
+                                    bus.maintain();
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("ein kaze!!!");
+                        }
+                       
+
                         break;
-                    case CHOICE.MAINTENANCE_BUS:
-                        break;
+                    
                     //case CHOICE.EXIT: //-1
                     //    break;
                     default:
