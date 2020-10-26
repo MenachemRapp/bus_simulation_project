@@ -93,6 +93,7 @@ If so, returns true, and updates the mileage and fuel
         {
             this.kilometer_maintanence = 0;
             this.maintanence_date= DateTime.Now;
+            this.dangerous = false;
         }
         
 
