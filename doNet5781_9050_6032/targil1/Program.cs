@@ -20,6 +20,7 @@ namespace Targil1
                new Bus("1133311",new DateTime(2007,01,01)),
                new Bus("33300333",new DateTime(2019,03,28)),
             };
+            
             for (int i = 0; i < 5; i++)
             {
                 insertBus(buses);
@@ -32,7 +33,7 @@ namespace Targil1
             do
             {
                 Console.WriteLine("Please, make your choce:");
-                Console.WriteLine("ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE,  EXIT");
+                Console.WriteLine("ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE,KILOMETER_MAINTANENCE,  EXIT");
 
                 success = Enum.TryParse(Console.ReadLine(), out choice);
                 if (!success)
@@ -93,7 +94,13 @@ namespace Targil1
                        
 
                         break;
-                    
+
+                    case CHOICE.KILOMETER_MAINTANENCE:
+                        foreach (Bus the_bus in buses)
+                        {
+                            Console.WriteLine("{0}  {1}",the_bus.Registration,the_bus.Kilometer_maintanence);
+                        }
+                        break;
                     //case CHOICE.EXIT: //-1
                     //    break;
                     default:

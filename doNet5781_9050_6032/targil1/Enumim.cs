@@ -8,7 +8,7 @@ namespace Targil1
 {
     public enum CHOICE
     {
-        ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE, EXIT = -1
+        ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE, KILOMETER_MAINTANENCE, EXIT = -1
     }
 
     public enum FUEL_MAINTAIN

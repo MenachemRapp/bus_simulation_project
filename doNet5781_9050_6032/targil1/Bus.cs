@@ -47,6 +47,14 @@ namespace Targil1
             }
         }
 
+        public int Kilometer_maintanence
+        {
+            get
+            {
+                return kilometer_maintanence;
+            }
+        }
+
         public override string ToString()
         {
             string prefix, middle, suffix;
