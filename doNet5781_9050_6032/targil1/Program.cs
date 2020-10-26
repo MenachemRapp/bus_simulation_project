@@ -32,7 +32,7 @@ namespace Targil1
             bool success = true;
             do
             {
-                Console.WriteLine("Please, make your choce:");
+                Console.WriteLine("Please, make your choice:");
                 Console.WriteLine("ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE,KILOMETER_MAINTANENCE,  EXIT");
 
                 success = Enum.TryParse(Console.ReadLine(), out choice);
@@ -139,7 +139,7 @@ namespace Targil1
             DateTime taarich;
 
             //taarich
-            Console.WriteLine("taarich");
+            Console.WriteLine("taarich aliya: ");
             bool success = DateTime.TryParse(Console.ReadLine(), out taarich);
             if (!success)
             {
