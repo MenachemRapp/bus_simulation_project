@@ -13,6 +13,7 @@ namespace Targil1
         static Random rand = new Random(DateTime.Now.Millisecond);
         static void Main(string[] args)
         {
+            //sample busses
             List<Bus> buses = new List<Bus>
             {
                new Bus("2233322",new DateTime(2000,11,11)),
@@ -20,12 +21,15 @@ namespace Targil1
                new Bus("1133311",new DateTime(2007,01,01)),
                new Bus("33300333",new DateTime(2019,03,28)),
             };
-            /*
+
+            //inserts busses from the user
+            Console.WriteLine("enter 5 busses");
             for (int i = 0; i < 5; i++)
             {
                 insertBus(buses);
             }
-           */
+           
+
             CHOICE choice;
             FUEL_MAINTAIN fuel_maintain;
 
