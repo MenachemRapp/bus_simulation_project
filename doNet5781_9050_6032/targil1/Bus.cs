@@ -19,6 +19,8 @@ namespace Targil1
             this.kilometer_maintanence = 0;
             this.kilometer_fuel = 0;
             this.dangerous = false;
+            if (DateTime.Now.AddYears(-1) >= maintanence_date)
+                this.dangerous = true;
         }
 
         public string Registration
@@ -29,6 +31,7 @@ namespace Targil1
                 return registration;
             }
 
+            
             private set
             {
                 if (aliya.Year >= 2018 && value.Length == 8)
@@ -55,6 +58,7 @@ namespace Targil1
             }
         }
 
+        //adds hypnes between parts of the regestration number
         public override string ToString()
         {
             string prefix, middle, suffix;
@@ -78,7 +82,7 @@ namespace Targil1
  /*
  * The function checks if the bus is suitable for travel.
 If not returns false.
-If so, returns true, and updates the mileage and fuel
+If it is suitable, returns true, and updates the mileage and fuel
  */
         public bool drive(int km)
         {
@@ -91,12 +95,13 @@ If so, returns true, and updates the mileage and fuel
             return true;
         }
 
-     
+        //refuels the bus
         public void refuel()
         {
             this.kilometer_fuel =0;
         }
 
+        //maintains the bus
         public void maintain()
         {
             this.kilometer_maintanence = 0;
