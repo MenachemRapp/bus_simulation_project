@@ -22,7 +22,7 @@ namespace Targil1
                new Bus("33300333",new DateTime(2019,03,28)),
             };
 
-            //inserts busses from the user
+            //inserts busses from the user 
             Console.WriteLine("enter 5 busses");
             for (int i = 0; i < 5; i++)
             {
