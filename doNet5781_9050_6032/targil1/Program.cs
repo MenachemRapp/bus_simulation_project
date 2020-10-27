@@ -32,7 +32,7 @@ namespace Targil1
             bool success = true;
             do
             {
-                Console.WriteLine("Please, make your choce:");
+                Console.WriteLine("Please, make your choice:");
                 Console.WriteLine("ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE,KILOMETER_MAINTANENCE,  EXIT");
 
                 success = Enum.TryParse(Console.ReadLine(), out choice);
@@ -110,6 +110,7 @@ namespace Targil1
             } while (choice != CHOICE.EXIT);
         }
 
+        //finds the sellected bus in the list
         private static Bus findBuses(List<Bus> buses, string registration)
         {
             registration = registration.Replace("-", string.Empty);
@@ -125,6 +126,7 @@ namespace Targil1
             return bus;
         }
 
+        //prints all busses
         private static void printall(List<Bus> buses)
         {
             foreach (Bus bus in buses)
@@ -133,13 +135,14 @@ namespace Targil1
             }
         }
 
+        //inserts a bus to the list
         private static void insertBus(List<Bus> buses)
         {
             string rishuy;
             DateTime taarich;
 
             //taarich
-            Console.WriteLine("taarich");
+            Console.WriteLine("taarich aliya: ");
             bool success = DateTime.TryParse(Console.ReadLine(), out taarich);
             if (!success)
             {
