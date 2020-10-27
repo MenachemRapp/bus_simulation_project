@@ -57,6 +57,12 @@ namespace Targil1
 
         public override string ToString()
         {
+            return String.Format("[ {0}, {1} ]", str_registration(), aliya.ToShortDateString());
+        }
+
+        //The function returns a string of registration with hyphens in the middle
+        public string str_registration()
+        {
             string prefix, middle, suffix;
             if (aliya.Year < 2018)
             {
@@ -70,16 +76,14 @@ namespace Targil1
                 middle = registration.Substring(3, 2);
                 suffix = registration.Substring(5, 3);
             }
-            string registrationString = String.Format("{0}-{1}-{2}", prefix, middle, suffix);
-
-            return String.Format("[ {0}, {1} ]", registrationString, aliya.ToShortDateString());
+            return String.Format("{0}-{1}-{2}", prefix, middle, suffix);
         }
 
- /*
- * The function checks if the bus is suitable for travel.
-If not returns false.
-If so, returns true, and updates the mileage and fuel
- */
+        /*
+        * The function checks if the bus is suitable for travel.
+       If not returns false.
+       If so, returns true, and updates the mileage and fuel
+        */
         public bool drive(int km)
         {
             //
