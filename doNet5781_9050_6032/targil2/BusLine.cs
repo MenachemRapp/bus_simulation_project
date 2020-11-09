@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace targil2
@@ -30,23 +31,51 @@ namespace targil2
             //add list
         }
 
-        public void add(int key, double myLatitude, double myLongitude,string myAddress, double myDistance ,TimeSpan myZman,  int priveousStop)
+        public void add(int key, double myLatitude, double myLongitude, string myAddress, double myDistance, TimeSpan myZman, int index)
         {
             BusStopLine newStop = new BusStopLine { 
                 BusStationKey = key, Latitude = myLatitude ,Longitude = myLongitude, Address = myAddress, Distance = myDistance, Zman = myZman 
             };
             //BusStopLine newStop = new BusStopLine(key, myLatitude, myLongitude, myAddress, myDistance, myZman);
+            
+            /*
+            bool flag = false;
+            foreach (BusStop stop in stopCounter)
+                if (newStop.BusStationKey==stop.BusStationKey)
+                {
+                    if (newStop == stop)
+                        stop.mone++;
+                    else
+                        throw new ArgumentException
+                            (string.Format("station numbeer {0} is already exits", newStop.BusStationKey));
+                    flag = true;
+                    break;
+                }
+            if (!flag)
+            {
+                StopCount newCount = new StopCount(newStop);
+                stopCounter.add(newCount);
+            }
+            */
 
-            //if
-             stations.Add(newStop);
+            if (index > stations.Count + 1 || index < 0)
+                throw new ArgumentException (String.Format("value bust be between 0 and {0}", stations.Count + 1));
 
-            //add to the middle or end of the list
-            //Todo
+
+
+            if (index == stations.Count + 1)
+                stations.Add(newStop);
+            else
+                stations.Insert(index, newStop);
         }
 
-        public void remove()
+        public void remove(BusStop stop)
         {
-            //Todo
+            stations.RemoveAt(stations.FindIndex(x => x.BusStationKey == stop.BusStationKey));
+            //
+            /*foreach (BusStop station in stopCounter)
+                if (station.BusStationKey == stop.BusStationKey)
+              */  
         }
 
         public bool findStop(BusStop val)
