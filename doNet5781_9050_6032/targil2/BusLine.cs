@@ -30,14 +30,18 @@ namespace targil2
             //add list
         }
 
-        public void add(BusStopLine newStop, int priveousStop)
+        public void add(int key, double myLatitude, double myLongitude,string myAddress, double myDistance ,TimeSpan myZman,  int priveousStop)
         {
-            //BusStopLine stop= new BusStopLine { }
+            BusStopLine newStop = new BusStopLine { 
+                BusStationKey = key, Latitude = myLatitude ,Longitude = myLongitude, Address = myAddress, Distance = myDistance, Zman = myZman 
+            };
+            //BusStopLine newStop = new BusStopLine(key, myLatitude, myLongitude, myAddress, myDistance, myZman);
+
             //if
-            stations.Add(newStop);
+             stations.Add(newStop);
 
             //add to the middle or end of the list
-        //Todo
+            //Todo
         }
 
         public void remove()
@@ -92,16 +96,17 @@ namespace targil2
             bool flag = false;
             foreach (BusStopLine stop in stations)
             {
-                if (flag)
-                {
-                    subLine.stations.Add(stop);
-                    if (stop.BusStationKey == last.BusStationKey)
-                        break;
-                }
-                else if (stop.BusStationKey == first.BusStationKey)
-                    flag = true;
+                if (!flag)
+                    if (stop.BusStationKey == first.BusStationKey)
+                        flag = true;
+                    else
+                        continue;
+                             
+                subLine.stations.Add(stop);
+                if (stop.BusStationKey == last.BusStationKey)
+                    break;
             }
-                
+                        
             return subLine;
         }
                    
