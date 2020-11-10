@@ -33,10 +33,10 @@ namespace targil2
         }
 
         //add a stop to the line
-        public void add(int key, double myLatitude, double myLongitude, string myAddress, int index, TimeSpan myZman = new TimeSpan(),double myDistance=0)
+        public void add(/*int key, double myLatitude, double myLongitude, string myAddress,*/BusStop newBusStop, int index, TimeSpan myZman = new TimeSpan(),double myDistance=0)
         {
             
-            BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
+            //BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
             BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
             if (index == 0)
             {

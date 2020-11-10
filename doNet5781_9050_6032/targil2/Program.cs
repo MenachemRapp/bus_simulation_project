@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,7 +12,10 @@ namespace targil2
     {
         static void Main(string[] args)
         {
-            BusLineData buses= new BusLineData;
+            BusLineData busLineData=new BusLineData();
+            BusStop busStop;
+            int line;
+
             CHOICE choice; ;
             switch (choice)
             {
@@ -20,8 +24,24 @@ namespace targil2
                     switch (add)
                     {
                         case ADD.ADD_LINE:
+                            Console.WriteLine("choose line:");
+                            line = Convert.ToInt32(Console.ReadLine());
+                            
                             break;
                         case ADD.ADD_BUS_STOP:
+                            Console.WriteLine("choose line:");
+                            line = Convert.ToInt32(Console.ReadLine());
+                            busStop = createBus();
+                            Console.WriteLine("which number is the stop?");
+                            int index= Convert.ToInt32(Console.ReadLine());
+                            //if (index==0)
+                            Console.WriteLine("what is the distance from the last stop?");
+                            double distance= Convert.ToDouble(Console.ReadLine());
+                            Console.WriteLine("how much time past since the last stop?");
+                            TimeSpan zman = TimeSpan.Parse(Console.ReadLine());
+                            busLineData[line].add(busStop,index,zman,distance);
+                            
+
                             break;
                         default:
                             break;
@@ -34,6 +54,7 @@ namespace targil2
                         case REMOVE.REMOVE_LINE:
                             break;
                         case REMOVE.REMOVE_BUS_STOP:
+                            busStop = createBus();
                             break;
                         default:
                             break;
@@ -77,6 +98,26 @@ namespace targil2
                 default:
                     break;
             }
+        }
+
+        private static BusStop createBus()
+        {
+            Console.WriteLine("enter bus station key:");
+            int key = Convert.ToInt32(Console.ReadLine());
+            foreach (StopAndCounter station in CounterList.StopAndCounterList)
+                if (key == station.stop.BusStationKey)
+                        return station.stop;
+
+            Console.WriteLine("enter latitude:");
+            double latitude = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("enter longitude:");
+            double longitude = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("enter address");
+            string address = Console.ReadLine();
+
+            return new BusStop(key, latitude, longitude, address);
         }
     }
 }
