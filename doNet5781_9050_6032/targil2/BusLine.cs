@@ -38,31 +38,29 @@ namespace targil2
             
             BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
             BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
-            
-            /*
-            bool flag = false;
-            foreach (BusStop stop in stopCounter)
-                if (newStop.BusStationKey==stop.BusStationKey)
-                {
-                    if (newStop == stop)
-                        stop.mone++;
-                    else
-                        throw new ArgumentException
-                            (string.Format("station numbeer {0} is already exits", newStop.BusStationKey));
-                    flag = true;
-                    break;
-                }
-            if (!flag)
-            {
-                StopCount newCount = new StopCount(newStop);
-                stopCounter.add(newCount);
-            }
-            */
 
             if (index > stations.Count + 1 || index < 0)
-                throw new ArgumentException (String.Format("value bust be between 0 and {0}", stations.Count + 1));
-
-
+                throw new ArgumentException(String.Format("value bust be between 0 and {0}", stations.Count + 1));
+            
+            //test if already is in the list
+            bool flag = false;
+            foreach (StopAndCounter station in CounterList.get())
+            if (newBusStop.BusStationKey == station.stop.BusStationKey)
+            {
+                if (newBusStop == station.stop)
+                    station.increase();
+                else
+                    throw new ArgumentException
+                        (string.Format("station number {0} is already exits", newStopLine.Stop.BusStationKey));
+                flag = true;
+                break;
+            }
+            
+            if (!flag)
+            {
+                CounterList.add(newBusStop);
+            }
+               
 
             if (index == stations.Count + 1)
                 stations.Add(newStopLine);
@@ -74,14 +72,16 @@ namespace targil2
         public void remove(BusStop stop)
         {
             stations.RemoveAt(stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey));
-            //
-            /*foreach (BusStop station in stopCounter)
-                if (station.BusStationKey == stop.BusStationKey)
-                    if BusStop.counter==0
-                        stopCounter.remove(BusStop);
+
+            foreach (StopAndCounter station in CounterList.get())
+                if (station.stop.BusStationKey == stop.BusStationKey)
+                {
+                    if (station.Counter == 1)
+                        CounterList.remove(stop);
                     else
-                        BusStop.counter--;
-              */
+                        station.decrease();
+                    break;
+                }
         }
 
         //test if the stop is on this line
