@@ -47,9 +47,11 @@
     <Compile Include="BusLineData.cs" />
     <Compile Include="BusStop.cs" />
     <Compile Include="BusStopLine.cs" />
+    <Compile Include="CounterList.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StopAndCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
