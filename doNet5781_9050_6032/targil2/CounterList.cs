@@ -9,22 +9,22 @@ namespace targil2
 {
     static class CounterList
     {
-        private static List<StopAndCounter> StopAndCounterList = new List<StopAndCounter>();
+        private static List<StopAndCounter> stopAndCounterList = new List<StopAndCounter>();
         public static void add(BusStop value)
         {
             StopAndCounter newStop = new StopAndCounter(value);
-            StopAndCounterList.Add(newStop);
+            stopAndCounterList.Add(newStop);
         }
 
         public static void remove(BusStop value)
         {
             StopAndCounter newStop = new StopAndCounter(value);
-            StopAndCounterList.Remove(newStop);
+            stopAndCounterList.Remove(newStop);
         }
 
-        public static List<StopAndCounter> get()
+        public static List<StopAndCounter> StopAndCounterList
         {
-            return StopAndCounterList;
+            get => stopAndCounterList;
         }
        
 

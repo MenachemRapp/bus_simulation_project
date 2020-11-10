@@ -44,9 +44,9 @@ namespace targil2
                 newStopLine.Distance = 0;
             }
 
-            if (index > stations.Count + 1 || index < 0)
+            if (index > stations.Count || index < 0)
                 throw new ArgumentException(String.Format("value bust be between 0 and {0}", stations.Count + 1));
-            if (index != stations.Count + 1)
+            if (index != stations.Count && stations.Count>0)
             {
                 if (stations.ElementAt(index).Zman < newStopLine.Zman)
                     throw new ArgumentException(String.Format("time cannot be greater than {0}", stations.ElementAt(index).Zman));
@@ -56,7 +56,7 @@ namespace targil2
 
             //test if already is in the list
             bool flag = false;
-            foreach (StopAndCounter station in CounterList.get())
+            foreach (StopAndCounter station in CounterList.StopAndCounterList)
             if (newBusStop.BusStationKey == station.stop.BusStationKey)
             {
                 if (newBusStop == station.stop)
@@ -74,7 +74,7 @@ namespace targil2
             }
 
 
-            if (index == stations.Count + 1)
+            if (index == stations.Count || stations.Count == 0)
                 stations.Add(newStopLine);
             else
             {
@@ -101,7 +101,7 @@ namespace targil2
             }
             stations.RemoveAt(index);
 
-            foreach (StopAndCounter station in CounterList.get())
+            foreach (StopAndCounter station in CounterList.StopAndCounterList)
                 if (station.stop.BusStationKey == stop.BusStationKey)
                 {
                     if (station.Counter == 1)
