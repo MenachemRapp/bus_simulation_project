@@ -14,6 +14,31 @@ namespace targil2
         private const int MIN_LON = -180;
         private const int MAX_LON = 180;
 
+
+        //ctor
+        public BusStop(int myKey, double myLatitude, double myLongitude, string myAddress)
+        {
+            this.BusStationKey = myKey;
+            this.Latitude = myLatitude;
+            this.Longitude = myLongitude;
+            this.Address = myAddress;
+        }
+
+        public BusStop()
+        {
+            this.BusStationKey = 0;
+            this.Latitude = 0;
+            this.Longitude = 0;
+            this.Address = null;
+        }
+
+        public BusStop(BusStop  myBusStop)
+        {
+            this.BusStationKey = myBusStop.BusStationKey;
+            this.Latitude = myBusStop.Latitude;
+            this.Longitude = myBusStop.Longitude;
+            this.Address = myBusStop.Address;
+        }
         private int busStationKey;
 
         public int BusStationKey {
