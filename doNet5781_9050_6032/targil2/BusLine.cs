@@ -32,12 +32,10 @@ namespace targil2
             return String.Format("[ {0}, {1} ]\n{2}" , BusNumber, Area, keys);
         }
 
+        //add a stop to the line
         public void add(int key, double myLatitude, double myLongitude, string myAddress, int index, TimeSpan myZman = new TimeSpan(),double myDistance=0)
         {
-            /*BusStopLine newStop = new BusStopLine { 
-                BusStationKey = key, Latitude = myLatitude ,Longitude = myLongitude, Address = myAddress, Distance = myDistance, Zman = myZman 
-            };*/
-
+            
             BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
             BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
             
@@ -72,6 +70,7 @@ namespace targil2
                 stations.Insert(index, newStopLine);
         }
 
+        //remove a stop from the line
         public void remove(BusStop stop)
         {
             stations.RemoveAt(stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey));
@@ -85,6 +84,7 @@ namespace targil2
               */
         }
 
+        //test if the stop is on this line
         public bool findStop(BusStop val)
         {
             foreach (BusStopLine lineStop in stations)
@@ -93,12 +93,14 @@ namespace targil2
             return false;
         }
 
+        //distnace between 2 stops
         public double stopsDistance(BusStop first, BusStop last)
         {
             BusLine sub = subroute(first, last);
             return sub.fullLineDistance();
         }
 
+        //time between 2 stops
         public TimeSpan stopsTime(BusStop first, BusStop last)
         {
             BusLine sub = subroute(first, last);
@@ -106,6 +108,7 @@ namespace targil2
 
         }
 
+        //time of the whole line
         private TimeSpan fullLineTime()
         {
             TimeSpan sum = TimeSpan.Zero;
@@ -115,6 +118,7 @@ namespace targil2
             return sum;
         }
 
+        //distance of the whole line
         private double fullLineDistance()
         {
             double sum = 0;
