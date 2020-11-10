@@ -49,9 +49,9 @@ namespace targil2
             if (index != stations.Count + 1)
             {
                 if (stations.ElementAt(index).Zman < newStopLine.Zman)
-                    throw new ArgumentException(String.Format("time cannot be grather than {0}", stations.ElementAt(index).Zman));
+                    throw new ArgumentException(String.Format("time cannot be greater than {0}", stations.ElementAt(index).Zman));
                 if (stations.ElementAt(index).Distance < newStopLine.Distance)
-                    throw new ArgumentException(String.Format("distance cannot be grather than {0}", stations.ElementAt(index).Distance));
+                    throw new ArgumentException(String.Format("distance cannot be greater than {0}", stations.ElementAt(index).Distance));
             }
 
             //test if already is in the list
