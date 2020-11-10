@@ -92,6 +92,13 @@ namespace targil2
                     return true;
             return false;
         }
+        public bool findStop(int val)
+        {
+            foreach (BusStopLine lineStop in stations)
+                if (val == lineStop.Stop.BusStationKey)
+                    return true;
+            return false;
+        }
 
         //distnace between 2 stops
         public double stopsDistance(BusStop first, BusStop last)

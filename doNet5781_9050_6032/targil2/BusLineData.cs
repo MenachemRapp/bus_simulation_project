@@ -29,7 +29,7 @@ namespace targil2
         {
             List<BusLine> temp = new List<BusLine>();
             foreach (BusLine line in buses)
-                if (line.findStop(new ))
+                if (line.findStop(new BusStop(id_stop,))
                     temp.Add(line);
         }
 
