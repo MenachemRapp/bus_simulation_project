@@ -15,12 +15,12 @@ namespace targil2
             switch (choice)
             {
                 case CHOICE.ADD:
-                    PRINT print;
-                    switch (print)
+                    ADD add;
+                    switch (add)
                     {
-                        case PRINT.PRINT_LINES:
+                        case ADD.ADD_LINE:
                             break;
-                        case PRINT.PRINT_STOPS:
+                        case ADD.ADD_BUS_STOP:
                             break;
                         default:
                             break;
