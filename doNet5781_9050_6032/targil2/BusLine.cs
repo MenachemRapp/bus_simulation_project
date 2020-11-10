@@ -38,10 +38,22 @@ namespace targil2
             
             BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
             BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
+            if (index == 0)
+            {
+                newStopLine.Zman = TimeSpan.Zero;
+                newStopLine.Distance = 0;
+            }
 
             if (index > stations.Count + 1 || index < 0)
                 throw new ArgumentException(String.Format("value bust be between 0 and {0}", stations.Count + 1));
-            
+            if (index != stations.Count + 1)
+            {
+                if (stations.ElementAt(index).Zman < newStopLine.Zman)
+                    throw new ArgumentException(String.Format("time cannot be greater than {0}", stations.ElementAt(index).Zman));
+                if (stations.ElementAt(index).Distance < newStopLine.Distance)
+                    throw new ArgumentException(String.Format("distance cannot be greater than {0}", stations.ElementAt(index).Distance));
+            }
+
             //test if already is in the list
             bool flag = false;
             foreach (StopAndCounter station in CounterList.get())
@@ -60,18 +72,34 @@ namespace targil2
             {
                 CounterList.add(newBusStop);
             }
-               
+
 
             if (index == stations.Count + 1)
                 stations.Add(newStopLine);
             else
+            {
+                stations.ElementAt(index).Zman -= newStopLine.Zman;
+                stations.ElementAt(index).Distance -= newStopLine.Distance;
                 stations.Insert(index, newStopLine);
+            }
         }
 
         //remove a stop from the line
         public void remove(BusStop stop)
         {
-            stations.RemoveAt(stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey));
+
+            int index = stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey);
+            if (index > 0)
+            {
+                stations.ElementAt(index + 1).Distance += stations.ElementAt(index).Distance;
+                stations.ElementAt(index + 1).Zman += stations.ElementAt(index).Zman;
+            }
+            else
+            {
+                stations.ElementAt(index + 1).Distance = 0;
+                stations.ElementAt(index + 1).Zman = TimeSpan.Zero;
+            }
+            stations.RemoveAt(index);
 
             foreach (StopAndCounter station in CounterList.get())
                 if (station.stop.BusStationKey == stop.BusStationKey)
