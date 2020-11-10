@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace targil2
 {
-    class BusLineData :IEnumerable
+    class BusLineData :IEnumerable<BusLine>
     {
         private List<BusLine> buses = new List<BusLine>();
 
-        public bool IsNull => throw new NotImplementedException();
+        //public bool IsNull => throw new NotImplementedException();
 
         /*
          * Input - bus line.
@@ -38,10 +38,11 @@ namespace targil2
             return temp;
         }
 
- 
-        public IEnumerator GetEnumerator()
+        public void printLineAtStop(int id_stop)
         {
-            return this.buses.GetEnumerator();
+            List<BusLine> temp = linesAtStop(id_stop);
+            foreach(BusLine bus in temp)
+                Console.WriteLine(bus);
         }
 
         //public void linesByTimes
@@ -70,6 +71,11 @@ namespace targil2
             List <BusLine> temp = new List<BusLine>(buses);
             temp.Sort();
             return temp;
+        }
+
+        IEnumerator<BusLine> IEnumerable<BusLine>.GetEnumerator()
+        {
+            return this.buses.GetEnumerator();
         }
     }
 }
