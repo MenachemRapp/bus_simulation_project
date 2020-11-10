@@ -71,7 +71,19 @@ namespace targil2
         //remove a stop from the line
         public void remove(BusStop stop)
         {
-            stations.RemoveAt(stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey));
+
+            int index = stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey);
+            if (index > 0)
+            {
+                stations.ElementAt(index + 1).Distance += stations.ElementAt(index).Distance;
+                stations.ElementAt(index + 1).Zman += stations.ElementAt(index).Zman;
+            }
+            else
+            {
+                stations.ElementAt(index + 1).Distance = 0;
+                stations.ElementAt(index + 1).Zman = TimeSpan.Zero;
+            }
+            stations.RemoveAt(index);
 
             foreach (StopAndCounter station in CounterList.get())
                 if (station.stop.BusStationKey == stop.BusStationKey)
