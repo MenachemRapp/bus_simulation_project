@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace targil2
 {
-    class BusLineData 
+    class BusLineData :IEnumerable
     {
         private List<BusLine> buses = new List<BusLine>();
+
+        public bool IsNull => throw new NotImplementedException();
 
         /*
          * Input - bus line.
@@ -22,15 +25,18 @@ namespace targil2
 
         }
 
-        public void lineAtStop(int id_stop)
+        public List<BusLine> linesAtStop(int id_stop)
         {
-
+            List<BusLine> temp = new List<BusLine>();
+            foreach (BusLine line in buses)
+                if (line.findStop(new ))
+                    temp.Add(line);
         }
 
  
         public  IEnumerator GetEnumerator()
         {
-            yield return buses.First();
+            return this.buses.GetEnumerator();
         }
 
         //public void linesByTimes
