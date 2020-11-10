@@ -20,21 +20,26 @@ namespace targil2
             The function can only contain up to two lines in the same number,
             provided that their first and last stops are reversed otherwise we throw an exception
          */
-        public void addLineBus(BusLine bus)
+        public void AddLineBus(BusLine bus)
         {
-
+            BusLine temp = findLine(bus.BusNumber);
+            if (temp != null && temp.Equals(bus) && (temp.FirstStation != bus.LastStation || temp.LastStation != bus.FirstStation))
+                throw new ArgumentException(String.Format("error line bus {0} already exsit", bus.BusNumber));
+            else
+                buses.Add(bus);
         }
 
         public List<BusLine> linesAtStop(int id_stop)
         {
             List<BusLine> temp = new List<BusLine>();
             foreach (BusLine line in buses)
-                if (line.findStop(new BusStop(id_stop,))
+                if (line.findStop(id_stop))
                     temp.Add(line);
+            return temp;
         }
 
  
-        public  IEnumerator GetEnumerator()
+        public IEnumerator GetEnumerator()
         {
             return this.buses.GetEnumerator();
         }
@@ -45,12 +50,26 @@ namespace targil2
         {
             get 
             {
-                foreach (BusLine bus in buses)
-                    if (bus.BusNumber == index)
-                        return bus;
-                //todo -throw exeption
-                return null;
+                BusLine bus = findLine(index);
+                if(bus ==null)
+                     throw new ArgumentException(String.Format("error line {0} no exsit",index));
+                return bus;
             }
+        }
+
+        private BusLine findLine(int num_line)
+        {
+            foreach (BusLine bus in buses)
+                if (bus.BusNumber == num_line)
+                    return bus;
+            return null;
+        }
+
+        public List<BusLine> sortedList()
+        {
+            List <BusLine> temp = new List<BusLine>(buses);
+            temp.Sort();
+            return temp;
         }
     }
 }
