@@ -13,7 +13,7 @@ namespace targil2
     {
         static void Main(string[] args)
         {
-            BusLineData busLineData=new BusLineData();
+            BusLineData buses=new BusLineData();
             BusStop busStop;
             BusStopLine busStopLine;
             BusLine busLine;
@@ -52,7 +52,7 @@ namespace targil2
                             case ADD.ADD_LINE:
                                 lineNum = createLineNum();
                                 busLine = createLine();
-                                busLineData.AddLineBus(busLine);
+                                buses.AddLineBus(busLine);
 
                                 break;
                             case ADD.ADD_BUS_STOP:
@@ -60,7 +60,7 @@ namespace targil2
                                 Console.WriteLine("which number is the stop (starting with 1)?");
                                 int index = Convert.ToInt32(Console.ReadLine()) - 1;
                                 busStopLine = createBusStopLine(index);
-                                busLineData[lineNum].add(busStopLine,index);
+                                buses[lineNum].add(busStopLine,index);
                                 break;
 
                             default:
@@ -80,12 +80,12 @@ namespace targil2
                         {
                             case REMOVE.REMOVE_LINE:
                                 lineNum = createLineNum();
-                                //busLineData
+                                //buses
                                 break;
                             case REMOVE.REMOVE_BUS_STOP:
                                 busStop = createBus();
                                 lineNum = createLineNum();
-                                busLineData[lineNum].remove(busStop);
+                                buses[lineNum].remove(busStop);
                                 break;
                             default:
                                 break;
