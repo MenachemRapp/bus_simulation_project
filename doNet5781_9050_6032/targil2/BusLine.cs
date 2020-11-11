@@ -28,22 +28,15 @@ namespace targil2
 
         public override string ToString()
         {
-            string keys = string.Join("\n", stations.Select(x=>x.Stop.BusStationKey));
-            return String.Format("[ {0}, {1} ]\n{2}" , BusNumber, Area, keys);
+            string keys = string.Join(",", stations.Select(x=>x.Stop.BusStationKey));
+            return String.Format("Line Number: {0}, Area{1} ]\nList of Stations: {2}" , BusNumber, Area, keys);
         }
 
         //add a stop to the line
-        public void add(BusStopLine newStopLine, int index/*, TimeSpan myZman = new TimeSpan(),double myDistance=0*/)
+        public void add(BusStopLine newStopLine, int index)
         {
             
-            //BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
-           // BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
-           /* if (index == 0)
-            {
-                newStopLine.Zman = TimeSpan.Zero;
-                newStopLine.Distance = 0;
-            }*/
-
+           
             if (index > stations.Count || index < 0)
                 throw new ArgumentException(String.Format("value bust be between 0 and {0}", stations.Count + 1));
             if (index != stations.Count && stations.Count>0)
@@ -128,7 +121,7 @@ namespace targil2
             return false;
         }
 
-        //distnace between 2 stops
+        //distance between 2 stops
         public double stopsDistance(BusStop first, BusStop last)
         {
             BusLine sub = subroute(first, last);
@@ -164,7 +157,7 @@ namespace targil2
         }
 
 
-
+        //create a sub-route
         private BusLine subroute(BusStop first, BusStop last)
         {
 
