@@ -28,7 +28,7 @@ namespace targil2
             do
             {
                 Console.WriteLine("Please, make your choice:");
-                Console.WriteLine("ADD,REMOVE, FIND,PRINT, EXIT");
+                Console.WriteLine("ADD, REMOVE, FIND, PRINT, EXIT");
                 success = Enum.TryParse(Console.ReadLine(), out choice);
                 if (!success)
                 {
