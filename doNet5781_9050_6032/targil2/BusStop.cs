@@ -90,5 +90,27 @@ namespace targil2
         {
             return String.Format("Bus Station Code: {0}, {1}°N {2}°E",BusStationKey,Latitude,Longitude);
         }
+
+        //operator ==
+        public static bool operator ==(BusStop stop1, BusStop stop2)
+        {
+            bool test;
+            test=(stop1.BusStationKey == stop2.BusStationKey
+                        && stop1.Latitude==stop2.Latitude
+                        && stop1.Longitude==stop2.Longitude
+                        && stop1.Address==stop2.Address);
+            return test;
+        }
+        
+        //operator !=
+        public static bool operator !=(BusStop stop1, BusStop stop2)
+        {
+            bool test;
+            test = (stop1.BusStationKey == stop2.BusStationKey
+                        && stop1.Latitude == stop2.Latitude
+                        && stop1.Longitude == stop2.Longitude
+                        && stop1.Address == stop2.Address);
+            return !test;
+        }
     }
 }

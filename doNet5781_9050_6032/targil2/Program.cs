@@ -80,7 +80,7 @@ namespace targil2
                         {
                             case REMOVE.REMOVE_LINE:
                                 lineNum = createLineNum();
-                                //buses
+                                buses.deleteLine(lineNum);
                                 break;
                             case REMOVE.REMOVE_BUS_STOP:
                                 busStop = createBus();
