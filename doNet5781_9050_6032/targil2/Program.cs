@@ -194,7 +194,12 @@ namespace targil2
                 newLine.add(newStop, i);
             }
 
-            return newLine;
+            Console.WriteLine("Chose an area for the bus line");
+            Console.WriteLine("General,Jerusalem,North,South,Center");
+
+           Area area;
+           Enum.TryParse(Console.ReadLine(), out area);
+           return newLine;
         }
     }
 }

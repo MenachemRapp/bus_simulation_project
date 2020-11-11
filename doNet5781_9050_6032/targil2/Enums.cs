@@ -8,7 +8,7 @@ namespace targil2
 {
     public enum Area
     {
-        Central,Jerusalem,North,South,Center
+        General,Jerusalem,North,South,Center
     }
     public enum CHOICE
     {
