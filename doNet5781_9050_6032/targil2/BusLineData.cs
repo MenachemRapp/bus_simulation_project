@@ -77,5 +77,9 @@ namespace targil2
         {
             return this.buses.GetEnumerator();
         }
+        public void deleteLine(int num)
+        {
+
+        }
     }
 }

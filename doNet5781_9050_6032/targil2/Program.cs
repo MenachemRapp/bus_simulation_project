@@ -66,15 +66,15 @@ namespace targil2
                     {
                         case FIND.FIND_LINES_IN_STOP:
                             Console.WriteLine("Please enter the station number");
-                            buses.printLineAtStop(Convert.ToInt32(Console.ReadLine()));
+                            busLineData.printLineAtStop(Convert.ToInt32(Console.ReadLine()));
                             break;
                         case FIND.OPTIONS_BETWEEN_STOPS:
-                            int id_first, id_last;
-                            BusLineData temp_buses = new BusLineData;
-                            foreach(BusLine bus in buses)
-                            {
-                                if()
-                            }
+                            //int id_first, id_last;
+                            //BusLineData temp_buses = new BusLineData;
+                            //foreach(BusLine bus in buses)
+                            //{
+                            //    if()
+                            //}
 
                             break;
                         default:
