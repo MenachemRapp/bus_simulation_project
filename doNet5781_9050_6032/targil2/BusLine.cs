@@ -29,7 +29,7 @@ namespace targil2
         public override string ToString()
         {
             string keys = string.Join(",", stations.Select(x=>x.Stop.BusStationKey));
-            return String.Format("Line Number: {0}, Area{1} ]\nList of Stations: {2}" , BusNumber, Area, keys);
+            return String.Format("Line Number: {0}, Area{1} \nList of Stations: {2}" , BusNumber, Area, keys);
         }
 
         //add a stop to the line
