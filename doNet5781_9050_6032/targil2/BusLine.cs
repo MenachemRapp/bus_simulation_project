@@ -33,16 +33,16 @@ namespace targil2
         }
 
         //add a stop to the line
-        public void add(/*int key, double myLatitude, double myLongitude, string myAddress,*/BusStop newBusStop, int index, TimeSpan myZman = new TimeSpan(),double myDistance=0)
+        public void add(BusStopLine newStopLine, int index/*, TimeSpan myZman = new TimeSpan(),double myDistance=0*/)
         {
             
             //BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
-            BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
-            if (index == 0)
+           // BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
+           /* if (index == 0)
             {
                 newStopLine.Zman = TimeSpan.Zero;
                 newStopLine.Distance = 0;
-            }
+            }*/
 
             if (index > stations.Count || index < 0)
                 throw new ArgumentException(String.Format("value bust be between 0 and {0}", stations.Count + 1));
@@ -57,9 +57,9 @@ namespace targil2
             //test if already is in the list
             bool flag = false;
             foreach (StopAndCounter station in CounterList.StopAndCounterList)
-            if (newBusStop.BusStationKey == station.stop.BusStationKey)
+            if (newStopLine.Stop.BusStationKey == station.stop.BusStationKey)
             {
-                if (newBusStop == station.stop)
+                if (newStopLine.Stop == station.stop)
                     station.increase();
                 else
                     throw new ArgumentException
@@ -70,7 +70,7 @@ namespace targil2
             
             if (!flag)
             {
-                CounterList.add(newBusStop);
+                CounterList.add(newStopLine.Stop);
             }
 
 
