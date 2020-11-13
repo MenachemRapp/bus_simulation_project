@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace targil2
 {
-    class BusLineData :IEnumerable<BusLine>
+    class BusLineData : IEnumerable<BusLine>
     {
         private List<BusLine> buses = new List<BusLine>();
 
@@ -66,20 +66,35 @@ namespace targil2
             return null;
         }
 
-        public List<BusLine> sortedList()
+        public BusLineData sortedList()
         {
-            List <BusLine> temp = new List<BusLine>(buses);
-            temp.Sort();
+            BusLineData temp = new BusLineData();
+            temp.buses = new List<BusLine>(buses);
+            temp.buses.Sort();
             return temp;
+        }
+
+        public void deleteLine(int num, int first_id)
+        {
+            buses.Remove(buses.Find(bus => bus.BusNumber == num && bus.FirstStation.Stop.BusStationKey == first_id));
+        }
+        public override string ToString()
+        {
+            string temp="";
+            foreach (BusLine bus in buses)
+                temp += String.Format("{0}\n\n", bus);
+            return temp;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return this.buses.GetEnumerator();
+
         }
 
         IEnumerator<BusLine> IEnumerable<BusLine>.GetEnumerator()
         {
             return this.buses.GetEnumerator();
-        }
-        public void deleteLine(int num)
-        {
-
         }
     }
 }

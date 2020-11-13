@@ -139,7 +139,9 @@ namespace targil2
         public TimeSpan stopsTime(BusStop first, BusStop last)
         {
             BusLine sub = subroute(first, last);
-            return sub.fullLineTime();
+            if(sub !=null)
+                return sub.fullLineTime();
+            return TimeSpan.Zero;
 
         }
 
@@ -165,7 +167,7 @@ namespace targil2
 
 
 
-        private BusLine subroute(BusStop first, BusStop last)
+        public BusLine subroute(BusStop first, BusStop last)
         {
 
             BusLine subLine= new BusLine { };
@@ -182,10 +184,18 @@ namespace targil2
                 if (lineStop.Stop.BusStationKey == last.BusStationKey)
                     break;
             }
-                        
+            // if 2 stop don'n found return null
+            if (!flag || subLine.LastStation.Stop.BusStationKey != last.BusStationKey)
+                return null;
             return subLine;
         }
-                   
+
+        public BusLine subroute(int first, int last)
+        {
+            return subroute(new BusStop(first, 0, 0, ""), new BusStop(last, 0, 0, ""));
+        }
+
+
         public int CompareTo(BusLine other)
         {
             return fullLineTime().CompareTo(other.fullLineTime());

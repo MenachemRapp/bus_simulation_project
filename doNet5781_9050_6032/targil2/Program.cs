@@ -64,6 +64,7 @@ namespace targil2
                                 break;
 
                             default:
+
                                 break;
                         }
                         break;
@@ -101,12 +102,17 @@ namespace targil2
                                 break;
                             case FIND.OPTIONS_BETWEEN_STOPS:
                                 int id_first, id_last;
-                                BusLineData temp_buses = new BusLineData;
+                                Console.WriteLine("please enter the first stop id, and last stop id");
+                                id_first = Convert.ToInt32(Console.ReadLine());
+                                id_last= Convert.ToInt32(Console.ReadLine());
+                                BusLineData temp_buses = new BusLineData();
                                 foreach (BusLine bus in buses)
                                 {
-                                    if ()
-                            }
-
+                                    BusLine temp_line = bus.subroute(id_first, id_last);
+                                    if (temp_line != null)
+                                        temp_buses.AddLineBus(temp_line);
+                                }
+                                Console.WriteLine(temp_buses.sortedList());  
                                 break;
                             default:
                                 break;
@@ -117,8 +123,15 @@ namespace targil2
                         switch (print)
                         {
                             case PRINT.PRINT_LINES:
+                                Console.WriteLine(buses);
                                 break;
                             case PRINT.PRINT_STOPS:
+                                foreach (StopAndCounter stop in CounterList.StopAndCounterList)
+                                {
+                                    buses.printLineAtStop(stop.stop.BusStationKey);//error stop 2 times!!!!
+                                    Console.WriteLine("");
+                                }
+                                
                                 break;
                             default:
                                 break;
