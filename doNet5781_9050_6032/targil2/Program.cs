@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace targil2
 {
     class Program
     {
+        static Random rand = new Random(DateTime.Now.Millisecond);
         static void Main(string[] args)
         {
             BusLineData buses=new BusLineData();
@@ -22,13 +24,33 @@ namespace targil2
             double distance;
             TimeSpan zman;
 
+            //creates at lest 10 lines with at least 40 stops all together
+            for (int i = 1; i <= 10||CounterList.StopAndCounterList.Count<40; i++)
+            {
+                busLine = ranCreateLine(i);
+                buses.AddLineBus(busLine);
+            }
+
+            //adds 10 stops that have at least 2 lines going through them
+            for (int i = 0; i < 10; i++)
+            {
+                int index = rand.Next(1, 9);
+                busStopLine = ranCreateBusStopLine(0);
+                int mix = rand.Next(1, 10);
+                if(!buses[mix].findStop(busStopLine.Stop))
+                buses[mix].add(busStopLine, index, rand.Next(20) + rand.NextDouble(), TimeSpan.FromMinutes(rand.Next(60)));
+                if (!buses[11-mix].findStop(busStopLine.Stop))
+                    buses[11-mix].add(busStopLine, index, rand.Next(20) + rand.NextDouble(), TimeSpan.FromMinutes(rand.Next(60)));
+
+            }
+      
             CHOICE choice; ;
             
             bool success = true;
             do
             {
                 Console.WriteLine("Please, make your choice:");
-                Console.WriteLine("ADD,REMOVE, FIND,PRINT, EXIT");
+                Console.WriteLine("ADD, REMOVE, FIND, PRINT, EXIT");
                 success = Enum.TryParse(Console.ReadLine(), out choice);
                 if (!success)
                 {
@@ -50,7 +72,6 @@ namespace targil2
                         switch (add)
                         {
                             case ADD.ADD_LINE:
-                                lineNum = createLineNum();
                                 busLine = createLine();
                                 buses.AddLineBus(busLine);
 
@@ -60,7 +81,9 @@ namespace targil2
                                 Console.WriteLine("which number is the stop (starting with 1)?");
                                 int index = Convert.ToInt32(Console.ReadLine()) - 1;
                                 busStopLine = createBusStopLine(index);
-                                buses[lineNum].add(busStopLine,index);
+                                distance=createNextDistance(index != buses[lineNum].Stations.Count);
+                                zman = createNextZman(index != buses[lineNum].Stations.Count);
+                                buses[lineNum].add(busStopLine,index,distance,zman);
                                 break;
 
                             default:
@@ -81,17 +104,23 @@ namespace targil2
                         {
                             case REMOVE.REMOVE_LINE:
                                 lineNum = createLineNum();
-                                //buses
+                                buses.deleteLine(lineNum);
                                 break;
                             case REMOVE.REMOVE_BUS_STOP:
-                                busStop = createBus();
                                 lineNum = createLineNum();
-                                buses[lineNum].remove(busStop);
+                                busStop = createBus();
+                                int index = buses[lineNum].Stations.FindIndex(x => x.Stop.BusStationKey == busStop.BusStationKey);
+                                if (index == -1)
+                                    throw new ArgumentException("the station isn't in the line");
+                                distance = createNextDistance(index != 0 && index != buses[lineNum].Stations.Count);
+                                zman = createNextZman(index != 0 && index != buses[lineNum].Stations.Count);
+                               buses[lineNum].remove(busStop,distance,zman);
                                 break;
                             default:
                                 break;
                         }
                         break;
+                    
                     case CHOICE.FIND:
                         FIND find;
                         switch (find)
@@ -146,6 +175,7 @@ namespace targil2
             while (choice != CHOICE.EXIT);
         }
 
+        //receives a bus stop
         private static BusStop createBus()
         {
             Console.WriteLine("enter bus station key:");
@@ -154,11 +184,8 @@ namespace targil2
                 if (key == station.stop.BusStationKey)
                         return station.stop;
 
-            Console.WriteLine("enter latitude:");
-            double latitude = Convert.ToDouble(Console.ReadLine());
-
-            Console.WriteLine("enter longitude:");
-            double longitude = Convert.ToDouble(Console.ReadLine());
+            double latitude = 31 + 2.3 * rand.NextDouble();
+            double longitude = 34.3 + 1.2 * rand.NextDouble();
 
             Console.WriteLine("enter address");
             string address = Console.ReadLine();
@@ -166,6 +193,33 @@ namespace targil2
             return new BusStop(key, latitude, longitude, address);
         }
 
+        //receives the distance of the next stop
+        private static double createNextDistance(bool test)
+        {
+            double distance = 0;
+            if(test)
+            {
+                Console.WriteLine("New distance of the next station:");
+                distance = Convert.ToDouble(Console.ReadLine());
+            }
+
+            return distance;
+        }
+
+        //receives the time of the next stop
+        private static TimeSpan createNextZman(bool test)
+        {
+            TimeSpan zman = TimeSpan.Zero;
+            if (test)
+            {
+                Console.WriteLine("New time (by minutes) of next station:");
+                zman = TimeSpan.FromMinutes(Convert.ToDouble(Console.ReadLine()));
+            }
+
+            return zman;
+        }
+
+        //receives a line bus stop
         private static BusStopLine createBusStopLine(int index)
         {
             BusStop busStop = createBus();
@@ -176,8 +230,82 @@ namespace targil2
             {
                 Console.WriteLine("what is the distance from the last stop?");
                 distance = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("how much time past since the last stop?");
-                zman = TimeSpan.Parse(Console.ReadLine());
+                Console.WriteLine("how many minutes past since the last stop?");
+                zman = TimeSpan.FromMinutes(Convert.ToDouble(Console.ReadLine()));
+            }
+            else
+            {
+                distance = 0;
+                zman = TimeSpan.Zero;
+            }
+            return new BusStopLine(busStop, distance, zman);
+        }
+        
+        //receives a line number
+        private static int createLineNum()
+        {
+            Console.WriteLine("choose line number:");
+            int line = Convert.ToInt32(Console.ReadLine());
+            return line;
+        }
+
+        //receives a line
+        private static BusLine createLine()
+        {
+            BusLine newLine = new BusLine();
+            newLine.BusNumber = createLineNum();
+            
+            Console.WriteLine("how many stops does the bus line have?");
+            int length = Convert.ToInt32(Console.ReadLine());
+            
+
+            for (int i = 0; i < length; i++)
+            {
+                Console.WriteLine("stop number {0}",i+1);
+                BusStopLine newStop = createBusStopLine(i);
+                if(newLine.findStop(newStop.Stop))
+                    throw new ArgumentException(String.Format("stop number {0} already exists in the line", (newStop.Stop.BusStationKey)));
+                newLine.add(newStop, i);
+            }
+
+            Console.WriteLine("Chose an area for the bus line");
+            Console.WriteLine("General,Jerusalem,North,South,Center");
+
+           Area area;
+           Enum.TryParse(Console.ReadLine(), out area);
+            newLine.Area = area;
+           return newLine;
+        }
+
+        //the same functions as before, but this time the computer genarates the answer
+
+        //genarate a bus stop
+        private static BusStop ranCreateBus()
+        {
+            int key = rand.Next(1, 1000000);
+            foreach (StopAndCounter station in CounterList.StopAndCounterList)
+                if (key == station.stop.BusStationKey)
+                    return station.stop;
+
+            double latitude = 31 + 2.3 * rand.NextDouble();
+            double longitude = 34.3 + 1.2 * rand.NextDouble();
+
+            string address = "";
+
+            return new BusStop(key, latitude, longitude, address);
+        }
+
+        //genarate a line bus stop
+        private static BusStopLine ranCreateBusStopLine(int index=1)
+        {
+            BusStop busStop = ranCreateBus();
+            double distance;
+            TimeSpan zman;
+                       
+            if (index>0)
+            {
+                distance = rand.Next(20) + rand.NextDouble();
+                zman = TimeSpan.FromMinutes(rand.Next(60));
             }
             else
             {
@@ -187,27 +315,29 @@ namespace targil2
             return new BusStopLine(busStop, distance, zman);
         }
 
-        private static int createLineNum()
+        //genarate a line
+        private static BusLine ranCreateLine(int lineNum)
         {
-            Console.WriteLine("choose line number:");
-            int line = Convert.ToInt32(Console.ReadLine());
-            return line;
-        }
 
-
-        private static BusLine createLine()
-        {
-            Console.WriteLine("how many stops does the bus line have?");
-            int length = Convert.ToInt32(Console.ReadLine());
             BusLine newLine = new BusLine();
+            newLine.BusNumber = lineNum;
 
-            for (int i = 0; i < length; i++)
+            BusStopLine newStop;
+            for (int i = 0; i < 8; i++)
             {
-                BusStopLine newStop = createBusStopLine(i);
+                do
+                {
+                    newStop = ranCreateBusStopLine(i);
+                } while (newLine.findStop(newStop.Stop));
                 newLine.add(newStop, i);
             }
 
-            return newLine;
+            Area area;
+            Enum.TryParse(Convert.ToString(rand.Next(5)), out area);
+            newLine.Area = area;
+            
+           
+           return newLine;
         }
     }
 }

@@ -28,24 +28,17 @@ namespace targil2
 
         public override string ToString()
         {
-            string keys = string.Join("\n", stations.Select(x=>x.Stop.BusStationKey));
-            return String.Format("[ {0}, {1} ]\n{2}" , BusNumber, Area, keys);
+            string keys = string.Join(",", stations.Select(x=>x.Stop.BusStationKey));
+            return String.Format("Line Number: {0}, Area: {1} \nList of Stations: {2}" , BusNumber, Area, keys);
         }
 
         //add a stop to the line
-        public void add(BusStopLine newStopLine, int index/*, TimeSpan myZman = new TimeSpan(),double myDistance=0*/)
+        public void add(BusStopLine newStopLine, int index, double nextDistance=0, TimeSpan nextZman= new TimeSpan() )
         {
             
-            //BusStop newBusStop = new BusStop(key, myLatitude, myLongitude, myAddress);
-           // BusStopLine newStopLine = new BusStopLine(newBusStop, myDistance, myZman);
-           /* if (index == 0)
-            {
-                newStopLine.Zman = TimeSpan.Zero;
-                newStopLine.Distance = 0;
-            }*/
-
+           
             if (index > stations.Count || index < 0)
-                throw new ArgumentException(String.Format("value bust be between 0 and {0}", stations.Count + 1));
+                throw new ArgumentException(String.Format("value bust be between 1 and {0}", stations.Count+ 1));
             if (index != stations.Count && stations.Count>0)
             {
                 if (stations.ElementAt(index).Zman < newStopLine.Zman)
@@ -54,62 +47,39 @@ namespace targil2
                     throw new ArgumentException(String.Format("distance cannot be greater than {0}", stations.ElementAt(index).Distance));
             }
 
-            //test if already is in the list
-            bool flag = false;
-            foreach (StopAndCounter station in CounterList.StopAndCounterList)
-            if (newStopLine.Stop.BusStationKey == station.stop.BusStationKey)
-            {
-                if (newStopLine.Stop == station.stop)
-                    station.increase();
-                else
-                    throw new ArgumentException
-                        (string.Format("station number {0} is already exits", newStopLine.Stop.BusStationKey));
-                flag = true;
-                break;
-            }
-            
-            if (!flag)
-            {
-                CounterList.add(newStopLine.Stop);
-            }
+            //test if already is in the list, and adds if not
+            CounterList.add(newStopLine.Stop);
 
 
-            if (index == stations.Count || stations.Count == 0)
+            if (index == stations.Count)
                 stations.Add(newStopLine);
             else
             {
-                stations.ElementAt(index).Zman -= newStopLine.Zman;
-                stations.ElementAt(index).Distance -= newStopLine.Distance;
+                stations.ElementAt(index).Zman = nextZman;
+                stations.ElementAt(index).Distance = nextDistance;
                 stations.Insert(index, newStopLine);
             }
         }
 
         //remove a stop from the line
-        public void remove(BusStop stop)
+        public void remove(BusStop stop, double distance, TimeSpan Zman)
         {
 
             int index = stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey);
-            if (index > 0)
+            if (index != 0 && index!= stations.Count)
             {
-                stations.ElementAt(index + 1).Distance += stations.ElementAt(index).Distance;
-                stations.ElementAt(index + 1).Zman += stations.ElementAt(index).Zman;
+                stations.ElementAt(index + 1).Distance = stations.ElementAt(index).Distance;
+                stations.ElementAt(index + 1).Zman = stations.ElementAt(index).Zman;
             }
-            else
+            else if (index==0)
             {
                 stations.ElementAt(index + 1).Distance = 0;
                 stations.ElementAt(index + 1).Zman = TimeSpan.Zero;
             }
             stations.RemoveAt(index);
 
-            foreach (StopAndCounter station in CounterList.StopAndCounterList)
-                if (station.stop.BusStationKey == stop.BusStationKey)
-                {
-                    if (station.Counter == 1)
-                        CounterList.remove(stop);
-                    else
-                        station.decrease();
-                    break;
-                }
+            //updates the counter list
+            CounterList.remove(stop);
         }
 
         //test if the stop is on this line
@@ -128,7 +98,7 @@ namespace targil2
             return false;
         }
 
-        //distnace between 2 stops
+        //distance between 2 stops
         public double stopsDistance(BusStop first, BusStop last)
         {
             BusLine sub = subroute(first, last);
@@ -166,8 +136,8 @@ namespace targil2
         }
 
 
-
-        public BusLine subroute(BusStop first, BusStop last)
+        //create a sub-route
+        private BusLine subroute(BusStop first, BusStop last)
         {
 
             BusLine subLine= new BusLine { };
@@ -194,8 +164,8 @@ namespace targil2
         {
             return subroute(new BusStop(first, 0, 0, ""), new BusStop(last, 0, 0, ""));
         }
-
-
+          
+        //compare lines by there full ride time
         public int CompareTo(BusLine other)
         {
             return fullLineTime().CompareTo(other.fullLineTime());
