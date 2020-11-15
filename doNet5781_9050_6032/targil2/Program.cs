@@ -124,6 +124,7 @@ namespace targil2
                     
                     case CHOICE.FIND:
                         FIND find;
+                        Console.WriteLine("FIND_LINES_IN_STOP, OPTIONS_BETWEEN_STOPS");
                         success = Enum.TryParse(Console.ReadLine(), out find);
                         switch (find)
                         {
@@ -151,6 +152,7 @@ namespace targil2
                         break;
                     case CHOICE.PRINT:
                         PRINT print;
+                        Console.WriteLine("PRINT_LINES, PRINT_STOPS");
                         success = Enum.TryParse(Console.ReadLine(), out print);
                         switch (print)
                         {
