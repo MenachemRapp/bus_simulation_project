@@ -113,8 +113,8 @@ namespace targil2
                                 int index = buses[lineNum].Stations.FindIndex(x => x.Stop.BusStationKey == busStop.BusStationKey);
                                 if (index == -1)
                                     throw new ArgumentException("the station isn't in the line");
-                                distance = createNextDistance(index != 0 && index != buses[lineNum].Stations.Count);
-                                zman = createNextZman(index != 0 && index != buses[lineNum].Stations.Count);
+                                distance = createNextDistance(index != 0 && index != buses[lineNum].Stations.Count-1);
+                                zman = createNextZman(index != 0 && index != buses[lineNum].Stations.Count-1);
                                buses[lineNum].remove(busStop,distance,zman);
                                 break;
                             default:
@@ -252,15 +252,28 @@ namespace targil2
             return line;
         }
 
+        //finds first station id
         private static int createFirstId(BusLineData buses, int lineNum)
         {
-            int firstStop;
-            if (buses.busesInLine(lineNum)==2)
+            int firstStop=new int();
+            switch (buses.busesInLine(lineNum))
             {
-                Console.WriteLine("is the first stop {0} or {1} ?",buses[lineNum].FirstStation, buses[lineNum].LastStation);
-            }            
-            
-            return 5;
+                case 2:
+                    Console.WriteLine("is the first stop {0} or {1} ?", buses[lineNum].FirstStation.Stop.BusStationKey, buses[lineNum].LastStation.Stop.BusStationKey);
+                    firstStop = Convert.ToInt32(Console.ReadLine());
+                    if (firstStop != buses[lineNum].FirstStation.Stop.BusStationKey && firstStop != buses[lineNum].LastStation.Stop.BusStationKey)
+                        throw new ArgumentException(String.Format("{0} was not one of the options", Convert.ToString(firstStop)));
+                    break;
+                case 1:
+                    firstStop = buses[lineNum].FirstStation.Stop.BusStationKey;
+                    break;
+                case 0:
+                    throw new ArgumentException(String.Format("line number {0} does not exist", Convert.ToString(lineNum)));
+                default:
+                    break;
+            }
+                     
+            return firstStop;
         }
 
         //receives a line
