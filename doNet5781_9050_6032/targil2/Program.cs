@@ -104,7 +104,8 @@ namespace targil2
                         {
                             case REMOVE.REMOVE_LINE:
                                 lineNum = createLineNum();
-                                buses.deleteLine(lineNum);
+                                int firstId = createFirstId(buses,lineNum);
+                                buses.deleteLine(lineNum,firstId);
                                 break;
                             case REMOVE.REMOVE_BUS_STOP:
                                 lineNum = createLineNum();
@@ -123,6 +124,7 @@ namespace targil2
                     
                     case CHOICE.FIND:
                         FIND find;
+                        success = Enum.TryParse(Console.ReadLine(), out find);
                         switch (find)
                         {
                             case FIND.FIND_LINES_IN_STOP:
@@ -149,6 +151,7 @@ namespace targil2
                         break;
                     case CHOICE.PRINT:
                         PRINT print;
+                        success = Enum.TryParse(Console.ReadLine(), out print);
                         switch (print)
                         {
                             case PRINT.PRINT_LINES:
@@ -247,6 +250,17 @@ namespace targil2
             Console.WriteLine("choose line number:");
             int line = Convert.ToInt32(Console.ReadLine());
             return line;
+        }
+
+        private static int createFirstId(BusLineData buses, int lineNum)
+        {
+            int firstStop;
+            if (buses.busesInLine(lineNum)==2)
+            {
+                Console.WriteLine("is the first stop {0} or {1} ?",buses[lineNum].FirstStation, buses[lineNum].LastStation);
+            }            
+            
+            return 5;
         }
 
         //receives a line
