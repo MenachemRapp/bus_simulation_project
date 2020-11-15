@@ -66,7 +66,7 @@ namespace targil2
         {
 
             int index = stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey);
-            if (index != 0 && index!= stations.Count)
+            if (index != 0 && index!= stations.Count-1)
             {
                 stations.ElementAt(index + 1).Distance = stations.ElementAt(index).Distance;
                 stations.ElementAt(index + 1).Zman = stations.ElementAt(index).Zman;

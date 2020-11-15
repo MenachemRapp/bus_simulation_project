@@ -29,6 +29,7 @@ namespace targil2
             {
                 StopAndCounter newStop = new StopAndCounter(value);
                 stopAndCounterList.Add(newStop);
+                stopAndCounterList.Sort();
             }
                         
         }
@@ -40,10 +41,8 @@ namespace targil2
                 if (station.stop.BusStationKey == value.BusStationKey)
                 {
                     if (station.Counter == 1)
-                    {
-                        StopAndCounter newStop = new StopAndCounter(value);
-                        stopAndCounterList.Remove(newStop);
-                    }
+                       stopAndCounterList.Remove(station);
+                    
 
                     else
                         station.decrease();
