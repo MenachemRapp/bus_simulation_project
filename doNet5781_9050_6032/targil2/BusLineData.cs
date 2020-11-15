@@ -96,5 +96,14 @@ namespace targil2
         {
             return this.buses.GetEnumerator();
         }
+
+        public int busesInLine(int num)
+        {
+            int count = 0;
+            foreach (BusLine bus in buses)
+                if (bus.BusNumber == num)
+                    count++;
+            return count;
+        }
     }
 }
