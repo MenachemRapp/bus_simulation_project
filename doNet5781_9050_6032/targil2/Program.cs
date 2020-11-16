@@ -28,7 +28,7 @@ namespace targil2
             double distance;
             TimeSpan zman;
 
-            //creates at lest 10 lines with at least 40 stops all together
+            //creates at least 10 lines with at least 40 stops all together
             for (int i = 1; i <= 10||CounterList.StopAndCounterList.Count<40; i++)
             {
                 busLine = ranCreateLine(i);
@@ -78,20 +78,18 @@ namespace targil2
                             case ADD.ADD_LINE:
                                 busLine = createLine();
                                 testDoubleLine(buses, busLine);
-                                if (buses.busesInLine(busLine.BusNumber)==2)
-                                    
-
                                 buses.AddLineBus(busLine);
 
                                 break;
                             case ADD.ADD_BUS_STOP:
                                 lineNum = createLineNum();
+                                int firstId = createFirstId(buses, lineNum);
                                 Console.WriteLine("which number is the stop (starting with 1)?");
                                 int index = Convert.ToInt32(Console.ReadLine()) - 1;
                                 busStopLine = createBusStopLine(index);
                                 distance=createNextDistance(index != buses[lineNum].Stations.Count);
                                 zman = createNextZman(index != buses[lineNum].Stations.Count);
-                                buses[lineNum].add(busStopLine,index,distance,zman);
+                                buses[lineNum,firstId].add(busStopLine,index,distance,zman);
                                 break;
 
                             default:
@@ -295,7 +293,7 @@ namespace targil2
                 case 2:
                     throw new ArgumentException(String.Format("line number {0} already has 2 directions", Convert.ToString(busLine.BusNumber)));
                 case 1:
-                    if (buses[busLine.BusNumber].FirstStation!=busLine.LastStation || buses[busLine.BusNumber].LastStation != busLine.FirstStation)
+                    if (buses[busLine.BusNumber].FirstStation.Stop!=busLine.LastStation.Stop || buses[busLine.BusNumber].LastStation.Stop != busLine.FirstStation.Stop)
                     {
                         string newFirst =Convert.ToString(buses[busLine.BusNumber].LastStation.Stop.BusStationKey);
                         string newLast = Convert.ToString(buses[busLine.BusNumber].FirstStation.Stop.BusStationKey);
