@@ -290,6 +290,8 @@ namespace targil2
             
             Console.WriteLine("how many stops does the bus line have?");
             int length = Convert.ToInt32(Console.ReadLine());
+            if (length < 2)
+                throw new ArgumentOutOfRangeException("the line must have at least 2 stations");
             
 
             for (int i = 0; i < length; i++)
