@@ -12,6 +12,10 @@ namespace targil2
 {
     class Program
     {
+        private const double MIN_LAT_AREA = 31;
+        private const double LAT_RANGE = 2.3;
+        private const double MIN_LON_AREA = 34.3;
+        private const double LON_RANGE = 1.2;
         static Random rand = new Random(DateTime.Now.Millisecond);
         static void Main(string[] args)
         {
@@ -35,7 +39,7 @@ namespace targil2
             for (int i = 0; i < 10; i++)
             {
                 int index = rand.Next(1, 9);
-                busStopLine = ranCreateBusStopLine(0);
+                busStopLine = ranCreateBusStopLine(index);
                 int mix = rand.Next(1, 10);
                 if(!buses[mix].findStop(busStopLine.Stop))
                 buses[mix].add(busStopLine, index, rand.Next(20) + rand.NextDouble(), TimeSpan.FromMinutes(rand.Next(60)));
@@ -189,8 +193,8 @@ namespace targil2
                 if (key == station.stop.BusStationKey)
                         return station.stop;
 
-            double latitude = 31 + 2.3 * rand.NextDouble();
-            double longitude = 34.3 + 1.2 * rand.NextDouble();
+            double latitude = MIN_LAT_AREA + LAT_RANGE * rand.NextDouble();
+            double longitude = MIN_LON_AREA + LON_RANGE * rand.NextDouble();
 
             Console.WriteLine("enter address");
             string address = Console.ReadLine();
@@ -316,8 +320,8 @@ namespace targil2
                 if (key == station.stop.BusStationKey)
                     return station.stop;
 
-            double latitude = 31 + 2.3 * rand.NextDouble();
-            double longitude = 34.3 + 1.2 * rand.NextDouble();
+            double latitude = MIN_LAT_AREA + LAT_RANGE * rand.NextDouble();
+            double longitude = MIN_LON_AREA + LON_RANGE * rand.NextDouble();
 
             string address = "";
 

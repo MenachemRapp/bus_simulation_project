@@ -39,14 +39,7 @@ namespace targil2
            
             if (index > stations.Count || index < 0)
                 throw new ArgumentException(String.Format("value bust be between 1 and {0}", stations.Count+ 1));
-            if (index != stations.Count && stations.Count>0)
-            {
-                if (stations.ElementAt(index).Zman < newStopLine.Zman)
-                    throw new ArgumentException(String.Format("time cannot be greater than {0}", stations.ElementAt(index).Zman));
-                if (stations.ElementAt(index).Distance < newStopLine.Distance)
-                    throw new ArgumentException(String.Format("distance cannot be greater than {0}", stations.ElementAt(index).Distance));
-            }
-
+         
             //test if already is in the list, and adds if not
             CounterList.add(newStopLine.Stop);
 
@@ -141,15 +134,22 @@ namespace targil2
         {
 
             BusLine subLine= new BusLine { };
+            subLine.Area = this.Area;
+            subLine.BusNumber = this.BusNumber;
             bool flag = false;
             foreach (BusStopLine lineStop in stations)
             {
                 if (!flag)
+                {
                     if (lineStop.Stop.BusStationKey == first.BusStationKey)
+                    {
                         flag = true;
-                    else
-                        continue;
-                             
+                        BusStopLine subFirstStop = new BusStopLine(lineStop.Stop, 0, TimeSpan.Zero);
+                        subLine.stations.Add(subFirstStop);
+                    }
+                    continue;
+                }
+                
                 subLine.stations.Add(lineStop);
                 if (lineStop.Stop.BusStationKey == last.BusStationKey)
                     break;
