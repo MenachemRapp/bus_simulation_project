@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace targil2
 {
-    class StopAndCounter
+    class StopAndCounter: IComparable<StopAndCounter> //a class with a bus and a counter
     {
         public BusStop stop { set; get; }
 
@@ -22,16 +22,23 @@ namespace targil2
             get => counter;
         }
 
+        //increse the counter
         public void increase()
         {
         counter++;
         }
 
+        //decrease the counter
         public void decrease()
         {
-            if (counter <= 0)
-                throw new ArgumentException("counter cannot be negative");
+            if (counter < 1)
+                throw new ArgumentException("counter cannot be less than 1");
             counter--;
+        }
+
+        public int CompareTo(StopAndCounter other)
+        {
+            return stop.BusStationKey.CompareTo(other.stop.BusStationKey);
         }
     }
 

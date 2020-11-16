@@ -12,6 +12,10 @@ namespace targil2
 {
     class Program
     {
+        private const double MIN_LAT_AREA = 31;
+        private const double LAT_RANGE = 2.3;
+        private const double MIN_LON_AREA = 34.3;
+        private const double LON_RANGE = 1.2;
         static Random rand = new Random(DateTime.Now.Millisecond);
         static void Main(string[] args)
         {
@@ -35,7 +39,7 @@ namespace targil2
             for (int i = 0; i < 10; i++)
             {
                 int index = rand.Next(1, 9);
-                busStopLine = ranCreateBusStopLine(0);
+                busStopLine = ranCreateBusStopLine(index);
                 int mix = rand.Next(1, 10);
                 if(!buses[mix].findStop(busStopLine.Stop))
                 buses[mix].add(busStopLine, index, rand.Next(20) + rand.NextDouble(), TimeSpan.FromMinutes(rand.Next(60)));
@@ -73,6 +77,10 @@ namespace targil2
                         {
                             case ADD.ADD_LINE:
                                 busLine = createLine();
+                                testDoubleLine(buses, busLine);
+                                if (buses.busesInLine(busLine.BusNumber)==2)
+                                    
+
                                 buses.AddLineBus(busLine);
 
                                 break;
@@ -104,7 +112,8 @@ namespace targil2
                         {
                             case REMOVE.REMOVE_LINE:
                                 lineNum = createLineNum();
-                                buses.deleteLine(lineNum);
+                                int firstId = createFirstId(buses,lineNum);
+                                buses.deleteLine(lineNum,firstId);
                                 break;
                             case REMOVE.REMOVE_BUS_STOP:
                                 lineNum = createLineNum();
@@ -112,8 +121,8 @@ namespace targil2
                                 int index = buses[lineNum].Stations.FindIndex(x => x.Stop.BusStationKey == busStop.BusStationKey);
                                 if (index == -1)
                                     throw new ArgumentException("the station isn't in the line");
-                                distance = createNextDistance(index != 0 && index != buses[lineNum].Stations.Count);
-                                zman = createNextZman(index != 0 && index != buses[lineNum].Stations.Count);
+                                distance = createNextDistance(index != 0 && index != buses[lineNum].Stations.Count-1);
+                                zman = createNextZman(index != 0 && index != buses[lineNum].Stations.Count-1);
                                buses[lineNum].remove(busStop,distance,zman);
                                 break;
                             default:
@@ -123,6 +132,8 @@ namespace targil2
                     
                     case CHOICE.FIND:
                         FIND find;
+                        Console.WriteLine("FIND_LINES_IN_STOP, OPTIONS_BETWEEN_STOPS");
+                        success = Enum.TryParse(Console.ReadLine(), out find);
                         switch (find)
                         {
                             case FIND.FIND_LINES_IN_STOP:
@@ -149,6 +160,8 @@ namespace targil2
                         break;
                     case CHOICE.PRINT:
                         PRINT print;
+                        Console.WriteLine("PRINT_LINES, PRINT_STOPS");
+                        success = Enum.TryParse(Console.ReadLine(), out print);
                         switch (print)
                         {
                             case PRINT.PRINT_LINES:
@@ -185,8 +198,8 @@ namespace targil2
                 if (key == station.stop.BusStationKey)
                         return station.stop;
 
-            double latitude = 31 + 2.3 * rand.NextDouble();
-            double longitude = 34.3 + 1.2 * rand.NextDouble();
+            double latitude = MIN_LAT_AREA + LAT_RANGE * rand.NextDouble();
+            double longitude = MIN_LON_AREA + LON_RANGE * rand.NextDouble();
 
             Console.WriteLine("enter address");
             string address = Console.ReadLine();
@@ -250,6 +263,52 @@ namespace targil2
             return line;
         }
 
+        //finds first station id
+        private static int createFirstId(BusLineData buses, int lineNum)
+        {
+            int firstStop=new int();
+            switch (buses.busesInLine(lineNum))
+            {
+                case 2:
+                    Console.WriteLine("is the first stop {0} or {1} ?", buses[lineNum].FirstStation.Stop.BusStationKey, buses[lineNum].LastStation.Stop.BusStationKey);
+                    firstStop = Convert.ToInt32(Console.ReadLine());
+                    if (firstStop != buses[lineNum].FirstStation.Stop.BusStationKey && firstStop != buses[lineNum].LastStation.Stop.BusStationKey)
+                        throw new ArgumentException(String.Format("{0} was not one of the options", Convert.ToString(firstStop)));
+                    break;
+                case 1:
+                    firstStop = buses[lineNum].FirstStation.Stop.BusStationKey;
+                    break;
+                case 0:
+                    throw new ArgumentException(String.Format("line number {0} does not exist", Convert.ToString(lineNum)));
+                default:
+                    break;
+            }
+                     
+            return firstStop;
+        }
+
+        //test if the line already exists
+        private static void testDoubleLine(BusLineData buses, BusLine busLine)
+        {
+            switch (buses.busesInLine(busLine.BusNumber))
+            {
+                case 2:
+                    throw new ArgumentException(String.Format("line number {0} already has 2 directions", Convert.ToString(busLine.BusNumber)));
+                case 1:
+                    if (buses[busLine.BusNumber].FirstStation!=busLine.LastStation || buses[busLine.BusNumber].LastStation != busLine.FirstStation)
+                    {
+                        string newFirst =Convert.ToString(buses[busLine.BusNumber].LastStation.Stop.BusStationKey);
+                        string newLast = Convert.ToString(buses[busLine.BusNumber].FirstStation.Stop.BusStationKey);
+                        throw new ArgumentException(
+                            String.Format("first station must be {0}, and the last must be {1}", newFirst, newLast));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
         //receives a line
         private static BusLine createLine()
         {
@@ -258,6 +317,8 @@ namespace targil2
             
             Console.WriteLine("how many stops does the bus line have?");
             int length = Convert.ToInt32(Console.ReadLine());
+            if (length < 2)
+                throw new ArgumentOutOfRangeException("the line must have at least 2 stations");
             
 
             for (int i = 0; i < length; i++)
@@ -278,7 +339,7 @@ namespace targil2
            return newLine;
         }
 
-        //the same functions as before, but this time the computer genarates the answer
+        //***the same functions as before, but this time the computer genarates the answers***
 
         //genarate a bus stop
         private static BusStop ranCreateBus()
@@ -288,8 +349,8 @@ namespace targil2
                 if (key == station.stop.BusStationKey)
                     return station.stop;
 
-            double latitude = 31 + 2.3 * rand.NextDouble();
-            double longitude = 34.3 + 1.2 * rand.NextDouble();
+            double latitude = MIN_LAT_AREA + LAT_RANGE * rand.NextDouble();
+            double longitude = MIN_LON_AREA + LON_RANGE * rand.NextDouble();
 
             string address = "";
 

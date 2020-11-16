@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace targil2
 {
-    static class CounterList
+    static class CounterList // alist of the buses wich counts buses use the stop exists
     {
         private static List<StopAndCounter> stopAndCounterList = new List<StopAndCounter>();
+     
+        //add a stop to the list
         public static void add(BusStop value)
         {
             bool inList = false;
@@ -29,10 +31,12 @@ namespace targil2
             {
                 StopAndCounter newStop = new StopAndCounter(value);
                 stopAndCounterList.Add(newStop);
+                stopAndCounterList.Sort();
             }
                         
         }
 
+        //remove a stop from the list
         public static void remove(BusStop value)
         {
             
@@ -40,10 +44,8 @@ namespace targil2
                 if (station.stop.BusStationKey == value.BusStationKey)
                 {
                     if (station.Counter == 1)
-                    {
-                        StopAndCounter newStop = new StopAndCounter(value);
-                        stopAndCounterList.Remove(newStop);
-                    }
+                       stopAndCounterList.Remove(station);
+                    
 
                     else
                         station.decrease();
