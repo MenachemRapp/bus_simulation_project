@@ -77,6 +77,10 @@ namespace targil2
                         {
                             case ADD.ADD_LINE:
                                 busLine = createLine();
+                                testDoubleLine(buses, busLine);
+                                if (buses.busesInLine(busLine.BusNumber)==2)
+                                    
+
                                 buses.AddLineBus(busLine);
 
                                 break;
@@ -282,6 +286,28 @@ namespace targil2
             return firstStop;
         }
 
+        //test if the line already exists
+        private static void testDoubleLine(BusLineData buses, BusLine busLine)
+        {
+            switch (buses.busesInLine(busLine.BusNumber))
+            {
+                case 2:
+                    throw new ArgumentException(String.Format("line number {0} already has 2 directions", Convert.ToString(busLine.BusNumber)));
+                case 1:
+                    if (buses[busLine.BusNumber].FirstStation!=busLine.LastStation || buses[busLine.BusNumber].LastStation != busLine.FirstStation)
+                    {
+                        string newFirst =Convert.ToString(buses[busLine.BusNumber].LastStation.Stop.BusStationKey);
+                        string newLast = Convert.ToString(buses[busLine.BusNumber].FirstStation.Stop.BusStationKey);
+                        throw new ArgumentException(
+                            String.Format("first station must be {0}, and the last must be {1}", newFirst, newLast));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
         //receives a line
         private static BusLine createLine()
         {
@@ -312,7 +338,7 @@ namespace targil2
            return newLine;
         }
 
-        //the same functions as before, but this time the computer genarates the answer
+        //***the same functions as before, but this time the computer genarates the answers***
 
         //genarate a bus stop
         private static BusStop ranCreateBus()
