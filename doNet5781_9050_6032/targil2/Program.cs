@@ -157,6 +157,7 @@ namespace targil2
                             case PRINT.PRINT_STOPS:
                                 foreach (StopAndCounter stop in CounterList.StopAndCounterList)
                                 {
+                                    Console.WriteLine("bus stop {0} :",stop.stop.BusStationKey);
                                     buses.printLineAtStop(stop.stop.BusStationKey);//error stop 2 times!!!!
                                     Console.WriteLine("");
                                 }
