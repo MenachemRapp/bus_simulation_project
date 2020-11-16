@@ -47,14 +47,24 @@ namespace targil2
 
         //public void linesByTimes
 
-        public BusLine this[int index]
+        public BusLine this[int index, int numFirstStop=-1]
         {
             get 
             {
-                BusLine bus = findLine(index);
-                if(bus ==null)
+                if (numFirstStop != -1)
+                {
+                    foreach (BusLine bus in buses)
+                        if (bus.BusNumber == index && bus.FirstStation.Stop.BusStationKey == numFirstStop)
+                        {
+                            return bus;
+                        }
+                    return null; 
+                }
+
+                BusLine tempBus = findLine(index);
+                if(tempBus ==null)
                      throw new ArgumentException(String.Format("error line {0} no exsit",index));
-                return bus;
+                return tempBus;
             }
         }
 
