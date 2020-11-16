@@ -9,8 +9,8 @@ namespace targil2
     public class BusStopLine 
     {
         public BusStop Stop { get; set; }
-        public double Distance { get; set; }
-        public TimeSpan Zman { get; set; }
+        public double Distance { get; set; }//distance from the last stop
+        public TimeSpan Zman { get; set; } //time tthat past from the last stop
 
         public BusStopLine(BusStop myBusStop, double myDistance, TimeSpan myZman)
         {

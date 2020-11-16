@@ -24,6 +24,7 @@ namespace targil2
             this.Address = myAddress;
         }
 
+        //default ctor
         public BusStop()
         {
             this.BusStationKey = 0;
@@ -32,6 +33,7 @@ namespace targil2
             this.Address = null;
         }
 
+        //copy ctor
         public BusStop(BusStop  myBusStop)
         {
             this.BusStationKey = myBusStop.BusStationKey;
@@ -39,6 +41,7 @@ namespace targil2
             this.Longitude = myBusStop.Longitude;
             this.Address = myBusStop.Address;
         }
+        
         private int busStationKey;
 
         public int BusStationKey {

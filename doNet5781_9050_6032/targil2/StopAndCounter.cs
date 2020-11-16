@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace targil2
 {
-    class StopAndCounter: IComparable<StopAndCounter>
+    class StopAndCounter: IComparable<StopAndCounter> //a class with a bus and a counter
     {
         public BusStop stop { set; get; }
 
@@ -22,11 +22,13 @@ namespace targil2
             get => counter;
         }
 
+        //increse the counter
         public void increase()
         {
         counter++;
         }
 
+        //decrease the counter
         public void decrease()
         {
             if (counter < 1)

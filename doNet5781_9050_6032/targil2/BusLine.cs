@@ -23,7 +23,9 @@ namespace targil2
         }
         public Area Area { get; set; }
 
+        //first station in the line
         public BusStopLine FirstStation { get => Stations[0]; set => Stations[0] = value; }
+        //last station in the line
         public BusStopLine LastStation { get => Stations[stations.Count - 1]; set => Stations[stations.Count - 1] = value; }
 
         public override string ToString()
@@ -39,8 +41,8 @@ namespace targil2
            
             if (index > stations.Count || index < 0)
                 throw new ArgumentException(String.Format("value bust be between 1 and {0}", stations.Count+ 1));
-         
-            //test if already is in the list, and adds if not
+
+            //updates the counter list
             CounterList.add(newStopLine.Stop);
 
 
@@ -55,14 +57,14 @@ namespace targil2
         }
 
         //remove a stop from the line
-        public void remove(BusStop stop, double distance, TimeSpan Zman)
+        public void remove(BusStop stop, double nextDistance, TimeSpan nextZman)
         {
 
             int index = stations.FindIndex(x => x.Stop.BusStationKey == stop.BusStationKey);
             if (index != 0 && index!= stations.Count-1)
             {
-                stations.ElementAt(index + 1).Distance = stations.ElementAt(index).Distance;
-                stations.ElementAt(index + 1).Zman = stations.ElementAt(index).Zman;
+                stations.ElementAt(index + 1).Distance = nextDistance;
+                stations.ElementAt(index + 1).Zman = nextZman;
             }
             else if (index==0)
             {
