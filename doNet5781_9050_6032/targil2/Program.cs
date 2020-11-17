@@ -144,12 +144,14 @@ namespace targil2
                                 id_first = Convert.ToInt32(Console.ReadLine());
                                 id_last= Convert.ToInt32(Console.ReadLine());
                                 BusLineData temp_buses = new BusLineData();
+                                //add only lines that drive by the 2 bus line
                                 foreach (BusLine bus in buses)
                                 {
                                     BusLine temp_line = bus.subroute(id_first, id_last);
                                     if (temp_line != null)
                                         temp_buses.AddLineBus(temp_line);
                                 }
+                                //printing
                                 Console.WriteLine(temp_buses.sortedList());  
                                 break;
                             default:
