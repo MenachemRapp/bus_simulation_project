@@ -29,6 +29,7 @@ namespace targil2
                 buses.Add(bus);
         }
 
+        //return list of all lines that stoping in this stop
         public List<BusLine> linesAtStop(int id_stop)
         {
             List<BusLine> temp = new List<BusLine>();
@@ -45,13 +46,18 @@ namespace targil2
                 Console.WriteLine(bus);
         }
 
-        //public void linesByTimes
 
+
+
+        /*
+         * Return line according to line number.
+         * If there are 2 lines with the same number, the first station number must also be provided
+         */
         public BusLine this[int index, int numFirstStop=-1]
         {
             get 
             {
-                if (numFirstStop != -1)
+                if (numFirstStop != -1)//if one line number
                 {
                     foreach (BusLine bus in buses)
                         if (bus.BusNumber == index && bus.FirstStation.Stop.BusStationKey == numFirstStop)
@@ -68,6 +74,7 @@ namespace targil2
             }
         }
 
+        //find line by the num kine
         private BusLine findLine(int num_line)
         {
             foreach (BusLine bus in buses)
@@ -76,6 +83,7 @@ namespace targil2
             return null;
         }
 
+        //return list of buses by time of drive
         public BusLineData sortedList()
         {
             BusLineData temp = new BusLineData();
@@ -84,6 +92,7 @@ namespace targil2
             return temp;
         }
 
+        //remove the line 
         public void deleteLine(int num, int first_id)
         {
             buses.Remove(buses.Find(bus => bus.BusNumber == num && bus.FirstStation.Stop.BusStationKey == first_id));
@@ -107,6 +116,7 @@ namespace targil2
             return this.buses.GetEnumerator();
         }
 
+        //retun how many lines have in the data, than num is input. retrun 0/1/2.
         public int busesInLine(int num)
         {
             int count = 0;

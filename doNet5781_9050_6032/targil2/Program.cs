@@ -168,10 +168,11 @@ namespace targil2
                                 Console.WriteLine(buses);
                                 break;
                             case PRINT.PRINT_STOPS:
+                                //the printing
                                 foreach (StopAndCounter stop in CounterList.StopAndCounterList)
                                 {
                                     Console.WriteLine("bus stop {0} :",stop.stop.BusStationKey);
-                                    buses.printLineAtStop(stop.stop.BusStationKey);//error stop 2 times!!!!
+                                    buses.printLineAtStop(stop.stop.BusStationKey);
                                     Console.WriteLine("");
                                 }
                                 
