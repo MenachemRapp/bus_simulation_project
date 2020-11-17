@@ -28,7 +28,7 @@ namespace targil2
             double distance;
             TimeSpan zman;
 
-            //creates at lest 10 lines with at least 40 stops all together
+            //creates at least 10 lines with at least 40 stops all together
             for (int i = 1; i <= 10||CounterList.StopAndCounterList.Count<40; i++)
             {
                 busLine = ranCreateLine(i);
@@ -76,22 +76,19 @@ namespace targil2
                         switch (add)
                         {
                             case ADD.ADD_LINE:
-                                busLine = createLine();
-                                testDoubleLine(buses, busLine);
-                                if (buses.busesInLine(busLine.BusNumber)==2)
-                                    
-
+                                busLine = createLine(buses);
                                 buses.AddLineBus(busLine);
 
                                 break;
                             case ADD.ADD_BUS_STOP:
                                 lineNum = createLineNum();
+                                int firstId = createFirstId(buses, lineNum);
                                 Console.WriteLine("which number is the stop (starting with 1)?");
                                 int index = Convert.ToInt32(Console.ReadLine()) - 1;
                                 busStopLine = createBusStopLine(index);
                                 distance=createNextDistance(index != buses[lineNum].Stations.Count);
                                 zman = createNextZman(index != buses[lineNum].Stations.Count);
-                                buses[lineNum].add(busStopLine,index,distance,zman);
+                                buses[lineNum,firstId].add(busStopLine,index,distance,zman);
                                 break;
 
                             default:
@@ -113,6 +110,7 @@ namespace targil2
                             case REMOVE.REMOVE_LINE:
                                 lineNum = createLineNum();
                                 int firstId = createFirstId(buses,lineNum);
+                                updateRemoveCounter(buses, lineNum, firstId);
                                 buses.deleteLine(lineNum,firstId);
                                 break;
                             case REMOVE.REMOVE_BUS_STOP:
@@ -287,31 +285,17 @@ namespace targil2
                      
             return firstStop;
         }
-
-        //test if the line already exists
-        private static void testDoubleLine(BusLineData buses, BusLine busLine)
+        
+        //removes the busses from the counter list
+        private static void updateRemoveCounter(BusLineData buses, int LineNum,int numFirstStop )
         {
-            switch (buses.busesInLine(busLine.BusNumber))
+            foreach (BusStopLine station in buses[LineNum,numFirstStop].Stations)
             {
-                case 2:
-                    throw new ArgumentException(String.Format("line number {0} already has 2 directions", Convert.ToString(busLine.BusNumber)));
-                case 1:
-                    if (buses[busLine.BusNumber].FirstStation!=busLine.LastStation || buses[busLine.BusNumber].LastStation != busLine.FirstStation)
-                    {
-                        string newFirst =Convert.ToString(buses[busLine.BusNumber].LastStation.Stop.BusStationKey);
-                        string newLast = Convert.ToString(buses[busLine.BusNumber].FirstStation.Stop.BusStationKey);
-                        throw new ArgumentException(
-                            String.Format("first station must be {0}, and the last must be {1}", newFirst, newLast));
-                    }
-                    break;
-                default:
-                    break;
+                CounterList.remove(station.Stop);
             }
         }
-
-
         //receives a line
-        private static BusLine createLine()
+        private static BusLine createLine(BusLineData buses)
         {
             BusLine newLine = new BusLine();
             newLine.BusNumber = createLineNum();
@@ -320,27 +304,71 @@ namespace targil2
             int length = Convert.ToInt32(Console.ReadLine());
             if (length < 2)
                 throw new ArgumentOutOfRangeException("the line must have at least 2 stations");
-            
 
-            for (int i = 0; i < length; i++)
+            switch (buses.busesInLine(newLine.BusNumber))
             {
-                Console.WriteLine("stop number {0}",i+1);
-                BusStopLine newStop = createBusStopLine(i);
-                if(newLine.findStop(newStop.Stop))
-                    throw new ArgumentException(String.Format("stop number {0} already exists in the line", (newStop.Stop.BusStationKey)));
-                newLine.add(newStop, i);
+                case 2: // the line has 2 directions
+                    throw new ArgumentException(String.Format("line number {0} already has 2 directions", Convert.ToString(newLine.BusNumber)));
+                
+                case 1: // the line has 1 direction
+                    Console.WriteLine("line number {0} already has 1 direction. enter the stops of the other direction", Convert.ToString(newLine.BusNumber));
+                    
+                    //first stop
+                    Console.WriteLine("the number 1 is:");
+                    Console.WriteLine(Convert.ToString(buses[newLine.BusNumber].LastStation.Stop));
+                    BusStopLine firstStop = new BusStopLine(buses[newLine.BusNumber].LastStation.Stop, 0, TimeSpan.Zero);
+                    newLine.add(firstStop,0);
+
+                    //middle stops
+                    for (int i = 1; i < length-1; i++)
+                    {
+                        Console.WriteLine("stop number {0}", i + 1);
+                        BusStopLine newStop = createBusStopLine(i);
+                        if (newLine.findStop(newStop.Stop))
+                            throw new ArgumentException(String.Format("stop number {0} already exists in the line", (newStop.Stop.BusStationKey)));
+                        newLine.add(newStop, i);
+                    }
+
+                    //last stop
+                    Console.WriteLine("stop number {0} is:",length);
+                    Console.WriteLine(Convert.ToString(buses[newLine.BusNumber].FirstStation.Stop));
+                    
+                    Console.WriteLine("what is the distance from the last stop?");
+                    double distance = Convert.ToDouble(Console.ReadLine());
+                    Console.WriteLine("how many minutes past since the last stop?");
+                    TimeSpan zman = TimeSpan.FromMinutes(Convert.ToDouble(Console.ReadLine()));
+
+                    BusStopLine lastStop = new BusStopLine(buses[newLine.BusNumber].FirstStation.Stop, distance, zman);
+                    newLine.add(lastStop, length-1);
+
+                    newLine.Area = buses[newLine.BusNumber].Area;
+                    break;
+                
+                default: //the line is a new line
+                    for (int i = 0; i < length; i++)
+                    {
+                        Console.WriteLine("stop number {0}", i + 1);
+                        BusStopLine newStop = createBusStopLine(i);
+                        if (newLine.findStop(newStop.Stop))
+                            throw new ArgumentException(String.Format("stop number {0} already exists in the line", (newStop.Stop.BusStationKey)));
+                        newLine.add(newStop, i);
+                    }
+
+                    Console.WriteLine("Chose an area for the bus line");
+                    Console.WriteLine("General,Jerusalem,North,South,Center");
+
+                    Area area;
+                    Enum.TryParse(Console.ReadLine(), out area);
+                    newLine.Area = area;
+
+
+                    break;
             }
-
-            Console.WriteLine("Chose an area for the bus line");
-            Console.WriteLine("General,Jerusalem,North,South,Center");
-
-           Area area;
-           Enum.TryParse(Console.ReadLine(), out area);
-            newLine.Area = area;
+           
            return newLine;
         }
 
-        //***the same functions as before, but this time the computer genarates the answers***
+        //***the same functions as before for adding lines and stops, but this time the computer genarates the answers***
 
         //genarate a bus stop
         private static BusStop ranCreateBus()
