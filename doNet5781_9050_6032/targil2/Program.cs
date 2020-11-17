@@ -96,6 +96,7 @@ namespace targil2
                                 break;
                         }
                         break;
+
                     case CHOICE.REMOVE:
                         REMOVE remove;
                         Console.WriteLine("Please, make your choice:");
@@ -158,6 +159,7 @@ namespace targil2
                                 break;
                         }
                         break;
+
                     case CHOICE.PRINT:
                         PRINT print;
                         Console.WriteLine("PRINT_LINES, PRINT_STOPS");
