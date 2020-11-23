@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace targil2
 {
-    class BusLineData : IEnumerable<BusLine>
+    public class BusLineData : IEnumerable<BusLine>
     {
         private List<BusLine> buses = new List<BusLine>();
 

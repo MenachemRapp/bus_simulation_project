@@ -31,7 +31,7 @@ namespace targil2
             //creates at least 10 lines with at least 40 stops all together
             for (int i = 1; i <= 10||CounterList.StopAndCounterList.Count<40; i++)
             {
-                busLine = ranCreateLine(i);
+                busLine = RanLine.ranCreateLine(i);
                 buses.AddLineBus(busLine);
             }
 
@@ -39,7 +39,7 @@ namespace targil2
             for (int i = 0; i < 10; i++)
             {
                 int index = rand.Next(1, 9);
-                busStopLine = ranCreateBusStopLine(index);
+                busStopLine = RanLine.ranCreateBusStopLine(index);
                 int mix = rand.Next(1, 10);
                 if(!buses[mix].findStop(busStopLine.Stop))
                 buses[mix].add(busStopLine, index, rand.Next(20) + rand.NextDouble(), TimeSpan.FromMinutes(rand.Next(60)));
@@ -372,67 +372,6 @@ namespace targil2
            return newLine;
         }
 
-        //***the same functions as before for adding lines and stops, but this time the computer genarates the answers***
-
-        //genarate a bus stop
-        private static BusStop ranCreateBus()
-        {
-            int key = rand.Next(1, 1000000);
-            foreach (StopAndCounter station in CounterList.StopAndCounterList)
-                if (key == station.stop.BusStationKey)
-                    return station.stop;
-
-            double latitude = MIN_LAT_AREA + LAT_RANGE * rand.NextDouble();
-            double longitude = MIN_LON_AREA + LON_RANGE * rand.NextDouble();
-
-            string address = "";
-
-            return new BusStop(key, latitude, longitude, address);
-        }
-
-        //genarate a line bus stop
-        private static BusStopLine ranCreateBusStopLine(int index=1)
-        {
-            BusStop busStop = ranCreateBus();
-            double distance;
-            TimeSpan zman;
-                       
-            if (index>0)
-            {
-                distance = rand.Next(20) + rand.NextDouble();
-                zman = TimeSpan.FromMinutes(rand.Next(60));
-            }
-            else
-            {
-                distance = 0;
-                zman = TimeSpan.Zero;
-            }
-            return new BusStopLine(busStop, distance, zman);
-        }
-
-        //genarate a line
-        private static BusLine ranCreateLine(int lineNum)
-        {
-
-            BusLine newLine = new BusLine();
-            newLine.BusNumber = lineNum;
-
-            BusStopLine newStop;
-            for (int i = 0; i < 8; i++)
-            {
-                do
-                {
-                    newStop = ranCreateBusStopLine(i);
-                } while (newLine.findStop(newStop.Stop));
-                newLine.add(newStop, i);
-            }
-
-            Area area;
-            Enum.TryParse(Convert.ToString(rand.Next(5)), out area);
-            newLine.Area = area;
-            
-           
-           return newLine;
-        }
+       
     }
 }

@@ -22,8 +22,8 @@ namespace targil2
 
         public override string ToString()
         {
-            String result =  base.ToString();
-            result += String.Format(" Distance: {0}, Zman {1}", Distance, Zman);
+            String result =  Stop.ToString();
+            result += String.Format(", Distance: {0:f}, Time: {1}", Distance, Zman);
             return result;
         }
     }

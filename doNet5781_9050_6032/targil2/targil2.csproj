@@ -51,6 +51,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RanLine.cs" />
     <Compile Include="StopAndCounter.cs" />
   </ItemGroup>
   <ItemGroup>
