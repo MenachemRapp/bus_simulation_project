@@ -100,8 +100,5 @@
       <Name>targil2</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon1.ico" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
