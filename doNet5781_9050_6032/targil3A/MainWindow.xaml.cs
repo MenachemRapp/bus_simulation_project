@@ -41,6 +41,7 @@ namespace targil3A
             ShowBusLine((cbBusLines.SelectedValue as BusLine).BusNumber);
         }
 
+
         private void ShowBusLine(int index)
         {
             currentDisplayBusLine = busLines[index];
