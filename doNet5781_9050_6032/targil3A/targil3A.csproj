@@ -100,5 +100,17 @@
       <Name>targil2</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bus icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bus-icon-vector-17120207.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bus 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="depositphotos_265589214-stock-illustration-globe-earth-map-world-vector.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
