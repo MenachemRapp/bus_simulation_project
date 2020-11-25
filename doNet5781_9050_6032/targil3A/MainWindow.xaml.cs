@@ -50,7 +50,6 @@ namespace targil3A
           
         }
 
-
         //Initialize buses with 10 lines
         private void InitBus()
         {
