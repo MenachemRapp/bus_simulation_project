@@ -15,4 +15,9 @@ namespace Targil1
     {
         REFUEL_BUS, MAINTENANCE_BUS
     }
+    
+    public enum BUS_STATUS
+    {
+        DRIVING, REFULING, FIXING, AVAILABLE
+    }
 }
