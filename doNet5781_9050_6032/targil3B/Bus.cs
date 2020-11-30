@@ -16,7 +16,7 @@ namespace Targil1
         public bool CanDrive()
         {
             return (status == BUS_STATUS.AVAILABLE && kilometer_fuel > 0 && kilometer_maintanence > 0);
-             ////tho chak the date of maintance, 
+             ////tho chack the date of maintance, !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
 
         public Bus(string registration, DateTime aliya)
@@ -68,13 +68,13 @@ namespace Targil1
             }
 
         }
-        public int TimeStatus
+        public int TimeStatus// the time remain to this status
         {
             get
             {
                 return time_status;
             }
-            set
+           private set
             {
                 if (value > 0)
                 {
@@ -91,7 +91,7 @@ namespace Targil1
             while (time_status > 0)
             {
                 Thread.Sleep(TIME_REALY_TO_TIMER * CONVERT_REALY_TIME_TO_TIME_COMPUTER * 1000);
-                time_status -= (TIME_REALY_TO_TIMER * CONVERT_REALY_TIME_TO_TIME_COMPUTER);
+                time_status -= (TIME_REALY_TO_TIMER );
             }
             status = BUS_STATUS.AVAILABLE;
             if (time_status < 0)
