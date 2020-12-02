@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-namespace Targil1
+namespace targil3B
 {
     public class Bus
     {

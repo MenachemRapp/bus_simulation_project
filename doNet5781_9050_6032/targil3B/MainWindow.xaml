@@ -6,5 +6,37 @@
         xmlns:local="clr-namespace:targil3B"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid/>
+    <Window.Resources>
+
+        <DataTemplate x:Key="BusTamplate" >
+
+            <StackPanel Orientation="Horizontal" >
+                
+                    
+                
+                <Button Content="Select Bus" Margin="5,0,5,0"/>
+
+                <Button Content="Refuel" Margin="5,0,5,0"/>
+                <TextBlock Text="Bus Registration Number: " FontWeight="Bold" Width="auto" />
+                <TextBlock Text="{Binding Path=Registration}" Width="200" />
+                
+                
+
+            </StackPanel>
+
+        </DataTemplate>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="367*"/>
+            
+        </Grid.RowDefinitions>
+        <ListBox Name="busList"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusTamplate}"/>
+        <Button x:Name="addBussButton" Content="Add Buss" HorizontalAlignment="Left" Margin="172,20,0,0" VerticalAlignment="Top" Width="75"/>
+        
+
+    </Grid>
+    
 </Window>
