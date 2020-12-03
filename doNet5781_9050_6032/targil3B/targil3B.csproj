@@ -63,6 +63,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DistanceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,6 +81,9 @@
     <Compile Include="Bus.cs" />
     <Compile Include="BusProprtiesWindow.xaml.cs">
       <DependentUpon>BusProprtiesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DistanceWindow.xaml.cs">
+      <DependentUpon>DistanceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enumim.cs" />
     <Compile Include="MainWindow.xaml.cs">

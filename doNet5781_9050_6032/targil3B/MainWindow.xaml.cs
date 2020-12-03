@@ -89,13 +89,24 @@ namespace targil3B
                 }
             }
         }
-                     
-        
 
         private void cmdAddBus_Clicked(object sender, RoutedEventArgs e)
         {
             new AddWindow().Show();
-      //       AddWindow.Create("Thread");
+            //       AddWindow.Create("Thread");
+        }
+
+        private void selectBus_Clicked (object sender, RoutedEventArgs e)
+        {
+            Button cmd = (Button)sender;
+            if (cmd.DataContext is Bus)
+            {
+                Bus selectedBus = (Bus)cmd.DataContext;
+                new DistanceWindow(/*selectedBus*/).Show();
+                //bus_SelectionChanged(sender);
+            }
+            
+     
         }
 
       
