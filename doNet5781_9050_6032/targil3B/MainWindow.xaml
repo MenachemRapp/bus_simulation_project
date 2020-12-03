@@ -10,10 +10,10 @@
 
         <DataTemplate x:Key="BusTamplate" >
 
-            <StackPanel Orientation="Horizontal" >
-                
-                    
-                
+            <StackPanel Orientation="Horizontal" MouseDown="cmdList_Clicked">
+
+
+
                 <Button Content="Select Bus" Margin="5,0,5,0"/>
 
                 <Button Content="Refuel" Margin="5,0,5,0"/>
@@ -34,7 +34,7 @@
             
         </Grid.RowDefinitions>
         <ListBox Name="busList"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusTamplate}"/>
-        <Button x:Name="addBussButton" Content="Add Buss" HorizontalAlignment="Left" Margin="172,20,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="addBussButton" Content="Add Buss"   HorizontalAlignment="Left" Margin="172,20,0,0" VerticalAlignment="Top" Width="75" Click="cmdAddBus_Clicked"/>
         
 
     </Grid>
