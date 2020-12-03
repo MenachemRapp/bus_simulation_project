@@ -23,5 +23,18 @@ namespace targil3B
         {
             InitializeComponent();
         }
+
+        private void addBus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Bus myBus = new Bus(txtRegestration.Text, DateTime.Parse(txtAliya.Text));
+                //add bus to list
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error Adding Bus", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
