@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 
 namespace targil3B
@@ -94,6 +95,7 @@ namespace targil3B
         {
             new AddWindow().Show();
             //       AddWindow.Create("Thread");
+           
         }
 
         private void selectBus_Clicked (object sender, RoutedEventArgs e)
@@ -102,6 +104,9 @@ namespace targil3B
             if (cmd.DataContext is Bus)
             {
                 Bus selectedBus = (Bus)cmd.DataContext;
+                if (!selectedBus.CanDrive())
+                     MessageBox.Show("Bus cannot drive", "Select Bus", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                else
                 new DistanceWindow(/*selectedBus*/).Show();
                 //bus_SelectionChanged(sender);
             }
@@ -109,7 +114,19 @@ namespace targil3B
      
         }
 
-      
+        
+        private void refuel_Clicked(object sender, RoutedEventArgs e)
+        {
+            Button cmd = (Button)sender;
+            if (cmd.DataContext is Bus)
+            {
+                Bus selectedBus = (Bus)cmd.DataContext;
+                selectedBus.refuel();
+                MessageBox.Show("Bus refueled", "Refuel", MessageBoxButton.OK, MessageBoxImage.Information);
+                               
+            }
 
+
+        }
     }
 }

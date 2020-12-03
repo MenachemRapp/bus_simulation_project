@@ -16,7 +16,7 @@
 
                 <Button Content="Select Bus" Margin="5,0,5,0" Click="selectBus_Clicked"/>
 
-                <Button Content="Refuel" Margin="5,0,5,0"/>
+                <Button Content="Refuel" Margin="5,0,5,0" Click="refuel_Clicked"/>
                 <TextBlock Text="Bus Registration Number: " FontWeight="Bold" Width="auto" />
                 <TextBlock Text="{Binding Path=Registration}" Width="200" />
                 
