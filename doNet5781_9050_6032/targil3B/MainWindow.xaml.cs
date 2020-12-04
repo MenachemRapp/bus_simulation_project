@@ -21,11 +21,12 @@ namespace targil3B
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window 
-        
+    public partial class MainWindow : Window
+
     {
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
-        public MainWindow() { 
+        public MainWindow()
+        {
             InitializeComponent();
             initBuss();
             //ShowBusLine();
@@ -46,12 +47,12 @@ namespace targil3B
 
         private void initBuss()
         {
-        
+
             buses.Add(new Bus("2233322", new DateTime(2000, 11, 11)));
             buses.Add(new Bus("33322333", new DateTime(2020, 11, 11)));
             buses.Add(new Bus("1133311", new DateTime(2007, 01, 01)));
             buses.Add(new Bus("33300333", new DateTime(2019, 03, 28)));
-            
+
         }
 
         /*private List<Bus> currentDisplayBus;
@@ -95,26 +96,23 @@ namespace targil3B
         {
             new AddWindow().Show();
             //       AddWindow.Create("Thread");
-           
+
         }
 
-        private void selectBus_Clicked (object sender, RoutedEventArgs e)
+        private void selectBus_Clicked(object sender, RoutedEventArgs e)
         {
             Button cmd = (Button)sender;
             if (cmd.DataContext is Bus)
             {
                 Bus selectedBus = (Bus)cmd.DataContext;
                 if (!selectedBus.CanDrive())
-                     MessageBox.Show("Bus cannot drive", "Select Bus", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("Bus cannot drive", "Select Bus", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
-                new DistanceWindow(/*selectedBus*/).Show();
+                    new DistanceWindow(/*selectedBus*/).Show();
                 //bus_SelectionChanged(sender);
             }
-            
-     
         }
 
-        
         private void refuel_Clicked(object sender, RoutedEventArgs e)
         {
             Button cmd = (Button)sender;
@@ -123,10 +121,11 @@ namespace targil3B
                 Bus selectedBus = (Bus)cmd.DataContext;
                 selectedBus.refuel();
                 MessageBox.Show("Bus refueled", "Refuel", MessageBoxButton.OK, MessageBoxImage.Information);
-                               
+
             }
 
 
         }
     }
 }
+

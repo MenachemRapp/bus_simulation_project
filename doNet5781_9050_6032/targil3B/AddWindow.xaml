@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:targil3B"
         mc:Ignorable="d"
         Title="Add a new bus" Height="200" Width="500">
-      <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -18,11 +18,12 @@
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="1">
             <Label  Content="Begining of Circulation Date: " HorizontalContentAlignment="Right" Width="160pt"/>
-            <TextBox x:Name="txtAliya" Text="" Width="150pt"/>
+            <DatePicker Name="pickDate"   />
         </StackPanel>
         <Button x:Name="addBus" Grid.Row="2" Content="Add Bus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="100" Click="addBus_Click"/>
+       
 
     </Grid>
-    
-    
+
+
 </Window>

@@ -28,8 +28,9 @@ namespace targil3B
         {
             try
             {
-                Bus myBus = new Bus(txtRegestration.Text, DateTime.Parse(txtAliya.Text));
+                Bus myBus = new Bus(txtRegestration.Text, pickDate.DisplayDate);
                 //add bus to list
+                this.Close();
             }
             catch(Exception ex)
             {
