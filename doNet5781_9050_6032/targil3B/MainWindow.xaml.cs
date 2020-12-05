@@ -30,7 +30,7 @@ namespace targil3B
             InitializeComponent();
             initBuss();
             //ShowBusLine();
-            busList.ItemsSource = buses;
+           busList.ItemsSource = buses;
             //busList.DisplayMemberPath = "Registration";
             //busList.SelectedIndex = 0;
             //ShowBusLine(0);
@@ -126,6 +126,16 @@ namespace targil3B
 
 
         }
+
+        public void addBus(Bus bus)
+        {
+            buses.Add(bus);                      
+        }
+
+       /* private void Buses_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }*/
     }
 }
 

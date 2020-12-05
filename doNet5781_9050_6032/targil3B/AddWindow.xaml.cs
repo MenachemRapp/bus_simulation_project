@@ -29,12 +29,14 @@ namespace targil3B
             try
             {
                 Bus myBus = new Bus(txtRegestration.Text, pickDate.DisplayDate);
+                MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+                mainWindow.addBus(myBus);
                 //add bus to list
                 this.Close();
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error Adding Bus", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Error Adding Bus", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

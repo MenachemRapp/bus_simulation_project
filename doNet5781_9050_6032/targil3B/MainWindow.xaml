@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
 
-        <DataTemplate x:Key="BusTamplate" >
+        <DataTemplate x:Key="BusListAndButtons" >
 
             <StackPanel Orientation="Horizontal" MouseDown="cmdList_Clicked">
 
@@ -33,7 +33,7 @@
             <RowDefinition Height="367*"/>
             
         </Grid.RowDefinitions>
-        <ListBox Name="busList"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusTamplate}"/>
+        <ListBox Name="busList"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}"/>
         <Button x:Name="addBussButton" Content="Add Buss"   HorizontalAlignment="Left" Margin="172,20,0,0" VerticalAlignment="Top" Width="75" Click="cmdAddBus_Clicked"/>
         
 

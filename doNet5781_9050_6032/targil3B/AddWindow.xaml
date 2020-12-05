@@ -18,7 +18,7 @@
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="1">
             <Label  Content="Begining of Circulation Date: " HorizontalContentAlignment="Right" Width="160pt"/>
-            <DatePicker Name="pickDate"   />
+            <DatePicker Name="pickDate"/>
         </StackPanel>
         <Button x:Name="addBus" Grid.Row="2" Content="Add Bus" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="100" Click="addBus_Click"/>
        
