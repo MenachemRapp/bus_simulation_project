@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,26 @@ namespace targil3B
     /// </summary>
     public partial class BusProprtiesWindow : Window
     {
-        public BusProprtiesWindow()
+        ObservableCollection<Bus> buses;
+
+        public BusProprtiesWindow( ObservableCollection<Bus> buses)
         {
+            this.buses = buses;
             InitializeComponent();
+        }
+
+        private void ButtonSumbit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                buses.Add(new Bus(TextRegistration.Text,))
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
