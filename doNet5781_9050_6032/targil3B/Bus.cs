@@ -2,7 +2,7 @@
 using System.Threading;
 namespace targil3B
 {
-    public class Bus
+    public class Bus:IEquatable<Bus>
     {
         private string registration;
         private DateTime aliya, maintanence_date;
@@ -189,8 +189,7 @@ If it is suitable, returns true, and updates the mileage and fuel
             this.maintanence_date= DateTime.Now;
             this.dangerous = false;
         }
-        
 
-
+       
     }
 }

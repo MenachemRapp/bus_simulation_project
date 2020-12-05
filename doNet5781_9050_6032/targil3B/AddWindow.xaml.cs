@@ -31,7 +31,6 @@ namespace targil3B
                 Bus myBus = new Bus(txtRegestration.Text, pickDate.DisplayDate);
                 MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
                 mainWindow.addBus(myBus);
-                //add bus to list
                 this.Close();
             }
             catch(Exception ex)

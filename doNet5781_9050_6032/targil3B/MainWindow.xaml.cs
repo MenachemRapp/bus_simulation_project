@@ -129,6 +129,18 @@ namespace targil3B
 
         public void addBus(Bus bus)
         {
+           
+            if (buses.Contains<Bus>(bus))
+            {
+                throw new ArgumentException("The bus is already on the list");
+                /*
+                 add to "Bus.cs"
+                 public bool Equals(Bus other)
+                    {
+                        return (this.Registration==other.Registration);
+                     }
+                */
+            }
             buses.Add(bus);                      
         }
 
@@ -136,6 +148,6 @@ namespace targil3B
         {
             throw new NotImplementedException();
         }*/
-    }
-}
+            }
+        }
 
