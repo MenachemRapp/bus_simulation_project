@@ -20,26 +20,6 @@ namespace targil3B
     /// </summary>
     public partial class BusProprtiesWindow : Window
     {
-        ObservableCollection<Bus> buses;
-
-        public BusProprtiesWindow( ObservableCollection<Bus> buses)
-        {
-            this.buses = buses;
-            InitializeComponent();
-        }
-
-        private void ButtonSumbit_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                buses.Add(new Bus(TextRegistration.Text,))
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            
-        }
+        
     }
 }
