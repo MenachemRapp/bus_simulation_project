@@ -134,11 +134,7 @@ namespace targil3B
             {
                 throw new ArgumentException("The bus is already on the list");
                 /*
-                 add to "Bus.cs"
-                 public bool Equals(Bus other)
-                    {
-                        return (this.Registration==other.Registration);
-                     }
+                 
                 */
             }
             buses.Add(bus);                      

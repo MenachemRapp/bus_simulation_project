@@ -20,6 +20,11 @@ namespace targil3B
     /// </summary>
     public partial class BusProprtiesWindow : Window
     {
-        
+        Bus bus;
+        public BusProprtiesWindow()
+        {
+            InitializeComponent();
+           
+        }
     }
 }
