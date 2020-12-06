@@ -2,7 +2,7 @@
 using System.Threading;
 namespace targil3B
 {
-    public class Bus
+    public class Bus:IEquatable<Bus>
     {
         private string registration;
         private DateTime aliya, maintanence_date;
@@ -17,6 +17,37 @@ namespace targil3B
         {
             return (status == BUS_STATUS.AVAILABLE && kilometer_fuel > 0 && kilometer_maintanence > 0);
              ////tho chack the date of maintance, !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        }
+
+        public int Kilometer_total
+        {
+            get
+            {
+                return kilometer_total;
+            }
+        }
+
+        
+        public int Kilometer_fuel
+        {
+            get
+            {
+                return kilometer_fuel;
+            }
+        }
+        public DateTime Aliya
+        {
+            get
+            {
+                return aliya;
+            }
+        }
+        public DateTime Maintanence_date
+        {
+            get
+            {
+                return maintanence_date;
+            }
         }
 
         public Bus(string registration, DateTime aliya)
@@ -189,7 +220,12 @@ If it is suitable, returns true, and updates the mileage and fuel
             this.maintanence_date= DateTime.Now;
             this.dangerous = false;
         }
-        
+
+       
+       public bool Equals(Bus other)
+        {
+            return (this.Registration == other.Registration);
+        }
 
 
     }
