@@ -31,6 +31,7 @@ namespace targil3B
             initBuss();
             //ShowBusLine();
            busList.ItemsSource = buses;
+           
             //busList.DisplayMemberPath = "Registration";
             //busList.SelectedIndex = 0;
             //ShowBusLine(0);
@@ -107,7 +108,7 @@ namespace targil3B
                 if (!selectedBus.CanDrive())
                     MessageBox.Show("Bus cannot drive", "Select Bus", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
-                    new DistanceWindow(/*selectedBus*/).Show();
+                    new DistanceWindow(selectedBus).Show();
                 //bus_SelectionChanged(sender);
             }
         }
