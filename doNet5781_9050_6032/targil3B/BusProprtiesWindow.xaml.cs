@@ -20,11 +20,28 @@ namespace targil3B
     /// </summary>
     public partial class BusProprtiesWindow : Window
     {
-        Bus bus;
-        public BusProprtiesWindow()
+        Bus myBus;
+        public BusProprtiesWindow(Bus bus)
         {
             InitializeComponent();
-           
+            txtRegestration.Content = bus.str_registration();
+            txtCirculat.Content = bus.Aliya;
+            txtMileage.Content = bus.Kilometer_total;
+            txtMaintDate.Content = bus.Maintanence_date;
+            txtMaintMile.Content = bus.Kilometer_maintanence;
+            txtRefuel.Content = bus.Kilometer_fuel;
+            txtStatus.Content = bus.bus_status.ToString();
+            myBus = bus;
+        }
+
+        private void RefuelClicked(object sender, RoutedEventArgs e)
+        {
+            this.myBus.refuel();
+        }
+
+        private void MaitainClicked(object sender, RoutedEventArgs e)
+        {
+            this.myBus.refuel();
         }
     }
 }

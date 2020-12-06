@@ -86,8 +86,8 @@ namespace targil3B
                 if (cmd.DataContext is Bus)
                 {
                     Bus selectedBus = (Bus)cmd.DataContext;
-                    new BusProprtiesWindow(/*selectedBus*/).Show();
-                    //bus_SelectionChanged(sender);
+                    new BusProprtiesWindow(selectedBus).Show();
+                   
                 }
             }
         }
@@ -95,8 +95,7 @@ namespace targil3B
         private void cmdAddBus_Clicked(object sender, RoutedEventArgs e)
         {
             new AddWindow().Show();
-            //       AddWindow.Create("Thread");
-
+           
         }
 
         private void selectBus_Clicked(object sender, RoutedEventArgs e)
@@ -133,9 +132,7 @@ namespace targil3B
             if (buses.Contains<Bus>(bus))
             {
                 throw new ArgumentException("The bus is already on the list");
-                /*
-                 
-                */
+               
             }
             buses.Add(bus);                      
         }
