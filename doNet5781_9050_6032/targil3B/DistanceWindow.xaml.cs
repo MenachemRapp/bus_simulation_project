@@ -19,7 +19,7 @@ namespace targil3B
     /// </summary>
     public partial class DistanceWindow : Window
     {
-        public DistanceWindow()
+        public DistanceWindow(Bus bus)
         {
             InitializeComponent();
         }
