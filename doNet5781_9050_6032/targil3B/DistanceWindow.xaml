@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:targil3B"
         mc:Ignorable="d"
-        Title="DistanceWindow" Height="100" Width="100">
+        Title="DistanceWindow" Height="120" Width="200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox Name="TextInputKm" Grid.Row="0" MinWidth="40"/>
-        <Button Content="drive" Name="button_sumbit"  Click="button_sumbit_Click" Grid.Row="1"/>
+        <TextBox Name="TextInputKm" Grid.Row="0" MinWidth="40" KeyDown="textBox_KeyDown"/>
+        <Label Content="Type distance and click Enter" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Window>
