@@ -12,6 +12,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBox Name="TextInputKm" Grid.Row="0" MinWidth="40"/>
-        <Button Content="drive" Name="button_sumbit"  Click="button_sumbit_Click" Grid.Row="1"/>
+        <Button  Name="button_sumbit"  Click="button_sumbit_Click" Grid.Row="1">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="bus-icon-vector-17120207.jpg" />
+                    <TextBlock Text="drive" VerticalAlignment="Center"                      Margin="10" />
+                </StackPanel>
+            </Button.Content>
+            
+        </Button>
+        
     </Grid>
 </Window>

@@ -69,7 +69,7 @@ namespace targil3B
         public BUS_STATUS bus_status
         {
             get
-            {
+            {//if bus couldn't drive- change the status
                 if (DateTime.Now.AddYears(-1) >= maintanence_date)
                 {
                     status = BUS_STATUS.NOT_MAINTAINED;
@@ -84,6 +84,9 @@ namespace targil3B
             }
         }
 
+        /*
+         * input- the new status to change, if don't driving the km=0
+         */
         private void ChangeStatus(BUS_STATUS new_status, int km=0)
         {
             status = new_status;
@@ -106,7 +109,7 @@ namespace targil3B
                 default:
                     break;
             }
-            TimeStatus = timer;
+            TimeStatus = timer;//when I change the time- new thaerd ran
         }
         public int TimeStatus// the time remain to this status
         {
@@ -118,6 +121,10 @@ namespace targil3B
             {
                 if (value > 0)
                 {
+                    /*
+                     * The best way to take care of the change of time,
+                     * through a process that counts a minute's time in real time and changes the time timer to end status accordingly
+                     */
                     time_status = value;
                     Thread thread1 = new Thread(Timer);
                     thread1.Start();
