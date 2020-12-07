@@ -31,6 +31,7 @@ namespace targil3B
             initBuss();
             //ShowBusLine();
            busList.ItemsSource = buses;
+           
             //busList.DisplayMemberPath = "Registration";
             //busList.SelectedIndex = 0;
             //ShowBusLine(0);

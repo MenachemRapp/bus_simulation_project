@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:targil3B"
         mc:Ignorable="d"
-        Title="BusProprtiesWindow" Height="250" Width="600">
+        Title="BusProprtiesWindow" Height="250" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -21,19 +21,19 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Regestration Number" Grid.Row="0" Grid.Column="0"/>
+        <Label Content="Regestration Number:" Grid.Row="0" Grid.Column="0"/>
         <Label Name="txtRegestration" Grid.Row="0" Grid.Column="1"/>
         <Label Content="Begining of Circulation Date: " Grid.Row="1" Grid.Column="0"/>
-        <Label Name="txtCirculat" Grid.Row="1" Grid.Column="1"/>
-        <Label Content="Total Mileage" Grid.Row="2" Grid.Column="0"/>
+        <Label Name="txtCirculat" Grid.Row="1" Grid.Column="1" />
+        <Label Content="Total Mileage:" Grid.Row="2" Grid.Column="0"/>
         <Label Name="txtMileage" Grid.Row="2" Grid.Column="1"/>
-        <Label Content="Last Mantainance Date" Grid.Row="3" Grid.Column="0"/>
-        <Label Name="txtMaintDate" Grid.Row="3" Grid.Column="1"/>
-        <Label Content="Mileage since last Maintanace" Grid.Row="4" Grid.Column="0"/>
+        <Label Content="Last Mantainance Date:" Grid.Row="3" Grid.Column="0"/>
+        <Label Name="txtMaintDate" Grid.Row="3" Grid.Column="1" />
+        <Label Content="Mileage since last Maintanace:" Grid.Row="4" Grid.Column="0"/>
         <Label Name="txtMaintMile" Grid.Row="4" Grid.Column="1"/>
-        <Label Content="Mileage since last Refuel" Grid.Row="5" Grid.Column="0"/>
+        <Label Content="Mileage since last Refuel:" Grid.Row="5" Grid.Column="0"/>
         <Label Name="txtRefuel" Grid.Row="5" Grid.Column="1"/>
-        <Label Content="Bus Status" Grid.Row="6" Grid.Column="0"/>
+        <Label Content="Bus Status:" Grid.Row="6" Grid.Column="0"/>
         <Label Name="txtStatus" Grid.Row="6" Grid.Column="1"/>
 
         <Button Content="Refuel" Click="RefuelClicked" Grid.Row="7" Grid.Column="0" Width="50" Margin="0,5,0,5"/>
