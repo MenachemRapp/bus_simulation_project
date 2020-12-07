@@ -109,6 +109,7 @@ namespace targil3B
                     MessageBox.Show("Bus cannot drive", "Select Bus", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                     new DistanceWindow(selectedBus).Show();
+                
                 //bus_SelectionChanged(sender);
             }
         }
