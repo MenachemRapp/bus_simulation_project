@@ -160,13 +160,13 @@ namespace targil3B
                     //checks
                     registration = value;
                 }
-                else if (value.Length == 7)
+                else if (aliya.Year < 2018 && value.Length == 7)
                 {
                     registration = value;
                 }
                 else
                 {
-                    throw new Exception("taarich lo takin");
+                    throw new Exception("Wrong number of digits");
                 }
             }
         }
