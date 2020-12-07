@@ -31,23 +31,31 @@ namespace targil3B
             ShowMaintaineMileage(bus);
             ShowRefuelMileage(bus);
             ShowStatus(bus);
+            ShowStatusTime(bus);
 
             myBus = bus;
 
             MaintainClickedEvent += ShowMaintaineDate;
             MaintainClickedEvent += ShowMaintaineMileage;
             MaintainClickedEvent += ShowStatus;
+            MaintainClickedEvent += ShowStatusTime;
             RefuelClickedEvent += ShowRefuelMileage;
             RefuelClickedEvent += ShowStatus;
+            RefuelClickedEvent += ShowStatusTime;
 
-            
+
+
         }
 
         private void ShowStatus(Bus bus)
         {
             txtStatus.Content= bus.bus_status.ToString();
         }
-                
+
+        private void ShowStatusTime(Bus bus)
+        {
+            txtStatusTime.Content = bus.TimeStatus.ToString();
+        }
 
         private void ShowRefuelMileage(Bus bus)
         {
@@ -86,7 +94,14 @@ namespace targil3B
         public delegate void ButtonClickedHandler(Bus bus);
         public event ButtonClickedHandler MaintainClickedEvent;
         public event ButtonClickedHandler RefuelClickedEvent;
-                       
+
+
+        private void TimeClicked(object sender, RoutedEventArgs e)
+        {
+            ShowStatusTime(myBus);
+
+
+        }
     }
 
 }
