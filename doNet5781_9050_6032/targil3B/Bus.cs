@@ -10,13 +10,14 @@ namespace targil3B
         private bool dangerous;
         private BUS_STATUS status;
         private int time_status;
-        const int TIME_OF_FIXING = 24 * 60 * 60, TIME_OF_REFULING = 2 * 60 * 60, MIN_TIME_KM = (60 * 60) / 20, MAX_TIME_KM = (60 * 60) / 50;
-        const int CONVERT_REALY_TIME_TO_TIME_COMPUTER = 1 / 600, TIME_REALY_TO_TIMER=60;
+        const int TIME_OF_FIXING = 24 * 60 * 60, TIME_OF_REFULING = 2 * 60 * 60, MIN_TIME_KM = (60 * 60) / 50, MAX_TIME_KM = (60 * 60) / 20;
+        const double CONVERT_REALY_TIME_TO_TIME_COMPUTER = 1 / 600;
 
         public bool CanDrive()
+
         {
-            return (status == BUS_STATUS.AVAILABLE && kilometer_fuel > 0 && kilometer_maintanence > 0);
-             ////tho chack the date of maintance, !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return (status == BUS_STATUS.AVAILABLE && kilometer_fuel <1200 && kilometer_maintanence < 20000 && DateTime.Now.AddYears(-1) < maintanence_date);
+            
         }
 
         public int Kilometer_total
@@ -52,6 +53,7 @@ namespace targil3B
 
         public Bus(string registration, DateTime aliya)
         {
+            this.status = BUS_STATUS.AVAILABLE;
             this.aliya = aliya;
             this.Registration = registration;
             this.maintanence_date = aliya;
@@ -68,6 +70,12 @@ namespace targil3B
         {
             get
             {
+                if (DateTime.Now.AddYears(-1) >= maintanence_date)
+                {
+                    status = BUS_STATUS.NOT_MAINTAINED;
+                    return BUS_STATUS.NOT_MAINTAINED;
+                }
+                    
                 return status;
             }
             private set
@@ -78,13 +86,14 @@ namespace targil3B
 
         private void ChangeStatus(BUS_STATUS new_status, int km=0)
         {
+            status = new_status;
             int timer = 0;
             switch (new_status)
             {
                 
                 case BUS_STATUS.DRIVING:
-                    ///to do_random!!!!!!!!!!!!!!!!!!!!!!!!!
-                    timer = km * MIN_TIME_KM;
+                    Random r = new Random(DateTime.Now.Millisecond);
+                    timer = km * r.Next( MIN_TIME_KM, MAX_TIME_KM);
                     break;
                 case BUS_STATUS.REFULING:
                     timer = TIME_OF_REFULING;
@@ -97,7 +106,7 @@ namespace targil3B
                 default:
                     break;
             }
-
+            TimeStatus = timer;
         }
         public int TimeStatus// the time remain to this status
         {
@@ -121,8 +130,8 @@ namespace targil3B
         {
             while (time_status > 0)
             {
-                Thread.Sleep(TIME_REALY_TO_TIMER * CONVERT_REALY_TIME_TO_TIME_COMPUTER * 1000);
-                time_status -= (TIME_REALY_TO_TIMER );
+                Thread.Sleep(100);
+                time_status -= (60 );
             }
             status = BUS_STATUS.AVAILABLE;
             if (time_status < 0)
@@ -196,7 +205,7 @@ If it is suitable, returns true, and updates the mileage and fuel
         public bool drive(int km)
         {
             //
-            if (kilometer_maintanence+km>=20000 || (DateTime.Now.AddYears(-1)>= maintanence_date) || kilometer_fuel+km>1200)
+            if (status!=BUS_STATUS.AVAILABLE && kilometer_maintanence+km>=20000 || (DateTime.Now.AddYears(-1)>= maintanence_date) || kilometer_fuel + km > 1200)
              return false;
             ChangeStatus(BUS_STATUS.DRIVING, km);
             kilometer_fuel += km;

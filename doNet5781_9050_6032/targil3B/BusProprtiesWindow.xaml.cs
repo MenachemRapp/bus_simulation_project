@@ -41,7 +41,7 @@ namespace targil3B
 
         private void MaitainClicked(object sender, RoutedEventArgs e)
         {
-            this.myBus.refuel();
+            this.myBus.maintain();
         }
     }
 }

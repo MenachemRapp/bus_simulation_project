@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:targil3B"
         mc:Ignorable="d"
-        Title="DistanceWindow" Height="450" Width="800">
+        Title="DistanceWindow" Height="100" Width="100">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="TextInputKm" Grid.Row="0" MinWidth="40"/>
+        <Button Content="drive" Name="button_sumbit"  Click="button_sumbit_Click" Grid.Row="1"/>
     </Grid>
 </Window>

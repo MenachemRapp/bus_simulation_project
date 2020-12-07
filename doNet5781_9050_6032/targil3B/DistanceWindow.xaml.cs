@@ -19,9 +19,26 @@ namespace targil3B
     /// </summary>
     public partial class DistanceWindow : Window
     {
+        Bus bus;
         public DistanceWindow(Bus bus)
         {
+            this.bus = bus;
             InitializeComponent();
+        }
+
+        private void button_sumbit_Click(object sender, RoutedEventArgs e)
+        {
+            if (Convert.ToInt32(TextInputKm.Text) > 0)
+            {
+                if (!bus.drive(Convert.ToInt32(TextInputKm.Text)))
+                {
+                    MessageBox.Show("Bus don't driving", "don't driving", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                    MessageBox.Show("Bus driving", "drive", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                this.Close();
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace targil3B
 {
     public enum CHOICE
     {
-        ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE, KILOMETER_MAINTANENCE, EXIT = -1
+        ADD_BUS, PICK_BUS, REFUEL_OR_MAINTENANCE, KILOMETER_MAINTANENCE,  EXIT = -1
     }
 
     public enum FUEL_MAINTAIN
@@ -18,6 +18,6 @@ namespace targil3B
     
     public enum BUS_STATUS
     {
-        DRIVING, REFULING, FIXING, AVAILABLE
+        DRIVING, REFULING, FIXING, AVAILABLE, NOT_MAINTAINED
     }
 }
