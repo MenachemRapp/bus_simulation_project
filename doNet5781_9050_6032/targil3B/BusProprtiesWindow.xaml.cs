@@ -72,30 +72,38 @@ namespace targil3B
             });
             
         }
+
+        //show bus status
         private void ShowStatus(Bus bus)
         {
             txtStatus.Content= bus.bus_status.ToString();
         }
 
+        //show the status timer
         private void ShowStatusTime(Bus bus)
         {
-            txtStatusTime.Content = bus.TimeStatus.ToString();
+            txtStatusTime.Content = TimeSpan.FromSeconds(bus.TimeStatus).ToString();
         }
-       
+
+        //show the refuel date
         private void ShowRefuelMileage(Bus bus)
         {
             txtRefuel.Content = bus.Kilometer_fuel;
         }
 
+        //show the maintain mileage
         private void ShowMaintaineMileage(Bus bus)
         {
             txtMaintMile.Content = bus.Kilometer_maintanence;
         }
+        
+        //show the maintain date
         private void ShowMaintaineDate(Bus bus)
         {
             txtMaintDate.Content = bus.Maintanence_date;
         }
 
+        //click refuel
         private void RefuelClicked(object sender, RoutedEventArgs e)
         {
             this.myBus.refuel();
@@ -106,6 +114,7 @@ namespace targil3B
                        
         }
 
+        //click maintain
         private void MaitainClicked(object sender, RoutedEventArgs e)
         {
             this.myBus.maintain();
@@ -120,13 +129,7 @@ namespace targil3B
         public event ButtonClickedHandler MaintainClickedEvent;
         public event ButtonClickedHandler RefuelClickedEvent;
 
-
-        private void TimeClicked(object sender, RoutedEventArgs e)
-        {
-            ShowStatusTime(myBus);
-
-
-        }
+                
     }
 
 }
