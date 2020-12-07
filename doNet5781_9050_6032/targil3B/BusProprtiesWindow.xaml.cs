@@ -27,52 +27,66 @@ namespace targil3B
             txtCirculat.Content = bus.Aliya;
             txtRegestration.Content = bus.str_registration();
             txtMileage.Content = bus.Kilometer_total;
-           
-            ShowMaintaineDate(bus.Maintanence_date);
-            ShowMaintaineMilage(bus.Kilometer_maintanence);
-            ShowRefuelMilage(bus.Kilometer_fuel);
-            
-            ShowStatus(bus.bus_status);
-            
+            ShowMaintaineDate(bus);
+            ShowMaintaineMileage(bus);
+            ShowRefuelMileage(bus);
+            ShowStatus(bus);
+
             myBus = bus;
+
+            MaintainClickedEvent += ShowMaintaineDate;
+            MaintainClickedEvent += ShowMaintaineMileage;
+            MaintainClickedEvent += ShowStatus;
+            RefuelClickedEvent += ShowRefuelMileage;
+            RefuelClickedEvent += ShowStatus;
+
+            
         }
 
-        private void ShowStatus(BUS_STATUS bus_status)
+        private void ShowStatus(Bus bus)
         {
-            txtStatus.Content=bus_status.ToString();
+            txtStatus.Content= bus.bus_status.ToString();
         }
                 
 
-        private void ShowRefuelMilage(int kilometer_fuel)
+        private void ShowRefuelMileage(Bus bus)
         {
-            txtRefuel.Content = kilometer_fuel;
+            txtRefuel.Content = bus.Kilometer_fuel;
         }
 
-        private void ShowMaintaineMilage(int kilometer_maintanence)
+        private void ShowMaintaineMileage(Bus bus)
         {
-            txtMaintMile.Content = kilometer_maintanence;
+            txtMaintMile.Content = bus.Kilometer_maintanence;
+        }
+        private void ShowMaintaineDate(Bus bus)
+        {
+            txtMaintDate.Content = bus.Maintanence_date;
         }
 
         private void RefuelClicked(object sender, RoutedEventArgs e)
         {
             this.myBus.refuel();
-            ShowRefuelMilage(myBus.Kilometer_fuel);
-            ShowStatus(myBus.bus_status);
-           
+            if (RefuelClickedEvent!=null)
+            {
+                RefuelClickedEvent(myBus);
+            }
+                       
         }
 
         private void MaitainClicked(object sender, RoutedEventArgs e)
         {
             this.myBus.maintain();
-            ShowMaintaineDate(myBus.Maintanence_date);
-            ShowMaintaineMilage(myBus.Kilometer_maintanence);
-            ShowStatus(myBus.bus_status);
-          
+            if (MaintainClickedEvent!=null)
+            {
+                MaintainClickedEvent(myBus);
+            }
+            
+
         }
-    
-        private void ShowMaintaineDate(DateTime date)
-        {
-            txtMaintDate.Content = date;
-        }
+        public delegate void ButtonClickedHandler(Bus bus);
+        public event ButtonClickedHandler MaintainClickedEvent;
+        public event ButtonClickedHandler RefuelClickedEvent;
+                       
     }
+
 }
