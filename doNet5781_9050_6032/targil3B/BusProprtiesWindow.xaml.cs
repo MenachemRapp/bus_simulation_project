@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Timers;
 
 namespace targil3B
 {
@@ -21,8 +22,10 @@ namespace targil3B
     public partial class BusProprtiesWindow : Window
     {
         Bus myBus;
+        private static Timer aTimer;
         public BusProprtiesWindow(Bus bus)
         {
+
             InitializeComponent();
             txtCirculat.Content = bus.Aliya;
             txtRegestration.Content = bus.str_registration();
@@ -44,9 +47,31 @@ namespace targil3B
             RefuelClickedEvent += ShowStatusTime;
 
 
+            // Create a timer and set a one second interval.
+            aTimer = new System.Timers.Timer();
+            aTimer.Interval = 2000;
+
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+
+            // Have the timer fire repeated events (true is the default)
+            aTimer.AutoReset = true;
+
+            // Start the timer
+            aTimer.Enabled = true;
+
 
         }
 
+        private  void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                TimeSpan t = TimeSpan.FromSeconds(myBus.TimeStatus);
+                txtStatusTime.Content = t.ToString();
+            });
+            
+        }
         private void ShowStatus(Bus bus)
         {
             txtStatus.Content= bus.bus_status.ToString();
@@ -56,7 +81,7 @@ namespace targil3B
         {
             txtStatusTime.Content = bus.TimeStatus.ToString();
         }
-
+       
         private void ShowRefuelMileage(Bus bus)
         {
             txtRefuel.Content = bus.Kilometer_fuel;
