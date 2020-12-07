@@ -13,6 +13,7 @@ namespace targil3B
         const int TIME_OF_FIXING = 24 * 60 * 60, TIME_OF_REFULING = 2 * 60 * 60, MIN_TIME_KM = (60 * 60) / 50, MAX_TIME_KM = (60 * 60) / 20;
         const double CONVERT_REALY_TIME_TO_TIME_COMPUTER = 1 / 600;
 
+        //tests if the bus can drive
         public bool CanDrive()
 
         {
@@ -20,6 +21,7 @@ namespace targil3B
             
         }
 
+        //total kilometers
         public int Kilometer_total
         {
             get
@@ -28,7 +30,7 @@ namespace targil3B
             }
         }
 
-        
+        //kilometers since refueling
         public int Kilometer_fuel
         {
             get
@@ -36,6 +38,8 @@ namespace targil3B
                 return kilometer_fuel;
             }
         }
+
+        //Aliya date
         public DateTime Aliya
         {
             get
@@ -43,6 +47,8 @@ namespace targil3B
                 return aliya;
             }
         }
+
+        //last manitanance date
         public DateTime Maintanence_date
         {
             get
@@ -51,6 +57,7 @@ namespace targil3B
             }
         }
 
+        //ctor
         public Bus(string registration, DateTime aliya)
         {
             this.status = BUS_STATUS.AVAILABLE;
@@ -66,6 +73,7 @@ namespace targil3B
                 this.dangerous = true;
         }
 
+        //bus status
         public BUS_STATUS bus_status
         {
             get
@@ -133,6 +141,7 @@ namespace targil3B
             }
         }
 
+        //timer for the status
         private void Timer()
         {
             while (time_status > 0)
@@ -144,6 +153,8 @@ namespace targil3B
             if (time_status < 0)
                 time_status = 0;
         }
+        
+        //regestration number
         public string Registration
         {
             //  get => regisration;
@@ -171,6 +182,7 @@ namespace targil3B
             }
         }
 
+        //kilometers since maintanence
         public int Kilometer_maintanence
         {
             get
