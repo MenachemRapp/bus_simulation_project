@@ -249,7 +249,7 @@ If it is suitable, returns true, and updates the mileage and fuel
             this.dangerous = false;
         }
 
-       
+      
        public bool Equals(Bus other)
         {
             return (this.Registration == other.Registration);
