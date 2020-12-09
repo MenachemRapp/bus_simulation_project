@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Timers;
 
 
 namespace targil3B
@@ -21,16 +22,53 @@ namespace targil3B
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
-
     {
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
+
+        private static System.Timers.Timer aTimer;
+
         public MainWindow()
+
         {
-            InitializeComponent();
+                      
+
+        InitializeComponent();
             initBuss();
-            busList.ItemsSource = buses;
+            busList.DataContext = buses;
+
+            // Create a timer and set a one second interval.
+            aTimer = new System.Timers.Timer();
+            aTimer.Interval = 2000;
+
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+
+            // Have the timer fire repeated events (true is the default)
+            aTimer.AutoReset = true;
+
+            // Start the timer
+            aTimer.Enabled = true;
         }
+
+        private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+               showList();
+            });
+            
+
+        }
+
+        public void showList()
+        {
+            busList.DataContext=null;
+            busList.DataContext = buses;
+            
+        }
+
         // initilize bus list
         private void initBuss()
         {
@@ -114,6 +152,18 @@ namespace targil3B
             buses.Add(bus);                      
         }
 
-            }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            showList();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+                    
+            this.Close();
+           //close all timers
+
+        }
+    }
         }
 
