@@ -28,7 +28,7 @@ namespace targil3B
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
 
         private static System.Timers.Timer aTimer;
-
+        public bool window_closed = false;
         public MainWindow()
 
         {
@@ -54,10 +54,10 @@ namespace targil3B
 
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            this.Dispatcher.Invoke(() =>
-            {
-               showList();
-            });
+             this.Dispatcher.Invoke(() =>
+                {
+                    showList();
+                });
             
 
         }
@@ -159,9 +159,16 @@ namespace targil3B
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                
+                this.Close();
+                         
+                //close all threads
+               
+            }
                     
-            this.Close();
-           //close all timers
 
         }
     }

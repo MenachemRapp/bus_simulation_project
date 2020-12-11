@@ -67,7 +67,7 @@ namespace targil3B
         {
             this.Dispatcher.Invoke(() =>
             {
-                TimeSpan t = TimeSpan.FromSeconds(myBus.TimeStatus);
+                TimeSpan t = myBus.TimeStatus;
                 txtStatusTime.Content = t.ToString();
             });
             
@@ -82,7 +82,7 @@ namespace targil3B
         //show the status timer
         private void ShowStatusTime(Bus bus)
         {
-            txtStatusTime.Content = TimeSpan.FromSeconds(bus.TimeStatus).ToString();
+            txtStatusTime.Content = bus.TimeStatus.ToString();
         }
 
         //show the refuel date

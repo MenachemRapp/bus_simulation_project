@@ -57,6 +57,7 @@ namespace targil3B
             }
         }
 
+
         //ctor
         public Bus(string registration, DateTime aliya)
         {
@@ -117,23 +118,23 @@ namespace targil3B
                 default:
                     break;
             }
-            TimeStatus = timer;//when I change the time- new thaerd ran
+            TimeStatus = TimeSpan.FromSeconds(timer);//when I change the time- new thaerd ran
         }
-        public int TimeStatus// the time remain to this status
+        public TimeSpan TimeStatus// the time remain to this status
         {
             get
             {
-                return time_status;
+                return TimeSpan.FromSeconds(time_status);
             }
            private set
             {
-                if (value > 0)
+                if (value.TotalSeconds > 0)
                 {
                     /*
                      * The best way to take care of the change of time,
                      * through a process that counts a minute's time in real time and changes the time timer to end status accordingly
                      */
-                    time_status = value;
+                    time_status = Convert.ToInt32(value.TotalSeconds);
                     Thread thread1 = new Thread(Timer);
                     thread1.Start();
                 }
@@ -182,6 +183,14 @@ namespace targil3B
             }
         }
 
+        public string Registration_str
+        {
+            //  get => regisration;
+            get
+            {
+                return str_registration();
+            }
+            }
         //kilometers since maintanence
         public int Kilometer_maintanence
         {

@@ -17,7 +17,7 @@
 
                 <Button Content="Refuel" Margin="5,0,5,0" Click="refuel_Clicked"/>
                 <TextBlock Text="Bus Registration Number: " FontWeight="Bold" Width="auto" Height="auto"/>
-                <TextBlock Text="{Binding Path=Registration}" Width="60" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Path=Registration_str}" Width="62" HorizontalAlignment="Center">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Background" Value="OrangeRed" />
@@ -32,7 +32,7 @@
 
                 <TextBlock  Width="20" HorizontalAlignment="Right" Height="auto"/>
 
-                <TextBlock Text="{Binding Path=TimeStatus}"  Width="500" >
+                <TextBlock Text="{Binding Path=TimeStatus}"  Width="100" >
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Visibility" Value="Visible" />
@@ -54,15 +54,21 @@
     </Window.Resources>
     <Grid Name="mainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="53*"/>
             <RowDefinition Height="367*"/>
-            
+            <RowDefinition Height="53*"/>
         </Grid.RowDefinitions>
-        <ListBox Name="busList"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}"/>
-        <Button x:Name="addBussButton" Content="Add Buss"   HorizontalAlignment="Left" Margin="172,20,0,0" VerticalAlignment="Top" Width="75" Click="cmdAddBus_Clicked"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="451,12,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <ListBox Name="busList"  Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}"/>
+
+        <Grid Name="buttonGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="addBussButton" Content="Add Buss"   HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="cmdAddBus_Clicked"  Grid.Column="0"/>
+            <Button Content="Exit"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Window_Closed" Grid.Column="1" />
 
 
+        </Grid>
     </Grid>
     
 </Window>
