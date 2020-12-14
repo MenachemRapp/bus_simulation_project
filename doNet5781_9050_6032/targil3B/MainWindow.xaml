@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:targil3B"
         mc:Ignorable="d"
+        Closed="Window_Closed"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
 
@@ -12,13 +13,37 @@
 
             <StackPanel Orientation="Horizontal" MouseDown="cmdList_Clicked">
 
-
-
                 <Button Content="Select Bus" Margin="5,0,5,0" Click="selectBus_Clicked"/>
 
                 <Button Content="Refuel" Margin="5,0,5,0" Click="refuel_Clicked"/>
-                <TextBlock Text="Bus Registration Number: " FontWeight="Bold" Width="auto" />
-                <TextBlock Text="{Binding Path=Registration}" Width="200" />
+                <TextBlock Text="Bus Registration Number: " FontWeight="Bold" Width="auto" Height="auto"/>
+                <TextBlock Text="{Binding Path=Registration_str}" Width="62" HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Background" Value="OrangeRed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=bus_status}" Value="AVAILABLE">
+                                <Setter Property="Background" Value="GreenYellow" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                </TextBlock>
+
+                <TextBlock  Width="20" HorizontalAlignment="Right" Height="auto"/>
+
+                <TextBlock Text="{Binding Path=TimeStatus}"  Width="100" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=TimeStatus}" Value="0">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 
                 
 
@@ -27,16 +52,23 @@
         </DataTemplate>
 
     </Window.Resources>
-    <Grid>
+    <Grid Name="mainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="53*"/>
             <RowDefinition Height="367*"/>
-            
+            <RowDefinition Height="53*"/>
         </Grid.RowDefinitions>
-        <ListBox Name="busList"  Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}"/>
-        <Button x:Name="addBussButton" Content="Add Buss"   HorizontalAlignment="Left" Margin="172,20,0,0" VerticalAlignment="Top" Width="75" Click="cmdAddBus_Clicked"/>
-        
+        <ListBox Name="busList"  Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}"/>
 
+        <Grid Name="buttonGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="addBussButton" Content="Add Buss"   HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="cmdAddBus_Clicked"  Grid.Column="0"/>
+            <Button Content="Exit"  HorizontalAlignment="Center"  VerticalAlignment="Center" Width="75" Click="Window_Closed" Grid.Column="1" />
+
+
+        </Grid>
     </Grid>
     
 </Window>

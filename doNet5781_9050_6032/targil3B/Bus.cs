@@ -14,11 +14,8 @@ namespace targil3B
         private int time_status;
         const int TIME_OF_FIXING = 24 * 60 * 60, TIME_OF_REFULING = 2 * 60 * 60, MIN_TIME_KM = (60 * 60) / 50, MAX_TIME_KM = (60 * 60) / 20;
         const double CONVERT_REALY_TIME_TO_TIME_COMPUTER = 1 / 600;
-       
 
-       
-        
-        
+        //tests if the bus can drive
         public bool CanDrive()
 
         {
@@ -26,6 +23,7 @@ namespace targil3B
             
         }
 
+        //total kilometers
         public int Kilometer_total
         {
             get
@@ -34,7 +32,7 @@ namespace targil3B
             }
         }
 
-        
+        //kilometers since refueling
         public int Kilometer_fuel
         {
             get
@@ -42,6 +40,8 @@ namespace targil3B
                 return kilometer_fuel;
             }
         }
+
+        //Aliya date
         public DateTime Aliya
         {
             get
@@ -49,6 +49,8 @@ namespace targil3B
                 return aliya;
             }
         }
+
+        //last manitanance date
         public DateTime Maintanence_date
         {
             get
@@ -57,6 +59,8 @@ namespace targil3B
             }
         }
 
+
+        //ctor
         public Bus(string registration, DateTime aliya)
         {
             this.status = BUS_STATUS.AVAILABLE;
@@ -72,6 +76,7 @@ namespace targil3B
                 this.dangerous = true;
         }
 
+        //bus status
         public BUS_STATUS bus_status
         {
             get
@@ -115,25 +120,23 @@ namespace targil3B
                 default:
                     break;
             }
-            TimeStatus = timer;//when I change the time- new thaerd ran
+            TimeStatus = TimeSpan.FromSeconds(timer);//when I change the time- new thaerd ran
         }
-        public int TimeStatus// the time remain to this status
+        public TimeSpan TimeStatus// the time remain to this status
         {
             get
             {
-                return time_status;
+                return TimeSpan.FromSeconds(time_status);
             }
            private set
             {
-                if (value > 0)
+                if (value.TotalSeconds > 0)
                 {
                     /*
                      * The best way to take care of the change of time,
                      * through a process that counts a minute's time in real time and changes the time timer to end status accordingly
                      */
-                    time_status = value;
-                   
-
+                    time_status = Convert.ToInt32(value.TotalSeconds);
                     Thread thread1 = new Thread(Timer);
                     thread1.Start();
                 }
@@ -141,6 +144,7 @@ namespace targil3B
             }
         }
 
+        //timer for the status
         private void Timer()
         {
             while (time_status > 0)
@@ -152,7 +156,8 @@ namespace targil3B
             if (time_status < 0)
                 time_status = 0;
         }
-
+        
+        //regestration number
         public string Registration
         {
             //  get => regisration;
@@ -169,17 +174,26 @@ namespace targil3B
                     //checks
                     registration = value;
                 }
-                else if (value.Length == 7)
+                else if (aliya.Year < 2018 && value.Length == 7)
                 {
                     registration = value;
                 }
                 else
                 {
-                    throw new Exception("taarich lo takin");
+                    throw new Exception("Wrong number of digits");
                 }
             }
         }
 
+        public string Registration_str
+        {
+            //  get => regisration;
+            get
+            {
+                return str_registration();
+            }
+            }
+        //kilometers since maintanence
         public int Kilometer_maintanence
         {
             get
@@ -246,7 +260,7 @@ If it is suitable, returns true, and updates the mileage and fuel
             this.dangerous = false;
         }
 
-       
+      
        public bool Equals(Bus other)
         {
             return (this.Registration == other.Registration);

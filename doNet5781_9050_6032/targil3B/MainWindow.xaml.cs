@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Threading;
+using System.Timers;
 
 
 namespace targil3B
@@ -21,63 +22,74 @@ namespace targil3B
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
-
     {
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
+
+        private static System.Timers.Timer aTimer;
+        public bool window_closed = false;
         public MainWindow()
+
         {
-            InitializeComponent();
+                      
+
+        InitializeComponent();
             initBuss();
-            //ShowBusLine();
-           busList.ItemsSource = buses;
-           
-            //busList.DisplayMemberPath = "Registration";
-            //busList.SelectedIndex = 0;
-            //ShowBusLine(0);
+            busList.DataContext = buses;
+            
+
+            // Create a timer and set a one second interval.
+            aTimer = new System.Timers.Timer();
+            aTimer.Interval = 2000;
+
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+
+            // Have the timer fire repeated events (true is the default)
+            aTimer.AutoReset = true;
+
+            // Start the timer
+            aTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+             this.Dispatcher.Invoke(() =>
+                {
+                    showList();
+                });
+            
 
         }
-        /*private void bus_SelectionChanged(object sender)
-        {
-            ShowBusLine();
-        }*/
-        /*private void lbBuses_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ShowBusLine(1);
-        }*/
 
+        public void showList()
+        {
+            busList.DataContext=null;
+            busList.DataContext = buses;
+            
+        }
+
+        // initilize bus list
         private void initBuss()
         {
 
             buses.Add(new Bus("2233322", new DateTime(2000, 11, 11)));
             buses.Add(new Bus("33322333", new DateTime(2020, 11, 11)));
             buses.Add(new Bus("1133311", new DateTime(2007, 01, 01)));
-            buses.Add(new Bus("33300333", new DateTime(2019, 03, 28)));
+            buses.Add(new Bus("12345841", new DateTime(2019, 03, 28)));
+            buses.Add(new Bus("1656486", new DateTime(2000, 11, 11)));
+            buses.Add(new Bus("48645467", new DateTime(2020, 11, 11)));
+            buses.Add(new Bus("2132183", new DateTime(2007, 01, 01)));
+            buses.Add(new Bus("54453487", new DateTime(2019, 03, 28)));
+            buses.Add(new Bus("1587538", new DateTime(2000, 11, 11)));
+            buses.Add(new Bus("15879630", new DateTime(2020, 11, 11)));
+            buses.Add(new Bus("4785369", new DateTime(2007, 01, 01)));
+            buses.Add(new Bus("12587961", new DateTime(2019, 03, 28)));
 
         }
 
-        /*private List<Bus> currentDisplayBus;
-        private void ShowBusLine()
-        {
-            currentDisplayBus = buses;
-            DataContext = currentDisplayBus;
-            busList.DataContext = currentDisplayBus;
-
-        }*/
-
-        /* private void cmdDeleteUser_Clicked(object sender, RoutedEventArgs e)
-         {
-
-             Button cmd = (Button)sender;
-             if (cmd.DataContext is Bus)
-             {
-                 Bus deleteme = (Bus)cmd.DataContext;
-                 buses.Remove(deleteme);
-                 //bus_SelectionChanged(sender);
-             }
-
-         }*/
-
+        //click twice on a bus
         private void cmdList_Clicked(object sender, MouseButtonEventArgs e)
         {
 
@@ -93,12 +105,14 @@ namespace targil3B
             }
         }
 
+        //click to add a bus
         private void cmdAddBus_Clicked(object sender, RoutedEventArgs e)
         {
             new AddWindow().Show();
            
         }
 
+        //select a bus to dirve
         private void selectBus_Clicked(object sender, RoutedEventArgs e)
         {
             Button cmd = (Button)sender;
@@ -109,11 +123,11 @@ namespace targil3B
                     MessageBox.Show("Bus cannot drive", "Select Bus", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                     new DistanceWindow(selectedBus).Show();
-                
-                //bus_SelectionChanged(sender);
+          
             }
         }
 
+        //click to refuel a bus
         private void refuel_Clicked(object sender, RoutedEventArgs e)
         {
             Button cmd = (Button)sender;
@@ -125,9 +139,9 @@ namespace targil3B
 
             }
 
-
         }
 
+        //add a new bus
         public void addBus(Bus bus)
         {
            
@@ -139,10 +153,21 @@ namespace targil3B
             buses.Add(bus);                      
         }
 
-       /* private void Buses_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
-        }*/
+            showList();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                Environment.Exit(Environment.ExitCode);
             }
+                    
+
+        }
+    }
         }
 
