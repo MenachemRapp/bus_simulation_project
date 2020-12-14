@@ -22,22 +22,22 @@ namespace targil3B
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    
+
     public partial class MainWindow : Window
     {
         ObservableCollection<Bus> buses = new ObservableCollection<Bus>();
 
         private static System.Timers.Timer aTimer;
-        public bool window_closed = false;
+        
         public MainWindow()
 
         {
-                      
 
-        InitializeComponent();
+
+            InitializeComponent();
             initBuss();
             busList.DataContext = buses;
-            
+
 
             // Create a timer and set a one second interval.
             aTimer = new System.Timers.Timer();
@@ -53,21 +53,22 @@ namespace targil3B
             aTimer.Enabled = true;
         }
 
+        //dispatcher for sowing the time
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-             this.Dispatcher.Invoke(() =>
-                {
-                    showList();
-                });
-            
+            this.Dispatcher.Invoke(() =>
+               {
+                   showList();
+               });
+
 
         }
 
         public void showList()
         {
-            busList.DataContext=null;
+            busList.DataContext = null;
             busList.DataContext = buses;
-            
+
         }
 
         // initilize bus list
@@ -100,7 +101,7 @@ namespace targil3B
                 {
                     Bus selectedBus = (Bus)cmd.DataContext;
                     new BusProprtiesWindow(selectedBus).Show();
-                   
+
                 }
             }
         }
@@ -109,7 +110,7 @@ namespace targil3B
         private void cmdAddBus_Clicked(object sender, RoutedEventArgs e)
         {
             new AddWindow().Show();
-           
+
         }
 
         //select a bus to dirve
@@ -123,7 +124,7 @@ namespace targil3B
                     MessageBox.Show("Bus cannot drive", "Select Bus", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 else
                     new DistanceWindow(selectedBus).Show();
-          
+
             }
         }
 
@@ -144,20 +145,16 @@ namespace targil3B
         //add a new bus
         public void addBus(Bus bus)
         {
-           
+
             if (buses.Contains<Bus>(bus))
             {
                 throw new ArgumentException("The bus is already on the list");
-               
+
             }
-            buses.Add(bus);                      
+            buses.Add(bus);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            showList();
-        }
-
+        //exiting the program
         private void Window_Closed(object sender, EventArgs e)
         {
             MessageBoxResult answer = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -165,9 +162,9 @@ namespace targil3B
             {
                 Environment.Exit(Environment.ExitCode);
             }
-                    
+
 
         }
     }
-        }
+}
 
