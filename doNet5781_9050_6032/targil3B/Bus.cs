@@ -1,5 +1,7 @@
 ﻿ using System;
+using System.Diagnostics;
 using System.Threading;
+using System.Timers;
 namespace targil3B
 {
     public class Bus:IEquatable<Bus>
@@ -12,7 +14,11 @@ namespace targil3B
         private int time_status;
         const int TIME_OF_FIXING = 24 * 60 * 60, TIME_OF_REFULING = 2 * 60 * 60, MIN_TIME_KM = (60 * 60) / 50, MAX_TIME_KM = (60 * 60) / 20;
         const double CONVERT_REALY_TIME_TO_TIME_COMPUTER = 1 / 600;
+       
 
+       
+        
+        
         public bool CanDrive()
 
         {
@@ -126,6 +132,8 @@ namespace targil3B
                      * through a process that counts a minute's time in real time and changes the time timer to end status accordingly
                      */
                     time_status = value;
+                   
+
                     Thread thread1 = new Thread(Timer);
                     thread1.Start();
                 }
@@ -138,12 +146,13 @@ namespace targil3B
             while (time_status > 0)
             {
                 Thread.Sleep(100);
-                time_status -= (60 );
+                time_status -= (60);
             }
             status = BUS_STATUS.AVAILABLE;
             if (time_status < 0)
                 time_status = 0;
         }
+
         public string Registration
         {
             //  get => regisration;
