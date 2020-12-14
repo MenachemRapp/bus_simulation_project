@@ -37,6 +37,7 @@ namespace targil3B
         InitializeComponent();
             initBuss();
             busList.DataContext = buses;
+            
 
             // Create a timer and set a one second interval.
             aTimer = new System.Timers.Timer();
@@ -162,11 +163,7 @@ namespace targil3B
             MessageBoxResult answer = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (answer == MessageBoxResult.Yes)
             {
-                
-                this.Close();
-                         
-                //close all threads
-               
+                Environment.Exit(Environment.ExitCode);
             }
                     
 
