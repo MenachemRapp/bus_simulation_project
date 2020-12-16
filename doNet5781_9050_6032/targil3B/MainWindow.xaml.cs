@@ -37,7 +37,7 @@ namespace targil3B
             InitializeComponent();
             initBuss();
             busList.DataContext = buses;
-
+            
 
             // Create a timer and set a one second interval.
             aTimer = new System.Timers.Timer();
@@ -162,8 +162,22 @@ namespace targil3B
             {
                 Environment.Exit(Environment.ExitCode);
             }
+           
 
+        }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult answer = MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (answer == MessageBoxResult.Yes)
+            {
+                Environment.Exit(Environment.ExitCode);
+            }
+            else
+            { 
+                e.Cancel = true;
+                
+            }
         }
     }
 }
