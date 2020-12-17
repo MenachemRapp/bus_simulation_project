@@ -8,11 +8,11 @@ namespace DO
 {
     class BusDAO
     {
-         int id { get; set; }
-        DateTime LicensingDate { get; set; }
-        int mileage { get; set; }
-        int AmountFuel { get; set; }
-        BUS_STATUS status { get; set; }
+        public int id { get; set; }
+        public DateTime LicensingDate { get; set; }
+        public int mileage { get; set; }
+        public int AmountFuel { get; set; }
+        public BUS_STATUS status { get; set; }
 
         public override string ToString()
         {
