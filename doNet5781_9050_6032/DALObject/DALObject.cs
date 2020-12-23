@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DALObject
+namespace DL
 {
-    public class Class1
+    internal class DALObject
     {
     }
 }
