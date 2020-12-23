@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DALAPI;
 
 namespace DL
 {
-    internal class DALObject
+    internal class DLObject:IDL
     {
     }
 }
