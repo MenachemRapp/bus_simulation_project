@@ -8,7 +8,7 @@ namespace DO
 {
     class BusDAO
     {
-        public int id { get; set; }
+        public int license_num { get; set; }
         public DateTime LicensingDate { get; set; }
         public int mileage { get; set; }
         public int AmountFuel { get; set; }

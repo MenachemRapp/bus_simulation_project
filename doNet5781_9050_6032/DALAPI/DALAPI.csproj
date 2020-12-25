@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,8 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DO\BusDAO.cs" />
+    <Compile Include="DO\Bus.cs" />
+    <Compile Include="DO\BusExits.cs" />
+    <Compile Include="DO\BusInDrive.cs" />
+    <Compile Include="DO\BusLine.cs" />
+    <Compile Include="DO\BusStop.cs" />
+    <Compile Include="DO\BusStopLine.cs" />
     <Compile Include="DO\Enumim.cs" />
+    <Compile Include="DO\PairConsecutiveStop.cs" />
     <Compile Include="DO\Tools.cs" />
     <Compile Include="IDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

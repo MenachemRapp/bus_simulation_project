@@ -12,4 +12,8 @@ namespace DO
     {
         DRIVING, REFULING, FIXING, AVAILABLE, NOT_MAINTAINED
     }
+    public enum Area
+    {
+        General, Jerusalem, North, South, Center
+    }
 }
