@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DO;
+//using DO;
 
 namespace DALAPI
 {
     public interface IDL
     {
         #region Bus
-        
         IEnumerable<DO.Bus> GetAllBuss();
         IEnumerable<DO.Bus> GetAllBussBy(Predicate<DO.Bus> predicate);
         DO.Bus GetBus(int id);
@@ -18,6 +17,17 @@ namespace DALAPI
         void UpdateBus(DO.Bus bus);
         void UpdateBus(int id, Action<DO.Bus> update); //method that knows to updt specific fields in Bus
         void DeleteBus(int id);
+        #endregion
+
+        #region BusStop
+        IEnumerable<DO.BusStop> GetAllBusStops();
+        IEnumerable<DO.BusStop> GetAllBusStopsBy(Predicate<DO.BusStop> predicate);
+        DO.BusStop GetBusStop(int id);
+        void AddBusStop(DO.BusStop bus_stop);
+        void UpdateBusStop(DO.BusStop bus_stop);
+        void UpdateBusStop(int id, Action<DO.BusStop> update); //method that knows to updt specific fields in BusStop
+        void DeleteBusStop(int id);
+
         #endregion
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class BusExits
+    public class BusExits
     {
         public int line_id { get; set; }
         public TimeSpan exit_time { get; set; }//to chack if time spane

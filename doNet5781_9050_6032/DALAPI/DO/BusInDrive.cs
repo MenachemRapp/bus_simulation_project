@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class BusInDrive
+    public class BusInDrive
     {
         public int id_run_num{ get; set; }
         public int license_num { get; set; }

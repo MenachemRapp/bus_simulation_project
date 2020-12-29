@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DO
 {
-    class PairConsecutiveStop
+    public class PairConsecutiveStop
     {
         public int first_stop_id { get; set; }
         public int second_stop_id { get; set; }
