@@ -12,22 +12,38 @@ namespace DALAPI
         #region Bus
         IEnumerable<DO.Bus> GetAllBuss();
         IEnumerable<DO.Bus> GetAllBussBy(Predicate<DO.Bus> predicate);
-        DO.Bus GetBus(int id);
+        DO.Bus GetBus(int LicenseNum);
         void AddBus(DO.Bus bus);
         void UpdateBus(DO.Bus bus);
-        void UpdateBus(int id, Action<DO.Bus> update); //method that knows to updt specific fields in Bus
-        void DeleteBus(int id);
+        void UpdateBus(int LicenseNum, Action<DO.Bus> update); //method that knows to updt specific fields in Bus
+        void DeleteBus(int LicenseNum);
         #endregion
 
-        #region BusStop
-        IEnumerable<DO.BusStop> GetAllBusStops();
-        IEnumerable<DO.BusStop> GetAllBusStopsBy(Predicate<DO.BusStop> predicate);
-        DO.BusStop GetBusStop(int id);
-        void AddBusStop(DO.BusStop bus_stop);
-        void UpdateBusStop(DO.BusStop bus_stop);
-        void UpdateBusStop(int id, Action<DO.BusStop> update); //method that knows to updt specific fields in BusStop
-        void DeleteBusStop(int id);
+        #region Station
+        IEnumerable<DO.Station> GetAllStations();
+        IEnumerable<DO.Station> GetAllStationsBy(Predicate<DO.Station> predicate);
+        DO.Station GetStation(int Code);
+        void AddStation(DO.Station station);
+        void UpdateStation(DO.Station sation);
+        void UpdateStation(int Code, Action<DO.Station> update); //method that knows to updt specific fields in Station
+        void DeleteStation(int Code);
 
         #endregion
+
+        #region AdjacentStations
+        IEnumerable<DO.AdjacentStations> GetAllAdjacentStationss();
+        IEnumerable<DO.AdjacentStations> GetAllAdjacentStationssBy(Predicate<DO.AdjacentStations> predicate);
+        DO.AdjacentStations GetAdjacentStations(int CodeStation1, int CodeStation2);
+        void AddAdjacentStations(DO.AdjacentStations Adjacent_Stations);
+        void UpdateAdjacentStations(DO.AdjacentStations Adjacent_Stations);
+        void UpdateAdjacentStations(int CodeStation1, int CodeStation2, Action<DO.AdjacentStations> update); //method that knows to updt specific fields in AdjacentStations
+        void DeleteAdjacentStations(int CodeStation1, int CodeStation2);
+
+        #endregion
+
+
+
+
+
     }
 }

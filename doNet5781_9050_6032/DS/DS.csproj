@@ -44,5 +44,11 @@
     <Compile Include="DataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DALAPI\DALAPI.csproj">
+      <Project>{8e5bba1e-9b08-4291-85d8-c1ef3bf10038}</Project>
+      <Name>DALAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
