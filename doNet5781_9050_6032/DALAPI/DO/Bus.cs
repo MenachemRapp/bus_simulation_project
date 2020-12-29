@@ -8,11 +8,11 @@ namespace DO
 {
     public class Bus
     {
-        public int license_num { get; set; }
-        public DateTime LicensingDate { get; set; }
-        public int mileage { get; set; }
-        public int AmountFuel { get; set; }
-        public BUS_STATUS status { get; set; }
+        public int LicenseNum { get; set; }
+        public DateTime FromDate { get; set; }
+        public double ToatalTrip { get; set; }
+        public double FuelRemain { get; set; }
+        public BUS_STATUS Status { get; set; }
 
         public override string ToString()
         {

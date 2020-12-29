@@ -44,14 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DO\Bus.cs" />
-    <Compile Include="DO\BusExits.cs" />
-    <Compile Include="DO\BusInDrive.cs" />
-    <Compile Include="DO\BusLine.cs" />
-    <Compile Include="DO\BusStop.cs" />
-    <Compile Include="DO\BusStopLine.cs" />
+    <Compile Include="DO\LineTrip.cs" />
+    <Compile Include="DO\BusOnTrip.cs" />
+    <Compile Include="DO\Line.cs" />
+    <Compile Include="DO\Station.cs" />
+    <Compile Include="DO\LineStation.cs" />
     <Compile Include="DO\Enumim.cs" />
-    <Compile Include="DO\PairConsecutiveStop.cs" />
+    <Compile Include="DO\AdjacentStations.cs" />
     <Compile Include="DO\Tools.cs" />
+    <Compile Include="DO\Trip.cs" />
+    <Compile Include="DO\User.cs" />
     <Compile Include="IDL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

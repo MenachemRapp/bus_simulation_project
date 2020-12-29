@@ -12,7 +12,7 @@ namespace DO
     {
         DRIVING, REFULING, FIXING, AVAILABLE, NOT_MAINTAINED
     }
-    public enum Area
+    public enum Areas
     {
         General, Jerusalem, North, South, Center
     }
