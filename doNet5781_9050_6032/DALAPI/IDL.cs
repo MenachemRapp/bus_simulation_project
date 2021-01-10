@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using DO;
 
-namespace DALAPI
+namespace DLAPI
 {
     public interface IDL
     {
@@ -76,7 +76,7 @@ namespace DALAPI
 
 
 
-
+        IEnumerable<DO.LineStation> GeLineStationsInLine(int lineId);
 
 
 

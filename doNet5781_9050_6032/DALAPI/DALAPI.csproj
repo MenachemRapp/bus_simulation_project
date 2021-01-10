@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DLConfig.cs" />
+    <Compile Include="DLFactory.cs" />
     <Compile Include="DO\Bus.cs" />
     <Compile Include="DO\LineTrip.cs" />
     <Compile Include="DO\BusOnTrip.cs" />
