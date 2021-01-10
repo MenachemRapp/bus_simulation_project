@@ -29,17 +29,16 @@ namespace DL
                 throw new Exception(string.Format("bad license number: {0}", LicenseNum));//create exception
         }
 
-
         public IEnumerable<Bus> GetAllBuss()
         {
             return from bus in DataSource.ListBus
                    select bus.Clone();
         }
 
-        //לא עשיתי
+        //not implemented
         public IEnumerable<Bus> GetAllBussBy(Predicate<Bus> predicate)
         {
-            return ((IDL)instance).GetAllBussBy(predicate);
+            throw new NotImplementedException();
         }
 
         public void AddBus(Bus bus)
@@ -74,16 +73,38 @@ namespace DL
                 throw new Exception(string.Format("bad license number: {0}", bus.LicenseNum));//create exception
         }
 
-        //לא עשיתי
+        //not implemented
         public void UpdateBus(int LicenseNum, Action<Bus> update)
         {
-            ((IDL)instance).UpdateBus(LicenseNum, update);
+            throw new NotImplementedException();
         }
 
 
         #endregion
 
         #region Station
+       public Station GetStation(int Code)
+        {
+            DO.Station station = DataSource.ListStation.Find(s => s.Code == Code);
+            if (station != null)
+                return station.Clone();
+            else
+                throw new Exception(string.Format("bad code: {0}", Code));//create exception
+        }
+
+        public IEnumerable<Station> GetAllStations()
+        {
+            return ((IDL)instance).GetAllStations();
+        }
+
+        public IEnumerable<Station> GetAllStationsBy(Predicate<Station> predicate)
+        {
+            return ((IDL)instance).GetAllStationsBy(predicate);
+        }
+
+       
+
+
         public void AddStation(Station station)
         {
             ((IDL)instance).AddStation(station);
@@ -97,20 +118,6 @@ namespace DL
 
        
 
-        public IEnumerable<Station> GetAllStations()
-        {
-            return ((IDL)instance).GetAllStations();
-        }
-
-        public IEnumerable<Station> GetAllStationsBy(Predicate<Station> predicate)
-        {
-            return ((IDL)instance).GetAllStationsBy(predicate);
-        }
-
-        public Station GetStation(int Code)
-        {
-            return ((IDL)instance).GetStation(Code);
-        }
 
         public void UpdateStation(Station sation)
         {
@@ -125,6 +132,37 @@ namespace DL
         #endregion
 
         #region BusOnTrip
+
+        public BusOnTrip GetBusOnTrip(int Id)
+        {
+            DO.BusOnTrip bus = DataSource.ListBusOnTrip.Find(b => b.Id == Id);
+            if (bus != null)
+                return bus.Clone();
+            else
+                throw new Exception(string.Format("bad bus ID: {0}", Id));//create exception
+        }
+
+
+        public IEnumerable<BusOnTrip> GetAllBusOnTrips()
+        {
+            return ((IDL)instance).GetAllBusOnTrips();
+        }
+
+        public IEnumerable<BusOnTrip> GetAllBusOnTripsBy(Predicate<BusOnTrip> predicate)
+        {
+            return from sic in DataSource.ListBusOnTrip
+                   where predicate(sic)
+                   select sic.Clone();
+        }
+
+        public BusOnTrip GetBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff)
+        {
+            return ((IDL)instance).GetBusOnTrip(LicenseNum, LineId, PlannedTakeOff);
+        }
+
+
+
+
         public void AddBusOnTrip(BusOnTrip bus_on_trip)
         {
             ((IDL)instance).AddBusOnTrip(bus_on_trip);
@@ -141,25 +179,7 @@ namespace DL
             ((IDL)instance).DeleteBusOnTrip(Id);
         }
 
-        public IEnumerable<BusOnTrip> GetAllBusOnTrips()
-        {
-            return ((IDL)instance).GetAllBusOnTrips();
-        }
-
-        public IEnumerable<BusOnTrip> GetAllBusOnTripsBy(Predicate<BusOnTrip> predicate)
-        {
-            return ((IDL)instance).GetAllBusOnTripsBy(predicate);
-        }
-
-        public BusOnTrip GetBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff)
-        {
-            return ((IDL)instance).GetBusOnTrip(LicenseNum, LineId, PlannedTakeOff);
-        }
-
-        public BusOnTrip GetBusOnTrip(int Id)
-        {
-            return ((IDL)instance).GetBusOnTrip(Id);
-        }
+        
 
         public void UpdateBusOnTrip(BusOnTrip bus_on_trip)
         {
