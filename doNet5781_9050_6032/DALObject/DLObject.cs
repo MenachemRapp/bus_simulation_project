@@ -283,10 +283,15 @@ namespace DL
             ((IDL)instance).UpdateLine(Id, update);
         }
 
-       
+        IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
+        {
+            throw new NotImplementedException();
+        }
+
+
         #endregion
 
-        
+
 
 
 
