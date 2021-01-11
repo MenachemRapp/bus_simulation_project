@@ -12,6 +12,48 @@ namespace BL
 {
     class BLImp : IBL
     {
+        IDL dl = DLFactory.GetDL();
+
+        #region line
+        BO.Line lineDoBoAdapter(DO.Line lineDO)
+        {
+            BO.Line lineBO = new BO.Line();
+            
+            int code = lineDO.Code;
+            
+            lineDO = dl.GetLine(code);
+                        
+            lineDO.CopyPropertiesTo(lineBO);
+                     
+
+            return lineBO;
+        }
+
+        public BO.Line GetLine(int code)
+        {
+            DO.Line lineDO;
+            try
+            {
+                lineDO = dl.GetLine(code);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("line code does not exist", ex);
+            }
+            return lineDoBoAdapter(lineDO);
+                  
+        }
+
+        public IEnumerable<BO.Line> GetAllLines()
+        {
+            return from item in dl.GetAllLines()
+                   select lineDoBoAdapter(item);
+        }
+        #endregion
+
+
+
+
         IEnumerable<ListedLineStation> IBL.GetStationCodeNameDistanceTimeInLine(int LineId)
         {
             List<ListedLineStation> list = new List<ListedLineStation>();
