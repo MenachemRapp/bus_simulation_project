@@ -19,7 +19,7 @@ namespace BO
                     foreach (var item in (IEnumerable)value)
                         str += item.ToStringProperty("   ");
                 else
-                    str += "\n" + suffix + prop.Name + ": " + value;
+                    str += "     " + suffix + prop.Name + ": " + value;
             }
             return str;
         }

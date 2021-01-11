@@ -245,6 +245,17 @@ namespace DL
 
         #region Line
 
+        public Line GetLine(int Id)
+        {
+            return DataSource.ListLine.Find(c => c.Id == Id).Clone();
+        }
+
+        public IEnumerable<Line> GetAllLines()
+        {
+            return from Line in DataSource.ListLine
+                   select Line.Clone();
+        }
+
         public void AddLine(Line line)
         {
             ((IDL)Instance).AddLine(line);
@@ -254,11 +265,7 @@ namespace DL
             ((IDL)instance).DeleteLine(Id);
         }
 
-        public IEnumerable<Line> GetAllLines()
-        {
-            return from Line in DataSource.ListLine
-                   select Line.Clone();
-        }
+     
 
         public IEnumerable<Line> GetAllLinesBy(Predicate<Line> predicate)
         {
@@ -266,11 +273,6 @@ namespace DL
         }
 
        
-
-        public Line GetLine(int code)
-        {
-            return DataSource.ListLine.Find(c => c.Code == code).Clone();
-        }
 
        
 

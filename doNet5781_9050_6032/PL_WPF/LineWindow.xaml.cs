@@ -18,12 +18,12 @@ namespace PL_WPF
     /// <summary>
     /// Interaction logic for LineStationWindow.xaml
     /// </summary>
-    public partial class LineStationWindow : Window
+    public partial class LineListWindow : Window
     {
 
         IBL bl;
         
-        public LineStationWindow(IBL _bl)
+        public LineListWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
@@ -48,7 +48,12 @@ namespace PL_WPF
 
         private void PropertiesBusLine_Clicked(object sender, RoutedEventArgs e)
         {
-
+            Button cmd = (Button)sender;
+            if (cmd.DataContext is BO.Line)
+            {
+                BO.Line selectedLine = (BO.Line)cmd.DataContext;
+                new LinePropertiesWindow(bl, selectedLine.Id).Show();
+            }
         }
     }
 }

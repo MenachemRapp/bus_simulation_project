@@ -55,7 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="LineStationWindow.xaml">
+    <Page Include="LinePropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LineWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -67,8 +71,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LineStationWindow.xaml.cs">
-      <DependentUpon>LineStationWindow.xaml</DependentUpon>
+    <Compile Include="LinePropertiesWindow.xaml.cs">
+      <DependentUpon>LinePropertiesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LineWindow.xaml.cs">
+      <DependentUpon>LineWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

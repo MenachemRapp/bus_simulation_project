@@ -15,13 +15,13 @@ namespace BL
         IDL dl = DLFactory.GetDL();
 
         #region line
-        BO.Line lineDoBoAdapter(DO.Line lineDO)
+        BO.Line LineDoBoAdapter(DO.Line lineDO)
         {
             BO.Line lineBO = new BO.Line();
             
-            int code = lineDO.Code;
+            int id = lineDO.Id;
             
-            lineDO = dl.GetLine(code);
+            lineDO = dl.GetLine(id);
                         
             lineDO.CopyPropertiesTo(lineBO);
                      
@@ -29,25 +29,25 @@ namespace BL
             return lineBO;
         }
 
-        public BO.Line GetLine(int code)
+        public BO.Line GetLine(int id)
         {
             DO.Line lineDO;
             try
             {
-                lineDO = dl.GetLine(code);
+                lineDO = dl.GetLine(id);
             }
             catch (Exception ex)
             {
-                throw new Exception("line code does not exist", ex);
+                throw new Exception("line does not exist", ex);
             }
-            return lineDoBoAdapter(lineDO);
+            return LineDoBoAdapter(lineDO);
                   
         }
 
         public IEnumerable<BO.Line> GetAllLines()
         {
             return from item in dl.GetAllLines()
-                   select lineDoBoAdapter(item);
+                   select LineDoBoAdapter(item);
         }
         #endregion
 

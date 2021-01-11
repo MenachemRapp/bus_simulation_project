@@ -10,24 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using BLAPI;
 
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LinePropertiesWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LinePropertiesWindow : Window
     {
-        readonly IBL bl = BLFactory.GetBL("1");
-        public MainWindow()
+        public IBL bl;
+        public List<BO.ListedLineStation> stations;
+        public LinePropertiesWindow(IBL _bl, int line)
         {
             InitializeComponent();
-            LineListWindow win = new LineListWindow(bl);
-            win.Show();
+            bl = _bl;
+            stations = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
+            stationslb.ItemsSource = stations;
         }
     }
 }
