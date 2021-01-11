@@ -45,5 +45,10 @@ namespace PL_WPF
         {
 
         }
+
+        private void PropertiesBusLine_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

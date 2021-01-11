@@ -46,6 +46,7 @@
     <Compile Include="BO\Enumim.cs" />
     <Compile Include="BO\Line.cs" />
     <Compile Include="BO\ListedLineStation.cs" />
+    <Compile Include="BO\Tools.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DeepCopyUtilities.cs" />
     <Compile Include="IBL.cs" />

@@ -39,6 +39,19 @@ namespace DS
 
                 }
             };
+
+            ListLine = new List<Line>
+            {
+                new Line
+                {
+                    Id= 1,
+                    Code= 123,
+                    Area= Areas.Jerusalem,
+                    FirstStation= 123456,
+                    LastStation= 111111
+           
+                }
+            };
         }
     }
 }

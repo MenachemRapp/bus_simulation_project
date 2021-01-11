@@ -256,7 +256,8 @@ namespace DL
 
         public IEnumerable<Line> GetAllLines()
         {
-            return ((IDL)instance).GetAllLines();
+            return from Line in DataSource.ListLine
+                   select Line.Clone();
         }
 
         public IEnumerable<Line> GetAllLinesBy(Predicate<Line> predicate)
@@ -266,9 +267,9 @@ namespace DL
 
        
 
-        public Line GetLine(int Id)
+        public Line GetLine(int code)
         {
-            return ((IDL)instance).GetLine(Id);
+            return DataSource.ListLine.Find(c => c.Code == code).Clone();
         }
 
        
