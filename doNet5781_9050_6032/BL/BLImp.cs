@@ -49,6 +49,19 @@ namespace BL
             return from item in dl.GetAllLines()
                    select LineDoBoAdapter(item);
         }
+
+        public void DeleteLine(int id)
+        {
+            try
+            {
+                dl.DeleteLine(id);
+                dl.DeleteLineFromAllStations(id);
+            }
+            catch (Exception)
+            {
+                throw new Exception("no such line");
+            }
+        }
         #endregion
 
 

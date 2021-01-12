@@ -13,6 +13,8 @@ namespace BLAPI
         #region line
         BO.Line GetLine(int id);
         IEnumerable<BO.Line> GetAllLines();
+
+        void DeleteLine(int id);
         #endregion
 
 

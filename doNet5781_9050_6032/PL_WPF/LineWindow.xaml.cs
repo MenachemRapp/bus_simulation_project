@@ -27,13 +27,18 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
+            RefreshList();
+
+
+
+
+
+
+        }
+
+        void RefreshList()
+        {
             LinesList.DataContext = bl.GetAllLines().ToList();
-
-
-
-
-
-
         }
 
         private void UptadeBusLine_Clicked(object sender, RoutedEventArgs e)
@@ -43,7 +48,13 @@ namespace PL_WPF
 
         private void DeleteBusLine_Clicked(object sender, RoutedEventArgs e)
         {
-
+            Button cmd = (Button)sender;
+            if (cmd.DataContext is BO.Line)
+            {
+                BO.Line selectedLine = (BO.Line)cmd.DataContext;
+                bl.DeleteLine(selectedLine.Id);
+                RefreshList();
+            }
         }
 
         private void PropertiesBusLine_Clicked(object sender, RoutedEventArgs e)

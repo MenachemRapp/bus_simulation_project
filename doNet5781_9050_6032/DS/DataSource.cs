@@ -79,6 +79,7 @@ namespace DS
                 {
                     LineId=1,
                     Station= 123456,
+                    LineStationIndex=0,
                     PrevStation=0,
                     NextStation=111111
                 },
@@ -88,6 +89,7 @@ namespace DS
                 {
                     LineId=1,
                     Station= 111111,
+                    LineStationIndex=1,
                     PrevStation=12456,
                     NextStation=0
                 }

@@ -64,6 +64,15 @@ namespace DLAPI
         void DeleteLine(int Id);
         #endregion
 
+        #region LineStation
+        IEnumerable<DO.LineStation> GetAllLineStationBy(Predicate<DO.LineStation> predicate);
+        void DeleteLineStation(int LineId, int Station);
+
+        void DeleteLineFromAllStations(int Id);
+        #endregion
+
+
+
         //#region LineTrip
         //IEnumerable<DO.LineTrip> GetAllLineTrips();
         //IEnumerable<DO.LineTrip> GetAllLineTripsBy(Predicate<DO.LineTrip> predicate);

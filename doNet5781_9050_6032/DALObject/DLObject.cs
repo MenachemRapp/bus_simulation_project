@@ -94,7 +94,8 @@ namespace DL
 
         public IEnumerable<Station> GetAllStations()
         {
-            return ((IDL)instance).GetAllStations();
+            return from station in DataSource.ListStation
+                   select station.Clone();
         }
 
         public IEnumerable<Station> GetAllStationsBy(Predicate<Station> predicate)
@@ -262,14 +263,23 @@ namespace DL
         }
         public void DeleteLine(int Id)
         {
-            ((IDL)instance).DeleteLine(Id);
+            DO.Line line = DataSource.ListLine.Find(l => l.Id == Id);
+
+            if (line != null)
+            {
+                DataSource.ListLine.Remove(line);
+            }
+            else
+                throw new Exception($"bad student id: {Id}");
         }
 
      
 
         public IEnumerable<Line> GetAllLinesBy(Predicate<Line> predicate)
         {
-            return ((IDL)instance).GetAllLinesBy(predicate);
+            return from line in DataSource.ListLine
+                   where predicate(line)
+                   select line.Clone();
         }
 
        
@@ -292,6 +302,27 @@ namespace DL
         }
 
 
+
+
+        #endregion
+
+        #region LineStation
+        public IEnumerable<LineStation> GetAllLineStationBy(Predicate<DO.LineStation> predicate)
+        {
+            return from sil in DataSource.ListLineStation
+                   where predicate(sil)
+                   select sil.Clone();
+        }
+
+        public void DeleteLineStation(int LineId, int Station)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteLineFromAllStations(int Id)
+        {
+            DataSource.ListLineStation.RemoveAll(s => s.LineId == Id);
+        }
         #endregion
 
 
