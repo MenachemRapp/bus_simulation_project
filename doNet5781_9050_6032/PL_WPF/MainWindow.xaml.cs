@@ -28,6 +28,7 @@ namespace PL_WPF
             InitializeComponent();
             LineListWindow win = new LineListWindow(bl);
             win.Show();
+            this.Close();//temporerally
         }
     }
 }

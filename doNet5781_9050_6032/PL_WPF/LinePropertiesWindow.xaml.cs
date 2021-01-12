@@ -21,13 +21,13 @@ namespace PL_WPF
     public partial class LinePropertiesWindow : Window
     {
         public IBL bl;
-        public List<BO.ListedLineStation> stations;
+        
         public LinePropertiesWindow(IBL _bl, int line)
         {
             InitializeComponent();
             bl = _bl;
-            stations = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
-            stationslb.ItemsSource = stations;
+            stationslb.ItemsSource = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
+             
         }
     }
 }

@@ -54,6 +54,25 @@ namespace DS
                 }
             };
 
+            ListStation = new List<Station>
+            {
+                new Station
+                {
+                    Code= 123456,
+                    Name= "first station",
+                    Latitude= 31.2,
+                    Longitude= 33.5
+                },
+
+                new Station
+                {
+                    Code= 111111,
+                    Name= "another station",
+                    Latitude= 32.2,
+                    Longitude= 33.7
+                }
+            };
+
             ListLineStation = new List<LineStation>
             {
                 new LineStation
