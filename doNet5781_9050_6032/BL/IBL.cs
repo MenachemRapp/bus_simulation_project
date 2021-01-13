@@ -10,13 +10,16 @@ namespace BLAPI
     {
         IEnumerable<BO.ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId);
 
-        #region line
-        BO.Line GetLine(int id);
-        IEnumerable<BO.Line> GetAllLines();
+        #region BasicLine
+        BO.BasicLine GetLine(int id);
+        IEnumerable<BO.BasicLine> GetAllLines();
 
         void DeleteLine(int id);
         #endregion
 
+        #region LineAndStations
+        BO.LineAndStations GetLineAndStations(int id);
 
+        #endregion
     }
 }

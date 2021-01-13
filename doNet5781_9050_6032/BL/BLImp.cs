@@ -14,10 +14,10 @@ namespace BL
     {
         IDL dl = DLFactory.GetDL();
 
-        #region line
-        BO.Line LineDoBoAdapter(DO.Line lineDO)
+        #region BasicLine
+        BO.BasicLine LineDoBoAdapter(DO.Line lineDO)
         {
-            BO.Line lineBO = new BO.Line();
+            BO.BasicLine lineBO = new BO.BasicLine();
             
             int id = lineDO.Id;
             
@@ -29,7 +29,7 @@ namespace BL
             return lineBO;
         }
 
-        public BO.Line GetLine(int id)
+        public BO.BasicLine GetLine(int id)
         {
             DO.Line lineDO;
             try
@@ -44,7 +44,7 @@ namespace BL
                   
         }
 
-        public IEnumerable<BO.Line> GetAllLines()
+        public IEnumerable<BO.BasicLine> GetAllLines()
         {
             return from item in dl.GetAllLines()
                    select LineDoBoAdapter(item);
@@ -64,10 +64,32 @@ namespace BL
         }
         #endregion
 
+        #region LineAndStations
+        public BO.LineAndStations GetLineAndStations(int Id)
+        {
+            BO.LineAndStations lineBO = new BO.LineAndStations();
+            DO.Line lineDO;
+            try
+            {
+                lineDO = dl.GetLine(Id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("line does not exist", ex);
+            }
+            lineDO.CopyPropertiesTo(lineBO);
+            lineBO.ListOfStation = GetStationCodeNameDistanceTimeInLine(Id).ToList();
+
+            lineBO.totalDistance = lineBO.ListOfStation.Sum(s => s.Distance);
+            lineBO.totalTime = TimeSpan.FromTicks(lineBO.ListOfStation.Sum(s => s.Time.Ticks));
+
+            return lineBO;
+
+        }
+        #endregion
 
 
-
-        IEnumerable<ListedLineStation> IBL.GetStationCodeNameDistanceTimeInLine(int LineId)
+       public  IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
         {
             List<ListedLineStation> list = new List<ListedLineStation>();
             foreach (LineStation item in DLFactory.GetDL().GeLineStationsInLine(LineId))

@@ -26,8 +26,9 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
-            stationslb.ItemsSource = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
-             
+            // stationslb.ItemsSource = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
+            stationslb.ItemsSource = bl.GetLineAndStations(line).ListOfStation.ToList();
+            stationst.DataContext = bl.GetLineAndStations(line);
         }
     }
 }

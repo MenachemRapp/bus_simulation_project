@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Line
+    public class BasicLine
     {
         public int Id { get; set; }
         public int Code { get; set; }
@@ -14,7 +14,6 @@ namespace BO
         public int FirstStation { get; set; }
         public int LastStation { get; set; }
 
-       // public IEnumerable<LineStation> ListStation { get; set; }
-        public override string ToString() => this.ToStringProperty();
+      public override string ToString() => this.ToStringProperty();
     }
 }

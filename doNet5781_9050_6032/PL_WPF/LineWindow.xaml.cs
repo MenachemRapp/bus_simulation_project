@@ -49,9 +49,9 @@ namespace PL_WPF
         private void DeleteBusLine_Clicked(object sender, RoutedEventArgs e)
         {
             Button cmd = (Button)sender;
-            if (cmd.DataContext is BO.Line)
+            if (cmd.DataContext is BO.BasicLine)
             {
-                BO.Line selectedLine = (BO.Line)cmd.DataContext;
+                BO.BasicLine selectedLine = (BO.BasicLine)cmd.DataContext;
                 bl.DeleteLine(selectedLine.Id);
                 RefreshList();
             }
@@ -60,9 +60,9 @@ namespace PL_WPF
         private void PropertiesBusLine_Clicked(object sender, RoutedEventArgs e)
         {
             Button cmd = (Button)sender;
-            if (cmd.DataContext is BO.Line)
+            if (cmd.DataContext is BO.BasicLine)
             {
-                BO.Line selectedLine = (BO.Line)cmd.DataContext;
+                BO.BasicLine selectedLine = (BO.BasicLine)cmd.DataContext;
                 new LinePropertiesWindow(bl, selectedLine.Id).Show();
             }
         }

@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
-        Title="LinePropertiesWindow" Height="450" Width="800">
+        Title="Line Properties" Height="450" Width="800">
     <Grid>
-        <ListBox Name="stationslb" ItemsSource="{Binding}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding}">
+        <TextBlock Text="Line Number:"/>
+        <Label DataContext="{Binding Path=Code}"/>
+        <TextBlock Text="Total Time:" Grid.Row="0"/>
+        <Label DataContext="{Binding Path= totalTime}"/>
+        <TextBlock Text="Total Distance:"/>
+        <Label DataContext="{Binding Path= totalDistance}"/>
+        <TextBlock Text="Area:"/>
+        <Label DataContext="{Binding Path= area}"/>
+        </StackPanel>
+
+        <ListBox Name="stationslb" ItemsSource="{Binding}" Grid.Row="1"/>
     </Grid>
 </Window>

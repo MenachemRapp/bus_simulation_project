@@ -44,7 +44,8 @@
     <Compile Include="BLFactory.cs" />
     <Compile Include="BLImp.cs" />
     <Compile Include="BO\Enumim.cs" />
-    <Compile Include="BO\Line.cs" />
+    <Compile Include="BO\BasicLine.cs" />
+    <Compile Include="BO\LineAndStations.cs" />
     <Compile Include="BO\ListedLineStation.cs" />
     <Compile Include="BO\Tools.cs" />
     <Compile Include="DeepCopyUtilities.cs" />
