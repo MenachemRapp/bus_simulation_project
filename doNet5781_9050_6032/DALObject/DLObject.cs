@@ -108,7 +108,10 @@ namespace DL
 
         public void AddStation(Station station)
         {
-            ((IDL)instance).AddStation(station);
+            if (DataSource.ListStation.FirstOrDefault(s => s.Code == station.Code) != null)
+                 throw new DO.BadStationCodeException(station.Code, "Duplicate station Code");
+             
+           DataSource.ListStation.Add(station.Clone());
         }
 
       
@@ -146,14 +149,15 @@ namespace DL
 
         public IEnumerable<BusOnTrip> GetAllBusOnTrips()
         {
-            return ((IDL)instance).GetAllBusOnTrips();
+            return from bus in DataSource.ListBusOnTrip
+                   select bus.Clone();
         }
 
         public IEnumerable<BusOnTrip> GetAllBusOnTripsBy(Predicate<BusOnTrip> predicate)
         {
-            return from sic in DataSource.ListBusOnTrip
-                   where predicate(sic)
-                   select sic.Clone();
+            return from bot in DataSource.ListBusOnTrip
+                   where predicate(bot)
+                   select bot.Clone();
         }
 
         public BusOnTrip GetBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff)

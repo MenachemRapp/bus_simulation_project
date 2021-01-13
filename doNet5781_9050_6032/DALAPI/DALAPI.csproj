@@ -46,6 +46,7 @@
     <Compile Include="DLConfig.cs" />
     <Compile Include="DLFactory.cs" />
     <Compile Include="DO\Bus.cs" />
+    <Compile Include="DO\Exeptions.cs" />
     <Compile Include="DO\LineTrip.cs" />
     <Compile Include="DO\BusOnTrip.cs" />
     <Compile Include="DO\Line.cs" />
