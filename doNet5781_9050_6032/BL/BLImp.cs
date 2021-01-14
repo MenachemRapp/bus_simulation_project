@@ -88,8 +88,32 @@ namespace BL
         }
         #endregion
 
+        #region Station
+        BO.Station stationDoBoAdapter(DO.Station stationDO)
+        {
+            BO.Station stationBO = new BO.Station();
+            int code = stationDO.Code;
+            stationDO = dl.GetStation(code);
+            stationDO.CopyPropertiesTo(stationBO);
 
-       public  IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
+            return stationBO;
+        }
+        public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
+        {
+            return from station in dl.GetAllStationsBy(s=> s.Code!=prevCode && s.Code != NextCode)
+                   select stationDoBoAdapter(station);
+        }
+
+        public IEnumerable<BO.Station> GetAllOtherStations(int code)
+        {
+            return from station in dl.GetAllStationsBy(s => s.Code != code)
+                   select stationDoBoAdapter(station);
+        }
+
+
+        #endregion 
+
+        public IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
         {
             List<ListedLineStation> list = new List<ListedLineStation>();
             foreach (LineStation item in DLFactory.GetDL().GeLineStationsInLine(LineId))
@@ -119,5 +143,7 @@ namespace BL
             }
             return list;
         }
+
+       
     }
 }

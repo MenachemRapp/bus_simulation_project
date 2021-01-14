@@ -100,7 +100,9 @@ namespace DL
 
         public IEnumerable<Station> GetAllStationsBy(Predicate<Station> predicate)
         {
-            return ((IDL)instance).GetAllStationsBy(predicate);
+            return from sta in DataSource.ListStation
+                   where predicate(sta)
+                   select sta.Clone();
         }
 
        

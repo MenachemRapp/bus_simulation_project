@@ -21,5 +21,10 @@ namespace BLAPI
         BO.LineAndStations GetLineAndStations(int id);
 
         #endregion
+
+        #region Station
+        IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
+        IEnumerable<BO.Station> GetAllOtherStations(int code);
+        #endregion
     }
 }

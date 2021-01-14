@@ -30,5 +30,15 @@ namespace PL_WPF
             stationslb.ItemsSource = bl.GetLineAndStations(line).ListOfStation.ToList();
             stationst.DataContext = bl.GetLineAndStations(line);
         }
+
+        private void ModifyBus_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
