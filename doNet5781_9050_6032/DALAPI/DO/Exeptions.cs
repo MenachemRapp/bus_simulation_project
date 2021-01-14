@@ -10,8 +10,8 @@ namespace DO
     public class BadStationCodeException : Exception
     {
         public int Code;
-        
-        public BadStationCodeException(int code) : base() => Code =code;
+
+        public BadStationCodeException(int code) : base() => Code = code;
         public BadStationCodeException(int code, string message) :
             base(message) => Code = code;
         public BadStationCodeException(int code, string message, Exception innerException) :
@@ -19,4 +19,32 @@ namespace DO
 
         public override string ToString() => base.ToString() + $", bad station code: {Code}";
     }
+
+
+    public class BadLineIdException : Exception
+    {
+        public int ID;
+
+        public BadLineIdException(int id) : base() => ID = id;
+        public BadLineIdException(int id, string message) :
+            base(message) => ID = id;
+        public BadLineIdException(int id, string message, Exception innerException) :
+            base(message, innerException) => ID = id;
+
+        public override string ToString() => base.ToString() + $", bad line id: {ID}";
+    }
+
+    public class BadBusLicenseException : Exception
+    {
+        public int License;
+
+        public BadBusLicenseException(int licence) : base() => License = licence;
+        public BadBusLicenseException(int licence, string message) :
+            base(message) => License = licence;
+        public BadBusLicenseException(int licence, string message, Exception innerException) :
+            base(message, innerException) => License = licence;
+
+        public override string ToString() => base.ToString() + $", bad licence number: {License}";
+    }
+
 }

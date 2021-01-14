@@ -26,7 +26,7 @@ namespace DL
             if (bus != null)
                 return bus.Clone();
             else
-                throw new Exception(string.Format("bad license number: {0}", LicenseNum));//create exception
+                throw new BadBusLicenseException(LicenseNum);
         }
 
         public IEnumerable<Bus> GetAllBuss()
@@ -44,7 +44,7 @@ namespace DL
         public void AddBus(Bus bus)
         {
             if (DataSource.ListBus.FirstOrDefault(b => b.LicenseNum == bus.LicenseNum) != null)
-                throw new Exception(string.Format("duplicate license number: {0}", bus.LicenseNum));//create exception
+                throw new BadBusLicenseException(bus.LicenseNum,"duplicate license number");
             DataSource.ListBus.Add(bus.Clone());
         }
        
@@ -56,7 +56,7 @@ namespace DL
                 DataSource.ListBus.Remove(bus);
             }
             else
-                throw new Exception(string.Format("bad license number: {0}", LicenseNum));//create exception
+                throw new BadBusLicenseException(LicenseNum);
         }
            
           
@@ -70,7 +70,7 @@ namespace DL
                 DataSource.ListBus.Add(bus);
             }
             else
-                throw new Exception(string.Format("bad license number: {0}", bus.LicenseNum));//create exception
+                throw new BadBusLicenseException(bus.LicenseNum);
         }
 
         //not implemented
@@ -89,7 +89,7 @@ namespace DL
             if (station != null)
                 return station.Clone();
             else
-                throw new Exception(string.Format("bad code: {0}", Code));//create exception
+                throw new BadStationCodeException(Code);
         }
 
         public IEnumerable<Station> GetAllStations()
@@ -143,7 +143,7 @@ namespace DL
             if (bus != null)
                 return bus.Clone();
             else
-                throw new Exception(string.Format("bad bus ID: {0}", Id));//create exception
+                throw new BadLineIdException(Id);
         }
 
 
@@ -274,7 +274,7 @@ namespace DL
                 DataSource.ListLine.Remove(line);
             }
             else
-                throw new Exception($"bad student id: {Id}");
+                throw new  BadLineIdException(Id);
         }
 
      
