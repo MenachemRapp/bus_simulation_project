@@ -221,7 +221,11 @@ namespace DL
 
         public AdjacentStations GetAdjacentStations(int CodeStation1, int CodeStation2)
         {
-            return ((IDL)instance).GetAdjacentStations(CodeStation1, CodeStation2);
+            DO.AdjacentStations  stations= DataSource.ListAdjacentStations.Find(sta=> sta.Station1 == CodeStation1 && sta.Station2==CodeStation2);
+            if (stations != null)
+                return stations.Clone();
+            else
+                throw new BadAdjacentStationsException(CodeStation1,CodeStation2);
         }
 
         public IEnumerable<AdjacentStations> GetAllAdjacentStationss()
@@ -304,7 +308,10 @@ namespace DL
 
         IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+            return from sil in DataSource.ListLineStation
+                   where sil.LineId == lineId//change to predicate
+                   select sil.Clone();
         }
 
 

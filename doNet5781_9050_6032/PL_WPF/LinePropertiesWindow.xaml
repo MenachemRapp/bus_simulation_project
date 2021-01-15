@@ -13,7 +13,7 @@
             <StackPanel Orientation="Horizontal">
 
                 <Button Content="Modify" Margin="5,0,5,0" Click="ModifyBus_Clicked"/>
-                <TextBlock Text="{Binding Path=ListOfStation}" Width="62" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding}" Width="300"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Content="Add next Station" Margin="5,0,5,0" Click="AddNextBus_Clicked"/>
     
 
@@ -27,17 +27,17 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
-        <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding}" Grid.Row="0">
-            <TextBlock Text="Line Number:"/>
-            <Label DataContext="{Binding Path=Code}"/>
-            <TextBlock Text="Total Time:"/>
-            <Label DataContext="{Binding Path= totalTime}"/>
-            <TextBlock Text="Total Distance:"/>
-            <Label DataContext="{Binding Path= totalDistance}"/>
-            <TextBlock Text="Area:"/>
-            <Label DataContext="{Binding Path= area}"/>
+        <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
+            <Label Content="Line Number:"/>
+            <Label Content="{Binding Path=Code}"/>
+            <Label Content="Total Time:"/>
+            <Label Content="{Binding Path=totalTime}"/>
+            <Label Content="Total Distance:"/>
+            <Label Content="{Binding Path=totalDistance}"/>
+            <Label Content="Area:"/>
+            <Label Content="{Binding Path= Area}"/>
         </StackPanel>
 
-        <ListBox Name="stationslb" ItemsSource="{Binding}" Grid.Row="1"/>
+        <ListBox Name="stationslb" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}" Grid.Row="1"/>
     </Grid>
 </Window>
