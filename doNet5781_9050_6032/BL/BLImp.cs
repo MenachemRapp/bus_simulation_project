@@ -91,8 +91,24 @@ namespace BL
 
        public  IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
         {
+            IDL idl = DLFactory.GetDL();
+            //var x = idl.GetSortLineStationsInLine(LineId);
+            //DO.LineStation last = x.Last();
+            //from item in x
+            //where item != last
+            //let AdjacentStations = idl.GetAdjacentStations(item.Station, item.NextStation)
+            //select (new ListedLineStation()
+            //{
+            //    Code = item.Station,
+            //    Name = idl.GetStation(item.Station).Name,
+            //    Distance = AdjacentStations.Distance,
+            //    Time = AdjacentStations.Time
+            //}
+
+
+
             List<ListedLineStation> list = new List<ListedLineStation>();
-            foreach (LineStation item in DLFactory.GetDL().GeLineStationsInLine(LineId))
+            foreach (LineStation item in idl.GetSortLineStationsInLine(LineId))
             {
                 if (item.NextStation != 0)
                 {

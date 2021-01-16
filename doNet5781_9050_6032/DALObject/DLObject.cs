@@ -300,10 +300,14 @@ namespace DL
             ((IDL)instance).UpdateLine(Id, update);
         }
 
-        IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
+        IEnumerable<LineStation> IDL.GetSortLineStationsInLine(int lineId)
         {
-            throw new NotImplementedException();
-        }
+            return (from item in DataSource.ListLineStation
+                    where item.LineId == lineId
+                    orderby item.LineStationIndex
+                    select item.Clone());
+
+         }
 
 
 
