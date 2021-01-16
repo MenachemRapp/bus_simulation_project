@@ -57,5 +57,10 @@ namespace PL_WPF
             }
             
         }
+
+        private void AddFirstStation_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
