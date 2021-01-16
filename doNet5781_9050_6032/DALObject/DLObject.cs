@@ -292,9 +292,19 @@ namespace DL
                    select line.Clone();
         }
 
-       
 
-       
+        public void UpdateLineArea(int lineId, Areas area)
+        {
+            DO.Line line = DataSource.ListLine.Find(li => li.Id==lineId);
+
+            if (line != null)
+            {
+                line.Area=area;
+            }
+            else
+                throw new DO.BadLineIdException(lineId);
+        }
+
 
         public void UpdateLine(Line line)
         {
@@ -336,6 +346,8 @@ namespace DL
         {
             DataSource.ListLineStation.RemoveAll(s => s.LineId == Id);
         }
+
+       
         #endregion
 
 

@@ -21,14 +21,16 @@ namespace PL_WPF
     public partial class LinePropertiesWindow : Window
     {
         public IBL bl;
-        
-        public LinePropertiesWindow(IBL _bl, int line)
+        BO.LineAndStations line;
+        public LinePropertiesWindow(IBL _bl, int lineId)
         {
             InitializeComponent();
             bl = _bl;
+            line= bl.GetLineAndStations(lineId);
             // stationslb.ItemsSource = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
-            stationslb.ItemsSource = bl.GetLineAndStations(line).ListOfStation.ToList();
-            stationst.DataContext = bl.GetLineAndStations(line);
+            stationslb.ItemsSource = line.ListOfStation.ToList();
+            stationst.DataContext = line;
+            areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
         }
 
         private void ModifyBus_Clicked(object sender, RoutedEventArgs e)
@@ -39,6 +41,21 @@ namespace PL_WPF
         private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RemoveBus_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                bl.UpdateLineArea(line.Id, line.Area);
+                MessageBox.Show("Area of the line has changed", "New Area", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
         }
     }
 }

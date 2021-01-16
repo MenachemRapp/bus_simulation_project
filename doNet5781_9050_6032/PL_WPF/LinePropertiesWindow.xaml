@@ -12,6 +12,7 @@
 
             <StackPanel Orientation="Horizontal">
 
+                <Button Content="Remove" Margin="5,0,5,0" Click="RemoveBus_Clicked"/>
                 <Button Content="Modify" Margin="5,0,5,0" Click="ModifyBus_Clicked"/>
                 <TextBlock Text="{Binding}" Width="300"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Content="Add next Station" Margin="5,0,5,0" Click="AddNextBus_Clicked"/>
@@ -28,14 +29,14 @@
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
-            <Label Content="Line Number:"/>
+            <Label Content="Line Number:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Code}"/>
-            <Label Content="Total Time:"/>
+            <Label Content="Total Time:" FontWeight="Bold"/>
             <Label Content="{Binding Path=totalTime}"/>
-            <Label Content="Total Distance:"/>
+            <Label Content="Total Distance:" FontWeight="Bold"/>
             <Label Content="{Binding Path=totalDistance}"/>
-            <Label Content="Area:"/>
-            <Label Content="{Binding Path= Area}"/>
+            <Label Content="Area:" FontWeight="Bold"/>
+            <ComboBox  Name="areacb"  SelectedItem ="{Binding Area}" Width="100"  SelectionChanged="areacb_SelectionChanged"/>
         </StackPanel>
 
         <ListBox Name="stationslb" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}" Grid.Row="1"/>

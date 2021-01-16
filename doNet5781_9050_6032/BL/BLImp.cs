@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using BLAPI;
 using BO;
 using DO;
@@ -110,6 +111,18 @@ namespace BL
                    select stationDoBoAdapter(station);
         }
 
+        public void UpdateLineArea(int lineId, BO.Areas BOarea)
+        {
+            Enum.TryParse(BOarea.ToString(), out DO.Areas DOarea);
+            try
+            {
+                dl.UpdateLineArea(lineId, DOarea);
+            }
+            catch (DO.BadLineIdException ex)
+            {
+                throw new BO.BadLineIdException("Line ID does not exist", ex);
+            }
+        }
 
         #endregion 
 

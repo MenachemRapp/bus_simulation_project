@@ -15,6 +15,9 @@ namespace BLAPI
         IEnumerable<BO.BasicLine> GetAllLines();
 
         void DeleteLine(int id);
+
+        void UpdateLineArea(int lineId, BO.Areas area);
+
         #endregion
 
         #region LineAndStations
