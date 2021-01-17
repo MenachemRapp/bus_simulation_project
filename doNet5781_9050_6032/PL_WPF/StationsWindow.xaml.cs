@@ -27,7 +27,7 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
-            StationListlb.ItemsSource = bl.GetAllStations();
+            StationListlb.ItemsSource = bl.GetAllStations().ToList();
         }
 
       
