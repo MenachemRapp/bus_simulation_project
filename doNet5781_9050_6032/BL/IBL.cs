@@ -27,8 +27,7 @@ namespace BLAPI
 
         #region Station
         IEnumerable<BO.Station> GetAllStations();
-
-        List<BO.Station> GetAllStationsSorted();
+              
         IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
         IEnumerable<BO.Station> GetAllOtherStations(int code);
         #endregion

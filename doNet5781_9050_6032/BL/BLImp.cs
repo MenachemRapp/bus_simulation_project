@@ -107,14 +107,10 @@ namespace BL
 
         public IEnumerable<BO.Station> GetAllStations()
         {
-            return from station in dl.GetAllStations()
-                   select stationDoBoAdapter(station);
+            return (from station in dl.GetAllStations()
+                   select stationDoBoAdapter(station)).OrderBy(station => station.Code);
         }
-
-        public List<BO.Station> GetAllStationsSorted()
-        {
-            return GetAllStations().OrderBy(station => station.Code).ToList();//maybe shoul be in PL/////////////////
-        }
+                
         public IEnumerable<BO.Station> GetAllOtherStations(int code)
         {
             return from station in dl.GetAllStationsBy(s => s.Code != code)
