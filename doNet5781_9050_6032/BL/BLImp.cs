@@ -105,6 +105,12 @@ namespace BL
                    select stationDoBoAdapter(station);
         }
 
+        public IEnumerable<BO.Station> GetAllStations()
+        {
+            return from station in dl.GetAllStations()
+                   select stationDoBoAdapter(station);
+        }
+
         public IEnumerable<BO.Station> GetAllOtherStations(int code)
         {
             return from station in dl.GetAllStationsBy(s => s.Code != code)

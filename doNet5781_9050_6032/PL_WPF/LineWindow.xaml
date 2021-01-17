@@ -29,5 +29,6 @@
             <RowDefinition Height="53*"/>
         </Grid.RowDefinitions>
         <ListBox Name="LinesList"  Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusLinesListAndButtons}"/>
+        <Button Content="Add Line" Grid.Row="1" Click="AddLine_clicked" Height="20" Width="75"/>
     </Grid>
 </Window>

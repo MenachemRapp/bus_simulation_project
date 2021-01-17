@@ -40,7 +40,9 @@ namespace PL_WPF
 
         private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
         {
-
+            StationsWindow stationsWindow = new StationsWindow(bl);
+            //stationsWindow.update += RefreshList;
+            stationsWindow.Show();
         }
 
         private void RemoveBus_Clicked(object sender, RoutedEventArgs e)
@@ -56,7 +58,8 @@ namespace PL_WPF
                 {
                     bl.UpdateLineArea(line.Id, line.Area);
                     MessageBox.Show("Area of the line has changed", "New Area", MessageBoxButton.OK, MessageBoxImage.Information);
-                    updateLineAreaEvent();
+                    if(updateLineAreaEvent!=null)
+                        updateLineAreaEvent();
                     
                 }
                 catch (BO.BadLineIdException)
