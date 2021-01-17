@@ -52,9 +52,19 @@ namespace PL_WPF
         {
             if (IsLoaded)
             {
-                bl.UpdateLineArea(line.Id, line.Area);
-                MessageBox.Show("Area of the line has changed", "New Area", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    bl.UpdateLineArea(line.Id, line.Area);
+                    MessageBox.Show("Area of the line has changed", "New Area", MessageBoxButton.OK, MessageBoxImage.Information);
+                    updateLineAreaEvent();
+                    
+                }
+                catch (BO.BadLineIdException)
+                {
+                    MessageBox.Show("unable to update", "Updating Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
+
             
         }
 
@@ -62,5 +72,7 @@ namespace PL_WPF
         {
 
         }
+        public delegate void updateLineAreaHandler();
+        public event updateLineAreaHandler updateLineAreaEvent;
     }
 }
