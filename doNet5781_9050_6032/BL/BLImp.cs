@@ -111,6 +111,10 @@ namespace BL
                    select stationDoBoAdapter(station);
         }
 
+        public List<BO.Station> GetAllStationsSorted()
+        {
+            return GetAllStations().OrderBy(station => station.Code).ToList();//maybe shoul be in PL/////////////////
+        }
         public IEnumerable<BO.Station> GetAllOtherStations(int code)
         {
             return from station in dl.GetAllStationsBy(s => s.Code != code)
@@ -163,6 +167,6 @@ namespace BL
             return list;
         }
 
-       
+        
     }
 }

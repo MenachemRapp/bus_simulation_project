@@ -42,7 +42,7 @@ namespace PL_WPF
         {
             StationsWindow stationsWindow = new StationsWindow(bl);
             //stationsWindow.update += RefreshList;
-            stationsWindow.Show();
+            stationsWindow.ShowDialog();
         }
 
         private void RemoveBus_Clicked(object sender, RoutedEventArgs e)
