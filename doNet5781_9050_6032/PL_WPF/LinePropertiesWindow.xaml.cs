@@ -21,16 +21,23 @@ namespace PL_WPF
     public partial class LinePropertiesWindow : Window
     {
         public IBL bl;
+        int lineNum;
         BO.LineAndStations line;
         public LinePropertiesWindow(IBL _bl, int lineId)
         {
             InitializeComponent();
             bl = _bl;
-            line= bl.GetLineAndStations(lineId);
-            // stationslb.ItemsSource = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
+            lineNum = lineId;
+            areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
+            RefreshList();
+        }
+
+
+        private void RefreshList()
+        {
+            line = bl.GetLineAndStations(lineNum);
             stationslb.ItemsSource = line.ListOfStation.ToList();
             stationst.DataContext = line;
-            areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
         }
 
         private void ModifyBus_Clicked(object sender, RoutedEventArgs e)
@@ -41,7 +48,7 @@ namespace PL_WPF
         private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
         {
             StationsWindow stationsWindow = new StationsWindow(bl);
-            //stationsWindow.update += RefreshList;
+            stationsWindow.selectStationEvent += AddStation;
             stationsWindow.ShowDialog();
         }
 
@@ -75,6 +82,12 @@ namespace PL_WPF
         {
 
         }
+
+        private void AddStation(BO.Station station)
+        {
+            RefreshList();
+        }
+
         public delegate void updateLineAreaHandler();
         public event updateLineAreaHandler updateLineAreaEvent;
     }

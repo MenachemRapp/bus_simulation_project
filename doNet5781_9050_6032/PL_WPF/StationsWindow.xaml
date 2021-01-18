@@ -6,21 +6,36 @@
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
         Title="Station List" Height="450" Width="800">
-   
+    <Window.Resources>
+
+        <DataTemplate x:Key="BusStationListSelect" >
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                <Button Content="select" Margin="35,0,5,0" Click="SelectStation_clicked"/>
+               
+
+            </StackPanel>
+
+        </DataTemplate>
+
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="367*"/>
             <RowDefinition Height="53*" Name="button_row"/>
-            </Grid.RowDefinitions>
+         </Grid.RowDefinitions>
 
-        <ListBox Name="StationListlb"  Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" MouseDoubleClick="SelectStation_clicked"/>
+        <ListBox Name="StationListlb" Grid.Row = "0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusStationListSelect}"/>
+
+
 
         <Grid Grid.Row="1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-            <Button Content="Add Station" Grid.Row="1" Grid.Column="0" Click="AddStation_clicked" Height="20" Width="75" />
+            <Button Content="Add a New Station" Grid.Row="1" Grid.Column="0" Click="AddStation_clicked" Height="20" Width="120" />
             
         </Grid>
 
