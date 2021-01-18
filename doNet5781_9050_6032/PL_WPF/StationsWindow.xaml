@@ -11,8 +11,8 @@
         <DataTemplate x:Key="BusStationListSelect" >
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
-                <Button Content="select" Margin="35,0,5,0" Click="SelectStation_clicked"/>
+                <TextBlock Text="{Binding}" VerticalAlignment="Center" Width="500"/>
+                <Button Content="select" Click="SelectStation_clicked"/>
                
 
             </StackPanel>
