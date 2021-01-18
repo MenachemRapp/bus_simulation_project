@@ -29,19 +29,28 @@ namespace PL_WPF
 
         private void addStation_Click(object sender, RoutedEventArgs e)
         {
-            BO.Station newStation = new BO.Station();
-            newStation.Name = txtName.Text;
             try
             {
-                newStation.Code = Convert.ToInt32(txtCode.Text);
-                newStation.Longitude = Convert.ToDouble(txtLongitude.Text);
-                newStation.Latitude = Convert.ToDouble(txtLatitude.Text);
+                BO.Station newStation = new BO.Station()
+                {
+                    Name = txtName.Text,
+                    Code = Convert.ToInt32(txtCode.Text),
+                    Longitude = Convert.ToDouble(txtLongitude.Text),
+                    Latitude = Convert.ToDouble(txtLatitude.Text)
+                };
+                if (newStation.Code<0 || newStation.Code>999999)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
             }
             catch (FormatException ex)
             {
-                
+                MessageBox.Show(ex.Message,"Format Error",  MessageBoxButton.OK, MessageBoxImage.Error);
             }
-           
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Code must be 6 digits", "Code Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
     }
