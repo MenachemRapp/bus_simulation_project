@@ -34,22 +34,19 @@ namespace PL_WPF
 
         private void SelectStation_clicked(object sender, RoutedEventArgs e)
         {
-            Button cmd = (Button)sender;
-            if (cmd.DataContext is BO.Station)
-            {
-                BO.Station selectedBus = (BO.Station)cmd.DataContext;
-                if (selectStationEvent!=null)
-                   selectStationEvent(selectedBus);
+            BO.Station addedSelectedStation = ((sender as Button).DataContext as BO.Station);
+                   if (selectStationEvent!=null)
+                   selectStationEvent(addedSelectedStation.Code);
                 this.Close();
 
-            }
+            
         }
 
         private void AddStation_clicked(object sender, RoutedEventArgs e)
         {
 
         }
-        public delegate void selectStationHandler(BO.Station station);
+        public delegate void selectStationHandler(int stationCode);
         public event selectStationHandler selectStationEvent;
     }
 }

@@ -47,6 +47,7 @@ namespace PL_WPF
 
         private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
         {
+            BO.Station station = ((sender as Button).DataContext as BO.Station);
             StationsWindow stationsWindow = new StationsWindow(bl);
             stationsWindow.selectStationEvent += AddStation;
             stationsWindow.ShowDialog();
@@ -83,7 +84,7 @@ namespace PL_WPF
 
         }
 
-        private void AddStation(BO.Station station)
+        private void AddStation(int stationCode)
         {
             RefreshList();
         }
