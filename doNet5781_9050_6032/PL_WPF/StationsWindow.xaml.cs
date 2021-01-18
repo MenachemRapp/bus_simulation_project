@@ -44,7 +44,8 @@ namespace PL_WPF
 
         private void AddStation_clicked(object sender, RoutedEventArgs e)
         {
-
+            AddStationWindow window = new AddStationWindow(bl);
+            window.Show();
         }
         public delegate void selectStationHandler(int stationCode);
         public event selectStationHandler selectStationEvent;
