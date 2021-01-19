@@ -99,10 +99,10 @@ namespace BL
             {
                 dl.AddStation(stationDO);
             }
-            catch (Exception)
+            catch (DO.BadStationCodeException ex)
             {
 
-                throw;
+                throw new BO.BadStationCodeException(ex.Message, ex);
             }
             
         }

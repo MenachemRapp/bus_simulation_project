@@ -58,10 +58,9 @@ namespace PL_WPF
             {
                 MessageBox.Show("Code must be 6 digits", "Code Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (Exception)// couldnt add
+            catch (BO.BadStationCodeException ex)
             {
-
-                throw;
+               MessageBox.Show(ex.Message, "Code Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
