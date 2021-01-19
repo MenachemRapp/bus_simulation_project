@@ -42,6 +42,13 @@ namespace PL_WPF
                 {
                     throw new ArgumentOutOfRangeException();
                 }
+
+               bl.AddStation(newStation);
+                this.Close();
+                
+                
+                
+
             }
             catch (FormatException ex)
             {
@@ -51,7 +58,11 @@ namespace PL_WPF
             {
                 MessageBox.Show("Code must be 6 digits", "Code Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (Exception)// couldnt add
+            {
 
+                throw;
+            }
         }
     }
 }

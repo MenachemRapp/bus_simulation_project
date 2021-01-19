@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,9 +28,13 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
-            StationListlb.ItemsSource = bl.GetAllStations().ToList();
+            Refresh();
         }
 
+        private void Refresh()
+        {
+            StationListlb.ItemsSource = bl.GetAllStations().ToList();
+        }
       
 
         private void SelectStation_clicked(object sender, RoutedEventArgs e)
@@ -45,8 +50,15 @@ namespace PL_WPF
         private void AddStation_clicked(object sender, RoutedEventArgs e)
         {
             AddStationWindow window = new AddStationWindow(bl);
+            window.Closing += Refresh_closing;
             window.Show();
         }
+
+        private void Refresh_closing(object sender, CancelEventArgs e)
+        {
+            Refresh();
+        }
+
         public delegate void selectStationHandler(int stationCode);
         public event selectStationHandler selectStationEvent;
     }

@@ -90,6 +90,23 @@ namespace BL
         #endregion
 
         #region Station
+        
+        public void AddStation(BO.Station station)
+        {
+            DO.Station stationDO = new DO.Station();
+            station.CopyPropertiesTo(stationDO);
+            try
+            {
+                dl.AddStation(stationDO);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+        }
+
         BO.Station stationDoBoAdapter(DO.Station stationDO)
         {
             BO.Station stationBO = new BO.Station();
