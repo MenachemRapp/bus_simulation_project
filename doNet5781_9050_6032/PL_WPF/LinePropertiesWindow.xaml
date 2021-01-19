@@ -6,22 +6,40 @@
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
         Title="Line Properties" Height="450" Width="800">
+    <Window.Resources>
+
+        <DataTemplate x:Key="BusListAndButtons" >
+
+            <StackPanel Orientation="Horizontal">
+
+                <Button Content="Remove" Margin="5,0,5,0" Click="RemoveBus_Clicked"/>
+                <Button Content="Modify" Margin="5,0,5,0" Click="ModifyBus_Clicked"/>
+                <TextBlock Text="{Binding}"  Width="500" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Add next Station" Margin="5,0,5,0" Click="AddNextBus_Clicked"/>
+    
+
+            </StackPanel>
+
+        </DataTemplate>
+
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
-        <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" DataContext="{Binding}">
-        <TextBlock Text="Line Number:"/>
-        <Label DataContext="{Binding Path=Code}"/>
-        <TextBlock Text="Total Time:" Grid.Row="0"/>
-        <Label DataContext="{Binding Path= totalTime}"/>
-        <TextBlock Text="Total Distance:"/>
-        <Label DataContext="{Binding Path= totalDistance}"/>
-        <TextBlock Text="Area:"/>
-        <Label DataContext="{Binding Path= area}"/>
+        <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
+            <Label Content="Line Number:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=Code}"/>
+            <Label Content="Total Time:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=totalTime}"/>
+            <Label Content="Total Distance:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=totalDistance}"/>
+            <Label Content="Area:" FontWeight="Bold"/>
+            <ComboBox  Name="areacb"  SelectedItem ="{Binding Area}" Width="100"  SelectionChanged="areacb_SelectionChanged"/>
         </StackPanel>
-
-        <ListBox Name="stationslb" ItemsSource="{Binding}" Grid.Row="1"/>
+        <Button Content="Add a First Station" Click="AddFirstStation_Clicked" Margin="5,1,5,1" HorizontalAlignment="Center" Width="500" Grid.Row="1"/>
+        <ListBox Name="stationslb" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}" Grid.Row="2"/>
     </Grid>
 </Window>

@@ -66,6 +66,10 @@ namespace DLAPI
 
         #region LineStation
         IEnumerable<DO.LineStation> GetAllLineStationBy(Predicate<DO.LineStation> predicate);
+
+
+        void UpdateLineArea(int lineId, DO.Areas area);
+
         void DeleteLineStation(int LineId, int Station);
 
         void DeleteLineFromAllStations(int Id);

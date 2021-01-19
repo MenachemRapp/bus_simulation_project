@@ -41,10 +41,7 @@ namespace PL_WPF
             LinesList.DataContext = bl.GetAllLines().ToList();
         }
 
-        private void UptadeBusLine_Clicked(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void DeleteBusLine_Clicked(object sender, RoutedEventArgs e)
         {
@@ -63,8 +60,16 @@ namespace PL_WPF
             if (cmd.DataContext is BO.BasicLine)
             {
                 BO.BasicLine selectedLine = (BO.BasicLine)cmd.DataContext;
-                new LinePropertiesWindow(bl, selectedLine.Id).Show();
+                LinePropertiesWindow lineProperties = new LinePropertiesWindow(bl, selectedLine.Id);
+                lineProperties.updateLineAreaEvent += RefreshList;
+                lineProperties.Show();
             }
+        }
+
+       
+        private void AddLine_clicked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

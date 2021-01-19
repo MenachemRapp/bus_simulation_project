@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using BLAPI;
 using BO;
 using DO;
@@ -88,27 +89,70 @@ namespace BL
         }
         #endregion
 
-
-       public  IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
+        #region Station
+        
+        public void AddStation(BO.Station station)
         {
-            IDL idl = DLFactory.GetDL();
-            //var x = idl.GetSortLineStationsInLine(LineId);
-            //DO.LineStation last = x.Last();
-            //from item in x
-            //where item != last
-            //let AdjacentStations = idl.GetAdjacentStations(item.Station, item.NextStation)
-            //select (new ListedLineStation()
-            //{
-            //    Code = item.Station,
-            //    Name = idl.GetStation(item.Station).Name,
-            //    Distance = AdjacentStations.Distance,
-            //    Time = AdjacentStations.Time
-            //}
+            DO.Station stationDO = new DO.Station();
+            station.CopyPropertiesTo(stationDO);
+            try
+            {
+                dl.AddStation(stationDO);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
 
+                throw new BO.BadStationCodeException(ex.Message, ex);
+            }
+            
+        }
 
+        BO.Station stationDoBoAdapter(DO.Station stationDO)
+        {
+            BO.Station stationBO = new BO.Station();
+            int code = stationDO.Code;
+            stationDO = dl.GetStation(code);
+            stationDO.CopyPropertiesTo(stationBO);
 
+            return stationBO;
+        }
+        public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
+        {
+            return from station in dl.GetAllStationsBy(s=> s.Code!=prevCode && s.Code != NextCode)
+                   select stationDoBoAdapter(station);
+        }
+
+        public IEnumerable<BO.Station> GetAllStations()
+        {
+            return (from station in dl.GetAllStations()
+                   select stationDoBoAdapter(station)).OrderBy(station => station.Code);
+        }
+                
+        public IEnumerable<BO.Station> GetAllOtherStations(int code)
+        {
+            return from station in dl.GetAllStationsBy(s => s.Code != code)
+                   select stationDoBoAdapter(station);
+        }
+
+        public void UpdateLineArea(int lineId, BO.Areas BOarea)
+        {
+            Enum.TryParse(BOarea.ToString(), out DO.Areas DOarea);
+            try
+            {
+                dl.UpdateLineArea(lineId, DOarea);
+            }
+            catch (DO.BadLineIdException ex)
+            {
+                throw new BO.BadLineIdException("Line ID does not exist", ex);
+            }
+        }
+
+        #endregion 
+
+        public IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
+        {
             List<ListedLineStation> list = new List<ListedLineStation>();
-            foreach (LineStation item in idl.GetSortLineStationsInLine(LineId))
+            foreach (LineStation item in DLFactory.GetDL().GeLineStationsInLine(LineId))
             {
                 if (item.NextStation != 0)
                 {
@@ -135,5 +179,7 @@ namespace BL
             }
             return list;
         }
+
+        
     }
 }

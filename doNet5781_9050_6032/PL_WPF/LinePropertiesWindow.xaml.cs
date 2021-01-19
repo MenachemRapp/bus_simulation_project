@@ -21,14 +21,75 @@ namespace PL_WPF
     public partial class LinePropertiesWindow : Window
     {
         public IBL bl;
-        
-        public LinePropertiesWindow(IBL _bl, int line)
+        int lineNum;
+        BO.LineAndStations line;
+        public LinePropertiesWindow(IBL _bl, int lineId)
         {
             InitializeComponent();
             bl = _bl;
-            // stationslb.ItemsSource = bl.GetStationCodeNameDistanceTimeInLine(line).ToList();
-            stationslb.ItemsSource = bl.GetLineAndStations(line).ListOfStation.ToList();
-            stationst.DataContext = bl.GetLineAndStations(line);
+            lineNum = lineId;
+            areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
+            RefreshList();
         }
+
+
+        private void RefreshList()
+        {
+            line = bl.GetLineAndStations(lineNum);
+            stationslb.ItemsSource = line.ListOfStation.ToList();
+            stationst.DataContext = line;
+        }
+
+        private void ModifyBus_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
+        {
+            BO.Station station = ((sender as Button).DataContext as BO.Station);
+            StationsWindow stationsWindow = new StationsWindow(bl);
+            stationsWindow.selectStationEvent += AddStation;
+            stationsWindow.ShowDialog();
+        }
+
+        private void RemoveBus_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                try
+                {
+                    bl.UpdateLineArea(line.Id, line.Area);
+                    MessageBox.Show("Area of the line has changed", "New Area", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if(updateLineAreaEvent!=null)
+                        updateLineAreaEvent();
+                    
+                }
+                catch (BO.BadLineIdException)
+                {
+                    MessageBox.Show("unable to update", "Updating Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+            
+        }
+
+        private void AddFirstStation_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddStation(int stationCode)
+        {
+            RefreshList();
+        }
+
+        public delegate void updateLineAreaHandler();
+        public event updateLineAreaHandler updateLineAreaEvent;
     }
 }

@@ -15,11 +15,24 @@ namespace BLAPI
         IEnumerable<BO.BasicLine> GetAllLines();
 
         void DeleteLine(int id);
+
+        void UpdateLineArea(int lineId, BO.Areas area);
+
         #endregion
 
         #region LineAndStations
         BO.LineAndStations GetLineAndStations(int id);
 
+        #endregion
+
+        #region Station
+
+        void AddStation(BO.Station station);
+
+        IEnumerable<BO.Station> GetAllStations();
+              
+        IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
+        IEnumerable<BO.Station> GetAllOtherStations(int code);
         #endregion
     }
 }

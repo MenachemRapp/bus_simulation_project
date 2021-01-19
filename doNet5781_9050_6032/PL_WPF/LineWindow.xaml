@@ -14,8 +14,7 @@
 
                
 
-                <Button Content="Properties" Margin="5,0,5,0" Click="PropertiesBusLine_Clicked"/>
-                <Button Content="Update" Margin="5,0,5,0" Click="UptadeBusLine_Clicked"/>
+                <Button Content="View and Update" Margin="5,0,5,0" Click="PropertiesBusLine_Clicked"/>
                 <Button Content="Delete" Margin="5,0,5,0" Click="DeleteBusLine_Clicked"/>
                 <TextBlock Text="{Binding}"/>
 
@@ -30,5 +29,6 @@
             <RowDefinition Height="53*"/>
         </Grid.RowDefinitions>
         <ListBox Name="LinesList"  Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusLinesListAndButtons}"/>
+        <Button Content="Add Line" Grid.Row="1" Click="AddLine_clicked" Height="20" Width="75"/>
     </Grid>
 </Window>
