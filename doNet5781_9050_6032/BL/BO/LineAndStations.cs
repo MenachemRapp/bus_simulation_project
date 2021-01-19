@@ -8,10 +8,10 @@ namespace BO
 {
    public class LineAndStations :BasicLine
     {
-        public TimeSpan totalTime;
+        public TimeSpan totalTime { get; set; }
 
-        public double totalDistance;
-        
+        public double totalDistance { get; set; }
+
         public IEnumerable<ListedLineStation> ListOfStation { get; set; }
         
 
