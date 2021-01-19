@@ -89,7 +89,7 @@ namespace DLAPI
 
 
 
-        IEnumerable<DO.LineStation> GetSortLineStationsInLine(int lineId);
+        IEnumerable<DO.LineStation> GeLineStationsInLine(int lineId);
 
 
 

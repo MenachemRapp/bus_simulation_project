@@ -9,7 +9,7 @@ using DS;
 
 namespace DL
 {
-    internal class DLObject:IDL
+    internal class DLObject : IDL
     {
         #region singelton
         static readonly DLObject instance = new DLObject();
@@ -26,7 +26,7 @@ namespace DL
             if (bus != null)
                 return bus.Clone();
             else
-                throw new Exception(string.Format("bad license number: {0}", LicenseNum));//create exception
+                throw new BadBusLicenseException(LicenseNum);
         }
 
         public IEnumerable<Bus> GetAllBuss()
@@ -44,10 +44,10 @@ namespace DL
         public void AddBus(Bus bus)
         {
             if (DataSource.ListBus.FirstOrDefault(b => b.LicenseNum == bus.LicenseNum) != null)
-                throw new Exception(string.Format("duplicate license number: {0}", bus.LicenseNum));//create exception
+                throw new BadBusLicenseException(bus.LicenseNum, "duplicate license number");
             DataSource.ListBus.Add(bus.Clone());
         }
-       
+
         public void DeleteBus(int LicenseNum)
         {
             DO.Bus bus = DataSource.ListBus.Find(b => b.LicenseNum == LicenseNum);
@@ -56,10 +56,10 @@ namespace DL
                 DataSource.ListBus.Remove(bus);
             }
             else
-                throw new Exception(string.Format("bad license number: {0}", LicenseNum));//create exception
+                throw new BadBusLicenseException(LicenseNum);
         }
-           
-          
+
+
 
         public void UpdateBus(Bus bus)
         {
@@ -70,7 +70,7 @@ namespace DL
                 DataSource.ListBus.Add(bus);
             }
             else
-                throw new Exception(string.Format("bad license number: {0}", bus.LicenseNum));//create exception
+                throw new BadBusLicenseException(bus.LicenseNum);
         }
 
         //not implemented
@@ -83,13 +83,13 @@ namespace DL
         #endregion
 
         #region Station
-       public Station GetStation(int Code)
+        public Station GetStation(int Code)
         {
             DO.Station station = DataSource.ListStation.Find(s => s.Code == Code);
             if (station != null)
                 return station.Clone();
             else
-                throw new Exception(string.Format("bad code: {0}", Code));//create exception
+                throw new BadStationCodeException(Code);
         }
 
         public IEnumerable<Station> GetAllStations()
@@ -100,27 +100,29 @@ namespace DL
 
         public IEnumerable<Station> GetAllStationsBy(Predicate<Station> predicate)
         {
-            return ((IDL)instance).GetAllStationsBy(predicate);
+            return from sta in DataSource.ListStation
+                   where predicate(sta)
+                   select sta.Clone();
         }
 
-       
+
 
 
         public void AddStation(Station station)
         {
             if (DataSource.ListStation.FirstOrDefault(s => s.Code == station.Code) != null)
-                 throw new DO.BadStationCodeException(station.Code, "Duplicate station Code");
-             
-           DataSource.ListStation.Add(station.Clone());
+                throw new DO.BadStationCodeException(station.Code, "Duplicate station Code");
+
+            DataSource.ListStation.Add(station.Clone());
         }
 
-      
+
         public void DeleteStation(int Code)
         {
             ((IDL)instance).DeleteStation(Code);
         }
 
-       
+
 
 
         public void UpdateStation(Station sation)
@@ -143,7 +145,7 @@ namespace DL
             if (bus != null)
                 return bus.Clone();
             else
-                throw new Exception(string.Format("bad bus ID: {0}", Id));//create exception
+                throw new BadLineIdException(Id);
         }
 
 
@@ -173,7 +175,7 @@ namespace DL
             ((IDL)instance).AddBusOnTrip(bus_on_trip);
         }
 
-      
+
         public void DeleteBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff)
         {
             ((IDL)instance).DeleteBusOnTrip(LicenseNum, LineId, PlannedTakeOff);
@@ -184,7 +186,7 @@ namespace DL
             ((IDL)instance).DeleteBusOnTrip(Id);
         }
 
-        
+
 
         public void UpdateBusOnTrip(BusOnTrip bus_on_trip)
         {
@@ -215,11 +217,15 @@ namespace DL
             ((IDL)instance).DeleteAdjacentStations(CodeStation1, CodeStation2);
         }
 
-        
+
 
         public AdjacentStations GetAdjacentStations(int CodeStation1, int CodeStation2)
         {
-            return ((IDL)instance).GetAdjacentStations(CodeStation1, CodeStation2);
+            DO.AdjacentStations stations = DataSource.ListAdjacentStations.Find(sta => sta.Station1 == CodeStation1 && sta.Station2 == CodeStation2);
+            if (stations != null)
+                return stations.Clone();
+            else
+                throw new BadAdjacentStationsException(CodeStation1, CodeStation2);
         }
 
         public IEnumerable<AdjacentStations> GetAllAdjacentStationss()
@@ -232,7 +238,7 @@ namespace DL
             return ((IDL)instance).GetAllAdjacentStationssBy(predicate);
         }
 
-       
+
 
         public void UpdateAdjacentStations(AdjacentStations Adjacent_Stations)
         {
@@ -274,10 +280,10 @@ namespace DL
                 DataSource.ListLine.Remove(line);
             }
             else
-                throw new Exception($"bad student id: {Id}");
+                throw new BadLineIdException(Id);
         }
 
-     
+
 
         public IEnumerable<Line> GetAllLinesBy(Predicate<Line> predicate)
         {
@@ -289,11 +295,11 @@ namespace DL
 
         public void UpdateLineArea(int lineId, Areas area)
         {
-            DO.Line line = DataSource.ListLine.Find(li => li.Id==lineId);
+            DO.Line line = DataSource.ListLine.Find(li => li.Id == lineId);
 
             if (line != null)
             {
-                line.Area=area;
+                line.Area = area;
             }
             else
                 throw new DO.BadLineIdException(lineId);
@@ -310,14 +316,13 @@ namespace DL
             ((IDL)instance).UpdateLine(Id, update);
         }
 
-        IEnumerable<LineStation> IDL.GetSortLineStationsInLine(int lineId)
+        IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
         {
-            return (from item in DataSource.ListLineStation
-                    where item.LineId == lineId
-                    orderby item.LineStationIndex
-                    select item.Clone());
-
-         }
+            // throw new NotImplementedException();
+            return from sil in DataSource.ListLineStation
+                   where sil.LineId == lineId//change to predicate
+                   select sil.Clone();
+        }
 
 
 
@@ -342,7 +347,7 @@ namespace DL
             DataSource.ListLineStation.RemoveAll(s => s.LineId == Id);
         }
 
-       
+
         #endregion
 
 

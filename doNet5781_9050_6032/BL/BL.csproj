@@ -48,6 +48,7 @@
     <Compile Include="BO\Exceptions.cs" />
     <Compile Include="BO\LineAndStations.cs" />
     <Compile Include="BO\ListedLineStation.cs" />
+    <Compile Include="BO\Station.cs" />
     <Compile Include="BO\Tools.cs" />
     <Compile Include="DeepCopyUtilities.cs" />
     <Compile Include="IBL.cs" />
