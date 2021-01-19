@@ -45,7 +45,7 @@ namespace DS
             {
                 new Line
                 {
-                    Id= 1,
+                    Id= RunnerNumber.GetIdLine(),
                     Code= 123,
                     Area= Areas.Jerusalem,
                     FirstStation= 123456,
