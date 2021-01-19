@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
-        Title="AddStationWindow" Height="450" Width="800">
+        Title="Add a New Station" Height="450" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -14,20 +14,20 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="0">
-            <Label Content="Code: " HorizontalContentAlignment="Right" Width="160pt"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="0">
+            <Label Content="Code: " HorizontalContentAlignment="Right" Width="50pt"/>
             <TextBox x:Name="txtCode" Text="" Width="150pt"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="1">
-            <Label  Content="Name: " HorizontalContentAlignment="Right" Width="160pt"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="1">
+            <Label  Content="Name: " HorizontalContentAlignment="Right" Width="50pt"/>
             <TextBox x:Name="txtName" Text="" Width="150pt"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="2">
-            <Label  Content="Longitude: " HorizontalContentAlignment="Right" Width="160pt"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="2">
+            <Label  Content="Longitude: " HorizontalContentAlignment="Right" Width="50pt"/>
             <TextBox x:Name="txtLongitude" Text="" Width="150pt"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="3">
-            <Label  Content="Latitude: " HorizontalContentAlignment="Right" Width="160pt"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="10,10,10,10" Grid.Row="3">
+            <Label  Content="Latitude: " HorizontalContentAlignment="Right" Width="50pt"/>
             <TextBox x:Name="txtLatitude" Text="" Width="150pt"/>
         </StackPanel>
         <Button x:Name="addStation" Grid.Row="4" Content="Add Station" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="100" Click="addStation_Click"/>
