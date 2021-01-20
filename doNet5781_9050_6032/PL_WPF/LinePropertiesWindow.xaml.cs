@@ -42,12 +42,14 @@ namespace PL_WPF
 
         private void ModifyBus_Clicked(object sender, RoutedEventArgs e)
         {
-
+            BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, station.Code);
+            adjacentStationsWindow.Show();
         }
 
         private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
         {
-            BO.Station station = ((sender as Button).DataContext as BO.Station);
+            BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
             StationsWindow stationsWindow = new StationsWindow(bl);
             stationsWindow.selectStationEvent += AddStation;
             stationsWindow.ShowDialog();
