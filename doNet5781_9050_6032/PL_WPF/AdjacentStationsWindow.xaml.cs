@@ -35,7 +35,8 @@ namespace PL_WPF
 
         private void AddStationDrive_Click(object sender, RoutedEventArgs e)
         {
-            
+
+            this.Close();
         }
     }
 }
