@@ -60,6 +60,6 @@ namespace DO
             base(message, innerException)
         { Code1 = code1; Code2 = code2; }
 
-        public override string ToString() => base.ToString() + $",no adjacent stations: {Code1} and {Code2}";
+        public override string ToString() => base.ToString() + $",bad adjacent stations: {Code1} and {Code2}";
     }
 }

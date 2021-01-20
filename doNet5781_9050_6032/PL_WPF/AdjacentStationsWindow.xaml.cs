@@ -21,13 +21,14 @@ namespace PL_WPF
     public partial class AdjacentStationsWindow : Window
     {
         IBL bl;
-        int station1, station2;
-        public AdjacentStationsWindow(IBL _bl, int _station1, int _station2)
+        BO.AdjacentStations adjStations= new BO.AdjacentStations();
+        //int station1, station2;
+        public AdjacentStationsWindow(IBL _bl, int station1, int station2)
         {
             InitializeComponent();
             bl = _bl;
-            station1 = _station1;
-            station2 = _station2;
+            adjStations.Station1 = station1;
+            adjStations.Station2 = station2;
 
             string title = $"Fill in the values of the drive between:\nstation {station1} and station {station2}.";
             titletb.Text = title;
@@ -35,8 +36,33 @@ namespace PL_WPF
 
         private void AddStationDrive_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                adjStations.Distance = Convert.ToDouble(txtDistance.Text);
+                adjStations.Time = TimeSpan.FromMinutes(Convert.ToDouble(txtTime.Text));
 
-            this.Close();
+                if (SubmitDriveEvent != null)
+                    SubmitDriveEvent(adjStations);
+
+                this.Close();
+
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message, "Wrong Format", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.BadAdjacentStationsException ex)
+            {
+                MessageBox.Show(ex.Message, "Bad Stations", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
+
+        public delegate void SubmittedDriveHandler(BO.AdjacentStations stations);
+        public event SubmittedDriveHandler SubmitDriveEvent;
+
     }
+
+
+
 }

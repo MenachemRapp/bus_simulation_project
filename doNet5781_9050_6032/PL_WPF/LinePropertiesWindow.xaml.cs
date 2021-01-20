@@ -40,24 +40,26 @@ namespace PL_WPF
             stationst.DataContext = line;
         }
 
-        private void ModifyBus_Clicked(object sender, RoutedEventArgs e)
+        private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, station.Code);
-            adjacentStationsWindow.Show();
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(line.ListOfStation.ToList().FindIndex(s=>s.Code==station.Code)-1).Code);//to change to index
+            adjacentStationsWindow.SubmitDriveEvent += modifyStations;
+            adjacentStationsWindow.ShowDialog();
         }
 
-        private void AddNextBus_Clicked(object sender, RoutedEventArgs e)
+        private void AddNextStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
             StationsWindow stationsWindow = new StationsWindow(bl);
-            stationsWindow.selectStationEvent += AddStation;
+            stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
         }
 
-        private void RemoveBus_Clicked(object sender, RoutedEventArgs e)
+        private void modifyStations(BO.AdjacentStations adjacent)
         {
-
+            bl.UpdateAdjacentStations(adjacent);
+            RefreshList();
         }
 
         private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -86,12 +88,19 @@ namespace PL_WPF
 
         }
 
-        private void AddStation(int stationCode)
+        private void AddStationToLine(int stationCode)
         {
+            //add here
+
             RefreshList();
         }
 
         public delegate void updateLineAreaHandler();
         public event updateLineAreaHandler updateLineAreaEvent;
+
+        private void RemoveStation_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

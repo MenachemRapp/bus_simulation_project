@@ -147,7 +147,61 @@ namespace BL
             }
         }
 
-        #endregion 
+        #endregion
+
+        #region AdjacentStations
+
+        public void GetAdjacentStations(int station1, int station2)
+        {
+            try
+            {
+                BO.AdjacentStations adjBO = new BO.AdjacentStations();
+                DO.AdjacentStations adjDO = dl.GetAdjacentStations(station1, station2);
+                adjDO.CopyPropertiesTo(adjBO);
+            }
+            catch (DO.BadAdjacentStationsException ex)
+            {
+
+                throw new BO.BadAdjacentStationsException(ex.Message, ex);
+            }
+
+        }
+
+        public void UpdateAdjacentStations(BO.AdjacentStations adjBO)
+        {
+            DO.AdjacentStations adjDO= new DO.AdjacentStations();
+
+            adjBO.CopyPropertiesTo(adjDO);
+            try
+            {
+                dl.UpdateAdjacentStations(adjDO);
+            }
+            catch (DO.BadAdjacentStationsException ex)
+            {
+
+               throw new BO.BadAdjacentStationsException(ex.Message ,ex);
+            }
+            
+        }
+
+
+        public void AddAdjacentStations(BO.AdjacentStations adjBO)
+        {
+            DO.AdjacentStations adjDO = new DO.AdjacentStations();
+
+            adjBO.CopyPropertiesTo(adjDO);
+            try
+            {
+                dl.AddAdjacentStations(adjDO);
+            }
+            catch (DO.BadAdjacentStationsException ex)
+            {
+
+                throw new BO.BadAdjacentStationsException(ex.Message, ex);
+            }
+
+        }
+        #endregion
 
         public IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
         {

@@ -30,9 +30,14 @@ namespace BLAPI
         void AddStation(BO.Station station);
 
         IEnumerable<BO.Station> GetAllStations();
-              
+
         IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
         IEnumerable<BO.Station> GetAllOtherStations(int code);
+        #endregion
+
+        #region AdjacentStations
+        void UpdateAdjacentStations(BO.AdjacentStations adjStations);
+
         #endregion
     }
 }

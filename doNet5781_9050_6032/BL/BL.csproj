@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BLFactory.cs" />
     <Compile Include="BLImp.cs" />
+    <Compile Include="BO\AdjacentStations.cs" />
     <Compile Include="BO\Enumim.cs" />
     <Compile Include="BO\BasicLine.cs" />
     <Compile Include="BO\Exceptions.cs" />
