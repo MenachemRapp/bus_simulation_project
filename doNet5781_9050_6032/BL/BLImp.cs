@@ -234,6 +234,24 @@ namespace BL
             return list;
         }
 
+        #region line
+        public LineTotal GetLineNew(int Id)
+        {
+           
+            IDL dl = DLFactory.GetDL();
+            LineTotal line = new LineTotal();
+            Line do_line = dl.GetLine(Id);
+            line.Area = (BO.Areas) do_line.Area;
+            line.Code = do_line.Code;
+            line.Id = do_line.Id;
+
+            
+
+
+        }
         
+        #endregion  
+
+
     }
 }

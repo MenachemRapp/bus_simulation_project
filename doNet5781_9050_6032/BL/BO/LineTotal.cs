@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    class Line
+   public class LineTotal
     {
         public int Id { get; set; }
         public int Code { get; set; }

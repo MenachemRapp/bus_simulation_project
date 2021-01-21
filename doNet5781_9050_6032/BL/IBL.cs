@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BO;
 
 namespace BLAPI
 {
@@ -39,5 +40,14 @@ namespace BLAPI
         void UpdateAdjacentStations(BO.AdjacentStations adjStations);
 
         #endregion
+
+        #region Line
+        LineTotal GetLineNew(int Id);
+        bool  SaveLine(LineTotal line);
+        void RefreshLine(LineTotal line);
+
+
+        #endregion
+
     }
 }
