@@ -59,7 +59,7 @@ namespace PL_WPF
             Button cmd = (Button)sender;
             if (cmd.DataContext is BO.BasicLine)
             {
-                cmd.IsEnabled = false;
+                cmd.IsEnabled = false;//changes whem you refresh
                 BO.BasicLine selectedLine = (BO.BasicLine)cmd.DataContext;
                 LinePropertiesWindow lineProperties = new LinePropertiesWindow(bl, selectedLine.Id);
                 lineProperties.updateLineAreaEvent += RefreshList;
@@ -71,7 +71,9 @@ namespace PL_WPF
        
         private void AddLine_clicked(object sender, RoutedEventArgs e)
         {
-
+            AddLineWindow window = new AddLineWindow(bl);
+            window.Show();
+            window.Closed += (x,y)=> RefreshList();
         }
     }
 }
