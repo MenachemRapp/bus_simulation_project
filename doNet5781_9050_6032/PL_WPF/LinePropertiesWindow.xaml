@@ -12,10 +12,10 @@
 
             <StackPanel Orientation="Horizontal">
 
-                <Button Content="Remove" Margin="5,0,5,0" Click="RemoveBus_Clicked"/>
-                <Button Content="Modify" Margin="5,0,5,0" Click="ModifyBus_Clicked"/>
+                <Button Content="Remove" Margin="5,0,5,0" Click="RemoveStation_Clicked"/>
+                <Button Content="Modify" Margin="5,0,5,0" Click="ModifyStation_Clicked"/>
                 <TextBlock Text="{Binding}"  Width="500" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <Button Content="Add next Station" Margin="5,0,5,0" Click="AddNextBus_Clicked"/>
+                <Button Content="Add next Station" Margin="5,0,5,0" Click="AddNextStation_Clicked"/>
     
 
             </StackPanel>

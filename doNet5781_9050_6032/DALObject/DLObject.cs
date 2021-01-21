@@ -209,7 +209,13 @@ namespace DL
 
         public void AddAdjacentStations(AdjacentStations Adjacent_Stations)
         {
-            ((IDL)Instance).AddAdjacentStations(Adjacent_Stations);
+            DO.AdjacentStations adjStations = DataSource.ListAdjacentStations.Find(sta => sta.Station1 == Adjacent_Stations.Station1 && sta.Station2 == Adjacent_Stations.Station2);
+            if (adjStations == null)
+            {
+                DataSource.ListAdjacentStations.Add(Adjacent_Stations);
+            }
+            else
+                throw new BadAdjacentStationsException(Adjacent_Stations.Station1, Adjacent_Stations.Station2, "Duplicate adjacent stastion");
         }
 
         public void DeleteAdjacentStations(int CodeStation1, int CodeStation2)
@@ -242,7 +248,14 @@ namespace DL
 
         public void UpdateAdjacentStations(AdjacentStations Adjacent_Stations)
         {
-            ((IDL)instance).UpdateAdjacentStations(Adjacent_Stations);
+            DO.AdjacentStations adjStations = DataSource.ListAdjacentStations.Find(sta => sta.Station1==Adjacent_Stations.Station1 && sta.Station2==Adjacent_Stations.Station2);
+            if (adjStations != null)
+            {
+                DataSource.ListAdjacentStations.Remove(adjStations);
+                DataSource.ListAdjacentStations.Add(Adjacent_Stations);
+            }
+            else
+                throw new BadAdjacentStationsException(Adjacent_Stations.Station1, Adjacent_Stations.Station2, "Adjacent stastion don't exist.");
         }
 
         public void UpdateAdjacentStations(int CodeStation1, int CodeStation2, Action<AdjacentStations> update)

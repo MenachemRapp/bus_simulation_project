@@ -22,4 +22,15 @@ namespace BO
             base(message, innerException) => Code = ((DO.BadStationCodeException)innerException).Code;
         public override string ToString() => base.ToString() + $", bad station code: {Code}";
     }
+
+    public class BadAdjacentStationsException : Exception
+    {
+        public int Code1, Code2;
+        public BadAdjacentStationsException(string message, Exception innerException) :
+            base(message, innerException) 
+            {Code1 = ((DO.BadAdjacentStationsException) innerException).Code1;
+            Code2 = ((DO.BadAdjacentStationsException)innerException).Code2;
+        }
+        public override string ToString() => base.ToString() + $",bad adjacent stations: {Code1} and {Code2}";
+    }
 }

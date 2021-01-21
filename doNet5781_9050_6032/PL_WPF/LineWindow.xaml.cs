@@ -59,9 +59,11 @@ namespace PL_WPF
             Button cmd = (Button)sender;
             if (cmd.DataContext is BO.BasicLine)
             {
+                cmd.IsEnabled = false;
                 BO.BasicLine selectedLine = (BO.BasicLine)cmd.DataContext;
                 LinePropertiesWindow lineProperties = new LinePropertiesWindow(bl, selectedLine.Id);
                 lineProperties.updateLineAreaEvent += RefreshList;
+                lineProperties.Closed += (x,y) => cmd.IsEnabled = true;  
                 lineProperties.Show();
             }
         }
