@@ -27,9 +27,10 @@ namespace PL_WPF
             InitializeComponent();
             bl = _bl;
             stationId = _stationId;
-            //BO.StationWithLines station = bl.GetStationWithLines(stationId);
-            //stationListlb.DataContext= station.LineList.Tolist();
-            //stationsp.DataContext= station.LineList.Tolist();
+            BO.StationWithLines station = bl.GetStationWithLines(stationId);
+            StationListlb.ItemsSource= station.ListOfLines.ToList();
+            stationsp1.DataContext= station;
+            stationsp2.DataContext = station;
         }
     }
 }

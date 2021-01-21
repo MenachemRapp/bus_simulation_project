@@ -43,7 +43,7 @@ namespace PL_WPF
         private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(line.ListOfStation.ToList().FindIndex(s=>s.Code==station.Code)-1).Code);//to change to index
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl,line.ListOfStation.ElementAt(line.ListOfStation.ToList().FindIndex(s=>s.Code==station.Code)-1).Code,station.Code);//to change to index
             adjacentStationsWindow.SubmitDriveEvent += modifyStations;
             adjacentStationsWindow.ShowDialog();
         }
@@ -51,7 +51,7 @@ namespace PL_WPF
         private void AddNextStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            StationsWindow stationsWindow = new StationsWindow(bl);
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl, station.Code);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
         }
@@ -64,6 +64,7 @@ namespace PL_WPF
 
         private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //wait for save//////////////////////////////////////////////////////////////////////////
             if (IsLoaded)
             {
                 try
@@ -88,7 +89,7 @@ namespace PL_WPF
 
         }
 
-        private void AddStationToLine(int stationCode)
+        private void AddStationToLine(int previuosStationCode, int newStationCode)
         {
             //add here
 
@@ -99,6 +100,11 @@ namespace PL_WPF
         public event updateLineAreaHandler updateLineAreaEvent;
 
         private void RemoveStation_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveLine_Clicked(object sender, RoutedEventArgs e)
         {
 
         }

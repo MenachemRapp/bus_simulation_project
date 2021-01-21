@@ -125,9 +125,16 @@ namespace DL
 
 
 
-        public void UpdateStation(Station sation)
+        public void UpdateStation(Station station)
         {
-            ((IDL)instance).UpdateStation(sation);
+            DO.Station myStation = DataSource.ListStation.Find(s => s.Code == station.Code);
+            if (myStation != null)
+            {
+                DataSource.ListStation.Remove(myStation);
+                DataSource.ListStation.Add(station);
+            }
+            else
+                throw new BadBusLicenseException(station.Code, "Bad Station Code");
         }
 
         public void UpdateStation(int Code, Action<Station> update)

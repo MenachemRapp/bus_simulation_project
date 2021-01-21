@@ -91,6 +91,8 @@ namespace BL
 
         #region Station
         
+        
+
         public void AddStation(BO.Station station)
         {
             DO.Station stationDO = new DO.Station();
@@ -107,6 +109,20 @@ namespace BL
             
         }
 
+        public void UpdateStation(BO.Station station)
+        {
+            DO.Station stationDO = new DO.Station();
+            station.CopyPropertiesTo(stationDO);
+            try
+            {
+                dl.UpdateStation(stationDO);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+
+                throw new BO.BadStationCodeException(ex.Message, ex);
+            }
+        }
         BO.Station stationDoBoAdapter(DO.Station stationDO)
         {
             BO.Station stationBO = new BO.Station();
@@ -115,6 +131,11 @@ namespace BL
             stationDO.CopyPropertiesTo(stationBO);
 
             return stationBO;
+        }
+
+        public BO.Station GetStation(int code)
+        {
+            return stationDoBoAdapter(dl.GetStation(code));
         }
         public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
         {
@@ -249,8 +270,34 @@ namespace BL
 
 
         }
-        
-        #endregion  
+
+        #endregion
+
+
+        #region StationWithLines
+        public BO.StationWithLines GetStationWithLines(int code)
+        {
+            BO.StationWithLines stationWith = new StationWithLines();
+            BO.Station station = stationDoBoAdapter(dl.GetStation(code));
+            station.CopyPropertiesTo(stationWith);
+           
+           List<DO.LineStation> lineStationList = dl.GetAllLineStationBy(sta => sta.Station == code).ToList();
+            //IEnumerable<DO.LineStation> lineStationList = dl.GetAllLineStationBy(sta => sta.Station == code);
+            
+            stationWith.ListOfLines = new List<BO.BasicLine>();
+            List<BO.BasicLine> lineList= new List<BasicLine>();
+            foreach (DO.LineStation lineStation in lineStationList)//change to LINQ////////////////
+                lineList.Add(GetLine(lineStation.LineId));
+            stationWith.ListOfLines = lineList;
+            return stationWith;
+        }
+        #endregion
+
+
+
+
+
+
 
 
     }

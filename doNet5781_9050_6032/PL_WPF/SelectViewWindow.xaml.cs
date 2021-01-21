@@ -10,24 +10,31 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using BLAPI;
 
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SelectView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SelectViewWindow : Window
     {
-        readonly IBL bl = BLFactory.GetBL("1");
-        public MainWindow()
+        IBL bl;
+        public SelectViewWindow(IBL _bl)
         {
             InitializeComponent();
-            new SelectViewWindow(bl).Show();
-            this.Close();//temporerally
+            bl = _bl;
+        }
+
+        private void LineView_clicked(object sender, RoutedEventArgs e)
+        {
+            new LineListWindow(bl).Show();
+        }
+
+        private void StationView_clicked(object sender, RoutedEventArgs e)
+        {
+            new StationViewWindow(bl).Show();
         }
     }
 }

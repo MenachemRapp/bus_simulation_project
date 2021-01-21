@@ -8,20 +8,24 @@
         Title="Station Properties" Height="450" Width="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="53*"/>
-            <RowDefinition Height="367*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="350*"/>
         </Grid.RowDefinitions>
-
-        <StackPanel x:Name="stationsp" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        
+        <StackPanel x:Name="stationsp1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Station Code:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Code}"/>
             <Label Content="Station Name:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Name}"/>
+        </StackPanel>
+        <StackPanel x:Name="stationsp2" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Longitude:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Longitude}"/>
             <Label Content="Latitude:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Latitude}"/>
         </StackPanel>
-        <ListBox Name="StationListlb" Grid.Row = "1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
+            
+        <ListBox Name="StationListlb" Grid.Row = "2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
     </Grid>
 </Window>

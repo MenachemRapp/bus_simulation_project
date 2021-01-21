@@ -28,19 +28,26 @@ namespace BLAPI
 
         #region Station
 
+        BO.Station GetStation(int Code);
+
         void AddStation(BO.Station station);
 
+        void UpdateStation(BO.Station station);
         IEnumerable<BO.Station> GetAllStations();
 
         IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
         IEnumerable<BO.Station> GetAllOtherStations(int code);
         #endregion
 
+        #region StationWithLines
+        BO.StationWithLines GetStationWithLines(int code);
+        #endregion
+
         #region AdjacentStations
         void UpdateAdjacentStations(BO.AdjacentStations adjStations);
 
         #endregion
-
+        
         #region Line
         LineTotal GetLineNew(int Id);
         bool  SaveLine(LineTotal line);
@@ -48,6 +55,6 @@ namespace BLAPI
 
 
         #endregion
-
+        
     }
 }
