@@ -282,7 +282,9 @@ namespace DL
 
         public void AddLine(Line line)
         {
-            ((IDL)Instance).AddLine(line);
+            Line new_line = line.Clone();
+            new_line.Id = DS.RunnerNumber.GetIdLine();
+            DataSource.ListLine.Add(new_line);
         }
         public void DeleteLine(int Id)
         {
