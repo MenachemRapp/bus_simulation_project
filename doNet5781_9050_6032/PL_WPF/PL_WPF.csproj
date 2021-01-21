@@ -64,6 +64,9 @@
     <Compile Include="AdjacentStationsWindow.xaml.cs">
       <DependentUpon>AdjacentStationsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StationPropertiesWindow.xaml.cs">
+      <DependentUpon>StationPropertiesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StationsWindow.xaml.cs">
       <DependentUpon>StationsWindow.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="StationPropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StationsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
