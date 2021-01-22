@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
             <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
             <RowDefinition Height="350*"/>
         </Grid.RowDefinitions>
         
@@ -25,7 +26,20 @@
             <Label Content="Latitude:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Latitude}"/>
         </StackPanel>
-            
-        <ListBox Name="StationListlb" Grid.Row = "2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
+        <TextBlock Grid.Row="2" Name="listTitle" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="Lines which go through the station:"/>
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="0">
+                            <Setter Property="Text" Value="No Stations go through this line"/>
+                            <Setter Property="Background" Value="OrangeRed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ListBox Name="StationListlb" Grid.Row = "3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
     </Grid>
 </Window>

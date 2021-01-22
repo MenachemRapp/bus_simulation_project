@@ -29,12 +29,20 @@ namespace PL_WPF
 
         private void LineView_clicked(object sender, RoutedEventArgs e)
         {
-            new LineListWindow(bl).Show();
+            Button button = sender as Button;
+            button.IsEnabled = false;
+            LineListWindow lineWin = new LineListWindow(bl);
+            lineWin.Show();
+            lineWin.Closed+=(x,y)=> button.IsEnabled = true;
         }
 
         private void StationView_clicked(object sender, RoutedEventArgs e)
         {
-            new StationViewWindow(bl).Show();
+            Button button = sender as Button;
+            button.IsEnabled = false;
+            StationViewWindow stationWin = new StationViewWindow(bl);
+            stationWin.Show();
+            stationWin.Closed += (x, y) => button.IsEnabled = true;
         }
     }
 }

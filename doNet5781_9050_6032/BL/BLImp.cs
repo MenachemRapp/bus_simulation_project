@@ -281,14 +281,8 @@ namespace BL
             BO.Station station = stationDoBoAdapter(dl.GetStation(code));
             station.CopyPropertiesTo(stationWith);
            
-           List<DO.LineStation> lineStationList = dl.GetAllLineStationBy(sta => sta.Station == code).ToList();
-            //IEnumerable<DO.LineStation> lineStationList = dl.GetAllLineStationBy(sta => sta.Station == code);
-            
-            stationWith.ListOfLines = new List<BO.BasicLine>();
-            List<BO.BasicLine> lineList= new List<BasicLine>();
-            foreach (DO.LineStation lineStation in lineStationList)//change to LINQ////////////////
-                lineList.Add(GetLine(lineStation.LineId));
-            stationWith.ListOfLines = lineList;
+           IEnumerable<DO.LineStation> lineStationList = dl.GetAllLineStationBy(sta => sta.Station == code).ToList();
+            stationWith.ListOfLines = lineStationList.Select(st=> GetLine(st.LineId));
             return stationWith;
         }
         #endregion

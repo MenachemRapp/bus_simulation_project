@@ -31,6 +31,7 @@ namespace PL_WPF
             StationListlb.ItemsSource= station.ListOfLines.ToList();
             stationsp1.DataContext= station;
             stationsp2.DataContext = station;
+            listTitle.DataContext = station.ListOfLines.ToList().Count();
         }
     }
 }
