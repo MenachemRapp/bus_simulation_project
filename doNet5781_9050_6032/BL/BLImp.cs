@@ -281,7 +281,7 @@ namespace BL
             BO.Station station = stationDoBoAdapter(dl.GetStation(code));
             station.CopyPropertiesTo(stationWith);
            
-            stationWith.ListOfLines = dl.GetAllLineStationBy(sta => sta.Station == code).Select(st=> GetLine(st.LineId));
+            stationWith.ListOfLines = dl.GetAllLineStationBy(sta => sta.Station == code).Select(st=> GetLine(st.LineId)).Distinct().OrderBy(line=>line.Code);
             return stationWith;
         }
         #endregion
