@@ -119,7 +119,15 @@ namespace DL
 
         public void DeleteStation(int Code)
         {
-            ((IDL)instance).DeleteStation(Code);
+            DO.Station station = DataSource.ListStation.Find(s => s.Code == Code);
+            if (station == null) 
+                throw new BadStationCodeException(Code, "Bad Station Code");
+            DO.LineStation lineStation = DataSource.ListLineStation.Find(s => s.Station == Code);
+            if (lineStation != null)
+                throw new BadStationCodeException(Code, "Station has lines");
+            else
+            DataSource.ListStation.Remove(station);
+            
         }
 
 
@@ -134,7 +142,7 @@ namespace DL
                 DataSource.ListStation.Add(station);
             }
             else
-                throw new BadBusLicenseException(station.Code, "Bad Station Code");
+                throw new BadStationCodeException(station.Code, "Bad Station Code");
         }
 
         public void UpdateStation(int Code, Action<Station> update)

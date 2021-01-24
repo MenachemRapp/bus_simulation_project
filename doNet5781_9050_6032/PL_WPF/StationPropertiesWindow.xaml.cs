@@ -32,6 +32,24 @@ namespace PL_WPF
             stationsp1.DataContext= station;
             stationsp2.DataContext = station;
             listTitle.DataContext = station.ListOfLines.ToList().Count();
+            DeleteButton.DataContext = station.ListOfLines.ToList().Count();
         }
+
+        private void DeleteButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.DeleteStation(stationId);
+                if (DeleteEvent != null)
+                    DeleteEvent(sender,e);
+                this.Close();
+            }
+            catch (BO.BadStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public EventHandler DeleteEvent;
     }
 }

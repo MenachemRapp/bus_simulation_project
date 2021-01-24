@@ -42,6 +42,6 @@
         </StackPanel>
         <Button Content="Add a First Station" Click="AddFirstStation_Clicked" Margin="5,1,5,1" HorizontalAlignment="Center" Width="500" Grid.Row="1"/>
         <ListBox Name="stationslb" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}" Grid.Row="2"/>
-        <Button Name="saveButton" Content="Save Line" Click="SaveLine_Clicked" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="3"/>
+        <Button Name="saveButton" Content="Save Changes" Click="SaveLine_Clicked" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="3"/>
     </Grid>
 </Window>

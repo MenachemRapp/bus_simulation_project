@@ -168,6 +168,20 @@ namespace BL
             }
         }
 
+
+        public void DeleteStation(int code)
+        {
+            try
+            {
+                dl.DeleteStation(code);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+
+                throw new BO.BadStationCodeException(ex.Message, ex);
+            }
+            
+        }
         #endregion
 
         #region AdjacentStations
@@ -254,7 +268,7 @@ namespace BL
             }
             return list;
         }
-
+        
         #region line
         public LineTotal GetLineNew(int Id)
         {
@@ -273,7 +287,7 @@ namespace BL
 
         #endregion
 
-
+        
         #region StationWithLines
         public BO.StationWithLines GetStationWithLines(int code)
         {

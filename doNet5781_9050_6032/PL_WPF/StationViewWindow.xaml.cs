@@ -37,8 +37,9 @@ namespace PL_WPF
         private void View_Station_clicked(object sender, RoutedEventArgs e)
         {
             BO.Station SelectedStation = ((sender as Button).DataContext as BO.Station);
-            new StationPropertiesWindow(bl, SelectedStation.Code).Show();
-
+            StationPropertiesWindow window = new StationPropertiesWindow(bl, SelectedStation.Code);
+            window.DeleteEvent+=(x, y) => Refresh();
+            window.Show();
         }
 
         private void AddStation_clicked(object sender, RoutedEventArgs e)
@@ -54,6 +55,19 @@ namespace PL_WPF
             ModifyStationWindow window = new ModifyStationWindow(bl, SelectedStation.Code);
             window.Closing += (x, y) => Refresh();
             window.Show();
+        }
+        private void Delete_Station_Clicked(object sender, RoutedEventArgs e)
+        {
+            BO.Station SelectedStation = ((sender as Button).DataContext as BO.Station);
+            try
+            {
+                bl.DeleteStation(SelectedStation.Code);
+                Refresh();
+            }
+            catch (BO.BadStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message+"\nClick \"view\" for more information.", "Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

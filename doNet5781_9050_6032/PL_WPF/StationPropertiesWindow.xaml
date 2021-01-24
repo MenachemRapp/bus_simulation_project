@@ -12,6 +12,7 @@
             <RowDefinition Height="30*"/>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="350*"/>
+            <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
         
         <StackPanel x:Name="stationsp1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -41,5 +42,17 @@
             </TextBlock.Style>
         </TextBlock>
         <ListBox Name="StationListlb" Grid.Row = "3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
+        <Button Name="DeleteButton" Grid.Row="4" Content="Delete Station" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DeleteButton_Clicked">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="0">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>
