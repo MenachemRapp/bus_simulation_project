@@ -42,10 +42,11 @@ namespace BLAPI
         #endregion
 
         #region Line
-        LineTotal GetLineNew(int Id);
-        bool  SaveLine(LineTotal line);
-        void RefreshLine(LineTotal line);
-
+        //LineTotal GetLineNew(int Id);
+        //bool  SaveLine(LineTotal line);
+        //void RefreshLine(LineTotal line);
+        void AddStatToLine(int station1_id, int station2_id, LineTotal line);
+        void DelStatFromLine(int index, LineTotal line);
 
         #endregion
 

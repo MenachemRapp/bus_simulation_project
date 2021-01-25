@@ -235,22 +235,128 @@ namespace BL
         }
 
         #region line
-        public LineTotal GetLineNew(int Id)
+        //public LineTotal GetLineNew(int Id)
+        //{
+
+        //    IDL dl = DLFactory.GetDL();
+        //    LineTotal line = new LineTotal();
+        //    Line do_line = dl.GetLine(Id);
+        //    line.Area = (BO.Areas) do_line.Area;
+        //    line.Code = do_line.Code;
+        //    line.Id = do_line.Id;
+
+
+
+
+        //}
+        //void AddStatToLine(int station_id, int index, LineTotal line)
+        //{
+        //    IDL idl = DLFactory.GetDL();
+        //    TimeSpan time;
+        //    double distance;
+        //    DO.Station station;
+        //    try
+        //    {
+        //        station = idl.GetStation(station_id);
+        //    }
+        //    catch (Exception)// if station don't exikst
+        //    {
+
+        //        throw;// to_do
+        //    }
+        //    if (index != 0 && line.ListOfStation.Count()>0)// if There is a station before our station
+        //    {
+
+        //        try// If time and distance already exist 
+        //        {
+        //            DO.AdjacentStations adjacent_stations = idl.GetAdjacentStations(line.ListOfStation.First().Code, station_id);
+        //            time = adjacent_stations.Time;
+        //            distance = adjacent_stations.Distance;
+        //        }
+        //        catch (DO.BadAdjacentStationsException)
+        //        {
+        //            time = TimeSpan.Zero;
+        //            distance = 0;
+        //        }
+        //    }
+        //    line.ListOfStation.ToList().Insert
+        //}
+
+        void AddStatToLine(int station_id, int index, LineTotal line)
         {
-           
-            IDL dl = DLFactory.GetDL();
-            LineTotal line = new LineTotal();
-            Line do_line = dl.GetLine(Id);
-            line.Area = (BO.Areas) do_line.Area;
-            line.Code = do_line.Code;
-            line.Id = do_line.Id;
+            IDL idl = DLFactory.GetDL();
+            DO.Station station;
+            try
+            {
+                station = idl.GetStation(station_id);
+            }
+            catch (Exception)// if station don't exikst
+            {
 
-            
+                throw;// to_do
+            }
 
+
+            List<ListedLineStation> list = line.ListOfStation.ToList();
+            list.Insert(index, new ListedLineStation
+            {
+                Code = station.Code,
+                Name = station.Name,
+                Distance = 0,
+                Time = TimeSpan.Zero
+            });
+            line.ListOfStation = list;
+            update_time_and_distance_of_station(line, index);
+            update_time_and_distance_of_station(line, index-1);
+        }
+        void DelStatFromLine(int index, LineTotal line)
+        {
+            List<ListedLineStation> list = line.ListOfStation.ToList();
+            list.RemoveAt(index);
+            line.ListOfStation = list;
+            update_time_and_distance_of_station(line, index - 1);
 
         }
-        
-        #endregion  
+        void update_time_and_distance_of_station(LineTotal line, int index)
+        {
+            IDL idl = DLFactory.GetDL();
+            if (index>=0 &&line.ListOfStation.Count()-2 >= index)
+            {
+                try
+                {
+                    DO.AdjacentStations adjacent_stations = idl.GetAdjacentStations(line.ListOfStation.ElementAt(index).Code, line.ListOfStation.ElementAt(index+1).Code);
+                    line.ListOfStation.ElementAt(index).Distance= adjacent_stations.Distance;
+                    line.ListOfStation.ElementAt(index).Time = adjacent_stations.Time;
+                }
+                catch (DO.BadAdjacentStationsException)
+                {
+                    line.ListOfStation.ElementAt(index).Distance = 0;
+                    line.ListOfStation.ElementAt(index).Time = TimeSpan.Zero;
+
+                }
+            }
+        }
+
+        bool line_can_save(LineTotal line)
+        {
+            var a = from item in line.ListOfStation
+                    where item.Distance == 0 && item.Time == TimeSpan.Zero
+                    select item;
+            if (a.FirstOrDefault() == line.ListOfStation.LastOrDefault()&& line.ListOfStation.Count()>=2)
+            {
+                return true; // to do -עוד בדיקות של כל הקלט
+            }
+            return false;
+        }
+
+        void SaveLine(LineTotal line)
+        {
+            //if (!line_can_save(line))
+            //    throw;// to_do ....
+
+            for()
+        }
+        #endregion
 
 
     }
