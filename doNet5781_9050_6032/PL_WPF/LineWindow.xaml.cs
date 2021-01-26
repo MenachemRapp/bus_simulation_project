@@ -62,7 +62,7 @@ namespace PL_WPF
                 BO.BasicLine selectedLine = (BO.BasicLine)cmd.DataContext;
                 LinePropertiesWindow lineProperties = new LinePropertiesWindow(bl, selectedLine.Id);
                 //lineProperties.updateLineAreaEvent += RefreshList;
-                //lineProperties.SavedLineEvent += RefreshList;
+                lineProperties.SavedLineEvent += (x, y) => RefreshList();
                 lineProperties.Show();
             }
         }
@@ -71,8 +71,9 @@ namespace PL_WPF
         private void AddLine_clicked(object sender, RoutedEventArgs e)
         {
             AddLineWindow window = new AddLineWindow(bl);
+            window.SavedLineEvent += (x, y) => RefreshList();
             window.Show();
-            window.Closed += (x,y)=> RefreshList();
+            
         }
     }
 }

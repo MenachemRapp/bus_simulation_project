@@ -21,23 +21,25 @@ namespace PL_WPF
     public partial class LinePropertiesWindow : Window
     {
         public IBL bl;
-        int lineNum;
-        BO.LineAndStations line;
+        //int lineNum;
+        //BO.LineAndStations line;
+        BO.LineTotal line;
         public LinePropertiesWindow(IBL _bl, int lineId)
         {
             InitializeComponent();
             bl = _bl;
-            lineNum = lineId;
+            line = bl.GetLineNew(lineId);
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             RefreshList();
+            saveButton.IsEnabled = false;
         }
 
 
         private void RefreshList()
         {
-            line = bl.GetLineAndStations(lineNum);
             stationslb.ItemsSource = line.ListOfStation.ToList();
             stationst.DataContext = line;
+            saveButton.IsEnabled = true;
         }
 
         private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
@@ -51,7 +53,7 @@ namespace PL_WPF
         private void AddNextStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            SelectStationWindow stationsWindow = new SelectStationWindow(bl, station.Code);
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl, line.ListOfStation.ToList().FindIndex(s => s.Code == station.Code)+1);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
         }
@@ -64,7 +66,8 @@ namespace PL_WPF
 
         private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //wait for save//////////////////////////////////////////////////////////////////////////
+            saveButton.IsEnabled = true;
+           /* //wait for save//////////////////////////////////////////////////////////////////////////
             if (IsLoaded)
             {
                 try
@@ -80,33 +83,49 @@ namespace PL_WPF
                     MessageBox.Show("unable to update", "Updating Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
+           */
             
         }
 
         private void AddFirstStation_Clicked(object sender, RoutedEventArgs e)
         {
-
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl, 1);
+            stationsWindow.selectStationEvent += AddStationToLine;
+            stationsWindow.ShowDialog();
         }
 
-        private void AddStationToLine(int previuosStationCode, int newStationCode)
+        private void AddStationToLine(int newStationCode, int index)
         {
-            //add here
-
+            
+            bl.AddStatToLine(newStationCode, index, line);
             RefreshList();
         }
 
-        public delegate void updateLineAreaHandler();
-        public event updateLineAreaHandler updateLineAreaEvent;
-
+        
         private void RemoveStation_Clicked(object sender, RoutedEventArgs e)
         {
-
+            BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
+            bl.DelStatFromLine(line.ListOfStation.ToList().FindIndex(s => s.Code == station.Code),line);
+            RefreshList();
         }
 
         private void SaveLine_Clicked(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                bl.SaveLine(line);
+                SavedLineEvent(sender, e);
+                Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
 
         }
+
+        public event EventHandler SavedLineEvent;
     }
 }

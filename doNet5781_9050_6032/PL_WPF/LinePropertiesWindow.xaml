@@ -14,7 +14,40 @@
 
                 <Button Content="Remove" Margin="5,0,5,0" Click="RemoveStation_Clicked"/>
                 <Button Content="Modify" Margin="5,0,5,0" Click="ModifyStation_Clicked"/>
-                <TextBlock Text="{Binding}"  Width="500" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Name}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Distance: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Width="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="{Binding Path= Distance}"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=ThereIsTimeAndDistance}" Value="False">
+                                    <Setter Property="Text" Value="MISSING"/>
+                                    <Setter Property="Foreground" Value="OrangeRed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Text="Time: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Width="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="{Binding Path= Time}"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=ThereIsTimeAndDistance}" Value="False">
+                                    <Setter Property="Text" Value="MISSING"/>
+                                    <Setter Property="Foreground" Value="OrangeRed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
                 <Button Content="Add next Station" Margin="5,0,5,0" Click="AddNextStation_Clicked"/>
     
 

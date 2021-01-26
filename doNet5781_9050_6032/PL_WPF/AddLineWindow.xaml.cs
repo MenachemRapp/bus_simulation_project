@@ -21,12 +21,13 @@ namespace PL_WPF
     public partial class AddLineWindow : Window
     {
         public IBL bl;
-        BO.LineAndStations line;
+        BO.LineTotal line;
         public AddLineWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
-            line = new BO.LineAndStations(); //bl.GetLineAndStations(1); for test
+            line = new BO.LineTotal();
+            line.ListOfStation = new List<BO.ListedLineStation>();
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             areacb.SelectedItem = line.Area;
 
@@ -54,29 +55,40 @@ namespace PL_WPF
 
         private void AddStation_Clicked(object sender, RoutedEventArgs e)
         {
-
-            BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            SelectStationWindow stationsWindow = new SelectStationWindow(bl,station.Code);
+            int index;
+            index = line.ListOfStation.Count();
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl,index);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
         }
 
         private void DeleteStation_Clicked(object sender, RoutedEventArgs e)
         {
-            //line.ListOfStation;
+            bl.DelStatFromLine(line.ListOfStation.Count()-1, line);
             RefreshList();
         }
 
-        private void AddStationToLine(int prevStation, int newStation)
+        private void AddStationToLine(int newStationCode, int index)
         {
-            //BO.ListedLineStation station = bl.get(stationCode);
-            //line.ListOfStation.Append(station);
+
+            bl.AddStatToLine(newStationCode, index, line);
             RefreshList();
         }
 
         private void SaveLine_Clicked(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                bl.SaveLine(line);
+                SavedLineEvent(sender, e);
+                Close();
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
         }
+        public event EventHandler SavedLineEvent;
     }
 }

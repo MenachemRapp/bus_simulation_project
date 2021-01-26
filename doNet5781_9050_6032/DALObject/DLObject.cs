@@ -341,12 +341,19 @@ namespace DL
 
         public void UpdateLine(Line line)
         {
-            ((IDL)instance).UpdateLine(line);
+            DO.Line myLine = DataSource.ListLine.Find(l => l.Id == line.Id);
+            if (myLine != null)
+            {
+                DataSource.ListLine.Remove(myLine);
+                DataSource.ListLine.Add(line);
+            }
+            else
+                throw new DO.BadLineIdException(line.Id);
         }
 
         public void UpdateLine(int Id, Action<Line> update)
         {
-            ((IDL)instance).UpdateLine(Id, update);
+            throw new NotImplementedException();
         }
 
         IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
