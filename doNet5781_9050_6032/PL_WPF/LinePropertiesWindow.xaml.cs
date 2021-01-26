@@ -31,7 +31,7 @@ namespace PL_WPF
             line = bl.GetLineNew(lineId);
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             RefreshList();
-            saveButton.IsEnabled = false;
+         //   saveButton.IsEnabled = false; //to add again
         }
 
 
@@ -66,7 +66,10 @@ namespace PL_WPF
 
         private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            saveButton.IsEnabled = true;
+            if (IsLoaded)
+            {
+                saveButton.IsEnabled = true;
+            }
            /* //wait for save//////////////////////////////////////////////////////////////////////////
             if (IsLoaded)
             {
