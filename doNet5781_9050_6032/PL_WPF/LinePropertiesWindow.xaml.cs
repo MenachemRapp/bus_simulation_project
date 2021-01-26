@@ -120,10 +120,10 @@ namespace PL_WPF
                 SavedLineEvent(sender, e);
                 Close();
             }
-            catch (Exception)
+            catch (Exception ex)// type of exception
             {
 
-                throw;
+                MessageBox.Show(ex.Message, "Saving Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
 
