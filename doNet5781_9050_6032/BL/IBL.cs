@@ -51,7 +51,7 @@ namespace BLAPI
         #endregion
         
         #region Line
-        //LineTotal GetLineNew(int Id);
+        LineTotal GetLineNew(int Id=0);
         //bool  SaveLine(LineTotal line);
         //void RefreshLine(LineTotal line);
         void AddStatToLine(int station1_id, int station2_id, LineTotal line);

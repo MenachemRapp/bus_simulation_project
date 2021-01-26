@@ -19,13 +19,13 @@ namespace BL
         BO.BasicLine LineDoBoAdapter(DO.Line lineDO)
         {
             BO.BasicLine lineBO = new BO.BasicLine();
-            
+
             int id = lineDO.Id;
-            
+
             lineDO = dl.GetLine(id);
-                        
+
             lineDO.CopyPropertiesTo(lineBO);
-                     
+
 
             return lineBO;
         }
@@ -42,7 +42,7 @@ namespace BL
                 throw new Exception("line does not exist", ex);
             }
             return LineDoBoAdapter(lineDO);
-                  
+
         }
 
         public IEnumerable<BO.BasicLine> GetAllLines()
@@ -90,8 +90,8 @@ namespace BL
         #endregion
 
         #region Station
-        
-        
+
+
 
         public void AddStation(BO.Station station)
         {
@@ -106,7 +106,7 @@ namespace BL
 
                 throw new BO.BadStationCodeException(ex.Message, ex);
             }
-            
+
         }
 
         public void UpdateStation(BO.Station station)
@@ -139,16 +139,16 @@ namespace BL
         }
         public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
         {
-            return from station in dl.GetAllStationsBy(s=> s.Code!=prevCode && s.Code != NextCode)
+            return from station in dl.GetAllStationsBy(s => s.Code != prevCode && s.Code != NextCode)
                    select stationDoBoAdapter(station);
         }
 
         public IEnumerable<BO.Station> GetAllStations()
         {
             return (from station in dl.GetAllStations()
-                   select stationDoBoAdapter(station)).OrderBy(station => station.Code);
+                    select stationDoBoAdapter(station)).OrderBy(station => station.Code);
         }
-                
+
         public IEnumerable<BO.Station> GetAllOtherStations(int code)
         {
             return from station in dl.GetAllStationsBy(s => s.Code != code)
@@ -180,7 +180,7 @@ namespace BL
 
                 throw new BO.BadStationCodeException(ex.Message, ex);
             }
-            
+
         }
         #endregion
 
@@ -204,7 +204,7 @@ namespace BL
 
         public void UpdateAdjacentStations(BO.AdjacentStations adjBO)
         {
-            DO.AdjacentStations adjDO= new DO.AdjacentStations();
+            DO.AdjacentStations adjDO = new DO.AdjacentStations();
 
             adjBO.CopyPropertiesTo(adjDO);
             try
@@ -214,9 +214,9 @@ namespace BL
             catch (DO.BadAdjacentStationsException ex)
             {
 
-               throw new BO.BadAdjacentStationsException(ex.Message ,ex);
+                throw new BO.BadAdjacentStationsException(ex.Message, ex);
             }
-            
+
         }
 
 
@@ -250,8 +250,9 @@ namespace BL
                         Code = item.Station,
                         Name = DLFactory.GetDL().GetStation(item.Station).Name,
                         Distance = DLFactory.GetDL().GetAdjacentStations(item.Station, item.NextStation).Distance,
-                        Time = DLFactory.GetDL().GetAdjacentStations(item.Station, item.NextStation).Time
-                    });
+                        Time = DLFactory.GetDL().GetAdjacentStations(item.Station, item.NextStation).Time,
+                        ThereIsTimeAndDistance=true
+                    });;
                 }
                 else
                 {
@@ -268,7 +269,7 @@ namespace BL
             }
             return list;
         }
-        
+
         #region line
         //public LineTotal GetLineNew(int Id)
         //{
@@ -342,7 +343,7 @@ namespace BL
             });
             line.ListOfStation = list;
             update_time_and_distance_of_station(line, index);
-            update_time_and_distance_of_station(line, index-1);
+            update_time_and_distance_of_station(line, index - 1);
         }
         public void DelStatFromLine(int index, LineTotal line)
         {
@@ -355,19 +356,20 @@ namespace BL
         void update_time_and_distance_of_station(LineTotal line, int index)
         {
             IDL idl = DLFactory.GetDL();
-            if (index>=0 &&line.ListOfStation.Count()-2 >= index)
+            if (index >= 0 && line.ListOfStation.Count() - 2 >= index)
             {
                 try
                 {
-                    DO.AdjacentStations adjacent_stations = idl.GetAdjacentStations(line.ListOfStation.ElementAt(index).Code, line.ListOfStation.ElementAt(index+1).Code);
-                    line.ListOfStation.ElementAt(index).Distance= adjacent_stations.Distance;
+                    DO.AdjacentStations adjacent_stations = idl.GetAdjacentStations(line.ListOfStation.ElementAt(index).Code, line.ListOfStation.ElementAt(index + 1).Code);
+                    line.ListOfStation.ElementAt(index).Distance = adjacent_stations.Distance;
                     line.ListOfStation.ElementAt(index).Time = adjacent_stations.Time;
+                    line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;
                 }
                 catch (DO.BadAdjacentStationsException)
                 {
                     line.ListOfStation.ElementAt(index).Distance = 0;
                     line.ListOfStation.ElementAt(index).Time = TimeSpan.Zero;
-
+                    line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = false;
                 }
             }
         }
@@ -377,7 +379,7 @@ namespace BL
             var a = from item in line.ListOfStation
                     where item.Distance == 0 && item.Time == TimeSpan.Zero
                     select item;
-            if (a.FirstOrDefault() == line.ListOfStation.LastOrDefault()&& line.ListOfStation.Count()>=2)
+            if (a.FirstOrDefault() == line.ListOfStation.LastOrDefault() && line.ListOfStation.Count() >= 2)
             {
                 return true; // to do -עוד בדיקות של כל הקלט
             }
@@ -390,9 +392,9 @@ namespace BL
         public void SaveLine(LineTotal line)
         {
             if (!line_can_save(line))
-                throw new  BO.BadSaveLineException();
+                throw new BO.BadSaveLineException();
             IDL idl = DLFactory.GetDL();
-            int line_id=line.Id;
+            int line_id = line.Id;
 
             //add do.line
             if (line.Id == 0)
@@ -402,14 +404,14 @@ namespace BL
 
             IEnumerator<ListedLineStation> iter = line.ListOfStation.GetEnumerator();
             ListedLineStation first = iter.Current;
-            int IDPrev = 0, index=1;
+            int IDPrev = 0, index = 1;
             if (line.Id != 0)// if line don't new
                 idl.DeleteLineFromAllStations(line.Id);
 
             // add all line-station without last, and add all AdjacentStations
             while (iter.MoveNext())
             {
-                idl.AddLineStation(new DO.LineStation { LineId =line_id, PrevStation = IDPrev, NextStation = iter.Current.Code, LineStationIndex = index, Station = first.Code });
+                idl.AddLineStation(new DO.LineStation { LineId = line_id, PrevStation = IDPrev, NextStation = iter.Current.Code, LineStationIndex = index, Station = first.Code });
                 try
                 {
                     idl.AddAdjacentStations(new DO.AdjacentStations { Station1 = first.Code, Station2 = iter.Current.Code, Time = first.Time, Distance = first.Distance });
@@ -429,9 +431,37 @@ namespace BL
 
 
         }
+        /// <summary>
+        /// take id and build the bo of line
+        /// </summary>
+        /// <param name="Id">id of line, if=0 new line</param>
+        /// <returns>bo line</returns>
+        public LineTotal GetLineNew(int Id = 0)
+        {
+            if (Id == 0)
+                return new LineTotal() { Id = 0, totalDistance = 0, totalTime = TimeSpan.Zero, ListOfStation = new List<ListedLineStation>() };
+            IDL idl = DLFactory.GetDL();
+            DO.Line line;
+            try
+            {
+                line = idl.GetLine(Id);
+            }
+            catch (DO.BadLineIdException)/// 
+            {
+
+                throw; // to do
+            }
+            LineTotal new_line = new LineTotal { Area = (BO.Areas)line.Area, Id = line.Id, Code = line.Code };
+            new_line.ListOfStation = GetStationCodeNameDistanceTimeInLine(Id);
+            new_line.totalDistance = new_line.ListOfStation.Sum(s => s.Distance);
+            new_line.totalTime = TimeSpan.FromTicks(new_line.ListOfStation.Sum(s => s.Time.Ticks));
+
+            return new_line;
+        }
+
         #endregion
 
-        
+
         #region StationWithLines
         public BO.StationWithLines GetStationWithLines(int code)
         {

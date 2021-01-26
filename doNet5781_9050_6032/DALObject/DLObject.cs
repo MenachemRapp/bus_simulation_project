@@ -286,6 +286,8 @@ namespace DL
 
         public Line GetLine(int Id)
         {
+            if (!DataSource.ListLine.Exists(c => c.Id == Id))
+                throw new DO.BadLineIdException(Id);
             return DataSource.ListLine.Find(c => c.Id == Id).Clone();
         }
 
