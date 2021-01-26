@@ -317,7 +317,7 @@ namespace BL
         //    line.ListOfStation.ToList().Insert
         //}
 
-        void AddStatToLine(int station_id, int index, LineTotal line)
+        public void AddStatToLine(int station_id, int index, LineTotal line)
         {
             IDL idl = DLFactory.GetDL();
             DO.Station station;
@@ -344,7 +344,7 @@ namespace BL
             update_time_and_distance_of_station(line, index);
             update_time_and_distance_of_station(line, index-1);
         }
-        void DelStatFromLine(int index, LineTotal line)
+        public void DelStatFromLine(int index, LineTotal line)
         {
             List<ListedLineStation> list = line.ListOfStation.ToList();
             list.RemoveAt(index);
@@ -383,13 +383,51 @@ namespace BL
             }
             return false;
         }
-
-        void SaveLine(LineTotal line)
+        /// <summary>
+        /// take a line of BO and save it in idl
+        /// </summary>
+        /// <param name="line">line of BO</param>
+        public void SaveLine(LineTotal line)
         {
-            //if (!line_can_save(line))
-            //    throw;// to_do ....
+            if (!line_can_save(line))
+                throw new  BO.BadSaveLineException();
+            IDL idl = DLFactory.GetDL();
+            int line_id=line.Id;
 
-            for()
+            //add do.line
+            if (line.Id == 0)
+                line_id = idl.AddLine(new DO.Line { Area = (DO.Areas)line.Area, Code = line.Code, Id = 0, FirstStation = line.ListOfStation.First().Code, LastStation = line.ListOfStation.Last().Code });
+            else
+                idl.UpdateLine(new DO.Line { Area = (DO.Areas)line.Area, Code = line.Code, Id = line_id, FirstStation = line.ListOfStation.First().Code, LastStation = line.ListOfStation.Last().Code });
+
+            IEnumerator<ListedLineStation> iter = line.ListOfStation.GetEnumerator();
+            ListedLineStation first = iter.Current;
+            int IDPrev = 0, index=1;
+            if (line.Id != 0)// if line don't new
+                idl.DeleteLineFromAllStations(line.Id);
+
+            // add all line-station without last, and add all AdjacentStations
+            while (iter.MoveNext())
+            {
+                idl.AddLineStation(new DO.LineStation { LineId =line_id, PrevStation = IDPrev, NextStation = iter.Current.Code, LineStationIndex = index, Station = first.Code });
+                try
+                {
+                    idl.AddAdjacentStations(new DO.AdjacentStations { Station1 = first.Code, Station2 = iter.Current.Code, Time = first.Time, Distance = first.Distance });
+                }
+                catch (DO.BadAdjacentStationsException)
+                {
+
+                    idl.UpdateAdjacentStations(new DO.AdjacentStations { Station1 = first.Code, Station2 = iter.Current.Code, Time = first.Time, Distance = first.Distance });
+                }
+                IDPrev = first.Code;
+                first = iter.Current;
+                index++;
+            }
+
+            //save the last line- station
+            idl.AddLineStation(new DO.LineStation { LineId = line_id, PrevStation = IDPrev, NextStation = 0, LineStationIndex = index, Station = first.Code });
+
+
         }
         #endregion
 

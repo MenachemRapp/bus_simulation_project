@@ -58,7 +58,7 @@ namespace DLAPI
         IEnumerable<DO.Line> GetAllLines();
         IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate);
         DO.Line GetLine(int Id);
-        void AddLine(DO.Line line);
+        int AddLine(DO.Line line);
         void UpdateLine(DO.Line line);
         void UpdateLine(int Id, Action<DO.Line> update); //method that knows to updt specific fields in Line
         void DeleteLine(int Id);
@@ -67,7 +67,7 @@ namespace DLAPI
         #region LineStation
         IEnumerable<DO.LineStation> GetAllLineStationBy(Predicate<DO.LineStation> predicate);
 
-
+        void AddLineStation(DO.LineStation line_station);
         void UpdateLineArea(int lineId, DO.Areas area);
 
         void DeleteLineStation(int LineId, int Station);
@@ -90,7 +90,7 @@ namespace DLAPI
 
 
         IEnumerable<DO.LineStation> GeLineStationsInLine(int lineId);
-
+        
 
 
 

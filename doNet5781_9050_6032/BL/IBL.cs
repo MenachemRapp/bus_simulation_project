@@ -57,7 +57,8 @@ namespace BLAPI
         void AddStatToLine(int station1_id, int station2_id, LineTotal line);
         void DelStatFromLine(int index, LineTotal line);
 
+        void SaveLine(LineTotal line);
         #endregion
-        
+
     }
 }

@@ -62,4 +62,9 @@ namespace DO
 
         public override string ToString() => base.ToString() + $",bad adjacent stations: {Code1} and {Code2}";
     }
+
+    public class BadLineStationException : Exception
+    {
+        //to do
+    }
 }

@@ -295,11 +295,12 @@ namespace DL
                    select Line.Clone();
         }
 
-        public void AddLine(Line line)
+        public int AddLine(Line line)
         {
             Line new_line = line.Clone();
             new_line.Id = DS.RunnerNumber.GetIdLine();
             DataSource.ListLine.Add(new_line);
+            return new_line.Id;
         }
         public void DeleteLine(int Id)
         {
@@ -377,7 +378,13 @@ namespace DL
             DataSource.ListLineStation.RemoveAll(s => s.LineId == Id);
         }
 
+        public void AddLineStation(DO.LineStation line_station)
+        {
+            if(DataSource.ListLineStation.Exists(sta=> sta.LineId== line_station.LineId && sta.Station ==line_station.Station))
+                throw new BadLineStationException();// to do.. already exikt
+            DataSource.ListLineStation.Add(line_station.Clone());
 
+        }
         #endregion
 
 
