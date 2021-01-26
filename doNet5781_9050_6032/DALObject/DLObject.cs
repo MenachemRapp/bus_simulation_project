@@ -119,15 +119,30 @@ namespace DL
 
         public void DeleteStation(int Code)
         {
-            ((IDL)instance).DeleteStation(Code);
+            DO.Station station = DataSource.ListStation.Find(s => s.Code == Code);
+            if (station == null) 
+                throw new BadStationCodeException(Code, "Bad Station Code");
+            DO.LineStation lineStation = DataSource.ListLineStation.Find(s => s.Station == Code);
+            if (lineStation != null)
+                throw new BadStationCodeException(Code, "Station has lines");
+            else
+            DataSource.ListStation.Remove(station);
+            
         }
 
 
 
 
-        public void UpdateStation(Station sation)
+        public void UpdateStation(Station station)
         {
-            ((IDL)instance).UpdateStation(sation);
+            DO.Station myStation = DataSource.ListStation.Find(s => s.Code == station.Code);
+            if (myStation != null)
+            {
+                DataSource.ListStation.Remove(myStation);
+                DataSource.ListStation.Add(station);
+            }
+            else
+                throw new BadStationCodeException(station.Code, "Bad Station Code");
         }
 
         public void UpdateStation(int Code, Action<Station> update)

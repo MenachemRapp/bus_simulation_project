@@ -8,20 +8,51 @@
         Title="Station Properties" Height="450" Width="500">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="53*"/>
-            <RowDefinition Height="367*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="350*"/>
+            <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
-
-        <StackPanel x:Name="stationsp" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        
+        <StackPanel x:Name="stationsp1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Station Code:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Code}"/>
             <Label Content="Station Name:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Name}"/>
+        </StackPanel>
+        <StackPanel x:Name="stationsp2" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Longitude:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Longitude}"/>
             <Label Content="Latitude:" FontWeight="Bold"/>
             <Label Content="{Binding Path=Latitude}"/>
         </StackPanel>
-        <ListBox Name="StationListlb" Grid.Row = "1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
+        <TextBlock Grid.Row="2" Name="listTitle" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="Lines which go through the station:"/>
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="0">
+                            <Setter Property="Text" Value="No Stations go through this line"/>
+                            <Setter Property="Background" Value="OrangeRed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ListBox Name="StationListlb" Grid.Row = "3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
+        <Button Name="DeleteButton" Grid.Row="4" Content="Delete Station" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DeleteButton_Clicked">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="IsEnabled" Value="False"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="0">
+                            <Setter Property="IsEnabled" Value="True"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

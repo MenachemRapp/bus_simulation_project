@@ -64,11 +64,20 @@
     <Compile Include="AdjacentStationsWindow.xaml.cs">
       <DependentUpon>AdjacentStationsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModifyStationWindow.xaml.cs">
+      <DependentUpon>ModifyStationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SelectViewWindow.xaml.cs">
+      <DependentUpon>SelectViewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StationPropertiesWindow.xaml.cs">
       <DependentUpon>StationPropertiesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StationsWindow.xaml.cs">
-      <DependentUpon>StationsWindow.xaml</DependentUpon>
+    <Compile Include="SelectStationWindow.xaml.cs">
+      <DependentUpon>SelectStationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StationViewWindow.xaml.cs">
+      <DependentUpon>StationViewWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AddLineWindow.xaml">
       <SubType>Designer</SubType>
@@ -108,11 +117,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ModifyStationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StationPropertiesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StationsWindow.xaml">
+    <Page Include="SelectStationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StationViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

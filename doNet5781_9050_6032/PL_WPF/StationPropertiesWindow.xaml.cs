@@ -27,9 +27,29 @@ namespace PL_WPF
             InitializeComponent();
             bl = _bl;
             stationId = _stationId;
-            //BO.StationWithLines station = bl.GetStationWithLines(stationId);
-            //stationListlb.DataContext= station.LineList.Tolist();
-            //stationsp.DataContext= station.LineList.Tolist();
+            BO.StationWithLines station = bl.GetStationWithLines(stationId);
+            StationListlb.ItemsSource= station.ListOfLines.ToList();
+            stationsp1.DataContext= station;
+            stationsp2.DataContext = station;
+            listTitle.DataContext = station.ListOfLines.ToList().Count();
+            DeleteButton.DataContext = station.ListOfLines.ToList().Count();
         }
+
+        private void DeleteButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                bl.DeleteStation(stationId);
+                if (DeleteEvent != null)
+                    DeleteEvent(sender,e);
+                this.Close();
+            }
+            catch (BO.BadStationCodeException ex)
+            {
+                MessageBox.Show(ex.Message, "Delete Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public EventHandler DeleteEvent;
     }
 }

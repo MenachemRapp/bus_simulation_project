@@ -56,7 +56,7 @@ namespace PL_WPF
         {
 
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            StationsWindow stationsWindow = new StationsWindow(bl);
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl,station.Code);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
         }
@@ -67,7 +67,7 @@ namespace PL_WPF
             RefreshList();
         }
 
-        private void AddStationToLine(int stationCode)
+        private void AddStationToLine(int prevStation, int newStation)
         {
             //BO.ListedLineStation station = bl.get(stationCode);
             //line.ListOfStation.Append(station);

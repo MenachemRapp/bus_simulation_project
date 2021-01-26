@@ -91,6 +91,8 @@ namespace BL
 
         #region Station
         
+        
+
         public void AddStation(BO.Station station)
         {
             DO.Station stationDO = new DO.Station();
@@ -107,6 +109,20 @@ namespace BL
             
         }
 
+        public void UpdateStation(BO.Station station)
+        {
+            DO.Station stationDO = new DO.Station();
+            station.CopyPropertiesTo(stationDO);
+            try
+            {
+                dl.UpdateStation(stationDO);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+
+                throw new BO.BadStationCodeException(ex.Message, ex);
+            }
+        }
         BO.Station stationDoBoAdapter(DO.Station stationDO)
         {
             BO.Station stationBO = new BO.Station();
@@ -115,6 +131,11 @@ namespace BL
             stationDO.CopyPropertiesTo(stationBO);
 
             return stationBO;
+        }
+
+        public BO.Station GetStation(int code)
+        {
+            return stationDoBoAdapter(dl.GetStation(code));
         }
         public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
         {
@@ -147,6 +168,20 @@ namespace BL
             }
         }
 
+
+        public void DeleteStation(int code)
+        {
+            try
+            {
+                dl.DeleteStation(code);
+            }
+            catch (DO.BadStationCodeException ex)
+            {
+
+                throw new BO.BadStationCodeException(ex.Message, ex);
+            }
+            
+        }
         #endregion
 
         #region AdjacentStations
@@ -233,7 +268,7 @@ namespace BL
             }
             return list;
         }
-
+        
         #region line
         //public LineTotal GetLineNew(int Id)
         //{
@@ -357,6 +392,25 @@ namespace BL
             for()
         }
         #endregion
+
+        
+        #region StationWithLines
+        public BO.StationWithLines GetStationWithLines(int code)
+        {
+            BO.StationWithLines stationWith = new StationWithLines();
+            BO.Station station = stationDoBoAdapter(dl.GetStation(code));
+            station.CopyPropertiesTo(stationWith);
+           
+            stationWith.ListOfLines = dl.GetAllLineStationBy(sta => sta.Station == code).Select(st=> GetLine(st.LineId)).Distinct().OrderBy(line=>line.Code);
+            return stationWith;
+        }
+        #endregion
+
+
+
+
+
+
 
 
     }

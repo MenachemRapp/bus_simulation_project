@@ -25,9 +25,10 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
             <Label Content="Line Number:" FontWeight="Bold"/>
@@ -41,5 +42,6 @@
         </StackPanel>
         <Button Content="Add a First Station" Click="AddFirstStation_Clicked" Margin="5,1,5,1" HorizontalAlignment="Center" Width="500" Grid.Row="1"/>
         <ListBox Name="stationslb" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}" Grid.Row="2"/>
+        <Button Name="saveButton" Content="Save Changes" Click="SaveLine_Clicked" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="3"/>
     </Grid>
 </Window>

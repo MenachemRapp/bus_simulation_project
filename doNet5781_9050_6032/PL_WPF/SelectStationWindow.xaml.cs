@@ -21,13 +21,15 @@ namespace PL_WPF
     /// </summary>
 
     
-    public partial class StationsWindow : Window
+    public partial class SelectStationWindow : Window
     {
         IBL bl;
-        public StationsWindow(IBL _bl)
+        int previousStationCode;
+        public SelectStationWindow(IBL _bl, int previousStation)
         {
             InitializeComponent();
             bl = _bl;
+            previousStationCode = previousStation;
             Refresh();
         }
 
@@ -41,7 +43,7 @@ namespace PL_WPF
         {
             BO.Station addedSelectedStation = ((sender as Button).DataContext as BO.Station);
                    if (selectStationEvent!=null)
-                   selectStationEvent(addedSelectedStation.Code);
+                   selectStationEvent(previousStationCode, addedSelectedStation.Code);
                 this.Close();
 
             
@@ -59,7 +61,7 @@ namespace PL_WPF
             Refresh();
         }
 
-        public delegate void selectStationHandler(int stationCode);
+        public delegate void selectStationHandler(int prevStation, int newStation);
         public event selectStationHandler selectStationEvent;
     }
 }

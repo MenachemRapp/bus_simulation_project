@@ -26,8 +26,7 @@ namespace PL_WPF
         public MainWindow()
         {
             InitializeComponent();
-            LineListWindow win = new LineListWindow(bl);
-            win.Show();
+            new SelectViewWindow(bl).Show();
             this.Close();//temporerally
         }
     }
