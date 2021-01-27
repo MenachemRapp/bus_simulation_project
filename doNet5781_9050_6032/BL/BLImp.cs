@@ -186,13 +186,29 @@ namespace BL
 
         #region AdjacentStations
 
-        public void GetAdjacentStations(int station1, int station2)
+        bool GoodAdjacentStations (int station1, int station2)
+        {
+            try
+            {
+                dl.GetAdjacentStations(station1, station2);
+                return true;
+            }
+            catch (DO.BadAdjacentStationsException)
+            {
+                return false;
+            }
+            
+
+        }
+
+        public BO.AdjacentStations GetAdjacentStations(int station1, int station2)
         {
             try
             {
                 BO.AdjacentStations adjBO = new BO.AdjacentStations();
                 DO.AdjacentStations adjDO = dl.GetAdjacentStations(station1, station2);
                 adjDO.CopyPropertiesTo(adjBO);
+                return adjBO;
             }
             catch (DO.BadAdjacentStationsException ex)
             {
@@ -235,6 +251,46 @@ namespace BL
                 throw new BO.BadAdjacentStationsException(ex.Message, ex);
             }
 
+        }
+        #endregion
+
+        #region newLine
+
+        public bool HasTimeAndDistance(int Code, NewLine line)
+        {
+            if (line.ListOfStation.Count() == 0)
+                return true;
+            return GoodAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
+        }
+        public void AddLastStation(int Code, NewLine line)
+        {
+            BO.AdjacentStations adjacent;
+            BO.Station basicStation = GetStation(Code);
+            BO.ListedLineStation station = new ListedLineStation();
+            basicStation.CopyPropertiesTo(station);
+            if (line.ListOfStation.Count() == 0)
+            {
+                station.Distance = 0;
+                station.Time = TimeSpan.Zero;
+            }
+            else
+            {
+                adjacent = GetAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
+                station.Distance = adjacent.Distance;
+                station.Time = adjacent.Time;
+            }
+            
+            line.ListOfStation = line.ListOfStation.Append(station);
+
+        }
+        public void DelLastStation(NewLine line)
+        {
+            line.ListOfStation = line.ListOfStation.Take(line.ListOfStation.Count() - 1);
+        }
+
+        public void SaveLine(NewLine line)
+        {
+            dl.AddLine(new DO.Line { Area = (DO.Areas)line.Area, Code = line.Code, Id = 0, FirstStation = line.ListOfStation.First().Code, LastStation = line.ListOfStation.Last().Code });
         }
         #endregion
 

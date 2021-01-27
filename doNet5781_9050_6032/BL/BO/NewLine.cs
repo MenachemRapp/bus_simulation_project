@@ -11,6 +11,6 @@ namespace BO
         public int Code { get; set; }
         public Areas Area { get; set; }
                 
-        public IEnumerable<Station> ListOfStation { get; set; }
+        public IEnumerable<ListedLineStation> ListOfStation { get; set; }
     }
 }

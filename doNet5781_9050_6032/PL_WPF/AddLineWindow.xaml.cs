@@ -29,7 +29,7 @@ namespace PL_WPF
             // line = new BO.LineTotal();
             //line.ListOfStation = new List<BO.ListedLineStation>();
             line = new BO.NewLine();
-            line.ListOfStation = new List<BO.Station>();
+            line.ListOfStation = new List<BO.ListedLineStation>();
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             areacb.SelectedItem = line.Area;
 
@@ -74,7 +74,22 @@ namespace PL_WPF
         {
 
             //bl.AddStatToLine(newStationCode, index, line);
-            line.ListOfStation= line.ListOfStation.Append(bl.GetStation(newStationCode));
+            if (!bl.HasTimeAndDistance(newStationCode, line))
+            {
+                AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code,newStationCode);
+                adjacentStationsWindow.SubmitDriveEvent += bl.AddAdjacentStations;
+                adjacentStationsWindow.ShowDialog();
+            }
+            try
+            {
+                bl.AddLastStation(newStationCode, line);
+            }
+            catch (Exception ex)// type of exception
+            {
+
+                MessageBox.Show(ex.Message, "Adding Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             RefreshList();
         }
 
@@ -82,14 +97,13 @@ namespace PL_WPF
         {
             try
             {
-                //bl.SaveLine(line);
+                bl.SaveLine(line);
                 SavedLineEvent(sender, e);
                 Close();
             }
-            catch (Exception)
+            catch (Exception ex)// type of exception
             {
-
-                throw;
+                MessageBox.Show(ex.Message, "Saving Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         public event EventHandler SavedLineEvent;

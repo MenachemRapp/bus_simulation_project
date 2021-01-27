@@ -50,6 +50,16 @@ namespace BLAPI
         void AddAdjacentStations(BO.AdjacentStations adjStations);
         #endregion
 
+        #region newLine
+        void AddLastStation(int Code, NewLine line);
+        void DelLastStation(NewLine line);
+
+        bool HasTimeAndDistance(int Code, NewLine line);
+
+        void SaveLine(NewLine line);
+        #endregion
+
+
         #region Line
         LineTotal GetLineNew(int Id=0);
         //bool  SaveLine(LineTotal line);
