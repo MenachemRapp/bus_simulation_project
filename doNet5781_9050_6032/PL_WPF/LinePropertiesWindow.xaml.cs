@@ -92,7 +92,7 @@ namespace PL_WPF
 
         private void AddFirstStation_Clicked(object sender, RoutedEventArgs e)
         {
-            SelectStationWindow stationsWindow = new SelectStationWindow(bl, 1);
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl, 0);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
         }
