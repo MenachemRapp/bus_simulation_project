@@ -21,13 +21,15 @@ namespace PL_WPF
     public partial class AddLineWindow : Window
     {
         public IBL bl;
-        BO.LineTotal line;
+        BO.NewLine line;
         public AddLineWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
-            line = new BO.LineTotal();
-            line.ListOfStation = new List<BO.ListedLineStation>();
+            // line = new BO.LineTotal();
+            //line.ListOfStation = new List<BO.ListedLineStation>();
+            line = new BO.NewLine();
+            line.ListOfStation = new List<BO.Station>();
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             areacb.SelectedItem = line.Area;
 
@@ -64,14 +66,15 @@ namespace PL_WPF
 
         private void DeleteStation_Clicked(object sender, RoutedEventArgs e)
         {
-            bl.DelStatFromLine(line.ListOfStation.Count()-1, line);
+            line.ListOfStation = line.ListOfStation.Take(line.ListOfStation.Count() - 1);
             RefreshList();
         }
 
         private void AddStationToLine(int newStationCode, int index)
         {
 
-            bl.AddStatToLine(newStationCode, index, line);
+            //bl.AddStatToLine(newStationCode, index, line);
+            line.ListOfStation= line.ListOfStation.Append(bl.GetStation(newStationCode));
             RefreshList();
         }
 
@@ -79,7 +82,7 @@ namespace PL_WPF
         {
             try
             {
-                bl.SaveLine(line);
+                //bl.SaveLine(line);
                 SavedLineEvent(sender, e);
                 Close();
             }

@@ -21,8 +21,8 @@ namespace PL_WPF
     public partial class LinePropertiesWindow : Window
     {
         public IBL bl;
-        //int lineNum;
-        //BO.LineAndStations line;
+        
+        
         BO.LineTotal line;
         public LinePropertiesWindow(IBL _bl, int lineId)
         {
@@ -31,7 +31,7 @@ namespace PL_WPF
             line = bl.GetLineNew(lineId);
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             RefreshList();
-         //   saveButton.IsEnabled = false; //to add again
+           saveButton.IsEnabled = false;
         }
 
 
@@ -45,9 +45,13 @@ namespace PL_WPF
         private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl,line.ListOfStation.ElementAt(line.ListOfStation.ToList().FindIndex(s=>s.Code==station.Code)-1).Code,station.Code);//to change to index
-            adjacentStationsWindow.SubmitDriveEvent += modifyStations;
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(line.ListOfStation.ToList().FindIndex(s=>s.Code==station.Code)+1).Code);//to change to index
+            if (station.ThereIsTimeAndDistance)
+                adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
+            else
+                adjacentStationsWindow.SubmitDriveEvent += addAdjacent;
             adjacentStationsWindow.ShowDialog();
+            
         }
 
         private void AddNextStation_Clicked(object sender, RoutedEventArgs e)
@@ -58,9 +62,15 @@ namespace PL_WPF
             stationsWindow.ShowDialog();
         }
 
-        private void modifyStations(BO.AdjacentStations adjacent)
+        private void modifyAdjacent(BO.AdjacentStations adjacent)
         {
             bl.UpdateAdjacentStations(adjacent);
+            RefreshList();
+        }
+
+        private void addAdjacent(BO.AdjacentStations adjacent)
+        {
+            bl.AddAdjacentStations(adjacent);
             RefreshList();
         }
 
@@ -70,24 +80,7 @@ namespace PL_WPF
             {
                 saveButton.IsEnabled = true;
             }
-           /* //wait for save//////////////////////////////////////////////////////////////////////////
-            if (IsLoaded)
-            {
-                try
-                {
-                    bl.UpdateLineArea(line.Id, line.Area);
-                    MessageBox.Show("Area of the line has changed", "New Area", MessageBoxButton.OK, MessageBoxImage.Information);
-                    if(updateLineAreaEvent!=null)
-                        updateLineAreaEvent();
-                    
-                }
-                catch (BO.BadLineIdException)
-                {
-                    MessageBox.Show("unable to update", "Updating Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-           */
-            
+                      
         }
 
         private void AddFirstStation_Clicked(object sender, RoutedEventArgs e)

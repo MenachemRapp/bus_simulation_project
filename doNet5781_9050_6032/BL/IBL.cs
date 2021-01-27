@@ -47,9 +47,9 @@ namespace BLAPI
 
         #region AdjacentStations
         void UpdateAdjacentStations(BO.AdjacentStations adjStations);
-
+        void AddAdjacentStations(BO.AdjacentStations adjStations);
         #endregion
-        
+
         #region Line
         LineTotal GetLineNew(int Id=0);
         //bool  SaveLine(LineTotal line);
