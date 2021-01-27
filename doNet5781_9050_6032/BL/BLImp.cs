@@ -403,6 +403,7 @@ namespace BL
                 idl.UpdateLine(new DO.Line { Area = (DO.Areas)line.Area, Code = line.Code, Id = line_id, FirstStation = line.ListOfStation.First().Code, LastStation = line.ListOfStation.Last().Code });
 
             IEnumerator<ListedLineStation> iter = line.ListOfStation.GetEnumerator();
+            iter.MoveNext();
             ListedLineStation first = iter.Current;
             int IDPrev = 0, index = 1;
             if (line.Id != 0)// if line don't new
