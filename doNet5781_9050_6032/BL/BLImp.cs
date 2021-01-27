@@ -298,6 +298,7 @@ namespace BL
         public IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
         {
             List<ListedLineStation> list = new List<ListedLineStation>();
+            int i = 1;
             foreach (LineStation item in DLFactory.GetDL().GeLineStationsInLine(LineId))
             {
                 if (item.NextStation != 0)
@@ -308,8 +309,10 @@ namespace BL
                         Name = DLFactory.GetDL().GetStation(item.Station).Name,
                         Distance = DLFactory.GetDL().GetAdjacentStations(item.Station, item.NextStation).Distance,
                         Time = DLFactory.GetDL().GetAdjacentStations(item.Station, item.NextStation).Time,
-                        ThereIsTimeAndDistance=true
-                    });;
+                        ThereIsTimeAndDistance = true,
+                        index = i
+
+                    }) ;;
                 }
                 else
                 {
@@ -318,11 +321,13 @@ namespace BL
                         Code = item.Station,
                         Name = DLFactory.GetDL().GetStation(item.Station).Name,
                         Distance = 0,
-                        Time = TimeSpan.Zero
+                        Time = TimeSpan.Zero,
+                        index = i
 
-                    });
+                    }) ;
 
                 }
+                i++;
             }
             return list;
         }
@@ -401,6 +406,9 @@ namespace BL
             line.ListOfStation = list;
             update_time_and_distance_of_station(line, index);
             update_time_and_distance_of_station(line, index - 1);
+            int i = 1;
+            foreach (var item in line.ListOfStation)
+                item.index = i++;
         }
         public void DelStatFromLine(int index, LineTotal line)
         {
@@ -408,7 +416,9 @@ namespace BL
             list.RemoveAt(index);
             line.ListOfStation = list;
             update_time_and_distance_of_station(line, index - 1);
-
+            int i = 1;
+            foreach (var item in line.ListOfStation)
+                item.index = i++;
         }
         void update_time_and_distance_of_station(LineTotal line, int index)
         {

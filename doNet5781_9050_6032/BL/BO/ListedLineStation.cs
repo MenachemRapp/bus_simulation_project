@@ -14,6 +14,7 @@ namespace BO
         public double Distance { get; set; }
         public TimeSpan Time { get; set; }
         public bool ThereIsTimeAndDistance { get; set; }
+        public int index { get; set; }
 
         public override string ToString() => this.ToStringProperty();
 
