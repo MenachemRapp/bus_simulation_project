@@ -63,11 +63,45 @@ namespace DS
                     Latitude= 31.2,
                     Longitude= 33.5
                 },
-
                 new Station
                 {
                     Code= 111111,
                     Name= "another station",
+                    Latitude= 32.2,
+                    Longitude= 33.7
+                },
+                new Station
+                {
+                    Code= 111115,
+                    Name= "2 st",
+                    Latitude= 32.2,
+                    Longitude= 33.7
+                },
+                new Station
+                {
+                    Code= 110011,
+                    Name= "town center",
+                    Latitude= 32.2,
+                    Longitude= 33.7
+                },
+                new Station
+                {
+                    Code= 114811,
+                    Name= "entrance",
+                    Latitude= 32.2,
+                    Longitude= 33.7
+                },
+                new Station
+                {
+                    Code= 111468,
+                    Name= "green station",
+                    Latitude= 32.2,
+                    Longitude= 33.7
+                },
+                new Station
+                {
+                    Code= 489111,
+                    Name= "orange station",
                     Latitude= 32.2,
                     Longitude= 33.7
                 }
