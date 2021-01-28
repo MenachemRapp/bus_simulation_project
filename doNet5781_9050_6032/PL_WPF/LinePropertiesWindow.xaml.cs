@@ -47,7 +47,7 @@ namespace PL_WPF
         private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(station.index+1).Code, station.index-1);
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(station.index).Code, station.index-1);
            // if (station.ThereIsTimeAndDistance)
                 adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
            // else
