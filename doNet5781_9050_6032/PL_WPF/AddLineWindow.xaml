@@ -6,6 +6,73 @@
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
         Title="New Line" Height="450" Width="800">
+    <Window.Resources>
+        <local:StationToVisibilityConverter 
+    x:Key="StationToVisibilityConverter" />
+        <DataTemplate x:Key="SationList" >
+      
+
+                <StackPanel Orientation="Vertical" Width="250">
+
+                <StackPanel x:Name="codeAndNames" Orientation="Horizontal">
+
+                    <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Path= Name}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Name="distanceAndTime" Visibility="{Binding Converter={StaticResource StationToVisibilityConverter}}">
+                        <Button x:Name="modifyButton" Content="Modify" Margin="0,5,5,5" Click="ModifyStation_Clicked"/>
+                        <TextBlock Text="Distance: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding Path= Distance}"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ThereIsTimeAndDistance}" Value="False">
+                                            <Setter Property="Text" Value="MISSING"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="Time: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Width="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding Path= Time}"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ThereIsTimeAndDistance}" Value="False">
+                                            <Setter Property="Text" Value="MISSING"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=index}" Value="10">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    </StackPanel>
+                
+            </StackPanel>
+     
+        </DataTemplate>
+
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
@@ -20,7 +87,7 @@
         </StackPanel>
         
         <StackPanel Grid.Row="1" Orientation="Vertical">
-            <ListBox Name="stationslb"/>
+            <ListBox Name="stationslb" ItemTemplate="{StaticResource SationList}"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

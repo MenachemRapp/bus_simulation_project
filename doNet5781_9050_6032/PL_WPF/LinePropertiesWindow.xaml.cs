@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace PL_WPF
         
         
         BO.LineTotal line;
+   
         public LinePropertiesWindow(IBL _bl, int lineId)
         {
             InitializeComponent();
@@ -45,11 +47,11 @@ namespace PL_WPF
         private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(line.ListOfStation.ToList().FindIndex(s=>s.Code==station.Code)+1).Code);//to change to index
-            if (station.ThereIsTimeAndDistance)
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(station.index+1).Code, station.index-1);
+           // if (station.ThereIsTimeAndDistance)
                 adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
-            else
-                adjacentStationsWindow.SubmitDriveEvent += addAdjacent;
+           // else
+             //   adjacentStationsWindow.SubmitDriveEvent += addAdjacent;
             adjacentStationsWindow.ShowDialog();
             
         }
@@ -57,23 +59,26 @@ namespace PL_WPF
         private void AddNextStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            SelectStationWindow stationsWindow = new SelectStationWindow(bl, line.ListOfStation.ToList().FindIndex(s => s.Code == station.Code)+1);
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl,station.index);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
         }
 
-        private void modifyAdjacent(BO.AdjacentStations adjacent)
+        private void modifyAdjacent(BO.AdjacentStations adjacent, int index)
         {
-            bl.UpdateAdjacentStations(adjacent);
+            // bl.UpdateAdjacentStations(adjacent);
+            line.ListOfStation.ElementAt(index).Time = adjacent.Time;
+            line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
+            line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;
             RefreshList();
         }
-
+/*
         private void addAdjacent(BO.AdjacentStations adjacent)
         {
-            bl.AddAdjacentStations(adjacent);
+            //bl.AddAdjacentStations(adjacent);
             RefreshList();
         }
-
+*/
         private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded)
@@ -101,7 +106,7 @@ namespace PL_WPF
         private void RemoveStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            bl.DelStatFromLine(line.ListOfStation.ToList().FindIndex(s => s.Code == station.Code),line);
+            bl.DelStatFromLine(station.index-1,line);
             RefreshList();
         }
 
@@ -118,10 +123,11 @@ namespace PL_WPF
 
                 MessageBox.Show(ex.Message, "Saving Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
 
+           
         }
-
+     
         public event EventHandler SavedLineEvent;
     }
+ 
 }

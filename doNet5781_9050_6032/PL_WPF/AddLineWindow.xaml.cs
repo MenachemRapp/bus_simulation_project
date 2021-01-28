@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 using BLAPI;
 
 namespace PL_WPF
@@ -74,12 +75,12 @@ namespace PL_WPF
         {
 
             //bl.AddStatToLine(newStationCode, index, line);
-            if (!bl.HasTimeAndDistance(newStationCode, line))
+            /*if (!bl.HasTimeAndDistance(newStationCode, line))
             {
-                AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code,newStationCode);
-                adjacentStationsWindow.SubmitDriveEvent += bl.AddAdjacentStations;
+                AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code,newStationCode,0);
+                adjacentStationsWindow.SubmitDriveEvent +=(adj,x)=> bl.AddAdjacentStations(adj);
                 adjacentStationsWindow.ShowDialog();
-            }
+            }*/
             try
             {
                 bl.AddLastStation(newStationCode, line);
@@ -89,7 +90,7 @@ namespace PL_WPF
 
                 MessageBox.Show(ex.Message, "Adding Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
+           
             RefreshList();
         }
 
@@ -97,6 +98,7 @@ namespace PL_WPF
         {
             try
             {
+                line.Code = Convert.ToInt32(numbertb.Text);
                 bl.SaveLine(line);
                 SavedLineEvent(sender, e);
                 Close();
@@ -107,5 +109,54 @@ namespace PL_WPF
             }
         }
         public event EventHandler SavedLineEvent;
+
+        private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
+        {
+            BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl,station.Code, line.ListOfStation.ElementAt(station.index).Code, station.index-1);
+             adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
+            adjacentStationsWindow.ShowDialog();
+
+        }
+
+   
+
+        private void modifyAdjacent(BO.AdjacentStations adjacent, int index)
+        {
+            // bl.UpdateAdjacentStations(adjacent);
+            line.ListOfStation.ElementAt(index).Time = adjacent.Time;
+            line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
+            line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;
+            RefreshList();
+        }
+    }
+    public class StationToVisibilityConverter : IValueConverter
+    {
+        public object Convert(
+          object value,
+          Type targetType,
+          object parameter,
+          CultureInfo culture)
+        {
+            //string station = value.ToString();
+            BO.ListedLineStation station1 = (BO.ListedLineStation)value;
+            if (station1.ThereIsTimeAndDistance==false && station1.Distance==-1)
+            {
+                return Visibility.Collapsed;
+            }
+            else
+            {
+                return Visibility.Visible;
+            }
+        }
+
+        public object ConvertBack(
+          object value,
+          Type targetType,
+          object parameter,
+          CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

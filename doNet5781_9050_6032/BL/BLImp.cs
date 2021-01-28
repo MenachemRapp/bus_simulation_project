@@ -258,8 +258,8 @@ namespace BL
 
         public bool HasTimeAndDistance(int Code, NewLine line)
         {
-            if (line.ListOfStation.Count() == 0)
-                return true;
+           // if (line.ListOfStation.Count() == 0)
+             //   return true;
             return GoodAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
         }
         public void AddLastStation(int Code, NewLine line)
@@ -268,18 +268,26 @@ namespace BL
             BO.Station basicStation = GetStation(Code);
             BO.ListedLineStation station = new ListedLineStation();
             basicStation.CopyPropertiesTo(station);
-            if (line.ListOfStation.Count() == 0)
-            {
-                station.Distance = 0;
-                station.Time = TimeSpan.Zero;
-            }
-            else
-            {
-                adjacent = GetAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
-                station.Distance = adjacent.Distance;
-                station.Time = adjacent.Time;
-            }
             
+            station.index = line.ListOfStation.Count() + 1;
+            station.Distance = -1;
+            station.Time = TimeSpan.Zero;
+            station.ThereIsTimeAndDistance = false;
+
+            if (line.ListOfStation.Count() > 0)
+            {
+                BO.ListedLineStation prevStation = line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1);
+                if (HasTimeAndDistance(Code, line))
+                {
+                    adjacent = GetAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
+                    prevStation.Distance = adjacent.Distance;
+                    prevStation.Time = adjacent.Time;
+                    prevStation.ThereIsTimeAndDistance = true;
+                }//to add an else
+               // else
+                //    prevStation.Distance = 1;
+
+            }
             line.ListOfStation = line.ListOfStation.Append(station);
 
         }
@@ -290,7 +298,14 @@ namespace BL
 
         public void SaveLine(NewLine line)
         {
-            dl.AddLine(new DO.Line { Area = (DO.Areas)line.Area, Code = line.Code, Id = 0, FirstStation = line.ListOfStation.First().Code, LastStation = line.ListOfStation.Last().Code });
+            BO.LineTotal lineTotal = new LineTotal();
+            lineTotal.ListOfStation = new List<ListedLineStation>();
+            line.CopyPropertiesTo(lineTotal);
+            lineTotal.ListOfStation = line.ListOfStation.ToList();
+            lineTotal.Id = 0;
+            
+            
+            SaveLine(lineTotal);
         }
         #endregion
 

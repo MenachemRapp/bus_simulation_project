@@ -22,13 +22,15 @@ namespace PL_WPF
     {
         IBL bl;
         BO.AdjacentStations adjStations= new BO.AdjacentStations();
+        int index;
         //int station1, station2;
-        public AdjacentStationsWindow(IBL _bl, int station1, int station2)
+        public AdjacentStationsWindow(IBL _bl, int station1, int station2, int _index)
         {
             InitializeComponent();
             bl = _bl;
             adjStations.Station1 = station1;
             adjStations.Station2 = station2;
+            index = _index;
 
             string title = $"Fill in the values of the drive between:\nstation {station1} and station {station2}.";
             titletb.Text = title;
@@ -42,7 +44,7 @@ namespace PL_WPF
                 adjStations.Time = TimeSpan.FromMinutes(Convert.ToDouble(txtTime.Text));
 
                 if (SubmitDriveEvent != null)
-                    SubmitDriveEvent(adjStations);
+                    SubmitDriveEvent(adjStations, index);
 
                 this.Close();
 
@@ -58,7 +60,7 @@ namespace PL_WPF
 
         }
 
-        public delegate void SubmittedDriveHandler(BO.AdjacentStations stations);
+        public delegate void SubmittedDriveHandler(BO.AdjacentStations stations, int index);
         public event SubmittedDriveHandler SubmitDriveEvent;
 
     }
