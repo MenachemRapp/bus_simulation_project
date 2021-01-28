@@ -39,7 +39,7 @@ namespace PL_WPF
 
         private void RefreshList()
         {
-            if (line.ListOfStation!=null)
+            if (line.ListOfStation!=null && line.ListOfStation.Count()>0)
             {
                 deleteButton.IsEnabled = true;
                 stationslb.Visibility = System.Windows.Visibility.Visible;
@@ -63,6 +63,7 @@ namespace PL_WPF
             SelectStationWindow stationsWindow = new SelectStationWindow(bl,index);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
+            
         }
 
         private void DeleteStation_Clicked(object sender, RoutedEventArgs e)
@@ -84,6 +85,7 @@ namespace PL_WPF
             try
             {
                 bl.AddLastStation(newStationCode, line);
+                
             }
             catch (Exception ex)// type of exception
             {
@@ -92,6 +94,7 @@ namespace PL_WPF
             }
            
             RefreshList();
+            stationslb.ScrollIntoView(stationslb.Items.GetItemAt(stationslb.Items.Count - 1));
         }
 
         private void SaveLine_Clicked(object sender, RoutedEventArgs e)
