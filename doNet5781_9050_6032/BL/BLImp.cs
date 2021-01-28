@@ -270,7 +270,7 @@ namespace BL
             basicStation.CopyPropertiesTo(station);
             
             station.index = line.ListOfStation.Count() + 1;
-            station.Distance = -1;
+            station.Distance = 0;//-1
             station.Time = TimeSpan.Zero;
             station.ThereIsTimeAndDistance = false;
 
@@ -285,7 +285,7 @@ namespace BL
                     prevStation.ThereIsTimeAndDistance = true;
                 }//to add an else
                // else
-                //    prevStation.Distance = 1;
+                //    prevStation.Distance = 0;
 
             }
             line.ListOfStation = line.ListOfStation.Append(station);
