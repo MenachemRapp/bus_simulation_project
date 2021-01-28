@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
-        Title="New Line" Height="450" Width="800">
+        Title="New Line" Height="450" Width="500">
     <Window.Resources>
         <local:StationToVisibilityConverter 
     x:Key="StationToVisibilityConverter" />
         <DataTemplate x:Key="SationList" >
-      
 
-                <StackPanel Orientation="Vertical" Width="250">
+
+            <StackPanel Orientation="Vertical" Width="250"  >
 
                 <StackPanel x:Name="codeAndNames" Orientation="Horizontal">
 
@@ -56,16 +56,6 @@
                             </TextBlock.Style>
                         </TextBlock>
 
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=index}" Value="10">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
                     </StackPanel>
                 
             </StackPanel>
@@ -86,17 +76,18 @@
             <ComboBox  Name="areacb"  Width="100"/>
         </StackPanel>
         
-        <StackPanel Grid.Row="1" Orientation="Vertical">
-            <ListBox Name="stationslb" ItemTemplate="{StaticResource SationList}"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-            <Button Content="Add a station" Click="AddStation_Clicked" HorizontalAlignment="Stretch"  Grid.Column="0"/>
-            <Button  Name="deleteButton" Content="Delete last station"  Click="DeleteStation_Clicked" HorizontalAlignment="Stretch"  Grid.Column="1"/>
-            </Grid>
-        </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <ListBox Name="stationslb" ItemTemplate="{StaticResource SationList}" MaxHeight="255"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Add a station" Click="AddStation_Clicked" HorizontalAlignment="Stretch"  Grid.Column="0"/>
+                    <Button  Name="deleteButton" Content="Delete last station"  Click="DeleteStation_Clicked" HorizontalAlignment="Stretch"  Grid.Column="1"/>
+                </Grid>
+            </StackPanel>
+      
         <Button Name="saveButton" Content="Save Line" Click="SaveLine_Clicked" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="2"/>
     </Grid>
 </Window>

@@ -270,7 +270,7 @@ namespace BL
             basicStation.CopyPropertiesTo(station);
             
             station.index = line.ListOfStation.Count() + 1;
-            station.Distance = 0;//-1
+            station.Distance =-1;
             station.Time = TimeSpan.Zero;
             station.ThereIsTimeAndDistance = false;
 
@@ -284,8 +284,8 @@ namespace BL
                     prevStation.Time = adjacent.Time;
                     prevStation.ThereIsTimeAndDistance = true;
                 }//to add an else
-               // else
-                //    prevStation.Distance = 0;
+                else
+                    prevStation.Distance = 0;
 
             }
             line.ListOfStation = line.ListOfStation.Append(station);
@@ -294,6 +294,10 @@ namespace BL
         public void DelLastStation(NewLine line)
         {
             line.ListOfStation = line.ListOfStation.Take(line.ListOfStation.Count() - 1);
+            BO.ListedLineStation lastStation = line.ListOfStation.Last();
+            lastStation.Distance = -1;
+            lastStation.Time = TimeSpan.Zero;
+            lastStation.ThereIsTimeAndDistance = false;
         }
 
         public void SaveLine(NewLine line)
@@ -302,6 +306,7 @@ namespace BL
             lineTotal.ListOfStation = new List<ListedLineStation>();
             line.CopyPropertiesTo(lineTotal);
             lineTotal.ListOfStation = line.ListOfStation.ToList();
+            lineTotal.ListOfStation.Last().Distance=0;
             lineTotal.Id = 0;
             
             
@@ -309,7 +314,7 @@ namespace BL
         }
         #endregion
 
-
+        #region ListedStation
         public IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
         {
             List<ListedLineStation> list = new List<ListedLineStation>();
@@ -346,6 +351,8 @@ namespace BL
             }
             return list;
         }
+
+        #endregion
 
         #region line
         //public LineTotal GetLineNew(int Id)
@@ -543,7 +550,6 @@ namespace BL
         }
 
         #endregion
-
 
         #region StationWithLines
         public BO.StationWithLines GetStationWithLines(int code)
