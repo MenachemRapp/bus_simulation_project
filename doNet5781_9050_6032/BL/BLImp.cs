@@ -171,8 +171,11 @@ namespace BL
 
         public void DeleteStation(int code)
         {
+            IEnumerable<DO.LineStation> lineStations = dl.GetAllLineStationBy(s => s.Station == code);
+            if (lineStations.Count()!=0)
+                  throw new BO.BadStationCodeException(code, "station has lines");
             try
-            {
+                {
                 dl.DeleteStation(code);
             }
             catch (DO.BadStationCodeException ex)
