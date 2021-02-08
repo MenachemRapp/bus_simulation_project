@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ArrayOfLine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Line>
+    <Id>1</Id>
+    <Code>123</Code>
+    <Area>General</Area>
+    <FirstStation>248965</FirstStation>
+    <LastStation>422345</LastStation>
+  </Line>
+  <Line>
+    <Id>2</Id>
+    <Code>546</Code>
+    <Area>General</Area>
+    <FirstStation>598763</FirstStation>
+    <LastStation>422345</LastStation>
+  </Line>
+</ArrayOfLine>

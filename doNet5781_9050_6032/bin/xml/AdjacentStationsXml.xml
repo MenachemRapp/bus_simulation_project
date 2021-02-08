@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAdjacentStations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AdjacentStations>
+    <Station1>248965</Station1>
+    <Station2>422345</Station2>
+    <Distance>12</Distance>
+    <Time>00:05:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>598763</Station1>
+    <Station2>248965</Station2>
+    <Distance>12</Distance>
+    <Time>00:03:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>248965</Station1>
+    <Station2>432</Station2>
+    <Distance>7</Distance>
+    <Time>00:05:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>432</Station1>
+    <Station2>157894</Station2>
+    <Distance>13</Distance>
+    <Time>00:02:30</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>157894</Station1>
+    <Station2>422345</Station2>
+    <Distance>17</Distance>
+    <Time>00:04:18</Time>
+  </AdjacentStations>
+</ArrayOfAdjacentStations>

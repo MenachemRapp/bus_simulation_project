@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Station>
+    <Code>422345</Code>
+    <Name>red</Name>
+    <Longitude>34</Longitude>
+    <Latitude>43</Latitude>
+  </Station>
+  <Station>
+    <Code>157894</Code>
+    <Name>main road</Name>
+    <Longitude>32</Longitude>
+    <Latitude>34.7</Latitude>
+  </Station>
+  <Station>
+    <Code>248965</Code>
+    <Name>green</Name>
+    <Longitude>24</Longitude>
+    <Latitude>31.4</Latitude>
+  </Station>
+  <Station>
+    <Code>598763</Code>
+    <Name>bridge 4</Name>
+    <Longitude>25</Longitude>
+    <Latitude>24.9</Latitude>
+  </Station>
+  <Station>
+    <Code>432</Code>
+    <Name>fifth street 72</Name>
+    <Longitude>342</Longitude>
+    <Latitude>33</Latitude>
+  </Station>
+  <Station>
+    <Code>579564</Code>
+    <Name>Yafo 30</Name>
+    <Longitude>24.3</Longitude>
+    <Latitude>27.4</Latitude>
+  </Station>
+</ArrayOfStation>
