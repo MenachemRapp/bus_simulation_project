@@ -235,7 +235,7 @@ namespace DL
 
         public void DeleteAdjacentStations(int CodeStation1, int CodeStation2)
         {
-            ((IDL)instance).DeleteAdjacentStations(CodeStation1, CodeStation2);
+            throw new NotImplementedException();
         }
 
 
@@ -251,7 +251,7 @@ namespace DL
 
         public IEnumerable<AdjacentStations> GetAllAdjacentStationss()
         {
-            return ((IDL)instance).GetAllAdjacentStationss();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<AdjacentStations> GetAllAdjacentStationssBy(Predicate<AdjacentStations> predicate)
@@ -275,7 +275,7 @@ namespace DL
 
         public void UpdateAdjacentStations(int CodeStation1, int CodeStation2, Action<AdjacentStations> update)
         {
-            ((IDL)instance).UpdateAdjacentStations(CodeStation1, CodeStation2, update);
+            throw new NotImplementedException();
         }
 
 
@@ -356,15 +356,7 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
-        {
-            // throw new NotImplementedException();
-            return from sil in DataSource.ListLineStation
-                   where sil.LineId == lineId//change to predicate
-                   select sil.Clone();
-        }
-
-
+      
 
 
         #endregion
@@ -394,6 +386,15 @@ namespace DL
             DataSource.ListLineStation.Add(line_station.Clone());
 
         }
+
+        IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
+        {
+            return from sil in DataSource.ListLineStation
+                   where sil.LineId == lineId//change to predicate
+                   select sil.Clone();
+        }
+
+
         #endregion
 
 

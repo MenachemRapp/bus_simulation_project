@@ -21,7 +21,7 @@ namespace DL
         #region DS XML Files
         string stationsPath = @"StationXml.xml"; //XMLSerializer
         string lineStationPath= @"LineStationXml.xml"; //XMLSerializer
-        string linePath = @"LineXml.xml"; //XMLSerializer
+        string linesPath = @"LineXml.xml"; //XMLSerializer
 
         string adjacentStationsPath = @"AdjacentStationsXml.xml"; //XElement
         #endregion
@@ -108,9 +108,63 @@ namespace DL
                    select LineStation;
         }
 
+        public void DeleteLineFromAllStations(int Id)
+        {
+            List<LineStation> ListLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(lineStationPath);
+
+            ListLineStations.RemoveAll(s => s.LineId == Id);
+
+
+            XMLTools.SaveListToXMLSerializer(ListLineStations, lineStationPath);
+
+        }
+
+        public void AddLineStation(DO.LineStation line_station)
+        {
+            List<LineStation> ListLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(lineStationPath);
+            if (ListLineStations.Exists(sta => sta.LineId == line_station.LineId && sta.Station == line_station.Station))
+                throw new BadLineStationException();// to do.. already exikt
+            ListLineStations.Add(line_station);
+
+            XMLTools.SaveListToXMLSerializer(ListLineStations, lineStationPath);
+        }
+
+
+        IEnumerable<LineStation> IDL.GeLineStationsInLine(int lineId)
+        {
+            List<LineStation> ListLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(lineStationPath);
+
+            return from sil in ListLineStations
+                   where sil.LineId == lineId//change to predicate
+                   select sil;
+        }
         #endregion
 
         #region AdjacentStations
+        public void AddAdjacentStations(DO.AdjacentStations adjacentStations)
+        {
+            XElement adjacentStationsRootElem = XMLTools.LoadListFromXMLElement(adjacentStationsPath);
+
+            XElement adj1 = (from adj in adjacentStationsRootElem.Elements()
+                                  where (int.Parse(adj.Element("Station1").Value) == adjacentStations.Station1
+                                         && int.Parse(adj.Element("Station2").Value) == adjacentStations.Station2)
+                                  select adj).FirstOrDefault();
+
+            if (adj1 != null)
+                throw new DO.BadAdjacentStationsException(adjacentStations.Station1, adjacentStations.Station2, "Duplicate adjacenct stations");
+
+            XElement adjacentStationsElem = new XElement("AdjacentStations",
+                                  new XElement("Station1", adjacentStations.Station1.ToString()),
+                                  new XElement("Station2", adjacentStations.Station2.ToString()),
+                                  new XElement("Distance", adjacentStations.Distance.ToString()),
+                                  new XElement("Time", adjacentStations.Time.ToString()));
+
+            adjacentStationsRootElem.Add(adjacentStationsElem);
+
+            XMLTools.SaveListToXMLElement(adjacentStationsRootElem, adjacentStationsPath);
+        }
+
+
         public DO.AdjacentStations GetAdjacentStations(int CodeStation1, int CodeStation2)
         {
             XElement adjacentStationsRootElem = XMLTools.LoadListFromXMLElement(adjacentStationsPath);
@@ -131,16 +185,104 @@ namespace DL
 
             return a;
         }
+        public void UpdateAdjacentStations(AdjacentStations adjacentStations)
+        {
+
+            XElement adjacentStationsRootElem = XMLTools.LoadListFromXMLElement(adjacentStationsPath);
+
+            XElement adj = (from a in adjacentStationsRootElem.Elements()
+                             where (int.Parse(a.Element("Station1").Value) == adjacentStations.Station1
+                                    && int.Parse(a.Element("Station2").Value) == adjacentStations.Station2)
+                             select a).FirstOrDefault();
+
+            if (adj == null)
+                throw new DO.BadAdjacentStationsException(adjacentStations.Station1, adjacentStations.Station2, "Adjacent stastion don't exist.");
+
+            adj.Element("Distance").Value = adjacentStations.Distance.ToString();
+            adj.Element("Time").Value= adjacentStations.Time.ToString();
+                        
+            XMLTools.SaveListToXMLElement(adjacentStationsRootElem, adjacentStationsPath);
+
+        }
+
+
+        #endregion
+
+        #region line
+        public Line GetLine(int Id)
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            if (!ListLines.Exists(c => c.Id == Id))
+                throw new DO.BadLineIdException(Id);
+            return ListLines.Find(c => c.Id == Id);
+        }
+
+
+        public IEnumerable<Line> GetAllLines()
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            return from line in ListLines
+                   select line;
+        }
+
+        public int AddLine(Line line)
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            if (ListLines.Count() != 0)
+                line.Id = ListLines.OrderBy(li => li.Id).Last().Id + 1;// didn't use runnerNumber
+            else
+                line.Id = 1;
+            ListLines.Add(line);
+
+            XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
+            return line.Id; //why to return this ??????????????
+        }
+
+        public IEnumerable<Line> GetAllLinesBy(Predicate<Line> predicate)
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            return from line in ListLines
+                   where predicate(line)
+                   select line;
+        }
+
+        public void UpdateLineArea(int lineId, Areas area)
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            DO.Line line = ListLines.Find(li => li.Id == lineId);
+
+            if (line != null)
+            {
+                line.Area = area;
+            }
+            else
+                throw new DO.BadLineIdException(lineId);
+
+            XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
+        }
+
+        public void UpdateLine(Line line)
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            DO.Line myLine = ListLines.Find(l => l.Id == line.Id);
+            if (myLine != null)
+            {
+                ListLines.Remove(myLine);
+                ListLines.Add(line);
+            }
+            else
+                throw new DO.BadLineIdException(line.Id);
+            XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
+        }
+
+
 
         #endregion
 
         #region temp
 
 
-        public void AddAdjacentStations(AdjacentStations Adjacent_Stations)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public void AddBus(Bus bus)
         {
@@ -152,16 +294,7 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public int AddLine(Line line)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddLineStation(LineStation line_station)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         
 
         public void DeleteAdjacentStations(int CodeStation1, int CodeStation2)
@@ -189,11 +322,7 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public void DeleteLineFromAllStations(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public void DeleteLineStation(int LineId, int Station)
         {
             throw new NotImplementedException();
@@ -237,16 +366,7 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Line> GetAllLines()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Line> GetAllLinesBy(Predicate<Line> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
+        
        
 
        
@@ -270,17 +390,8 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public Line GetLine(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
         
-
-        public void UpdateAdjacentStations(AdjacentStations Adjacent_Stations)
-        {
-            throw new NotImplementedException();
-        }
+              
 
         public void UpdateAdjacentStations(int CodeStation1, int CodeStation2, Action<AdjacentStations> update)
         {
@@ -312,17 +423,8 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public void UpdateLine(Line line)
-        {
-            throw new NotImplementedException();
-        }
 
         public void UpdateLine(int Id, Action<Line> update)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateLineArea(int lineId, Areas area)
         {
             throw new NotImplementedException();
         }
