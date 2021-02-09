@@ -15,11 +15,13 @@ using BLAPI;
 
 namespace PL_WPF
 {
+
     /// <summary>
     /// Interaction logic for AddStationWindow.xaml
     /// </summary>
     public partial class AddStationWindow : Window
     {
+        
         public IBL bl;
         public AddStationWindow(IBL _bl)
         {
@@ -29,6 +31,8 @@ namespace PL_WPF
 
         private void addStation_Click(object sender, RoutedEventArgs e)
         {
+
+                      
             try
             {
                 BO.Station newStation = new BO.Station()
@@ -45,7 +49,7 @@ namespace PL_WPF
 
                bl.AddStation(newStation);
                 this.Close();
-                
+               
                 
                 
 
@@ -62,6 +66,7 @@ namespace PL_WPF
             {
                MessageBox.Show(ex.Message, "Code Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
     }
 }
