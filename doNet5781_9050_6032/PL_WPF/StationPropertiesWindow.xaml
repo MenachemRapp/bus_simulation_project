@@ -34,7 +34,7 @@
                     <Setter Property="Background" Value="White"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding}" Value="0">
-                            <Setter Property="Text" Value="No Stations go through this line"/>
+                            <Setter Property="Text" Value="No Lines go through this Station"/>
                             <Setter Property="Background" Value="OrangeRed"/>
                         </DataTrigger>
                     </Style.Triggers>

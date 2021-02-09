@@ -577,12 +577,6 @@
     <Latitude>31.51</Latitude>
   </Station>
   <Station>
-    <Code>17231</Code>
-    <Name>New Station</Name>
-    <Longitude>34.57</Longitude>
-    <Latitude>31.65</Latitude>
-  </Station>
-  <Station>
     <Code>457079</Code>
     <Name>New Station</Name>
     <Longitude>34.5</Longitude>
@@ -995,5 +989,11 @@
     <Name>New Station</Name>
     <Longitude>35.3</Longitude>
     <Latitude>32.58</Latitude>
+  </Station>
+  <Station>
+    <Code>17231</Code>
+    <Name>Yafo 34</Name>
+    <Longitude>34.57</Longitude>
+    <Latitude>31.65</Latitude>
   </Station>
 </ArrayOfStation>

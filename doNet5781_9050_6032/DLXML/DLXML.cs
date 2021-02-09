@@ -229,7 +229,7 @@ namespace DL
         {
             List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
             if (ListLines.Count() != 0)
-                line.Id = ListLines.OrderBy(li => li.Id).Last().Id + 1;// didn't use runnerNumber
+                line.Id = ListLines.Max(l=>l.Id) + 1;// didn't use runnerNumber
             else
                 line.Id = 1;
             ListLines.Add(line);
