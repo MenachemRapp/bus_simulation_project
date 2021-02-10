@@ -130,7 +130,16 @@ namespace PL_WPF
         }
      
         public event EventHandler SavedLineEvent;
-    
+
+        private void RemoveTrip_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddTrip_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
     
 }

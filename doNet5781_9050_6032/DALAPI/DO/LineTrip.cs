@@ -10,10 +10,13 @@ namespace DO
     {
         public int Id { get; set; }
         public int LineId { get; set; }
-        public TimeSpan StartAt { get; set; }//to chack if time spane
+        public TimeSpan StartAt { get; set; }
+       
+        /* bonus
+        
         public TimeSpan Frequency { get; set; }
         public TimeSpan FinishAt { get; set; }
-       
+       */
 
     }
 }

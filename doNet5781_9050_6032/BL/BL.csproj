@@ -49,6 +49,7 @@
     <Compile Include="BO\Exceptions.cs" />
     <Compile Include="BO\LineTotal.cs" />
     <Compile Include="BO\LineAndStations.cs" />
+    <Compile Include="BO\ListedLineTrip.cs" />
     <Compile Include="BO\ListedLineStation.cs" />
     <Compile Include="BO\NewLine.cs" />
     <Compile Include="BO\StationWithLines.cs" />

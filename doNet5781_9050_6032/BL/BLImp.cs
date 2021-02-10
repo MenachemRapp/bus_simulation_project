@@ -386,7 +386,40 @@ namespace BL
 
         #endregion
 
-        #region line
+        #region ListedLineTrip
+        public IEnumerable<ListedLineTrip> GetTripsInLine(int lineId)
+        {
+            IEnumerable<LineTrip> tripsDO = dl.GetAllLineTripsBy(trip => trip.LineId == lineId);
+            IEnumerable<ListedLineTrip> tripsBO =new List<ListedLineTrip>();
+            tripsDO.CopyPropertiesTo(tripsBO);
+
+            return tripsBO;
+        }
+
+        public void UpdateTripsInLine(int lineId)
+        {
+            IEnumerable<LineTrip> tripsDO = dl.GetAllLineTripsBy(trip => trip.LineId == lineId);
+            IEnumerable<ListedLineTrip> tripsBO = new List<ListedLineTrip>();
+            tripsDO.CopyPropertiesTo(tripsBO);
+
+            
+        }
+
+        public void AddTrip(ListedLineTrip trip, int lineID)
+        {
+            DO.LineTrip newTrip = new LineTrip()
+            {
+                Id = trip.Id,
+                LineId = lineID,
+                StartAt = trip.StartAt
+            };
+
+            dl.AddLineTrip(newTrip);
+
+        }
+        #endregion
+
+        #region line Total
         //public LineTotal GetLineNew(int Id)
         //{
 
@@ -577,6 +610,7 @@ namespace BL
             new_line.ListOfStation = GetStationCodeNameDistanceTimeInLine(Id);
             new_line.totalDistance = new_line.ListOfStation.Sum(s => s.Distance);
             new_line.totalTime = TimeSpan.FromTicks(new_line.ListOfStation.Sum(s => s.Time.Ticks));
+            new_line.ListOfTrips = GetTripsInLine(Id);
 
             return new_line;
         }

@@ -60,7 +60,7 @@ namespace BLAPI
         void SaveLine(NewLine line);
         #endregion
 
-        #region Line
+        #region Line Total
         LineTotal GetLineNew(int Id=0);
         //bool  SaveLine(LineTotal line);
         //void RefreshLine(LineTotal line);
