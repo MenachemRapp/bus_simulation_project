@@ -7,11 +7,19 @@
         mc:Ignorable="d"
         Title="Station List" Height="450" Width="800">
     <Window.Resources>
-
+        <local:ShortenStringConverter 
+    x:Key="ShortenStringConverter" />
         <DataTemplate x:Key="BusStationListSelect" >
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding}" VerticalAlignment="Center" Width="500"/>
+                <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Code}"  Width="45" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path=Name, Converter={StaticResource ShortenStringConverter}}"  Width="90" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Longitude: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Longitude}"  Width="70" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Latitude: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Latitude}"  Width="80" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Content="select" Click="SelectStation_clicked"/>
                
 

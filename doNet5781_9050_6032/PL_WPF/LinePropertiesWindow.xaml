@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Line Properties" Height="450" Width="800">
     <Window.Resources>
-
+        <local:ShortenStringConverter 
+    x:Key="ShortenStringConverter" />
         <DataTemplate x:Key="BusListAndButtons" >
             <StackPanel Orientation="Horizontal">
 
@@ -18,7 +19,7 @@
                         <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Path= Name}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=Name, Converter={StaticResource ShortenStringConverter}}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                    
                     </StackPanel>
                 

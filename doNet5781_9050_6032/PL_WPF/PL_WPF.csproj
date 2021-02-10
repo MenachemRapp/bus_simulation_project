@@ -64,6 +64,7 @@
     <Compile Include="AdjacentStationsWindow.xaml.cs">
       <DependentUpon>AdjacentStationsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters.cs" />
     <Compile Include="ModifyStationWindow.xaml.cs">
       <DependentUpon>ModifyStationWindow.xaml</DependentUpon>
     </Compile>

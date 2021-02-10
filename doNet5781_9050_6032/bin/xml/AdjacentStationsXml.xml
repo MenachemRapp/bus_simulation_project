@@ -84,4 +84,28 @@
     <Distance>32</Distance>
     <Time>00:12:00</Time>
   </AdjacentStations>
+  <AdjacentStations>
+    <Station1>17231</Station1>
+    <Station2>18999</Station2>
+    <Distance>5</Distance>
+    <Time>00:07:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>18999</Station1>
+    <Station2>17231</Station2>
+    <Distance>9</Distance>
+    <Time>00:07:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>17231</Station1>
+    <Station2>52727</Station2>
+    <Distance>6</Distance>
+    <Time>00:56:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>52727</Station1>
+    <Station2>180135</Station2>
+    <Distance>56</Distance>
+    <Time>00:07:00</Time>
+  </AdjacentStations>
 </ArrayOfAdjacentStations>

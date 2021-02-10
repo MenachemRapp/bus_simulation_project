@@ -68,7 +68,7 @@ namespace PL_WPF
 
         private void DeleteStation_Clicked(object sender, RoutedEventArgs e)
         {
-            line.ListOfStation = line.ListOfStation.Take(line.ListOfStation.Count() - 1);
+            bl.DelLastStation(line);
             RefreshList();
         }
 
@@ -127,39 +127,13 @@ namespace PL_WPF
         private void modifyAdjacent(BO.AdjacentStations adjacent, int index)
         {
             // bl.UpdateAdjacentStations(adjacent);
-            line.ListOfStation.ElementAt(index).Time = adjacent.Time;
-            line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
-            line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;
+            /* line.ListOfStation.ElementAt(index).Time = adjacent.Time;
+             line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
+             line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;*/
+            bl.AddTimeAndDistance(adjacent,line);
             RefreshList();
-        }
-    }
-    public class StationToVisibilityConverter : IValueConverter
-    {
-        public object Convert(
-          object value,
-          Type targetType,
-          object parameter,
-          CultureInfo culture)
-        {
-            //string station = value.ToString();
-            BO.ListedLineStation station1 = (BO.ListedLineStation)value;
-            if (station1.ThereIsTimeAndDistance==false && station1.Distance==-1)
-            {
-                return Visibility.Collapsed;
-            }
-            else
-            {
-                return Visibility.Visible;
-            }
-        }
 
-        public object ConvertBack(
-          object value,
-          Type targetType,
-          object parameter,
-          CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
+    
 }

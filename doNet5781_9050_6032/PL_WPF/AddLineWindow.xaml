@@ -9,7 +9,7 @@
     <Window.Resources>
         <local:StationToVisibilityConverter 
     x:Key="StationToVisibilityConverter" />
-        <DataTemplate x:Key="SationList" >
+        <DataTemplate x:Key="StationList" >
 
 
             <StackPanel Orientation="Vertical" Width="250"  >
@@ -77,7 +77,7 @@
         </StackPanel>
         
             <StackPanel Orientation="Vertical" Grid.Row="1">
-                <ListBox Name="stationslb" ItemTemplate="{StaticResource SationList}" MaxHeight="255"/>
+                <ListBox Name="stationslb" ItemTemplate="{StaticResource StationList}" MaxHeight="255"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

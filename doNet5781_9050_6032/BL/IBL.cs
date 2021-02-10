@@ -51,6 +51,7 @@ namespace BLAPI
         #endregion
 
         #region newLine
+        void AddTimeAndDistance(BO.AdjacentStations adj, NewLine line);
         void AddLastStation(int Code, NewLine line);
         void DelLastStation(NewLine line);
 

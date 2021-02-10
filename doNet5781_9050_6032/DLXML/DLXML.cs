@@ -275,7 +275,19 @@ namespace DL
             XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
         }
 
+        public void DeleteLine(int Id)
+        {
+            List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
+            DO.Line line = ListLines.Find(l => l.Id == Id);
 
+            if (line != null)
+            {
+                ListLines.Remove(line);
+            }
+            else
+                throw new BadLineIdException(Id);
+            XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
+        }
 
         #endregion
 
@@ -317,11 +329,7 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public void DeleteLine(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         
         public void DeleteLineStation(int LineId, int Station)
         {
