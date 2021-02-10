@@ -28,4 +28,11 @@
     <FirstStation>43952</FirstStation>
     <LastStation>853710</LastStation>
   </Line>
+  <Line>
+    <Id>5</Id>
+    <Code>248</Code>
+    <Area>North</Area>
+    <FirstStation>1082</FirstStation>
+    <LastStation>1094</LastStation>
+  </Line>
 </ArrayOfLine>

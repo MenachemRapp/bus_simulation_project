@@ -9,6 +9,8 @@
     <Window.Resources>
         <local:StationToVisibilityConverter 
     x:Key="StationToVisibilityConverter" />
+        <local:ShortenStringConverter 
+    x:Key="ShortenStringConverter" />
         <DataTemplate x:Key="StationList" >
 
 
@@ -19,7 +21,7 @@
                     <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding Path= Name}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Path= Name, Converter={StaticResource ShortenStringConverter}}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                 </StackPanel>
 
