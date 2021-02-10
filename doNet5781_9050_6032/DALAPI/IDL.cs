@@ -77,15 +77,15 @@ namespace DLAPI
 
 
 
-        //#region LineTrip
-        //IEnumerable<DO.LineTrip> GetAllLineTrips();
-        //IEnumerable<DO.LineTrip> GetAllLineTripsBy(Predicate<DO.LineTrip> predicate);
-        //DO.LineTrip GetLineTrip(int LicenseNum);
-        //void AddLineTrip(DO.LineTrip line_trip);
-        //void UpdateLineTrip(DO.LineTrip line_trip);
-        //void UpdateLineTrip(int LicenseNum, Action<DO.LineTrip> update); //method that knows to updt specific fields in LineTrip
-        //void DeleteLineTrip(int LicenseNum);
-        //#endregion
+        #region LineTrip
+        IEnumerable<DO.LineTrip> GetAllLineTrips();
+        IEnumerable<DO.LineTrip> GetAllLineTripsBy(Predicate<DO.LineTrip> predicate);
+        DO.LineTrip GetLineTrip(int LicenseNum);
+        void AddLineTrip(DO.LineTrip line_trip);
+        void UpdateLineTrip(DO.LineTrip line_trip);
+        void UpdateLineTrip(int LicenseNum, Action<DO.LineTrip> update); //method that knows to updt specific fields in LineTrip
+        void DeleteLineTrip(int LicenseNum);
+        #endregion
 
 
 

@@ -63,6 +63,19 @@ namespace DO
         public override string ToString() => base.ToString() + $",bad adjacent stations: {Code1} and {Code2}";
     }
 
+    public class BadLineTripIdException : Exception
+    {
+        public int ID;
+
+        public BadLineTripIdException(int Id) : base() => ID = Id;
+        public BadLineTripIdException(int Id, string message) :
+            base(message) => ID = Id;
+        public BadLineTripIdException(int Id, string message, Exception innerException) :
+            base(message, innerException) => ID = Id;
+
+        public override string ToString() => base.ToString() + $", bad line trip ID : {ID}";
+    }
+
     public class BadLineStationException : Exception
     {
         //to do

@@ -395,9 +395,44 @@ namespace DL
         }
 
 
+
         #endregion
+        #region LineTrip
+        public IEnumerable<LineTrip> GetAllLineTrips()
+        {
+            throw new NotImplementedException();
+        }
 
+        public IEnumerable<LineTrip> GetAllLineTripsBy(Predicate<LineTrip> predicate)
+        {
+            throw new NotImplementedException();
+        }
 
+        public LineTrip GetLineTrip(int LicenseNum)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddLineTrip(LineTrip line_trip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateLineTrip(LineTrip line_trip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateLineTrip(int LicenseNum, Action<LineTrip> update)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteLineTrip(int LicenseNum)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
 
 
 

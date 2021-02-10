@@ -22,6 +22,7 @@ namespace DL
         string stationsPath = @"StationXml.xml"; //XMLSerializer
         string lineStationPath= @"LineStationXml.xml"; //XMLSerializer
         string linesPath = @"LineXml.xml"; //XMLSerializer
+        string lineTripPath = @"LineTripXml.xml"; //XMLSerializer
 
         string adjacentStationsPath = @"AdjacentStationsXml.xml"; //XElement
         #endregion
@@ -291,6 +292,72 @@ namespace DL
 
         #endregion
 
+        #region LineTrip
+
+        public void AddLineTrip(LineTrip line_trip)
+        {
+            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
+            if (ListLineTrips.Count() != 0)
+                line_trip.Id = ListLineTrips.Max(l => l.Id) + 1;
+            else
+                line_trip.Id = 1;
+            ListLineTrips.Add(line_trip);
+
+            XMLTools.SaveListToXMLSerializer(ListLineTrips, lineTripPath);
+        }
+
+
+        public IEnumerable<LineTrip> GetAllLineTripsBy(Predicate<LineTrip> predicate)
+        {
+            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
+            
+            return from lineTrip in ListLineTrips
+                   where predicate(lineTrip)
+                   select lineTrip;
+        }
+
+        public LineTrip GetLineTrip(int tripId)
+        {
+            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
+            if (!ListLineTrips.Exists(t => t.Id == tripId))
+                throw new DO.BadLineTripIdException(tripId);
+            return ListLineTrips.Find(t => t.Id == tripId);
+        }
+
+        
+
+        public void UpdateLineTrip(LineTrip line_trip)
+        {
+            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
+
+            DO.LineTrip trip = ListLineTrips.Find(t => t.Id == line_trip.Id);
+
+            if (trip == null)
+                throw new BadLineTripIdException(trip.Id);
+
+            ListLineTrips.Remove(trip);
+            ListLineTrips.Add(line_trip);
+
+            XMLTools.SaveListToXMLSerializer(ListLineTrips, lineTripPath); ;
+        }
+
+       
+        public void DeleteLineTrip(int tripId)
+        {
+            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
+
+            DO.LineTrip trip = ListLineTrips.Find(t => t.Id == tripId);
+
+            if (trip == null)
+                throw new BadLineTripIdException(trip.Id);
+
+            ListLineTrips.Remove(trip);
+            
+            XMLTools.SaveListToXMLSerializer(ListLineTrips, lineTripPath); ;
+
+        }
+        #endregion
+        
         #region temp
 
 
@@ -443,9 +510,22 @@ namespace DL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<LineTrip> GetAllLineTrips()
+        {
+            throw new NotImplementedException();
+        }
+
+        
+
+        public void UpdateLineTrip(int LicenseNum, Action<LineTrip> update)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
 
-       
+
     }
 }

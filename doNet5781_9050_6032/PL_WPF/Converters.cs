@@ -10,6 +10,9 @@ using System.Windows.Data;
 
 namespace PL_WPF
 {
+    /// <summary>
+    /// converts a field's vissibilty to be "collapsed" if the distance is "-1". this is used to mark the last stop in the line
+    /// </summary>
     public class StationToVisibilityConverter : IValueConverter
     {
         public object Convert(
@@ -39,7 +42,9 @@ namespace PL_WPF
         }
     }
 
-   
+   /// <summary>
+   /// shortens strings whitch are longer than 12 characters to 10 characters and adds "..." in the end
+   /// </summary>
     public class ShortenStringConverter : IValueConverter
     {
         public object Convert(
