@@ -50,7 +50,7 @@ namespace BLAPI
         void AddAdjacentStations(BO.AdjacentStations adjStations);
         #endregion
 
-        #region newLine
+        #region NewLine
         void AddTimeAndDistance(BO.AdjacentStations adj, NewLine line);
         void AddLastStation(int Code, NewLine line);
         void DelLastStation(NewLine line);
@@ -78,5 +78,9 @@ namespace BLAPI
         void SaveLine(LineTotal line);
         #endregion
 
+        #region SimulationTimer
+        void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime);
+        void StopSimulator();
+        #endregion
     }
 }

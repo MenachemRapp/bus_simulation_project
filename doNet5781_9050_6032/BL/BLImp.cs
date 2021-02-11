@@ -308,10 +308,14 @@ namespace BL
         public void DelLastStation(NewLine line)
         {
             line.ListOfStation = line.ListOfStation.Take(line.ListOfStation.Count() - 1);
-            BO.ListedLineStation lastStation = line.ListOfStation.Last();
-            lastStation.Distance = -1;
-            lastStation.Time = TimeSpan.Zero;
-            lastStation.ThereIsTimeAndDistance = false;
+            if (line.ListOfStation.Count()!=0)
+            {
+                BO.ListedLineStation lastStation = line.ListOfStation.Last();
+                lastStation.Distance = -1;
+                lastStation.Time = TimeSpan.Zero;
+                lastStation.ThereIsTimeAndDistance = false;
+
+            }
         }
 
 
@@ -689,9 +693,23 @@ namespace BL
         }
 
 
+
+
         #endregion
 
+        #region Simulation Timer
 
+        public void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopSimulator()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
 
 
 

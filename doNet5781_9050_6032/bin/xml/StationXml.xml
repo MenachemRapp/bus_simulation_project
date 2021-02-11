@@ -205,12 +205,6 @@
     <Latitude>31.72</Latitude>
   </Station>
   <Station>
-    <Code>68041</Code>
-    <Name>New Station</Name>
-    <Longitude>35.15</Longitude>
-    <Latitude>32.48</Latitude>
-  </Station>
-  <Station>
     <Code>958269</Code>
     <Name>New Station</Name>
     <Longitude>34.73</Longitude>
@@ -1931,5 +1925,11 @@
     <Name>הכניסה לעיר</Name>
     <Longitude>35.04</Longitude>
     <Latitude>33.3</Latitude>
+  </Station>
+  <Station>
+    <Code>68041</Code>
+    <Name>המלאכה</Name>
+    <Longitude>35.15</Longitude>
+    <Latitude>32.48</Latitude>
   </Station>
 </ArrayOfStation>

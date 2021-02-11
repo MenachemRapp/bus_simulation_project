@@ -58,6 +58,7 @@
     <Compile Include="DeepCopyUtilities.cs" />
     <Compile Include="IBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimulationTimer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DALAPI\DALAPI.csproj">
