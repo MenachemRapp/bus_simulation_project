@@ -22,8 +22,8 @@ namespace DL
         string stationsPath = @"StationXml.xml"; //XMLSerializer
         string lineStationPath= @"LineStationXml.xml"; //XMLSerializer
         string linesPath = @"LineXml.xml"; //XMLSerializer
-        string lineTripPath = @"LineTripXml.xml"; //XMLSerializer
-
+        
+        string lineTripPath = @"LineTripXml.xml"; //XMLElement
         string adjacentStationsPath = @"AdjacentStationsXml.xml"; //XElement
         #endregion
 
@@ -236,7 +236,9 @@ namespace DL
             ListLines.Add(line);
 
             XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
-            return line.Id; //why to return this ??????????????
+            
+            //returns the line Id in order to set the line stations and trips
+            return line.Id;
         }
 
         public IEnumerable<Line> GetAllLinesBy(Predicate<Line> predicate)
@@ -296,64 +298,85 @@ namespace DL
 
         public void AddLineTrip(LineTrip line_trip)
         {
-            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
-            if (ListLineTrips.Count() != 0)
-                line_trip.Id = ListLineTrips.Max(l => l.Id) + 1;
-            else
-                line_trip.Id = 1;
-            ListLineTrips.Add(line_trip);
+            XElement ListLineTripsRootElem= XMLTools.LoadListFromXMLElement(lineTripPath);
 
-            XMLTools.SaveListToXMLSerializer(ListLineTrips, lineTripPath);
+            //selects the lowest id number which isn't used
+            IEnumerable<int> idList = from t in ListLineTripsRootElem.Elements()
+                               let t1= Int32.Parse(t.Element("Id").Value)
+                               select t1;
+            line_trip.Id = Enumerable.Range(1, idList.Count()+1).Except(idList).First();
+                        
+
+            XElement LineTripElem = new XElement("Linetrip",
+                                  new XElement("Id", line_trip.Id.ToString()),
+                                  new XElement("LineId", line_trip.LineId.ToString()),
+                                  new XElement("StartAt", line_trip.StartAt.ToString()));                            ;
+
+            ListLineTripsRootElem.Add(LineTripElem);
+
+            XMLTools.SaveListToXMLElement(ListLineTripsRootElem, lineTripPath);
         }
 
 
         public IEnumerable<LineTrip> GetAllLineTripsBy(Predicate<LineTrip> predicate)
         {
-            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
+            XElement ListLineTripsRootElem = XMLTools.LoadListFromXMLElement(lineTripPath);
+            return from t in ListLineTripsRootElem.Elements()
+                   let t1 = new LineTrip()
+                   {
+                       Id = Int32.Parse(t.Element("Id").Value),
+                       LineId = Int32.Parse(t.Element("LineId").Value),
+                       StartAt = TimeSpan.ParseExact(t.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                   }
+                   where predicate(t1)
+                   select t1;
+                   
+
             
-            return from lineTrip in ListLineTrips
-                   where predicate(lineTrip)
-                   select lineTrip;
         }
 
         public LineTrip GetLineTrip(int tripId)
         {
-            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
-            if (!ListLineTrips.Exists(t => t.Id == tripId))
-                throw new DO.BadLineTripIdException(tripId);
-            return ListLineTrips.Find(t => t.Id == tripId);
-        }
+            XElement ListLineTripsRootElem = XMLTools.LoadListFromXMLElement(lineTripPath);
 
-        
 
-        public void UpdateLineTrip(LineTrip line_trip)
-        {
-            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
-
-            DO.LineTrip trip = ListLineTrips.Find(t => t.Id == line_trip.Id);
+            LineTrip trip = (from t in ListLineTripsRootElem.Elements()
+                             where int.Parse(t.Element("Id").Value) == tripId
+                             select new LineTrip()
+                             {
+                                 Id = Int32.Parse(t.Element("Id").Value),
+                                 LineId = Int32.Parse(t.Element("LineId").Value),
+                                 StartAt = TimeSpan.ParseExact(t.Element("StartAt").Value, "hh\\:mm\\:ss", CultureInfo.InvariantCulture)
+                             }
+                            ).FirstOrDefault();
 
             if (trip == null)
-                throw new BadLineTripIdException(trip.Id);
+                throw new DO.BadLineTripIdException(tripId);
 
-            ListLineTrips.Remove(trip);
-            ListLineTrips.Add(line_trip);
-
-            XMLTools.SaveListToXMLSerializer(ListLineTrips, lineTripPath); ;
-        }
+            return trip;
+        }        
+            
 
        
         public void DeleteLineTrip(int tripId)
         {
-            List<LineTrip> ListLineTrips = XMLTools.LoadListFromXMLSerializer<LineTrip>(lineTripPath);
+            XElement ListLineTripsRootElem = XMLTools.LoadListFromXMLElement(lineTripPath);
 
-            DO.LineTrip trip = ListLineTrips.Find(t => t.Id == tripId);
 
-            if (trip == null)
-                throw new BadLineTripIdException(trip.Id);
+            XElement lineTripElem = (from t in ListLineTripsRootElem.Elements()
+                                     where int.Parse(t.Element("Id").Value) == tripId
+                                     select t).FirstOrDefault();
 
-            ListLineTrips.Remove(trip);
-            
-            XMLTools.SaveListToXMLSerializer(ListLineTrips, lineTripPath); ;
+            if (lineTripElem != null)
+            {
+                lineTripElem.Remove();
+
+                XMLTools.SaveListToXMLElement(ListLineTripsRootElem, lineTripPath);
+            }
+            else
+                throw new DO.BadLineTripIdException(tripId);
+                    
+          
 
         }
         #endregion
@@ -519,6 +542,11 @@ namespace DL
         
 
         public void UpdateLineTrip(int LicenseNum, Action<LineTrip> update)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateLineTrip(LineTrip line_trip)
         {
             throw new NotImplementedException();
         }

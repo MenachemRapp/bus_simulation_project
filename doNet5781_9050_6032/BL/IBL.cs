@@ -55,6 +55,9 @@ namespace BLAPI
         void AddLastStation(int Code, NewLine line);
         void DelLastStation(NewLine line);
 
+        void AddTripToLine(TimeSpan tripTime, NewLine line);
+        void DelTripFromLine(ListedLineTrip trip, NewLine line);
+
         bool HasTimeAndDistance(int Code, NewLine line);
 
         void SaveLine(NewLine line);
@@ -65,7 +68,12 @@ namespace BLAPI
         //bool  SaveLine(LineTotal line);
         //void RefreshLine(LineTotal line);
         void AddStatToLine(int station1_id, int station2_id, LineTotal line);
+                
         void DelStatFromLine(int index, LineTotal line);
+
+        void AddTripToLine(TimeSpan tripTime, LineTotal line);
+        void DelTripFromLine(ListedLineTrip trip, LineTotal line);
+
 
         void SaveLine(LineTotal line);
         #endregion

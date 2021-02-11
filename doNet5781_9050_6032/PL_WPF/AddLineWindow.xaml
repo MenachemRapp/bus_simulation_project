@@ -5,23 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
-        Title="New Line" Height="450" Width="500">
+        Title="New Line" Height="450" Width="700">
     <Window.Resources>
-        <local:StationToVisibilityConverter 
-    x:Key="StationToVisibilityConverter" />
-        <local:ShortenStringConverter 
-    x:Key="ShortenStringConverter" />
+        <local:StationToVisibilityConverter x:Key="StationToVisibilityConverter" />
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <DataTemplate x:Key="StationList" >
 
-
-            <StackPanel Orientation="Vertical" Width="250"  >
+            <StackPanel Orientation="Vertical"   >
 
                 <StackPanel x:Name="codeAndNames" Orientation="Horizontal">
 
                     <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                     <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding Path= Name, Converter={StaticResource ShortenStringConverter}}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Path= Name}"   VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                 </StackPanel>
 
@@ -63,13 +60,24 @@
             </StackPanel>
      
         </DataTemplate>
+        
+        <DataTemplate x:Key="TripListAndButton" >
+            <StackPanel Orientation="Horizontal" Visibility="{Binding Path=Valid, Converter={StaticResource BoolToVisibilityConverter}}">
 
+                <TextBlock Text="Hour of Departure: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= StartAt}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Remove" Margin="5,0,5,0" Click="RemoveTrip_Clicked"/>
+
+            </StackPanel>
+
+        </DataTemplate>
+    
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="20*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="30"/>
        </Grid.RowDefinitions>
         <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
             <Label Content="Line Number:" FontWeight="Bold"/>
@@ -77,18 +85,40 @@
             <Label Content="Area:" FontWeight="Bold"/>
             <ComboBox  Name="areacb"  Width="100"/>
         </StackPanel>
-        
-            <StackPanel Orientation="Vertical" Grid.Row="1">
-                <ListBox Name="stationslb" ItemTemplate="{StaticResource StationList}" MaxHeight="255"/>
+       
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+                
+            </Grid.RowDefinitions>
+            <TextBlock Text="List Of Stations:" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"  Grid.Column="0" Grid.Row="0"/>
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
+                <ListBox Name="stationslb" ItemTemplate="{StaticResource StationList}" MaxHeight="245"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Content="Add a station" Click="AddStation_Clicked" HorizontalAlignment="Stretch"  Grid.Column="0"/>
-                    <Button  Name="deleteButton" Content="Delete last station"  Click="DeleteStation_Clicked" HorizontalAlignment="Stretch"  Grid.Column="1"/>
+                    <Button Content="Add a station" Click="AddStation_Clicked" HorizontalAlignment="Stretch"  Margin="5,1,5,1" Grid.Column="0"/>
+                    <Button  Name="deleteButton" Content="Delete last station"  Click="DeleteStation_Clicked"  Margin="5,1,5,1" HorizontalAlignment="Stretch"  Grid.Column="1"/>
                 </Grid>
             </StackPanel>
+
+            <TextBlock Text="List Of Trips:" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+                <ListBox Name="triplb" ItemsSource="{Binding}" ItemTemplate="{StaticResource TripListAndButton}" MaxHeight="245" Grid.Column="1" Grid.Row="2" />
+                <Button Content="Add a new trip" Click="AddTrip_Clicked" Margin="5,1,5,1" HorizontalAlignment="Stretch"  Grid.Column="1" Grid.Row="1"/>
+            </StackPanel>
+            
+            
+        </Grid>
+        
+            
       
         <Button Name="saveButton" Content="Save Line" Click="SaveLine_Clicked" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="2"/>
     </Grid>

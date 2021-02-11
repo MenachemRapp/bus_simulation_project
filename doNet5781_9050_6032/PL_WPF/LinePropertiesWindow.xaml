@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="Line Properties" Height="650" Width="800">
     <Window.Resources>
-        <local:ShortenStringConverter 
-    x:Key="ShortenStringConverter" />
+        <local:ShortenStringConverter x:Key="ShortenStringConverter" />
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
         <DataTemplate x:Key="BusListAndButtons" >
             <StackPanel Orientation="Horizontal">
 
@@ -70,14 +71,10 @@
 
         </DataTemplate>
         <DataTemplate x:Key="TripListAndButton" >
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding Path=Valid, Converter={StaticResource BoolToVisibilityConverter}}">
 
-                <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                <TextBlock Text="{Binding Path=Name, Converter={StaticResource ShortenStringConverter}}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-
+                <TextBlock Text="Hour of Departure: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= StartAt}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Content="Remove" Margin="5,0,5,0" Click="RemoveTrip_Clicked"/>
                 
             </StackPanel>
@@ -117,7 +114,7 @@
 
             <TextBlock Text="List Of Trips:" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
             <Button Content="Add a new trip" Click="AddTrip_Clicked" Margin="5,1,5,1" HorizontalAlignment="Stretch"  Grid.Column="1" Grid.Row="1"/>
-            <ListBox Name="triplb" ItemsSource="{Binding}" ItemTemplate="{StaticResource TripListAndButton}" Grid.Column="0" Grid.Row="2"/>
+            <ListBox Name="triplb" ItemsSource="{Binding}" ItemTemplate="{StaticResource TripListAndButton}" Grid.Column="1" Grid.Row="2"/>
         </Grid>
         <Button Name="saveButton" Content="Save Changes" Click="SaveLine_Clicked" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="2"/>
         

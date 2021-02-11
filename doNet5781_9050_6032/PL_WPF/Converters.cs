@@ -11,6 +11,41 @@ using System.Windows.Data;
 namespace PL_WPF
 {
     /// <summary>
+    /// converts from a bool value to visibility
+    /// </summary>
+    public class BoolToVisibilityConverter : IValueConverter
+    {
+        public object Convert(
+          object value,
+          Type targetType,
+          object parameter,
+          CultureInfo culture)
+        {
+            bool boolean = (bool)value;
+            if (boolean)
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+                return Visibility.Collapsed;
+            }
+        }
+
+        public object ConvertBack(
+          object value,
+          Type targetType,
+          object parameter,
+          CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+
+
+    /// <summary>
     /// converts a field's vissibilty to be "collapsed" if the distance is "-1". this is used to mark the last stop in the line
     /// </summary>
     public class StationToVisibilityConverter : IValueConverter

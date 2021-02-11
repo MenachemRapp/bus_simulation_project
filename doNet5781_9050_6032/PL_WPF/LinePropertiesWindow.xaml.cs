@@ -32,18 +32,22 @@ namespace PL_WPF
             bl = _bl;
             line = bl.GetLineNew(lineId);
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
-            RefreshList();
+            RefreshStationList();
+            RefreshTripList();
            saveButton.IsEnabled = false;
         }
 
 
-        private void RefreshList()
+        private void RefreshStationList()
         {
             stationslb.ItemsSource = line.ListOfStation.ToList();
             stationst.DataContext = line;
             saveButton.IsEnabled = true;
-                     
-
+        }
+        private void RefreshTripList()
+        {
+            triplb.ItemsSource = line.ListOfTrips.ToList();
+            saveButton.IsEnabled = true;
         }
 
         private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
@@ -72,13 +76,14 @@ namespace PL_WPF
             line.ListOfStation.ElementAt(index).Time = adjacent.Time;
             line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
             line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;
-            RefreshList();
+            RefreshStationList();
+            
         }
 /*
         private void addAdjacent(BO.AdjacentStations adjacent)
         {
             //bl.AddAdjacentStations(adjacent);
-            RefreshList();
+            RefreshStationList();
         }
 */
         private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -101,7 +106,7 @@ namespace PL_WPF
         {
             
             bl.AddStatToLine(newStationCode, index, line);
-            RefreshList();
+            RefreshStationList();
         }
 
         
@@ -109,7 +114,7 @@ namespace PL_WPF
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
             bl.DelStatFromLine(station.index-1,line);
-            RefreshList();
+            RefreshStationList();
         }
 
         private void SaveLine_Clicked(object sender, RoutedEventArgs e)
@@ -129,17 +134,31 @@ namespace PL_WPF
            
         }
      
-        public event EventHandler SavedLineEvent;
+        
 
         private void RemoveTrip_Clicked(object sender, RoutedEventArgs e)
         {
-
+            BO.ListedLineTrip trip = ((sender as Button).DataContext as BO.ListedLineTrip);
+            bl.DelTripFromLine(trip, line);
+            RefreshTripList();
         }
 
         private void AddTrip_Clicked(object sender, RoutedEventArgs e)
         {
-
+            AddTripWindow tripWindow = new AddTripWindow(bl);
+            tripWindow.saveTripEvent += AddTripToLine;
+            tripWindow.ShowDialog();
         }
+
+        private void AddTripToLine(TimeSpan tripTime)
+        {
+
+            bl.AddTripToLine(tripTime, line);
+            RefreshTripList();
+        }
+
+
+        public event EventHandler SavedLineEvent;
     }
     
 }

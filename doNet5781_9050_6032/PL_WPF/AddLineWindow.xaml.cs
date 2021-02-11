@@ -27,19 +27,19 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
-            // line = new BO.LineTotal();
-            //line.ListOfStation = new List<BO.ListedLineStation>();
             line = new BO.NewLine();
             line.ListOfStation = new List<BO.ListedLineStation>();
+            line.ListOfTrips = new List<BO.ListedLineTrip>();
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             areacb.SelectedItem = line.Area;
 
-            RefreshList();
+            RefreshStationList();
+            RefreshTripList();
         }
 
-        private void RefreshList()
+        private void RefreshStationList()
         {
-            if (line.ListOfStation!=null && line.ListOfStation.Count()>0)
+            if (line.ListOfStation != null && line.ListOfStation.Count() > 0)
             {
                 deleteButton.IsEnabled = true;
                 stationslb.Visibility = System.Windows.Visibility.Visible;
@@ -52,7 +52,22 @@ namespace PL_WPF
                 deleteButton.IsEnabled = false;
                 saveButton.IsEnabled = false;
             }
-            
+
+
+        }
+
+        private void RefreshTripList()
+        {
+            if (line.ListOfTrips != null && line.ListOfTrips.Count() > 0)
+            {
+                triplb.Visibility = System.Windows.Visibility.Visible;
+                triplb.ItemsSource = line.ListOfTrips.ToList();
+            }
+            else
+            {
+                triplb.Visibility = System.Windows.Visibility.Collapsed;
+
+            }
 
         }
 
@@ -60,16 +75,16 @@ namespace PL_WPF
         {
             int index;
             index = line.ListOfStation.Count();
-            SelectStationWindow stationsWindow = new SelectStationWindow(bl,index);
+            SelectStationWindow stationsWindow = new SelectStationWindow(bl, index);
             stationsWindow.selectStationEvent += AddStationToLine;
             stationsWindow.ShowDialog();
-            
+
         }
 
         private void DeleteStation_Clicked(object sender, RoutedEventArgs e)
         {
             bl.DelLastStation(line);
-            RefreshList();
+            RefreshStationList();
         }
 
         private void AddStationToLine(int newStationCode, int index)
@@ -85,15 +100,15 @@ namespace PL_WPF
             try
             {
                 bl.AddLastStation(newStationCode, line);
-                
+
             }
             catch (Exception ex)// type of exception
             {
 
                 MessageBox.Show(ex.Message, "Adding Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-           
-            RefreshList();
+
+            RefreshStationList();
             stationslb.ScrollIntoView(stationslb.Items.GetItemAt(stationslb.Items.Count - 1));
         }
 
@@ -116,13 +131,13 @@ namespace PL_WPF
         private void ModifyStation_Clicked(object sender, RoutedEventArgs e)
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
-            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl,station.Code, line.ListOfStation.ElementAt(station.index).Code, station.index-1);
-             adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
+            AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(station.index).Code, station.index - 1);
+            adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
             adjacentStationsWindow.ShowDialog();
 
         }
 
-   
+
 
         private void modifyAdjacent(BO.AdjacentStations adjacent, int index)
         {
@@ -130,10 +145,32 @@ namespace PL_WPF
             /* line.ListOfStation.ElementAt(index).Time = adjacent.Time;
              line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
              line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;*/
-            bl.AddTimeAndDistance(adjacent,line);
-            RefreshList();
+            bl.AddTimeAndDistance(adjacent, line);
+            RefreshStationList();
 
         }
+
+        private void RemoveTrip_Clicked(object sender, RoutedEventArgs e)
+        {
+            BO.ListedLineTrip trip = ((sender as Button).DataContext as BO.ListedLineTrip);
+            bl.DelTripFromLine(trip, line);
+            RefreshTripList();
+        }
+
+        private void AddTrip_Clicked(object sender, RoutedEventArgs e)
+        {
+
+            AddTripWindow tripWindow = new AddTripWindow(bl);
+            tripWindow.saveTripEvent += AddTripToLine;
+            tripWindow.ShowDialog();
+        }
+
+        private void AddTripToLine(TimeSpan tripTime)
+        {
+
+            bl.AddTripToLine(tripTime, line);
+            RefreshTripList();
+        }
     }
-    
+
 }

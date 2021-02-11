@@ -35,7 +35,16 @@ namespace BO
         }
         public override string ToString() => base.ToString() + $",bad adjacent stations: {Code1} and {Code2}";
     }
-      public class BadSaveLineException : Exception
+
+    public class BadLineTripIdException : Exception
+    {
+        public int ID;
+        public BadLineTripIdException(string message, Exception innerException) :
+            base(message, innerException) => ID = ((DO.BadLineTripIdException)innerException).ID;
+        public override string ToString() => base.ToString() + $", bad trip id: {ID}";
+    }
+
+    public class BadSaveLineException : Exception
     {
 
     }

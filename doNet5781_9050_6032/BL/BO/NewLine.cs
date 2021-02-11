@@ -12,5 +12,7 @@ namespace BO
         public Areas Area { get; set; }
                 
         public IEnumerable<ListedLineStation> ListOfStation { get; set; }
+
+        public IEnumerable<ListedLineTrip> ListOfTrips { get; set; }
     }
 }

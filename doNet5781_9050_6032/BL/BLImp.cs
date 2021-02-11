@@ -47,8 +47,8 @@ namespace BL
 
         public IEnumerable<BO.BasicLine> GetAllLines()
         {
-            return from item in dl.GetAllLines()
-                   select LineDoBoAdapter(item);
+            return (from item in dl.GetAllLines()
+                    select LineDoBoAdapter(item)).OrderBy(line => line.Code);
         }
 
         public void DeleteLine(int id)
@@ -76,7 +76,7 @@ namespace BL
             }
             catch (Exception ex)
             {
-                throw new Exception("line does not exist", ex);
+                throw new BO.BadLineIdException("line does not exist", ex);
             }
             lineDO.CopyPropertiesTo(lineBO);
             lineBO.ListOfStation = GetStationCodeNameDistanceTimeInLine(Id).ToList();
@@ -292,7 +292,7 @@ namespace BL
                     BO.ListedLineStation find = line.ListOfStation.FirstOrDefault(s => s.Code == prevStation.Code
                                                       && s.index < line.ListOfStation.Count()
                                                       && line.ListOfStation.ElementAt(s.index).Code == station.Code);
-                    if (find!=null)
+                    if (find != null)
                     {
                         prevStation.Distance = find.Distance;
                         prevStation.Time = find.Time;
@@ -314,12 +314,36 @@ namespace BL
             lastStation.ThereIsTimeAndDistance = false;
         }
 
+
+        /// <summary>
+        /// Add a new trip to the given Line
+        /// </summary>
+        /// <param name="tripTime"></param>
+        /// <param name="line"></param>
+        public void AddTripToLine(TimeSpan tripTime, NewLine line)
+        {
+            line.ListOfTrips = line.ListOfTrips.Append(new ListedLineTrip() { Id = 0, StartAt = tripTime, Valid = true }).OrderBy(trip => trip.StartAt);
+        }
+
+        /// <summary>
+        /// Deletes the trip from the Line.
+        /// </summary>
+        /// <param name="trip"></param>
+        /// <param name="line"></param>
+        public void DelTripFromLine(ListedLineTrip trip, NewLine line)
+        {
+            List<ListedLineTrip> tripLine = line.ListOfTrips.ToList();
+            tripLine.Remove(tripLine.FirstOrDefault(t => t.Id == trip.Id && t.StartAt == trip.StartAt));
+            line.ListOfTrips = tripLine;
+        }
+
         public void SaveLine(NewLine line)
         {
             BO.LineTotal lineTotal = new LineTotal();
             lineTotal.ListOfStation = new List<ListedLineStation>();
             line.CopyPropertiesTo(lineTotal);
             lineTotal.ListOfStation = line.ListOfStation.ToList();
+            lineTotal.ListOfTrips = line.ListOfTrips.ToList();
             lineTotal.ListOfStation.Last().Distance = 0;
             lineTotal.Id = 0;
 
@@ -390,19 +414,14 @@ namespace BL
         public IEnumerable<ListedLineTrip> GetTripsInLine(int lineId)
         {
             IEnumerable<LineTrip> tripsDO = dl.GetAllLineTripsBy(trip => trip.LineId == lineId);
-            IEnumerable<ListedLineTrip> tripsBO =new List<ListedLineTrip>();
-            tripsDO.CopyPropertiesTo(tripsBO);
-
-            return tripsBO;
-        }
-
-        public void UpdateTripsInLine(int lineId)
-        {
-            IEnumerable<LineTrip> tripsDO = dl.GetAllLineTripsBy(trip => trip.LineId == lineId);
             IEnumerable<ListedLineTrip> tripsBO = new List<ListedLineTrip>();
-            tripsDO.CopyPropertiesTo(tripsBO);
-
-            
+            /*tripsDO.CopyPropertiesTo(tripsBO);
+            foreach (var item in tripsBO)
+            {
+                item.Valid = true;
+            }*/
+            tripsBO = tripsDO.Select(t => new ListedLineTrip() { Id = t.Id, StartAt = t.StartAt, Valid = true });
+            return tripsBO;
         }
 
         public void AddTrip(ListedLineTrip trip, int lineID)
@@ -497,6 +516,29 @@ namespace BL
             foreach (var item in line.ListOfStation)
                 item.index = i++;
         }
+
+        /// <summary>
+        /// Add a new trip to the given Line
+        /// </summary>
+        /// <param name="tripTime"></param>
+        /// <param name="line"></param>
+        public void AddTripToLine(TimeSpan tripTime, LineTotal line)
+        {
+            line.ListOfTrips = line.ListOfTrips.Append(new ListedLineTrip() { Id = 0, StartAt = tripTime, Valid = true }).OrderBy(trip => trip.StartAt);
+        }
+
+        /// <summary>
+        /// Deletes the trip from the Line. by marking the valid property as "false"
+        /// </summary>
+        /// <param name="trip"></param>
+        /// <param name="line"></param>
+        public void DelTripFromLine(ListedLineTrip trip, LineTotal line)
+        {
+
+            List<ListedLineTrip> tripLine = line.ListOfTrips.ToList();
+            tripLine.Remove(tripLine.FirstOrDefault(t => t.Id == trip.Id && t.StartAt == trip.StartAt));
+            line.ListOfTrips = tripLine.Append(new ListedLineTrip() { Id = trip.Id, StartAt = trip.StartAt, Valid = false }).OrderBy(t => t.StartAt);
+        }
         public void DelStatFromLine(int index, LineTotal line)
         {
             List<ListedLineStation> list = line.ListOfStation.ToList();
@@ -581,9 +623,26 @@ namespace BL
                 index++;
             }
 
+          
             //save the last line- station
             idl.AddLineStation(new DO.LineStation { LineId = line_id, PrevStation = IDPrev, NextStation = 0, LineStationIndex = index, Station = first.Code });
 
+            foreach (ListedLineTrip trip in line.ListOfTrips)
+            {
+                try
+                {
+                    if (!trip.Valid && trip.Id != 0)
+                        dl.DeleteLineTrip(trip.Id);
+                    else if (trip.Valid && trip.Id == 0)
+                        AddTrip(trip, line_id);
+                }
+                catch (DO.BadLineTripIdException)
+                {
+                    //trips have been modified before while working but the changes have been saved
+                    //in any case, there is no reason to stop the saving
+                }
+
+            }
 
         }
         /// <summary>
@@ -610,7 +669,8 @@ namespace BL
             new_line.ListOfStation = GetStationCodeNameDistanceTimeInLine(Id);
             new_line.totalDistance = new_line.ListOfStation.Sum(s => s.Distance);
             new_line.totalTime = TimeSpan.FromTicks(new_line.ListOfStation.Sum(s => s.Time.Ticks));
-            new_line.ListOfTrips = GetTripsInLine(Id);
+
+            new_line.ListOfTrips = GetTripsInLine(Id).OrderBy(trip => trip.StartAt);
 
             return new_line;
         }
@@ -627,6 +687,8 @@ namespace BL
             stationWith.ListOfLines = dl.GetAllLineStationBy(sta => sta.Station == code).Select(st => GetLine(st.LineId)).Distinct().OrderBy(line => line.Code);
             return stationWith;
         }
+
+
         #endregion
 
 

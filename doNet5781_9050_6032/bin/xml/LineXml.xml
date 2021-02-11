@@ -1,25 +1,11 @@
 <?xml version="1.0"?>
 <ArrayOfLine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Line>
-    <Id>1</Id>
-    <Code>123</Code>
-    <Area>General</Area>
-    <FirstStation>248965</FirstStation>
-    <LastStation>422345</LastStation>
-  </Line>
-  <Line>
     <Id>2</Id>
     <Code>546</Code>
     <Area>General</Area>
     <FirstStation>598763</FirstStation>
     <LastStation>422345</LastStation>
-  </Line>
-  <Line>
-    <Id>3</Id>
-    <Code>486</Code>
-    <Area>General</Area>
-    <FirstStation>18999</FirstStation>
-    <LastStation>517680</LastStation>
   </Line>
   <Line>
     <Id>4</Id>
@@ -29,10 +15,38 @@
     <LastStation>853710</LastStation>
   </Line>
   <Line>
+    <Id>1</Id>
+    <Code>123</Code>
+    <Area>South</Area>
+    <FirstStation>248965</FirstStation>
+    <LastStation>422345</LastStation>
+  </Line>
+  <Line>
     <Id>5</Id>
     <Code>248</Code>
     <Area>North</Area>
     <FirstStation>1082</FirstStation>
     <LastStation>1094</LastStation>
+  </Line>
+  <Line>
+    <Id>3</Id>
+    <Code>486</Code>
+    <Area>Jerusalem</Area>
+    <FirstStation>18999</FirstStation>
+    <LastStation>1092</LastStation>
+  </Line>
+  <Line>
+    <Id>6</Id>
+    <Code>243</Code>
+    <Area>General</Area>
+    <FirstStation>1085</FirstStation>
+    <LastStation>56087</LastStation>
+  </Line>
+  <Line>
+    <Id>7</Id>
+    <Code>250</Code>
+    <Area>General</Area>
+    <FirstStation>1089</FirstStation>
+    <LastStation>1091</LastStation>
   </Line>
 </ArrayOfLine>

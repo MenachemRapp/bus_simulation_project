@@ -1,13 +1,68 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfLineTrip xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <LineTrip>
+  <Linetrip>
+    <Id>3</Id>
+    <LineId>3</LineId>
+    <StartAt>15:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>5</Id>
+    <LineId>3</LineId>
+    <StartAt>07:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
     <Id>1</Id>
-    <LineId>5</LineId>
-    <StartAt />
-  </LineTrip>
-  <LineTrip>
+    <LineId>6</LineId>
+    <StartAt>05:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
     <Id>2</Id>
-    <LineId>5</LineId>
-    <StartAt />
-  </LineTrip>
+    <LineId>6</LineId>
+    <StartAt>20:40:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>4</Id>
+    <LineId>7</LineId>
+    <StartAt>07:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>6</Id>
+    <LineId>7</LineId>
+    <StartAt>07:50:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>7</Id>
+    <LineId>7</LineId>
+    <StartAt>08:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>8</Id>
+    <LineId>7</LineId>
+    <StartAt>08:35:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>9</Id>
+    <LineId>7</LineId>
+    <StartAt>09:30:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>10</Id>
+    <LineId>7</LineId>
+    <StartAt>14:30:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>11</Id>
+    <LineId>7</LineId>
+    <StartAt>17:15:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>12</Id>
+    <LineId>7</LineId>
+    <StartAt>20:45:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>13</Id>
+    <LineId>7</LineId>
+    <StartAt>23:00:00</StartAt>
+  </Linetrip>
 </ArrayOfLineTrip>

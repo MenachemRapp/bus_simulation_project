@@ -11,6 +11,7 @@ namespace BO
         public int Id { get; set; }
         public TimeSpan StartAt { get; set; }
 
+        public bool Valid { get; set; }
         
     }
 }
