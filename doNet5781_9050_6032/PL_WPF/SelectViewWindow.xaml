@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
-        Title="Select View" Height="150" Width="600">
+        Title="Select View" Height="200" Width="600">
     
     <Grid>
         
@@ -15,13 +15,14 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         
 
         <TextBlock Text="Select the prefered view" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -29,8 +30,9 @@
             <Button Content="Line view" FontSize="20" Click="LineView_clicked" Grid.Column="0" Margin="5,5,5,5"/>
             <Button Content="Station view" FontSize="20" Click="StationView_clicked" Grid.Column="1" Margin="5,5,5,5"/>
         </Grid>
-        <Label Content="set time for the simulater" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
-        <Grid Grid.Column="1" Grid.Row="1">
+        
+        <Label Content="Set time for the simulater" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+        <Grid Grid.Column="1" Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="4*"/>
@@ -42,8 +44,14 @@
             <Label Content=":" FontSize="20" VerticalAlignment="Center"/>
                 <TextBox x:Name="secondsTb" Text="00"  FontSize="20" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
-            <Button Content="Start Simulation" FontSize="20" Click="Timer_clicked" Grid.Column="0" Margin="5,5,5,5"/>
-        </Grid>
+            <Button Content="Start simulation" FontSize="20" Click="Timer_clicked" Grid.Column="0" Margin="5,5,5,5"/>
+            </Grid>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Label Content="Enter real time to simulation time ratio: " FontWeight="Bold"/>
+                <TextBlock Text="1:" VerticalAlignment="Center"/>
+                <TextBox x:Name="ratioTb"  Text="20"  Width="20" VerticalAlignment="Center"/>
+            </StackPanel>
+        
         <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1,0,0,0"/>
     </Grid>
     

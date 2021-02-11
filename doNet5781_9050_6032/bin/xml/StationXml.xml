@@ -127,12 +127,6 @@
     <Latitude>31.77</Latitude>
   </Station>
   <Station>
-    <Code>839520</Code>
-    <Name>New Station</Name>
-    <Longitude>35.25</Longitude>
-    <Latitude>31.79</Latitude>
-  </Station>
-  <Station>
     <Code>43952</Code>
     <Name>New Station</Name>
     <Longitude>34.39</Longitude>
@@ -457,12 +451,6 @@
     <Latitude>32.49</Latitude>
   </Station>
   <Station>
-    <Code>822310</Code>
-    <Name>New Station</Name>
-    <Longitude>35.31</Longitude>
-    <Latitude>31.03</Latitude>
-  </Station>
-  <Station>
     <Code>279121</Code>
     <Name>New Station</Name>
     <Longitude>35.44</Longitude>
@@ -499,22 +487,10 @@
     <Latitude>31.19</Latitude>
   </Station>
   <Station>
-    <Code>17547</Code>
-    <Name>New Station</Name>
-    <Longitude>35.04</Longitude>
-    <Latitude>33.3</Latitude>
-  </Station>
-  <Station>
     <Code>52727</Code>
     <Name>New Station</Name>
     <Longitude>35.1</Longitude>
     <Latitude>32.93</Latitude>
-  </Station>
-  <Station>
-    <Code>57359</Code>
-    <Name>New Station</Name>
-    <Longitude>35.03</Longitude>
-    <Latitude>32.79</Latitude>
   </Station>
   <Station>
     <Code>780598</Code>
@@ -767,12 +743,6 @@
     <Name>New Station</Name>
     <Longitude>34.37</Longitude>
     <Latitude>32.87</Latitude>
-  </Station>
-  <Station>
-    <Code>258994</Code>
-    <Name>New Station</Name>
-    <Longitude>34.73</Longitude>
-    <Latitude>31.48</Latitude>
   </Station>
   <Station>
     <Code>18999</Code>
@@ -1931,5 +1901,35 @@
     <Name>הזית</Name>
     <Longitude>35.08</Longitude>
     <Latitude>32.77</Latitude>
+  </Station>
+  <Station>
+    <Code>822310</Code>
+    <Name>האתרוג 8</Name>
+    <Longitude>35.31</Longitude>
+    <Latitude>31.03</Latitude>
+  </Station>
+  <Station>
+    <Code>258994</Code>
+    <Name>מרחב 35</Name>
+    <Longitude>34.73</Longitude>
+    <Latitude>31.48</Latitude>
+  </Station>
+  <Station>
+    <Code>839520</Code>
+    <Name>הירדן 17</Name>
+    <Longitude>35.25</Longitude>
+    <Latitude>31.79</Latitude>
+  </Station>
+  <Station>
+    <Code>57359</Code>
+    <Name>תחנה מרכזית</Name>
+    <Longitude>35.03</Longitude>
+    <Latitude>32.79</Latitude>
+  </Station>
+  <Station>
+    <Code>17547</Code>
+    <Name>הכניסה לעיר</Name>
+    <Longitude>35.04</Longitude>
+    <Latitude>33.3</Latitude>
   </Station>
 </ArrayOfStation>
