@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ArrayOfLineTrip xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LineTrip>
+    <Id>1</Id>
+    <LineId>5</LineId>
+    <StartAt />
+  </LineTrip>
+  <LineTrip>
+    <Id>2</Id>
+    <LineId>5</LineId>
+    <StartAt />
+  </LineTrip>
+</ArrayOfLineTrip>
