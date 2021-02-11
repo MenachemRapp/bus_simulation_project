@@ -536,7 +536,7 @@ namespace BL
         {
 
             List<ListedLineTrip> tripLine = line.ListOfTrips.ToList();
-            tripLine.Remove(tripLine.FirstOrDefault(t => t.Id == trip.Id && t.StartAt == trip.StartAt));
+            tripLine.Remove(tripLine.FirstOrDefault(t => t.Id == trip.Id && t.StartAt == trip.StartAt && t.Valid==true));
             line.ListOfTrips = tripLine.Append(new ListedLineTrip() { Id = trip.Id, StartAt = trip.StartAt, Valid = false }).OrderBy(t => t.StartAt);
         }
         public void DelStatFromLine(int index, LineTotal line)

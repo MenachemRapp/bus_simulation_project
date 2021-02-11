@@ -8,8 +8,7 @@
         Title="New Line" Height="450" Width="700">
     <Window.Resources>
         <local:StationToVisibilityConverter x:Key="StationToVisibilityConverter" />
-        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <DataTemplate x:Key="StationList" >
+            <DataTemplate x:Key="StationList" >
 
             <StackPanel Orientation="Vertical"   >
 
@@ -62,7 +61,7 @@
         </DataTemplate>
         
         <DataTemplate x:Key="TripListAndButton" >
-            <StackPanel Orientation="Horizontal" Visibility="{Binding Path=Valid, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
 
                 <TextBlock Text="Hour of Departure: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                 <TextBlock Text="{Binding Path= StartAt}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>

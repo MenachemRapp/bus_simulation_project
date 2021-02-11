@@ -46,7 +46,7 @@ namespace PL_WPF
         }
         private void RefreshTripList()
         {
-            triplb.ItemsSource = line.ListOfTrips.ToList();
+            triplb.ItemsSource = line.ListOfTrips.Where(t=>t.Valid).ToList();
             saveButton.IsEnabled = true;
         }
 
