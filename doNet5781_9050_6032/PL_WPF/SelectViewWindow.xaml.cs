@@ -44,5 +44,10 @@ namespace PL_WPF
             stationWin.Show();
             stationWin.Closed += (x, y) => button.IsEnabled = true;
         }
+
+        private void Timer_clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

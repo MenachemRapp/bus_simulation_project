@@ -27,7 +27,7 @@ namespace PL_WPF
         {
             InitializeComponent();
             new SelectViewWindow(bl).Show();
-            this.Close();//temporerally
+            this.Close();//temporerally this window is left empty in order to enable the option of adding a user window
         }
     }
 }
