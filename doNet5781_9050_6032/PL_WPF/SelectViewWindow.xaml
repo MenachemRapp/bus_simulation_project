@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Content="Line view" FontSize="20" Click="LineView_clicked" Grid.Column="0" Margin="5,5,5,5"/>
-            <Button Content="Station view" FontSize="20" Click="StationView_clicked" Grid.Column="1" Margin="5,5,5,5"/>
+            <Button  Content="Station view" FontSize="20" Click="StationView_clicked" Grid.Column="1" Margin="5,5,5,5"/>
         </Grid>
         
         <Label Content="Set time for the simulater" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
@@ -37,19 +37,20 @@
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" x:Name="enterTimeSp">
             <TextBox x:Name="hoursTb" Text="00" FontSize="20"  Width="27" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Label Content=":" FontSize="20" VerticalAlignment="Center"/>
                 <TextBox x:Name="minutesTb" Text="00"  FontSize="20" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Content=":" FontSize="20" VerticalAlignment="Center"/>
                 <TextBox x:Name="secondsTb" Text="00"  FontSize="20" Width="27" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
-            <Button Content="Start simulation" FontSize="20" Click="Timer_clicked" Grid.Column="0" Margin="5,5,5,5"/>
-            </Grid>
-            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <Label Content="Enter real time to simulation time ratio: " FontWeight="Bold"/>
+            <Button  x:Name="timerButton"  Content="Start simulation" FontSize="20" Click="Timer_clicked" Grid.Column="0" Margin="5,5,5,5"/>
+            <TextBlock x:Name="timerTextBlock" Grid.Column="1" VerticalAlignment="Center" FontSize="30" HorizontalAlignment="Center" Visibility="Collapsed"/>
+        </Grid>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" x:Name="ratioSp">
+            <Label Content="Enter real-time to simulation-time   ratio:" FontWeight="Bold"/>
                 <TextBlock Text="1:" VerticalAlignment="Center"/>
-                <TextBox x:Name="ratioTb"  Text="20"  Width="20" VerticalAlignment="Center"/>
+                <TextBox x:Name="ratioTb"  Text="20"  MinWidth="20" MaxWidth="30" VerticalAlignment="Center"/>
             </StackPanel>
         
         <Border Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1,0,0,0"/>

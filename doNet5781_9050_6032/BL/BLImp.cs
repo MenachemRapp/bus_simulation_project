@@ -699,14 +699,20 @@ namespace BL
 
         #region Simulation Timer
 
+
         public void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime)
         {
-            throw new NotImplementedException();
+            SimulationTimer simulation=  SimulationTimer.Instance;
+           
+            simulation.ValueChanged += (x,y) => updateTime(((ValueChangedEventArgs)y).NewValue) ;
+            simulation.run(startTime, Rate);
+                       
         }
 
         public void StopSimulator()
         {
-            throw new NotImplementedException();
+            SimulationTimer simulation = SimulationTimer.Instance;
+            simulation.stopwatch.Stop();
         }
 
         #endregion
