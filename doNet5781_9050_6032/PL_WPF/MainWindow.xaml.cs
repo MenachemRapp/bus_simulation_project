@@ -26,8 +26,19 @@ namespace PL_WPF
         public MainWindow()
         {
             InitializeComponent();
-            new SelectViewWindow(bl).Show();
-            this.Close();//temporerally this window is left empty in order to enable the option of adding a user window
+            
+        }
+
+        private void Edit_clicked(object sender, RoutedEventArgs e)
+        {
+            new SimulationAndViewWindow(bl).Show();
+            this.Close();
+        }
+
+        private void View_clicked(object sender, RoutedEventArgs e)
+        {
+            new ViewSelectWindow(bl).Show();
+            this.Close();
         }
     }
 }
