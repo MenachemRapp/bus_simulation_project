@@ -18,10 +18,10 @@ namespace PL_WPF
     /// <summary>
     /// Interaction logic for SimulationAndViewWindow.xaml
     /// </summary>
-    public partial class ViewSelectWindow : Window
+    public partial class SelectEditWindow : Window
     {
         IBL bl;
-        public ViewSelectWindow(IBL _bl)
+        public SelectEditWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;

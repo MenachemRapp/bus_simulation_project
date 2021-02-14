@@ -31,13 +31,13 @@ namespace PL_WPF
 
         private void Edit_clicked(object sender, RoutedEventArgs e)
         {
-            new SimulationAndViewWindow(bl).Show();
+            new SelectEditWindow(bl).Show();
             this.Close();
         }
 
         private void View_clicked(object sender, RoutedEventArgs e)
         {
-            new ViewSelectWindow(bl).Show();
+            new SimulationAndViewWindow(bl).Show();
             this.Close();
         }
     }

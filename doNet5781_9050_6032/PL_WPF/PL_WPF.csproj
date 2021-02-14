@@ -74,8 +74,8 @@
     <Compile Include="SimulationAndViewWindow.xaml.cs">
       <DependentUpon>SimulationAndViewWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewSelectWindow.xaml.cs">
-      <DependentUpon>ViewSelectWindow.xaml</DependentUpon>
+    <Compile Include="SelectEditWindow.xaml.cs">
+      <DependentUpon>SelectEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StationPropertiesWindow.xaml.cs">
       <DependentUpon>StationPropertiesWindow.xaml</DependentUpon>
@@ -136,7 +136,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewSelectWindow.xaml">
+    <Page Include="SelectEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
