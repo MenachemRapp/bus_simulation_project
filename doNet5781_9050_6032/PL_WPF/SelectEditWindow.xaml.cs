@@ -25,14 +25,29 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
+            this.Closed += CloseChildren;
+        }
 
+        /// <summary>
+        /// closes chlidren window. used when winfow is closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseChildren(object sender,EventArgs e)
+        {
+            LineListEditWindow lineWindow = Application.Current.Windows.OfType<LineListEditWindow>().FirstOrDefault();
+            LineListEditWindow stationWindow = Application.Current.Windows.OfType<LineListEditWindow>().FirstOrDefault();
+            if (lineWindow != null)
+                lineWindow.Close();
+            if (stationWindow != null)
+                stationWindow.Close();
         }
 
         private void LineView_clicked(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             button.IsEnabled = false;
-            LineListWindow lineWin = new LineListWindow(bl);
+            LineListEditWindow lineWin = new LineListEditWindow(bl);
             lineWin.Show();
             lineWin.Closed += (x, y) => button.IsEnabled = true;
         }
@@ -41,11 +56,18 @@ namespace PL_WPF
         {
             Button button = sender as Button;
             button.IsEnabled = false;
-            StationViewWindow stationWin = new StationViewWindow(bl);
+            StationEditWindow stationWin = new StationEditWindow(bl);
             stationWin.Show();
             stationWin.Closed += (x, y) => button.IsEnabled = true;
+            this.Closed += (x, y) => stationWin.Close(); 
         }
 
+        
 
+        private void SimulationMode_Click(object sender, RoutedEventArgs e)
+        {
+            new SimulationAndViewWindow(bl).Show();
+            this.Close();
+        }
     }
 }

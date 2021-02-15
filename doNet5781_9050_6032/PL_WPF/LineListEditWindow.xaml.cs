@@ -18,22 +18,17 @@ namespace PL_WPF
     /// <summary>
     /// Interaction logic for LineStationWindow.xaml
     /// </summary>
-    public partial class LineListWindow : Window
+    public partial class LineListEditWindow : Window
     {
 
         IBL bl;
         
-        public LineListWindow(IBL _bl)
+        public LineListEditWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
+            this.Closed += CloseChildren;
             RefreshList();
-
-
-
-
-
-
         }
 
         void RefreshList()
@@ -41,7 +36,26 @@ namespace PL_WPF
             LinesList.DataContext = bl.GetAllLines().ToList();
         }
 
-        
+        /// <summary>
+        /// closes chlidren windows. used when winfow is closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseChildren(object sender, EventArgs e)
+        {
+            List<LinePropertiesWindow> propertiesWindows = Application.Current.Windows.OfType<LinePropertiesWindow>().ToList();
+            List<AddLineWindow> addWindows = Application.Current.Windows.OfType<AddLineWindow>().ToList();
+           
+            foreach (var window in propertiesWindows)
+            {
+                window.Close();
+            }
+            foreach (var window in addWindows)
+            {
+                window.Close();
+            }
+        }
+
 
         private void DeleteBusLine_Clicked(object sender, RoutedEventArgs e)
         {

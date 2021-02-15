@@ -83,8 +83,8 @@
     <Compile Include="SelectStationWindow.xaml.cs">
       <DependentUpon>SelectStationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StationViewWindow.xaml.cs">
-      <DependentUpon>StationViewWindow.xaml</DependentUpon>
+    <Compile Include="StationEditWindow.xaml.cs">
+      <DependentUpon>StationEditWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AddLineWindow.xaml">
       <SubType>Designer</SubType>
@@ -106,7 +106,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LineWindow.xaml">
+    <Page Include="LineListEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,8 +121,8 @@
     <Compile Include="LinePropertiesWindow.xaml.cs">
       <DependentUpon>LinePropertiesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LineWindow.xaml.cs">
-      <DependentUpon>LineWindow.xaml</DependentUpon>
+    <Compile Include="LineListEditWindow.xaml.cs">
+      <DependentUpon>LineListEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -148,7 +148,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StationViewWindow.xaml">
+    <Page Include="StationEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

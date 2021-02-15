@@ -18,15 +18,43 @@ namespace PL_WPF
     /// <summary>
     /// Interaction logic for StationViewWindow.xaml
     /// </summary>
-    public partial class StationViewWindow : Window
+    public partial class StationEditWindow : Window
     {
         IBL bl;
-        public StationViewWindow(IBL _bl)
+        public StationEditWindow(IBL _bl)
         {
             InitializeComponent();
             bl = _bl;
+            Closed += CloseChildren;
             Refresh();
         }
+
+
+        /// <summary>
+        /// closes chlidren windows. used when winfow is closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseChildren(object sender, EventArgs e)
+        {
+            List<StationPropertiesWindow> propertiesWindows = Application.Current.Windows.OfType<StationPropertiesWindow>().ToList();
+            List< AddStationWindow> addWindows = Application.Current.Windows.OfType< AddStationWindow> ().ToList();
+            List<ModifyStationWindow> modifyWindows = Application.Current.Windows.OfType<ModifyStationWindow>().ToList();
+
+            foreach (var window in propertiesWindows)
+            {
+                window.Close();
+            }
+            foreach (var window in addWindows)
+            {
+                window.Close();
+            }
+            foreach (var window in modifyWindows)
+            {
+                window.Close();
+            }
+        }
+
 
         private void Refresh()
         {

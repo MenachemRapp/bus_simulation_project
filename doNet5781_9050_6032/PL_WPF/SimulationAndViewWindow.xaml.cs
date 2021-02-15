@@ -48,7 +48,7 @@ namespace PL_WPF
         {
             Button button = sender as Button;
             button.IsEnabled = false;
-           // LineListWindow lineWin = new LineListWindow(bl);
+           // LineListEditWindow lineWin = new LineListEditWindow(bl);
            // lineWin.Show();
           //  lineWin.Closed+=(x,y)=> button.IsEnabled = true;
         }
@@ -105,6 +105,12 @@ namespace PL_WPF
         {
            timerTextBlock.Text = textTime.ToString().Substring(0, 8);
            
+        }
+
+        private void EditingMode_Click(object sender, RoutedEventArgs e)
+        {
+            new SelectEditWindow(bl).Show();
+            this.Close();
         }
     }
     

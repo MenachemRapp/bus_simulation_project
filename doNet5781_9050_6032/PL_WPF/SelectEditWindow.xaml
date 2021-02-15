@@ -5,20 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
-        Title="Edit Selection Window" Height="200" Width="300">
+        Title="Edit Selection Window" Height="200" Width="300" Background="PaleGreen">
     <Grid>
-
+       
        
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
+        <Button Grid.Row="0" FontSize="10" Width="130" Margin="0,2,0,2" Content="Change to Simulation Mode" Click="SimulationMode_Click"/>
 
-        <TextBlock Text="Select the prefered view" Grid.Row="0"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-        <Grid Grid.Row="2">
+
+        <TextBlock Text="Select the prefered view" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
