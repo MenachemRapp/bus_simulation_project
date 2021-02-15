@@ -10,16 +10,17 @@ namespace BL
 {
     sealed class SimulationTimer
     {
+        #region singleton
         static readonly SimulationTimer instance = new SimulationTimer();
         static SimulationTimer() { }// static ctor to ensure instance init is done just before first usage
         SimulationTimer() { } // default => private
         public static SimulationTimer Instance { get => instance; }// The public Instance property to use
+        #endregion
 
-        
         public Stopwatch stopwatch= new Stopwatch();
-        
-        
        
+
+
         public event EventHandler ValueChanged;
         TimeSpan simulationTime;
             

@@ -71,6 +71,9 @@
     <Compile Include="ModifyStationWindow.xaml.cs">
       <DependentUpon>ModifyStationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SimulateStationWindow.xaml.cs">
+      <DependentUpon>SimulateStationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SimulationAndViewWindow.xaml.cs">
       <DependentUpon>SimulationAndViewWindow.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,9 @@
     </Compile>
     <Compile Include="StationEditWindow.xaml.cs">
       <DependentUpon>StationEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StationsSimulateListWindow.xaml.cs">
+      <DependentUpon>StationsSimulateListWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AddLineWindow.xaml">
       <SubType>Designer</SubType>
@@ -132,6 +138,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SimulateStationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SimulationAndViewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StationEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StationsSimulateListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

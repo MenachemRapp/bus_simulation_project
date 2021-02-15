@@ -82,5 +82,9 @@ namespace BLAPI
         void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime);
         void StopSimulator();
         #endregion
+
+        #region simulation Driver
+        void SetStationPanel(int station, Action<LineTiming> updateBus);
+        #endregion
     }
 }

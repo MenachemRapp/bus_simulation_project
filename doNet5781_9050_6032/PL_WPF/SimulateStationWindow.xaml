@@ -1,0 +1,54 @@
+﻿<Window x:Class="PL_WPF.SimulateStationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL_WPF"
+        mc:Ignorable="d"
+        Title="Simulate Station Window" Height="450" Width="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="350*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="stationsp1" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Station Code:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=Code}"/>
+            <Label Content="Station Name:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=Name}"/>
+        </StackPanel>
+        <StackPanel x:Name="stationsp2" Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Longitude:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=Longitude}"/>
+            <Label Content="Latitude:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=Latitude}"/>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Name="listTitle" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Text" Value="Lines which go through the station:"/>
+                    <Setter Property="Background" Value="White"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="0">
+                            <Setter Property="Text" Value="No Lines go through this Station"/>
+                            <Setter Property="Background" Value="OrangeRed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <ListBox Name="StationListlb" Grid.Row = "3" Grid.Column="0" FontSize="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" Background="#FFDDBD21"/>
+        <ListBox Name="StationTimeListlb" Grid.Row = "3" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" Background="Black" Foreground="#FF47EE47"/>
+
+    </Grid>
+
+
+</Window>

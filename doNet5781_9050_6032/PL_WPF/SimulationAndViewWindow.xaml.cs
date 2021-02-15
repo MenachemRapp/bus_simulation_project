@@ -57,9 +57,9 @@ namespace PL_WPF
         {
             Button button = sender as Button;
             button.IsEnabled = false;
-       //     StationViewWindow stationWin = new StationViewWindow(bl);
-         //   stationWin.Show();
-           // stationWin.Closed += (x, y) => button.IsEnabled = true;
+            StationsSimulateListWindow stationWin = new StationsSimulateListWindow(bl);
+            stationWin.Show();
+            stationWin.Closed += (x, y) => button.IsEnabled = true;
         }
 
         private void Timer_clicked(object sender, RoutedEventArgs e)

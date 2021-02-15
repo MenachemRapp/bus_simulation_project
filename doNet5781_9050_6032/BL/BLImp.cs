@@ -714,10 +714,17 @@ namespace BL
             SimulationTimer simulation = SimulationTimer.Instance;
             simulation.stopwatch.Stop();
         }
-
         #endregion
 
-
+        #region simulation Driver
+        public void SetStationPanel(int station, Action<LineTiming> updateBus)
+        {
+            //IEnumerable<>
+            var b = dl.GetAllLineStationBy(st => st.Station == station);
+            var a = b.Select(st => dl.GetLineTrip(st.LineId)).OrderBy(tr=>tr.StartAt);
+            throw new NotImplementedException();
+        }
+        #endregion
 
 
 
