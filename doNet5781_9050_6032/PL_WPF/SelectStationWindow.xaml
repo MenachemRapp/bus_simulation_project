@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="Station List" Height="450" Width="800">
     <Window.Resources>
-        <local:ShortenStringConverter 
-    x:Key="ShortenStringConverter" />
+        <local:ShortenStringConverter x:Key="ShortenStringConverter" />
         <DataTemplate x:Key="BusStationListSelect" >
 
             <StackPanel Orientation="Horizontal">

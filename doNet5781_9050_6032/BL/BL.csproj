@@ -47,6 +47,8 @@
     <Compile Include="BO\Enumim.cs" />
     <Compile Include="BO\BasicLine.cs" />
     <Compile Include="BO\Exceptions.cs" />
+    <Compile Include="BO\StationTime.cs" />
+    <Compile Include="BO\TripAndStations.cs" />
     <Compile Include="BO\LineTiming.cs" />
     <Compile Include="BO\LineTotal.cs" />
     <Compile Include="BO\LineAndStations.cs" />

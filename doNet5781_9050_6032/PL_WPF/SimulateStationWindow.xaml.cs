@@ -32,7 +32,7 @@ namespace PL_WPF
             stationsp1.DataContext = station;
             stationsp2.DataContext = station;
             listTitle.DataContext = station.ListOfLines.ToList().Count();
-            
+            bl.SetStationPanel(stationId, bl => bl = bl);
         }
     }
 }

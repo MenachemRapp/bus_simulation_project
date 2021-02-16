@@ -308,7 +308,7 @@ namespace BL
         public void DelLastStation(NewLine line)
         {
             line.ListOfStation = line.ListOfStation.Take(line.ListOfStation.Count() - 1);
-            if (line.ListOfStation.Count()!=0)
+            if (line.ListOfStation.Count() != 0)
             {
                 BO.ListedLineStation lastStation = line.ListOfStation.Last();
                 lastStation.Distance = -1;
@@ -540,7 +540,7 @@ namespace BL
         {
 
             List<ListedLineTrip> tripLine = line.ListOfTrips.ToList();
-            tripLine.Remove(tripLine.FirstOrDefault(t => t.Id == trip.Id && t.StartAt == trip.StartAt && t.Valid==true));
+            tripLine.Remove(tripLine.FirstOrDefault(t => t.Id == trip.Id && t.StartAt == trip.StartAt && t.Valid == true));
             line.ListOfTrips = tripLine.Append(new ListedLineTrip() { Id = trip.Id, StartAt = trip.StartAt, Valid = false }).OrderBy(t => t.StartAt);
         }
         public void DelStatFromLine(int index, LineTotal line)
@@ -627,7 +627,7 @@ namespace BL
                 index++;
             }
 
-          
+
             //save the last line- station
             idl.AddLineStation(new DO.LineStation { LineId = line_id, PrevStation = IDPrev, NextStation = 0, LineStationIndex = index, Station = first.Code });
 
@@ -697,16 +697,64 @@ namespace BL
 
         #endregion
 
-        #region Simulation Timer
+        #region Trip and Stations
+        public BO.TripAndStations GetTripAndStations(int tripId)
+        {
+            DO.LineTrip tripDO = dl.GetLineTrip(tripId);
+            BO.TripAndStations tripAndStations = new TripAndStations { LineId = tripDO.LineId, startTime = tripDO.StartAt };
+            IEnumerable<ListedLineStation> lineTotalStations = GetLineNew(tripDO.LineId).ListOfStation;
+            tripAndStations.ListOfStationTime = lineTotalStations.Select(st =>
+            {
+                if (st.index == 1)
+                {
+                    return new StationTime { station = st.Code, index = st.index, timeToNextStop = st.Time, timeAtStop = tripDO.StartAt };
+                }
+                else
+                {
+                    return new StationTime
+                    {
+                        station = st.Code,
+                        index = st.index,
+                        timeToNextStop = st.Time,
+                        timeAtStop = tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeAtStop + tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeToNextStop
+                    };
+                }
+            });
+            return tripAndStations;
+        }
 
+        #endregion
+
+        #region Simulation Timer
+        public TimeSpan GetTime()
+        {
+            SimulationTimer simulation = SimulationTimer.Instance;
+            if (!simulation.stopwatch.IsRunning)
+            {
+                throw new NotImplementedException();//to create
+            }
+
+            return simulation.SimulationTime;
+        }
+
+        public int GetRate()
+        {
+            SimulationTimer simulation = SimulationTimer.Instance;
+            if (!simulation.stopwatch.IsRunning)
+            {
+                throw new NotImplementedException();//to create
+            }
+
+            return simulation.TimerRate;
+        }
 
         public void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime)
         {
-            SimulationTimer simulation=  SimulationTimer.Instance;
-           
-            simulation.ValueChanged += (x,y) => updateTime(((ValueChangedEventArgs)y).NewValue) ;
+            SimulationTimer simulation = SimulationTimer.Instance;
+
+            simulation.ValueChanged += (x, y) => updateTime(((ValueChangedEventArgs)y).NewValue);
             simulation.run(startTime, Rate);
-                       
+
         }
 
         public void StopSimulator()
@@ -719,10 +767,13 @@ namespace BL
         #region simulation Driver
         public void SetStationPanel(int station, Action<LineTiming> updateBus)
         {
+
+            SimulationDriver driver = SimulationDriver.Instance;
             //IEnumerable<>
             var b = dl.GetAllLineStationBy(st => st.Station == station);
-            var a = b.Select(st => dl.GetLineTrip(st.LineId)).OrderBy(tr=>tr.StartAt);
-            throw new NotImplementedException();
+            var a = b.Select(st => dl.GetLineTrip(st.LineId)).OrderBy(tr => tr.StartAt);
+
+            driver.run(station);
         }
         #endregion
 

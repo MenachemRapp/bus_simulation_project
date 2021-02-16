@@ -10,6 +10,7 @@ namespace BL
 {
     sealed class SimulationTimer
     {
+
         #region singleton
         static readonly SimulationTimer instance = new SimulationTimer();
         static SimulationTimer() { }// static ctor to ensure instance init is done just before first usage
@@ -18,19 +19,20 @@ namespace BL
         #endregion
 
         public Stopwatch stopwatch= new Stopwatch();
-       
+        public int TimerRate { get; set; }
 
 
         public event EventHandler ValueChanged;
         TimeSpan simulationTime;
             
            
-       public void run(TimeSpan startTime, int Rate)
+       public void run(TimeSpan startTime, int rate)
         {
+            TimerRate = rate;
             stopwatch.Restart();
             while (stopwatch.IsRunning)
             {
-                TimeSpan timerTime = TimeSpan.FromTicks(stopwatch.Elapsed.Ticks * Rate) + startTime;
+                TimeSpan timerTime = TimeSpan.FromTicks(stopwatch.Elapsed.Ticks * TimerRate) + startTime;
                 timerTime -= TimeSpan.FromDays(timerTime.Days);
                 SimulationTime = timerTime;
 

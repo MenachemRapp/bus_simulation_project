@@ -78,9 +78,17 @@ namespace BLAPI
         void SaveLine(LineTotal line);
         #endregion
 
+        #region Trip and Stations
+        BO.TripAndStations GetTripAndStations(int tripId);
+        #endregion
+
         #region SimulationTimer
         void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime);
         void StopSimulator();
+
+        TimeSpan GetTime();
+
+        int GetRate();
         #endregion
 
         #region simulation Driver
