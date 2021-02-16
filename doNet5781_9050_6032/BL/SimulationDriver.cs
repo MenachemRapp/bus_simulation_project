@@ -10,6 +10,8 @@ namespace BL
 {
     sealed class SimulationDriver 
     {
+        public event EventHandler UpdatedTiming;
+
         IBL bl = BLFactory.GetBL("1");
         IDL dl = DLFactory.GetDL();
         #region singleton
@@ -51,15 +53,9 @@ namespace BL
 */
         public void run(int station)
         {
-            //could move this to Ibl
-            IEnumerable<DO.LineStation> lineStations = dl.GetAllLineStationBy(st => st.Station == station);
-            IEnumerable<int> tripList = new List<int>();
-            foreach (DO.LineStation line in lineStations)
-            {
-                tripList = tripList.Concat(((dl.GetAllLineTripsBy(trip => trip.LineId == line.LineId)).Select(tr => tr.Id)));
-            }
-            IEnumerable<BO.TripAndStations> fullTripList = tripList.Select(tr => bl.GetTripAndStations(tr)).OrderBy(tr=> tr.startTime);
-           //until here
+           
+            IEnumerable<BO.TripAndStations> fullTripList = bl.GetTripListByStation(station);
+           
 
             TimeSpan timeNow = bl.GetTime();
             int rate = bl.GetRate();
@@ -75,7 +71,7 @@ namespace BL
                 driveThread.Start(trip);
             }
 
-
+            
 
         }
 
@@ -92,10 +88,26 @@ namespace BL
         {
             int rate = bl.GetRate();
             BO.TripAndStations trip = (BO.TripAndStations)tripObj;
-            foreach (var station in trip.ListOfStationTime)
+            foreach (BO.StationTime station in trip.ListOfStationTime)
             {
-                station.timeAtStop = bl.GetTime();
-                //update observable
+                if (station.index>1)
+                {
+                    station.timeAtStop = bl.GetTime();
+                    UpdateTimingEventArgs args = new UpdateTimingEventArgs(new BO.LineTiming
+                    {
+                        Code = station.station,
+                        Destination = bl.GetStation(trip.ListOfStationTime.Last().station).Name,
+                        LineId = trip.LineId,
+                        StartTime = trip.startTime,
+                        TimeAtStop = station.timeAtStop
+                    });
+                    if (UpdatedTiming!=null)
+                    {
+                        UpdatedTiming(this, args);
+                    }
+
+                }
+
                 for (int i = station.index; i < trip.ListOfStationTime.Count(); i++)
                 {
                     trip.ListOfStationTime.ElementAt(i).timeAtStop = trip.ListOfStationTime.ElementAt(i - 1).timeAtStop + trip.ListOfStationTime.ElementAt(i - 1).timeToNextStop;
@@ -116,6 +128,17 @@ namespace BL
             timing =new BO.LineTiming { Code =stationCode, Destination = dl.GetStation(stationCode).Name, LineId = trip.LineId, StartTime = trip.StartAt};
 
         }
+
+
         
+    }
+    public class UpdateTimingEventArgs : EventArgs
+    {
+        public readonly BO.LineTiming NewValue;
+
+        public UpdateTimingEventArgs(BO.LineTiming newTemp)
+        {
+            NewValue = newTemp;
+        }
     }
 }

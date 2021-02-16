@@ -8,7 +8,7 @@
         Title="Simulate Station Window" Height="450" Width="800">
     <Window.Resources>
         <local:ShortenStringConverter x:Key="ShortenStringConverter" />
-        <DataTemplate x:Key="BusStationListSelect" >
+        <DataTemplate x:Key="SignList" >
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -17,16 +17,44 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <TextBlock Text="Line Code:" Width="120" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Text="{Binding Path= Code}" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Line Code:" Width="120" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path= Code}" Grid.Column="0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <TextBlock Text="Desination:" Width="120" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                <TextBlock Text="{Binding Path= LastStation}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Desination:" Width="120" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path= Destination}" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 
                 </StackPanel>
                 
                 <Border BorderThickness="0,0,0,4" MinWidth="375"  Grid.Row="2" BorderBrush="Black"/>
+
+            </Grid>
+
+        </DataTemplate>
+        <DataTemplate x:Key="TimingList" >
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <TextBlock Text="Line Code:" Width="130" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path= Code}" Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Text="Desination:" Width="120" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path= Destination}" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock Text="Arrival Time:" Width="130" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path= TimeAtStop}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </StackPanel>
+               <Border BorderThickness="0,0,0,4" MinWidth="375"  Grid.Row="3" BorderBrush="#FF47EE47"/>
+
+
 
             </Grid>
 
@@ -71,8 +99,8 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <ListBox Name="StationListlb" Grid.Row = "3" Grid.Column="0" FontSize="20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusStationListSelect}" Background="#FFDDBD21"/>
-        <ListBox Name="StationTimeListlb" Grid.Row = "3" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" Background="Black" Foreground="#FF47EE47"/>
+        <ListBox Name="StationListlb" Grid.Row = "3" Grid.Column="0"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource SignList}" Background="#FFDDBD21"/>
+        <ListBox Name="StationTimeListlb" Grid.Row = "3" Grid.Column="1" VerticalAlignment="Stretch" FontSize="20" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource TimingList}" Background="Black" Foreground="#FF47EE47"/>
 
     </Grid>
 

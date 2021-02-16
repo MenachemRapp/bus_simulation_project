@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <ArrayOfLine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Line>
-    <Id>2</Id>
-    <Code>546</Code>
-    <Area>General</Area>
-    <FirstStation>598763</FirstStation>
-    <LastStation>422345</LastStation>
-  </Line>
-  <Line>
     <Id>4</Id>
     <Code>758</Code>
     <Area>Center</Area>
@@ -41,6 +34,13 @@
     <Area>General</Area>
     <FirstStation>1085</FirstStation>
     <LastStation>56087</LastStation>
+  </Line>
+  <Line>
+    <Id>2</Id>
+    <Code>546</Code>
+    <Area>General</Area>
+    <FirstStation>598763</FirstStation>
+    <LastStation>422345</LastStation>
   </Line>
   <Line>
     <Id>7</Id>

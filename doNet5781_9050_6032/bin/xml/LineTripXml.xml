@@ -65,4 +65,9 @@
     <LineId>7</LineId>
     <StartAt>23:00:00</StartAt>
   </Linetrip>
+  <Linetrip>
+    <Id>14</Id>
+    <LineId>2</LineId>
+    <StartAt>10:45:00</StartAt>
+  </Linetrip>
 </ArrayOfLineTrip>

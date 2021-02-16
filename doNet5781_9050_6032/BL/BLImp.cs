@@ -722,11 +722,22 @@ namespace BL
             });
             return tripAndStations;
         }
+        public IEnumerable<BO.TripAndStations> GetTripListByStation(int station)
+        {
+            IEnumerable<DO.LineStation> lineStations = dl.GetAllLineStationBy(st => st.Station == station);
+            IEnumerable<int> tripList = new List<int>();
+            foreach (DO.LineStation line in lineStations)
+            {
+                tripList = tripList.Concat(((dl.GetAllLineTripsBy(trip => trip.LineId == line.LineId)).Select(tr => tr.Id)));
+            }
+            IEnumerable<BO.TripAndStations> fullTripList = tripList.Select(tr => GetTripAndStations(tr)).OrderBy(tr => tr.startTime);
 
-        #endregion
+            return fullTripList;
+        }
+    #endregion
 
         #region Simulation Timer
-        public TimeSpan GetTime()
+    public TimeSpan GetTime()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
             if (!simulation.stopwatch.IsRunning)
@@ -769,12 +780,36 @@ namespace BL
         {
 
             SimulationDriver driver = SimulationDriver.Instance;
-            //IEnumerable<>
-            var b = dl.GetAllLineStationBy(st => st.Station == station);
-            var a = b.Select(st => dl.GetLineTrip(st.LineId)).OrderBy(tr => tr.StartAt);
-
+            driver.UpdatedTiming += (x, y) => updateBus(((UpdateTimingEventArgs)y).NewValue);
             driver.run(station);
         }
+        #endregion
+
+        #region Line Timing
+        public IEnumerable<LineTiming> GetLineTimingsByStation(int station)
+        {
+            return GetTripListByStation(station).Select(trip => new LineTiming
+            {
+                LineId = trip.LineId,
+                Code = dl.GetLine(trip.LineId).Code,
+                Destination = dl.GetStation(trip.ListOfStationTime.Last().station).Name,
+                StartTime = trip.ListOfStationTime.First().timeAtStop,
+                TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop
+            });
+        }
+
+        public IEnumerable<LineTiming> GetLineTimingsFromFullList(int station,IEnumerable<BO.TripAndStations> tripAndStations)
+        {
+            return tripAndStations.Select(trip => new LineTiming
+            {
+                LineId = trip.LineId,
+                Code = dl.GetLine(trip.LineId).Code,
+                Destination = dl.GetStation(trip.ListOfStationTime.Last().station).Name,
+                StartTime = trip.ListOfStationTime.First().timeAtStop,
+                TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop
+            });
+        }
+
         #endregion
 
 

@@ -246,4 +246,16 @@
     <Distance>3</Distance>
     <Time>00:02:00</Time>
   </AdjacentStations>
+  <AdjacentStations>
+    <Station1>1094</Station1>
+    <Station2>11936</Station2>
+    <Distance>6</Distance>
+    <Time>00:02:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>11936</Station1>
+    <Station2>843963</Station2>
+    <Distance>15</Distance>
+    <Time>00:03:00</Time>
+  </AdjacentStations>
 </ArrayOfAdjacentStations>

@@ -22,10 +22,10 @@ namespace PL_WPF
     /// </summary>
     public partial class SimulationAndViewWindow : Window
     {
-        Stopwatch stopwatch;
+
         bool isTimerRun;
         BackgroundWorker timerworker;
-       
+
         string textTime;
 
         TimeSpan setTime;
@@ -36,7 +36,7 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
-            stopwatch = new Stopwatch();
+
             isTimerRun = false;
             timerworker = new BackgroundWorker();
             timerworker.DoWork += Worker_DoWork;
@@ -48,9 +48,9 @@ namespace PL_WPF
         {
             Button button = sender as Button;
             button.IsEnabled = false;
-           // LineListEditWindow lineWin = new LineListEditWindow(bl);
-           // lineWin.Show();
-          //  lineWin.Closed+=(x,y)=> button.IsEnabled = true;
+            // LineListEditWindow lineWin = new LineListEditWindow(bl);
+            // lineWin.Show();
+            //  lineWin.Closed+=(x,y)=> button.IsEnabled = true;
         }
 
         private void StationView_clicked(object sender, RoutedEventArgs e)
@@ -67,11 +67,11 @@ namespace PL_WPF
             if (!isTimerRun && !timerworker.IsBusy)
             {
                 setTime = TimeSpan.FromHours(Double.Parse(hoursTb.Text)) + TimeSpan.FromMinutes(Double.Parse(minutesTb.Text)) + TimeSpan.FromSeconds(Double.Parse(secondsTb.Text));
-              
+
                 isTimerRun = true;
-                
-               ratio = int.Parse(ratioTb.Text);
-                
+
+                ratio = int.Parse(ratioTb.Text);
+
                 timerworker.RunWorkerAsync();
                 timerButton.Content = "Stop simulation";
                 timerButton.Background = Brushes.Red;
@@ -83,7 +83,7 @@ namespace PL_WPF
             {
                 isTimerRun = false;
                 bl.StopSimulator();
-                
+
                 timerButton.Content = "Start simulation";
                 timerButton.Background = SystemColors.ControlBrush;
                 enterTimeSp.Visibility = Visibility.Visible;
@@ -92,19 +92,19 @@ namespace PL_WPF
             }
         }
 
-              
 
 
-            private void Worker_DoWork(object sender, DoWorkEventArgs e)
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            bl.StartSimulator(setTime, ratio,time=> { textTime = time.ToString().Substring(0, 8); timerworker.ReportProgress(55); });
-              
+            bl.StartSimulator(setTime, ratio, time => { textTime = time.ToString().Substring(0, 8); timerworker.ReportProgress(55); });
+
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-           timerTextBlock.Text = textTime.ToString().Substring(0, 8);
-           
+            timerTextBlock.Text = textTime.ToString().Substring(0, 8);
+
         }
 
         private void EditingMode_Click(object sender, RoutedEventArgs e)
@@ -113,5 +113,5 @@ namespace PL_WPF
             this.Close();
         }
     }
-    
+
 }

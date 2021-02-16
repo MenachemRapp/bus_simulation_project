@@ -80,6 +80,9 @@ namespace BLAPI
 
         #region Trip and Stations
         BO.TripAndStations GetTripAndStations(int tripId);
+        IEnumerable<BO.TripAndStations> GetTripListByStation(int station);
+        IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations);
+
         #endregion
 
         #region SimulationTimer
@@ -93,6 +96,10 @@ namespace BLAPI
 
         #region simulation Driver
         void SetStationPanel(int station, Action<LineTiming> updateBus);
+        #endregion
+
+        #region Line Timing
+        IEnumerable<LineTiming> GetLineTimingsByStation(int station);
         #endregion
     }
 }
