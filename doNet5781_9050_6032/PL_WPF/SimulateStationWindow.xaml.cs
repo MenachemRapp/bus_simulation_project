@@ -41,6 +41,7 @@ namespace PL_WPF
             stationsp1.DataContext = station;
             stationsp2.DataContext = station;
             listTitle.DataContext = station.ListOfLines.ToList().Count();
+            tripTitle.DataContext = fullTimingList.ToList().Count();
             refreshTimeList();
 
             StationListlb.ItemsSource = station.ListOfLines.ToList();
@@ -61,8 +62,7 @@ namespace PL_WPF
             }
             catch (Exception)
             {
-                MessageBox.Show("Simulation is off.\n Showing all stations.", "Notificaiton", MessageBoxButton.OK, MessageBoxImage.Information);
-               
+                MessageBox.Show("Simulation is off.\n Showing all trips.", "Notificaiton", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             
 
@@ -90,6 +90,11 @@ namespace PL_WPF
                 LastBusSp.DataContext = timingList.
                 OrderByDescending(t => t.TimeAtStop).
                 First();
+            }
+            else
+            {
+                LastBusSp.Visibility = Visibility.Collapsed;
+                LastBusTitle.Visibility = Visibility.Collapsed;
             }
 
             
