@@ -74,29 +74,29 @@
     <Compile Include="SimulateStationWindow.xaml.cs">
       <DependentUpon>SimulateStationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SimulationAndViewWindow.xaml.cs">
-      <DependentUpon>SimulationAndViewWindow.xaml</DependentUpon>
+    <Compile Include="SimulateMainWindow.xaml.cs">
+      <DependentUpon>SimulateMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SelectEditWindow.xaml.cs">
-      <DependentUpon>SelectEditWindow.xaml</DependentUpon>
+    <Compile Include="EditMainWindow.xaml.cs">
+      <DependentUpon>EditMainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StationPropertiesWindow.xaml.cs">
-      <DependentUpon>StationPropertiesWindow.xaml</DependentUpon>
+    <Compile Include="EditStationWindow.xaml.cs">
+      <DependentUpon>EditStationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SelectStationWindow.xaml.cs">
-      <DependentUpon>SelectStationWindow.xaml</DependentUpon>
+    <Compile Include="SelectStationListWindow.xaml.cs">
+      <DependentUpon>SelectStationListWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StationEditWindow.xaml.cs">
-      <DependentUpon>StationEditWindow.xaml</DependentUpon>
+    <Compile Include="EditStationListWindow.xaml.cs">
+      <DependentUpon>EditStationListWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StationsSimulateListWindow.xaml.cs">
-      <DependentUpon>StationsSimulateListWindow.xaml</DependentUpon>
+    <Compile Include="SimulateStationsListWindow.xaml.cs">
+      <DependentUpon>SimulateStationsListWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewLinePropertiesWindow.xaml.cs">
-      <DependentUpon>ViewLinePropertiesWindow.xaml</DependentUpon>
+    <Compile Include="SimulateLineWindow.xaml.cs">
+      <DependentUpon>SimulateLineWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewLineListWindow.xaml.cs">
-      <DependentUpon>ViewLineListWindow.xaml</DependentUpon>
+    <Compile Include="SimulateLineListWindow.xaml.cs">
+      <DependentUpon>SimulateLineListWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AddLineWindow.xaml">
       <SubType>Designer</SubType>
@@ -114,11 +114,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LinePropertiesWindow.xaml">
+    <Page Include="EditLineWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LineListEditWindow.xaml">
+    <Page Include="EditLineListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,11 +130,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LinePropertiesWindow.xaml.cs">
-      <DependentUpon>LinePropertiesWindow.xaml</DependentUpon>
+    <Compile Include="EditLineWindow.xaml.cs">
+      <DependentUpon>EditLineWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LineListEditWindow.xaml.cs">
-      <DependentUpon>LineListEditWindow.xaml</DependentUpon>
+    <Compile Include="EditLineListWindow.xaml.cs">
+      <DependentUpon>EditLineListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -148,35 +148,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SimulationAndViewWindow.xaml">
+    <Page Include="SimulateMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SelectEditWindow.xaml">
+    <Page Include="EditMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StationPropertiesWindow.xaml">
+    <Page Include="EditStationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SelectStationWindow.xaml">
+    <Page Include="SelectStationListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StationEditWindow.xaml">
+    <Page Include="EditStationListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StationsSimulateListWindow.xaml">
+    <Page Include="SimulateStationsListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewLinePropertiesWindow.xaml">
+    <Page Include="SimulateLineWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewLineListWindow.xaml">
+    <Page Include="SimulateLineListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

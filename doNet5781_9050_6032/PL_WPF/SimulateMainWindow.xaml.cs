@@ -36,6 +36,8 @@ namespace PL_WPF
         {
             InitializeComponent();
             bl = _bl;
+            this.Closed += CloseChildren;
+
 
             isTimerRun = false;
             timerworker = new BackgroundWorker();
