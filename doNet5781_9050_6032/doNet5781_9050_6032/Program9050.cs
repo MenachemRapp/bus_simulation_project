@@ -16,7 +16,7 @@ namespace doNet5781_00_9050_6032
                                             
         private static void Welcome9050()
         {
-            Console.Write("Enter your name: ");
+            Console.Write("Enter your Name: ");
             String userName = Console.ReadLine();
             Console.WriteLine("{0}, welcome to my first console application", userName);
             Console.ReadKey();

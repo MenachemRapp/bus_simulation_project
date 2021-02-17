@@ -82,7 +82,7 @@ namespace BLAPI
         BO.TripAndStations GetTripAndStations(int tripId);
         IEnumerable<BO.TripAndStations> GetTripListByStation(int station);
         IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations);
-
+        IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming);
         #endregion
 
         #region SimulationTimer

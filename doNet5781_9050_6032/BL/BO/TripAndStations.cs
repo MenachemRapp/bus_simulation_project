@@ -10,7 +10,8 @@ namespace BO
     {
         public int LineId { get; set; }
         public TimeSpan startTime { get; set; }
-                
+            
+        public string Destination { get; set; }
         public IEnumerable<StationTime> ListOfStationTime { get; set; }
     }
 }

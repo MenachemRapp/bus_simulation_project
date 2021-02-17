@@ -26,6 +26,7 @@ namespace BL
 
             lineDO.CopyPropertiesTo(lineBO);
 
+            lineBO.Destination = GetStation(lineBO.LastStation).Name;
 
             return lineBO;
         }
@@ -322,8 +323,8 @@ namespace BL
         /// <summary>
         /// Add a new trip to the given Line
         /// </summary>
-        /// <param name="tripTime"></param>
-        /// <param name="line"></param>
+        /// <param Name="tripTime"></param>
+        /// <param Name="line"></param>
         public void AddTripToLine(TimeSpan tripTime, NewLine line)
         {
             line.ListOfTrips = line.ListOfTrips.Append(new ListedLineTrip() { Id = 0, StartAt = tripTime, Valid = true }).OrderBy(trip => trip.StartAt);
@@ -332,8 +333,8 @@ namespace BL
         /// <summary>
         /// Deletes the trip from the Line.
         /// </summary>
-        /// <param name="trip"></param>
-        /// <param name="line"></param>
+        /// <param Name="trip"></param>
+        /// <param Name="line"></param>
         public void DelTripFromLine(ListedLineTrip trip, NewLine line)
         {
             List<ListedLineTrip> tripLine = line.ListOfTrips.ToList();
@@ -524,8 +525,8 @@ namespace BL
         /// <summary>
         /// Add a new trip to the given Line
         /// </summary>
-        /// <param name="tripTime"></param>
-        /// <param name="line"></param>
+        /// <param Name="tripTime"></param>
+        /// <param Name="line"></param>
         public void AddTripToLine(TimeSpan tripTime, LineTotal line)
         {
             line.ListOfTrips = line.ListOfTrips.Append(new ListedLineTrip() { Id = 0, StartAt = tripTime, Valid = true }).OrderBy(trip => trip.StartAt);
@@ -534,8 +535,8 @@ namespace BL
         /// <summary>
         /// Deletes the trip from the Line. by marking the valid property as "false"
         /// </summary>
-        /// <param name="trip"></param>
-        /// <param name="line"></param>
+        /// <param Name="trip"></param>
+        /// <param Name="line"></param>
         public void DelTripFromLine(ListedLineTrip trip, LineTotal line)
         {
 
@@ -588,7 +589,7 @@ namespace BL
         /// <summary>
         /// take a line of BO and save it in idl
         /// </summary>
-        /// <param name="line">line of BO</param>
+        /// <param Name="line">line of BO</param>
         public void SaveLine(LineTotal line)
         {
             if (!line_can_save(line))
@@ -652,7 +653,7 @@ namespace BL
         /// <summary>
         /// take id and build the bo of line
         /// </summary>
-        /// <param name="Id">id of line, if=0 new line</param>
+        /// <param Name="Id">id of line, if=0 new line</param>
         /// <returns>bo line</returns>
         public LineTotal GetLineNew(int Id = 0)
         {
@@ -701,25 +702,28 @@ namespace BL
         public BO.TripAndStations GetTripAndStations(int tripId)
         {
             DO.LineTrip tripDO = dl.GetLineTrip(tripId);
-            BO.TripAndStations tripAndStations = new TripAndStations { LineId = tripDO.LineId, startTime = tripDO.StartAt };
+            BO.TripAndStations tripAndStations = new TripAndStations { LineId = tripDO.LineId, startTime = tripDO.StartAt};
             IEnumerable<ListedLineStation> lineTotalStations = GetLineNew(tripDO.LineId).ListOfStation;
             tripAndStations.ListOfStationTime = lineTotalStations.Select(st =>
             {
                 if (st.index == 1)
                 {
-                    return new StationTime { station = st.Code, index = st.index, timeToNextStop = st.Time, timeAtStop = tripDO.StartAt };
+                    return new StationTime { station = st.Code, index = st.index, timeToNextStop = st.Time, timeAtStop = tripDO.StartAt, Name=st.Name };
                 }
                 else
                 {
                     return new StationTime
                     {
                         station = st.Code,
+                        Name = st.Name,
                         index = st.index,
                         timeToNextStop = st.Time,
                         timeAtStop = tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeAtStop + tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeToNextStop
                     };
                 }
+                
             });
+            tripAndStations.Destination = tripAndStations.ListOfStationTime.Last().Name;
             return tripAndStations;
         }
         public IEnumerable<BO.TripAndStations> GetTripListByStation(int station)
@@ -734,10 +738,33 @@ namespace BL
 
             return fullTripList;
         }
-    #endregion
+
+
+
+        public IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming)
+        {
+            BO.TripAndStations tripList = fullTimingList.ToList().Find(trip => trip.LineId == newTiming.LineId && trip.startTime == newTiming.StartTime);
+            BO.StationTime stationTime = tripList.ListOfStationTime.First(st => st.station == newTiming.Code);
+            tripList.ListOfStationTime = tripList.ListOfStationTime.Select(t =>
+            {
+                if (t.index < stationTime.index)
+                {
+                    return t;
+                }
+                else if (t.index == stationTime.index)
+                    return new BO.StationTime { index = t.index, station = t.station, timeAtStop = newTiming.TimeAtStop, timeToNextStop = t.timeToNextStop, Name = t.Name };
+                else
+                    return new BO.StationTime { index = t.index, station = t.station, timeAtStop = t.timeAtStop + newTiming.TimeAtStop - stationTime.timeAtStop, timeToNextStop = t.timeToNextStop, Name = t.Name };
+            });
+
+            fullTimingList = fullTimingList.Where(trip => trip.LineId != newTiming.LineId || trip.startTime != newTiming.StartTime).Append(tripList).OrderBy(t => t.startTime);
+            return fullTimingList;
+        }
+
+        #endregion
 
         #region Simulation Timer
-    public TimeSpan GetTime()
+        public TimeSpan GetTime()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
             if (!simulation.stopwatch.IsRunning)
@@ -774,17 +801,18 @@ namespace BL
         #endregion
 
         #region simulation Driver
-        public void SetStationPanel(int station, Action<LineTiming> updateBus)
+        public void SetStationPanel(int station, Action<BO.LineTiming> updateBus)
         {
             SimulationDriver driver = SimulationDriver.Instance;
             if (station == -1)
             {
-                driver.UpdatedTiming -= (x, y) => updateBus(((UpdateTimingEventArgs)y).NewValue);
+                
+                 driver.UpdatedTiming -= (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
                 driver.isDriveRun = false;
             }
             else
             {
-                driver.UpdatedTiming += (x, y) => updateBus(((UpdateTimingEventArgs)y).NewValue);
+                driver.UpdatedTiming += (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
                 driver.isDriveRun = true;
                 driver.run(station);
             }
@@ -798,7 +826,7 @@ namespace BL
             {
                 LineId = trip.LineId,
                 Code = dl.GetLine(trip.LineId).Code,
-                Destination = dl.GetStation(trip.ListOfStationTime.Last().station).Name,
+                Destination =trip.ListOfStationTime.Last().Name,
                 StartTime = trip.ListOfStationTime.First().timeAtStop,
                 TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop
             });
@@ -810,10 +838,10 @@ namespace BL
             {
                 LineId = trip.LineId,
                 Code = dl.GetLine(trip.LineId).Code,
-                Destination = dl.GetStation(trip.ListOfStationTime.Last().station).Name,
+                Destination = trip.ListOfStationTime.Last().Name,
                 StartTime = trip.ListOfStationTime.First().timeAtStop,
-                TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop
-            });
+                TimeAtStop = TimeSpan.FromSeconds(Math.Round(trip.ListOfStationTime.First(t => t.station == station).timeAtStop.TotalSeconds))
+            }) ;
         }
 
         #endregion

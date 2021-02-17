@@ -10,7 +10,6 @@ namespace BL
 {
     sealed class SimulationDriver 
     {
-        
         public event EventHandler UpdatedTiming;
 
         IBL bl = BLFactory.GetBL("1");
@@ -41,8 +40,8 @@ namespace BL
             fullTripList = fullTripList.Where(tr => tr.startTime > timeNow);
             foreach (BO.TripAndStations trip in fullTripList)
             {
-                while (isDriveRun)
-                {
+               if (isDriveRun)
+                { 
                     timeNow = bl.GetTime();
                     if (trip.startTime > timeNow)// need to correct end of day
                     {
@@ -65,13 +64,13 @@ namespace BL
             BO.TripAndStations trip = (BO.TripAndStations)tripObj;
             foreach (BO.StationTime station in trip.ListOfStationTime)
             {
-                while (isDriveRun)
+               if (isDriveRun)
                 {
                        station.timeAtStop = bl.GetTime();
                         UpdateTimingEventArgs args = new UpdateTimingEventArgs(new BO.LineTiming
                         {
                             Code = station.station,
-                            Destination = trip.ListOfStationTime.Last().station.ToString(),//bl.GetStation(trip.ListOfStationTime.Last().station).Name,
+                            Destination = trip.ListOfStationTime.Last().Name,//bl.GetStation(trip.ListOfStationTime.Last().station).Name,
                             LineId = trip.LineId,
                             StartTime = trip.startTime,
                             TimeAtStop = station.timeAtStop
@@ -80,8 +79,7 @@ namespace BL
                         {
                             UpdatedTiming(this, args);
                         }
-
-                    
+                      
 
                     for (int i = station.index; i < trip.ListOfStationTime.Count(); i++)
                     {

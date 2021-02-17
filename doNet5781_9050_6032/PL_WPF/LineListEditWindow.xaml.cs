@@ -39,8 +39,8 @@ namespace PL_WPF
         /// <summary>
         /// closes chlidren windows. used when winfow is closed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param Name="sender"></param>
+        /// <param Name="e"></param>
         private void CloseChildren(object sender, EventArgs e)
         {
             List<LinePropertiesWindow> propertiesWindows = Application.Current.Windows.OfType<LinePropertiesWindow>().ToList();

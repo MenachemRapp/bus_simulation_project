@@ -31,8 +31,8 @@ namespace PL_WPF
         /// <summary>
         /// closes chlidren window. used when winfow is closed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param Name="sender"></param>
+        /// <param Name="e"></param>
         private void CloseChildren(object sender,EventArgs e)
         {
             LineListEditWindow lineWindow = Application.Current.Windows.OfType<LineListEditWindow>().FirstOrDefault();

@@ -10,7 +10,7 @@ namespace BO
     {
         public int station { get; set; }
 
-        public string name { get; set; }//may not be needed
+        public string Name { get; set; }//may not be needed
 
         public int index { get; set; }
 

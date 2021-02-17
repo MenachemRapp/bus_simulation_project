@@ -14,6 +14,8 @@ namespace BO
         public int FirstStation { get; set; }
         public int LastStation { get; set; }
 
+        public string Destination { get; set; }
+
       public override string ToString() => this.ToStringProperty();
     }
 }
