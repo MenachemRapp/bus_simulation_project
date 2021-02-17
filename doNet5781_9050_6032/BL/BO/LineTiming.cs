@@ -8,6 +8,7 @@ namespace BO
 {
      public class LineTiming
     {
+        public int TripId { get; set; }
         public int LineId { get; set; }
 
         public int Code { get; set; }

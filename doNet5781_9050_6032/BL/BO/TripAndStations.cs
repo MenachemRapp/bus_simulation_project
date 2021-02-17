@@ -8,6 +8,7 @@ namespace BO
 {
     public class TripAndStations
     {
+        public int TripId { get; set; }
         public int LineId { get; set; }
         public TimeSpan startTime { get; set; }
             

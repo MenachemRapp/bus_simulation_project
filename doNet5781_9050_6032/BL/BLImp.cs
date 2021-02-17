@@ -702,7 +702,7 @@ namespace BL
         public BO.TripAndStations GetTripAndStations(int tripId)
         {
             DO.LineTrip tripDO = dl.GetLineTrip(tripId);
-            BO.TripAndStations tripAndStations = new TripAndStations { LineId = tripDO.LineId, startTime = tripDO.StartAt};
+            BO.TripAndStations tripAndStations = new TripAndStations { LineId = tripDO.LineId, startTime = tripDO.StartAt, TripId=tripDO.Id};
             IEnumerable<ListedLineStation> lineTotalStations = GetLineNew(tripDO.LineId).ListOfStation;
             tripAndStations.ListOfStationTime = lineTotalStations.Select(st =>
             {
@@ -743,7 +743,7 @@ namespace BL
 
         public IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming)
         {
-            BO.TripAndStations tripList = fullTimingList.ToList().Find(trip => trip.LineId == newTiming.LineId && trip.startTime == newTiming.StartTime);
+            BO.TripAndStations tripList = fullTimingList.ToList().Find(trip => trip.TripId==newTiming.TripId);
             BO.StationTime stationTime = tripList.ListOfStationTime.First(st => st.station == newTiming.Code);
             tripList.ListOfStationTime = tripList.ListOfStationTime.Select(t =>
             {
@@ -824,6 +824,7 @@ namespace BL
         {
             return GetTripListByStation(station).Select(trip => new LineTiming
             {
+                TripId=trip.TripId,
                 LineId = trip.LineId,
                 Code = dl.GetLine(trip.LineId).Code,
                 Destination =trip.ListOfStationTime.Last().Name,
@@ -836,6 +837,7 @@ namespace BL
         {
             return tripAndStations.Select(trip => new LineTiming
             {
+                TripId = trip.TripId,
                 LineId = trip.LineId,
                 Code = dl.GetLine(trip.LineId).Code,
                 Destination = trip.ListOfStationTime.Last().Name,
