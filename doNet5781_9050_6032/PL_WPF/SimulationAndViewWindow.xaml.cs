@@ -44,13 +44,25 @@ namespace PL_WPF
             timerworker.WorkerReportsProgress = true;
         }
 
+
+        private void CloseChildren(object sender, EventArgs e)
+        {
+            ViewLineListWindow lineWindow = Application.Current.Windows.OfType<ViewLineListWindow>().FirstOrDefault();
+            StationsSimulateListWindow stationWindow = Application.Current.Windows.OfType<StationsSimulateListWindow>().FirstOrDefault();
+            if (lineWindow != null)
+                lineWindow.Close();
+            if (stationWindow != null)
+                stationWindow.Close();
+        }
+
+
         private void LineView_clicked(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             button.IsEnabled = false;
-            // LineListEditWindow lineWin = new LineListEditWindow(bl);
-            // lineWin.Show();
-            //  lineWin.Closed+=(x,y)=> button.IsEnabled = true;
+            ViewLineListWindow lineWin = new ViewLineListWindow(bl);
+            lineWin.Show();
+            lineWin.Closed+=(x,y)=> button.IsEnabled = true;
         }
 
         private void StationView_clicked(object sender, RoutedEventArgs e)

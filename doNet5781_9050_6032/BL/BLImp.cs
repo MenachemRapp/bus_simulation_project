@@ -741,11 +741,9 @@ namespace BL
         {
             SimulationTimer simulation = SimulationTimer.Instance;
             if (!simulation.stopwatch.IsRunning)
-            {
-                throw new NotImplementedException();//to create
-            }
-
-            return simulation.SimulationTime;
+                return TimeSpan.Zero;
+            else
+                return simulation.SimulationTime;
         }
 
         public int GetRate()
@@ -778,10 +776,18 @@ namespace BL
         #region simulation Driver
         public void SetStationPanel(int station, Action<LineTiming> updateBus)
         {
-
             SimulationDriver driver = SimulationDriver.Instance;
-            driver.UpdatedTiming += (x, y) => updateBus(((UpdateTimingEventArgs)y).NewValue);
-            driver.run(station);
+            if (station == -1)
+            {
+                driver.UpdatedTiming -= (x, y) => updateBus(((UpdateTimingEventArgs)y).NewValue);
+                driver.isDriveRun = false;
+            }
+            else
+            {
+                driver.UpdatedTiming += (x, y) => updateBus(((UpdateTimingEventArgs)y).NewValue);
+                driver.isDriveRun = true;
+                driver.run(station);
+            }
         }
         #endregion
 

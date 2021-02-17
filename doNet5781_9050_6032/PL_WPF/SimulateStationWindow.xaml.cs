@@ -45,12 +45,24 @@ namespace PL_WPF
 
             StationListlb.ItemsSource = timingList.GroupBy(t => t.LineId).Select(group => group.First());
            
+            this.Closed+=(x,y)=> { bl.SetStationPanel(-1, timing => { update_timing(timing); driverWorker.ReportProgress(55); }); driverWorker.CancelAsync(); };
 
             driverWorker = new BackgroundWorker();
             driverWorker.DoWork += Worker_DoWork;
             driverWorker.ProgressChanged += Worker_ProgressChanged;
             driverWorker.WorkerReportsProgress = true;
-            driverWorker.RunWorkerAsync();
+            driverWorker.WorkerSupportsCancellation = true;
+            try
+            {
+                bl.GetRate();
+                driverWorker.RunWorkerAsync();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Simulation is off.\n Showing all stations.", "Notificaiton", MessageBoxButton.OK, MessageBoxImage.Information);
+               
+            }
+            
 
         }
 
@@ -68,7 +80,7 @@ namespace PL_WPF
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            bl.SetStationPanel(stationId, timing=> { update_timing(timing); driverWorker.ReportProgress(55); });
+           bl.SetStationPanel(stationId, timing=> { update_timing(timing); driverWorker.ReportProgress(55); });
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)

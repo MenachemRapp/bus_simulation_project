@@ -92,6 +92,12 @@
     <Compile Include="StationsSimulateListWindow.xaml.cs">
       <DependentUpon>StationsSimulateListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewLinePropertiesWindow.xaml.cs">
+      <DependentUpon>ViewLinePropertiesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLineListWindow.xaml.cs">
+      <DependentUpon>ViewLineListWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddLineWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -163,6 +169,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StationsSimulateListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewLinePropertiesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewLineListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

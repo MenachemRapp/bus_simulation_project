@@ -1,0 +1,122 @@
+﻿<Window x:Class="PL_WPF.ViewLinePropertiesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL_WPF"
+        mc:Ignorable="d"
+        Title="ViewLinePropertiesWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:ShortenStringConverter x:Key="ShortenStringConverter" />
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <DataTemplate x:Key="BusListAndButtons" >
+            <StackPanel Orientation="Horizontal">
+
+                <StackPanel Orientation="Vertical" Width="250">
+
+                    <StackPanel x:Name="codeAndNames" Orientation="Horizontal">
+
+                        <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Path=Name, Converter={StaticResource ShortenStringConverter}}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Name="distanceAndTime">
+                        
+                        <TextBlock Text="Distance: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding Path= Distance}"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ThereIsTimeAndDistance}" Value="False">
+                                            <Setter Property="Text" Value="MISSING"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="Time: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Width="60" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding Path= Time}"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ThereIsTimeAndDistance}" Value="False">
+                                            <Setter Property="Text" Value="MISSING"/>
+                                            <Setter Property="Foreground" Value="OrangeRed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+
+                    </StackPanel>
+
+                </StackPanel>
+
+                
+
+
+
+            </StackPanel>
+
+        </DataTemplate>
+        <DataTemplate x:Key="TripListAndButton" >
+            <StackPanel Orientation="Horizontal" Visibility="{Binding Path=Valid, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                <TextBlock Text="Hour of Departure: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= StartAt}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                
+
+            </StackPanel>
+
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="stationst" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
+            <Label Content="Line Number:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=Code}"/>
+            <Label Content="Total Time:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=totalTime}"/>
+            <Label Content="Total Distance:" FontWeight="Bold"/>
+            <Label Content="{Binding Path=totalDistance}"/>
+            <Label Content="Area:" FontWeight="Bold"/>
+            <Label  Content ="{Binding Area}" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="List Of Stations:" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+            
+            <ListBox Name="stationslb" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusListAndButtons}" Grid.Column="0" Grid.Row="2"/>
+
+            <TextBlock Text="List Of Trips:" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+           
+            <ListBox Name="triplb" ItemsSource="{Binding}" ItemTemplate="{StaticResource TripListAndButton}" Grid.Column="1" Grid.Row="2"/>
+        </Grid>
+       
+
+    </Grid>
+</Window>
+
