@@ -229,11 +229,15 @@ namespace DL
         public int AddLine(Line line)
         {
             List<Line> ListLines = XMLTools.LoadListFromXMLSerializer<Line>(linesPath);
-            if (ListLines.Count() != 0)
-                line.Id = ListLines.Max(l=>l.Id) + 1;// didn't use runnerNumber
-            else
-                line.Id = 1;
+           
+            //selects the lowest id number which isn't used
+            IEnumerable<int> idList = from t in ListLines
+                                      select t.Id;
+            line.Id = Enumerable.Range(1, idList.Count() + 1).Except(idList).First();
+
             ListLines.Add(line);
+        
+
 
             XMLTools.SaveListToXMLSerializer(ListLines, linesPath);
             
@@ -375,12 +379,23 @@ namespace DL
             }
             else
                 throw new DO.BadLineTripIdException(tripId);
-                    
           
+        }
+
+
+        public void DeleteLineFromAllTrips(int lineId)
+        {
+            XElement ListLineTripsRootElem = XMLTools.LoadListFromXMLElement(lineTripPath);
+            IEnumerable<XElement> allElemnts = from t in ListLineTripsRootElem.Elements()
+                    where int.Parse(t.Element("LineId").Value) != lineId
+                    select t;
+
+            ListLineTripsRootElem.ReplaceAll(allElemnts);
+            XMLTools.SaveListToXMLElement(ListLineTripsRootElem, lineTripPath);
 
         }
         #endregion
-        
+
         #region temp
 
 
@@ -550,6 +565,8 @@ namespace DL
         {
             throw new NotImplementedException();
         }
+
+       
 
         #endregion
 

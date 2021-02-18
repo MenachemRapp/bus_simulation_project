@@ -85,6 +85,8 @@ namespace DLAPI
         void UpdateLineTrip(DO.LineTrip line_trip);
         void UpdateLineTrip(int id, Action<DO.LineTrip> update); //method that knows to updt specific fields in LineTrip
         void DeleteLineTrip(int id);
+        void DeleteLineFromAllTrips(int Id);
+
         #endregion
 
 

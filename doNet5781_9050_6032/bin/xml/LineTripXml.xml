@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfLineTrip xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<ArrayOfLineTrip>
   <Linetrip>
     <Id>3</Id>
     <LineId>3</LineId>
@@ -69,5 +69,20 @@
     <Id>14</Id>
     <LineId>2</LineId>
     <StartAt>10:45:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>15</Id>
+    <LineId>8</LineId>
+    <StartAt>00:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>16</Id>
+    <LineId>8</LineId>
+    <StartAt>00:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>17</Id>
+    <LineId>8</LineId>
+    <StartAt>00:00:00</StartAt>
   </Linetrip>
 </ArrayOfLineTrip>

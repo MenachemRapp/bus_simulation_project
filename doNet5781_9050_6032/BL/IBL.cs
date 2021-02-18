@@ -17,7 +17,7 @@ namespace BLAPI
 
         void DeleteLine(int id);
 
-        void UpdateLineArea(int lineId, BO.Areas area);
+     //   void UpdateLineArea(int lineId, BO.Areas area);
 
         #endregion
 
@@ -35,8 +35,9 @@ namespace BLAPI
         void UpdateStation(BO.Station station);
         IEnumerable<BO.Station> GetAllStations();
 
-        IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
-        IEnumerable<BO.Station> GetAllOtherStations(int code);
+        //IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
+       
+        // IEnumerable<BO.Station> GetAllOtherStations(int code);
 
         void DeleteStation(int code);
         #endregion

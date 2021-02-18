@@ -397,6 +397,7 @@ namespace DL
 
 
         #endregion
+
         #region LineTrip
         public IEnumerable<LineTrip> GetAllLineTrips()
         {
@@ -429,6 +430,11 @@ namespace DL
         }
 
         public void DeleteLineTrip(int LicenseNum)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteLineFromAllTrips(int Id)
         {
             throw new NotImplementedException();
         }

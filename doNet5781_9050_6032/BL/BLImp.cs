@@ -16,6 +16,12 @@ namespace BL
         IDL dl = DLFactory.GetDL();
 
         #region BasicLine
+
+        /// <summary>
+        /// adapt a Do line To a BO line
+        /// </summary>
+        /// <param name="lineDO"></param>
+        /// <returns></returns>
         BO.BasicLine LineDoBoAdapter(DO.Line lineDO)
         {
             BO.BasicLine lineBO = new BO.BasicLine();
@@ -31,6 +37,11 @@ namespace BL
             return lineBO;
         }
 
+        /// <summary>
+        /// gets a Line based on the line Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public BO.BasicLine GetLine(int id)
         {
             DO.Line lineDO;
@@ -38,35 +49,49 @@ namespace BL
             {
                 lineDO = dl.GetLine(id);
             }
-            catch (Exception ex)
+            catch (DO.BadLineIdException ex)
             {
-                throw new Exception("line does not exist", ex);
+                throw new BO.BadLineIdException("line does not exist", ex);
             }
             return LineDoBoAdapter(lineDO);
 
         }
 
+        /// <summary>
+        /// get all lines
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BO.BasicLine> GetAllLines()
         {
             return (from item in dl.GetAllLines()
                     select LineDoBoAdapter(item)).OrderBy(line => line.Code);
         }
 
+        /// <summary>
+        /// delete a line and all it's stations and trips
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteLine(int id)
         {
             try
             {
                 dl.DeleteLine(id);
                 dl.DeleteLineFromAllStations(id);
+                dl.DeleteLineFromAllTrips(id);
             }
-            catch (Exception)
+            catch (DO.BadLineIdException ex)
             {
-                throw new Exception();
+                throw new BO.BadLineIdException("line does not exist", ex);
             }
         }
         #endregion
 
         #region LineAndStations
+        /// <summary>
+        /// get a line with a list of it's stations by the given ID
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public BO.LineAndStations GetLineAndStations(int Id)
         {
             BO.LineAndStations lineBO = new BO.LineAndStations();
@@ -88,12 +113,32 @@ namespace BL
             return lineBO;
 
         }
+
+
+        /*
+        public void UpdateLineArea(int lineId, BO.Areas BOarea)
+        {
+            Enum.TryParse(BOarea.ToString(), out DO.Areas DOarea);
+            try
+            {
+                dl.UpdateLineArea(lineId, DOarea);
+            }
+            catch (DO.BadLineIdException ex)
+            {
+                throw new BO.BadLineIdException("Line ID does not exist", ex);
+            }
+        }
+
+        */
         #endregion
 
         #region Station
 
 
-
+        /// <summary>
+        /// Add a new station
+        /// </summary>
+        /// <param name="station"></param>
         public void AddStation(BO.Station station)
         {
             DO.Station stationDO = new DO.Station();
@@ -110,6 +155,11 @@ namespace BL
 
         }
 
+
+        /// <summary>
+        /// Update a station
+        /// </summary>
+        /// <param name="station"></param>
         public void UpdateStation(BO.Station station)
         {
             DO.Station stationDO = new DO.Station();
@@ -124,6 +174,12 @@ namespace BL
                 throw new BO.BadStationCodeException(ex.Message, ex);
             }
         }
+
+        /// <summary>
+        /// Adapt a DO staion to a BO station
+        /// </summary>
+        /// <param name="stationDO"></param>
+        /// <returns></returns>
         BO.Station stationDoBoAdapter(DO.Station stationDO)
         {
             BO.Station stationBO = new BO.Station();
@@ -134,42 +190,49 @@ namespace BL
             return stationBO;
         }
 
+
+        /// <summary>
+        /// Get a station by the code
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public BO.Station GetStation(int code)
         {
             return stationDoBoAdapter(dl.GetStation(code));
         }
-        public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
+      /*  public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
         {
             return from station in dl.GetAllStationsBy(s => s.Code != prevCode && s.Code != NextCode)
                    select stationDoBoAdapter(station);
         }
+      */
 
+        /// <summary>
+        /// Get all Stations
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BO.Station> GetAllStations()
         {
             return (from station in dl.GetAllStations()
                     select stationDoBoAdapter(station)).OrderBy(station => station.Code);
         }
-
+/*
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public IEnumerable<BO.Station> GetAllOtherStations(int code)
         {
             return from station in dl.GetAllStationsBy(s => s.Code != code)
                    select stationDoBoAdapter(station);
         }
+*/
 
-        public void UpdateLineArea(int lineId, BO.Areas BOarea)
-        {
-            Enum.TryParse(BOarea.ToString(), out DO.Areas DOarea);
-            try
-            {
-                dl.UpdateLineArea(lineId, DOarea);
-            }
-            catch (DO.BadLineIdException ex)
-            {
-                throw new BO.BadLineIdException("Line ID does not exist", ex);
-            }
-        }
-
-
+        /// <summary>
+        /// Delete a station
+        /// </summary>
+        /// <param name="code"></param>
         public void DeleteStation(int code)
         {
             IEnumerable<DO.LineStation> lineStations = dl.GetAllLineStationBy(s => s.Station == code);
@@ -190,6 +253,12 @@ namespace BL
 
         #region AdjacentStations
 
+        /// <summary>
+        /// test if the adjacent station exist in the data base
+        /// </summary>
+        /// <param name="station1"></param>
+        /// <param name="station2"></param>
+        /// <returns></returns>
         bool GoodAdjacentStations(int station1, int station2)
         {
             try
@@ -205,6 +274,12 @@ namespace BL
 
         }
 
+        /// <summary>
+        /// Get Adjacent Stations
+        /// </summary>
+        /// <param name="station1"></param>
+        /// <param name="station2"></param>
+        /// <returns></returns>
         public BO.AdjacentStations GetAdjacentStations(int station1, int station2)
         {
             try
@@ -222,6 +297,10 @@ namespace BL
 
         }
 
+        /// <summary>
+        /// Update Adjacent Stations
+        /// </summary>
+        /// <param name="adjBO"></param>
         public void UpdateAdjacentStations(BO.AdjacentStations adjBO)
         {
             DO.AdjacentStations adjDO = new DO.AdjacentStations();
@@ -239,7 +318,10 @@ namespace BL
 
         }
 
-
+        /// <summary>
+        /// Add AdjacentStations
+        /// </summary>
+        /// <param name="adjBO"></param>
         public void AddAdjacentStations(BO.AdjacentStations adjBO)
         {
             DO.AdjacentStations adjDO = new DO.AdjacentStations();
@@ -259,13 +341,22 @@ namespace BL
         #endregion
 
         #region newLine
-
+        /// <summary>
+        /// tests if the Time a and distance betwwen the line stations exist
+        /// </summary>
+        /// <param name="Code"></param>
+        /// <param name="line"></param>
+        /// <returns></returns>
         public bool HasTimeAndDistance(int Code, NewLine line)
         {
-            // if (line.ListOfStation.Count() == 0)
-            //   return true;
-            return GoodAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
+           return GoodAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
         }
+
+        /// <summary>
+        /// add a station to the end of the line
+        /// </summary>
+        /// <param name="Code"></param>
+        /// <param name="line"></param>
         public void AddLastStation(int Code, NewLine line)
         {
             BO.AdjacentStations adjacent;
@@ -273,11 +364,13 @@ namespace BL
             BO.ListedLineStation station = new ListedLineStation();
             basicStation.CopyPropertiesTo(station);
 
+            //create a new station, and mark this station as last
             station.index = line.ListOfStation.Count() + 1;
             station.Distance = -1;
             station.Time = TimeSpan.Zero;
             station.ThereIsTimeAndDistance = false;
 
+            //fill in the time and distance from the previous station
             if (line.ListOfStation.Count() > 0)
             {
                 BO.ListedLineStation prevStation = line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1);
@@ -303,9 +396,16 @@ namespace BL
                         prevStation.Distance = 0;
                 }
             }
+
+            //add station to line
             line.ListOfStation = line.ListOfStation.Append(station);
 
         }
+
+        /// <summary>
+        /// delete the last station from the line
+        /// </summary>
+        /// <param name="line"></param>
         public void DelLastStation(NewLine line)
         {
             line.ListOfStation = line.ListOfStation.Take(line.ListOfStation.Count() - 1);
@@ -342,8 +442,13 @@ namespace BL
             line.ListOfTrips = tripLine;
         }
 
+        /// <summary>
+        /// save  the new line
+        /// </summary>
+        /// <param name="line"></param>
         public void SaveLine(NewLine line)
         {
+            //adapt line to LineTotal and save it
             BO.LineTotal lineTotal = new LineTotal();
             lineTotal.ListOfStation = new List<ListedLineStation>();
             line.CopyPropertiesTo(lineTotal);
@@ -357,12 +462,16 @@ namespace BL
         }
 
 
+        /// <summary>
+        /// add new time and distance to the line
+        /// </summary>
+        /// <param name="adj"></param>
+        /// <param name="line"></param>
         public void AddTimeAndDistance(BO.AdjacentStations adj, NewLine line)
         {
 
-
-            IEnumerable<BO.ListedLineStation> stationsToUpdateList = line.ListOfStation.Where(station => station.Code == adj.Station1
-                                                                                              && station.index < line.ListOfStation.Count()
+           IEnumerable<BO.ListedLineStation> stationsToUpdateList = line.ListOfStation.Where(station => station.Code == adj.Station1
+                                                                                             && station.index < line.ListOfStation.Count()
                                                                                               && line.ListOfStation.ElementAt(station.index).Code == adj.Station2);
 
             foreach (BO.ListedLineStation station in stationsToUpdateList)
@@ -376,6 +485,11 @@ namespace BL
         #endregion
 
         #region ListedStation
+        /// <summary>
+        /// Get List of stations with time and distance for the given line
+        /// </summary>
+        /// <param name="LineId"></param>
+        /// <returns></returns>
         public IEnumerable<ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId)
         {
             List<ListedLineStation> list = new List<ListedLineStation>();
@@ -416,19 +530,25 @@ namespace BL
         #endregion
 
         #region ListedLineTrip
+        /// <summary>
+        /// Get all trips in the line
+        /// </summary>
+        /// <param name="lineId"></param>
+        /// <returns></returns>
         public IEnumerable<ListedLineTrip> GetTripsInLine(int lineId)
         {
             IEnumerable<LineTrip> tripsDO = dl.GetAllLineTripsBy(trip => trip.LineId == lineId);
             IEnumerable<ListedLineTrip> tripsBO = new List<ListedLineTrip>();
-            /*tripsDO.CopyPropertiesTo(tripsBO);
-            foreach (var item in tripsBO)
-            {
-                item.Valid = true;
-            }*/
+            
             tripsBO = tripsDO.Select(t => new ListedLineTrip() { Id = t.Id, StartAt = t.StartAt, Valid = true });
             return tripsBO;
         }
 
+        /// <summary>
+        /// Add a trip to the Line
+        /// </summary>
+        /// <param name="trip"></param>
+        /// <param name="lineID"></param>
         public void AddTrip(ListedLineTrip trip, int lineID)
         {
             DO.LineTrip newTrip = new LineTrip()
@@ -491,6 +611,13 @@ namespace BL
         //    line.ListOfStation.ToList().Insert
         //}
 
+
+        /// <summary>
+        /// Add a station to the line
+        /// </summary>
+        /// <param name="station_id"></param>
+        /// <param name="index"></param>
+        /// <param name="line"></param>
         public void AddStatToLine(int station_id, int index, LineTotal line)
         {
             IDL idl = DLFactory.GetDL();
@@ -544,6 +671,12 @@ namespace BL
             tripLine.Remove(tripLine.FirstOrDefault(t => t.Id == trip.Id && t.StartAt == trip.StartAt && t.Valid == true));
             line.ListOfTrips = tripLine.Append(new ListedLineTrip() { Id = trip.Id, StartAt = trip.StartAt, Valid = false }).OrderBy(t => t.StartAt);
         }
+
+        /// <summary>
+        /// Removes a station from the line
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="line"></param>
         public void DelStatFromLine(int index, LineTotal line)
         {
             List<ListedLineStation> list = line.ListOfStation.ToList();
@@ -554,6 +687,12 @@ namespace BL
             foreach (var item in line.ListOfStation)
                 item.index = i++;
         }
+
+        /// <summary>
+        /// Fill in time and distance. If the dont exist mark as not valid
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="index"></param>
         void update_time_and_distance_of_station(LineTotal line, int index)
         {
             IDL idl = DLFactory.GetDL();
@@ -575,6 +714,11 @@ namespace BL
             }
         }
 
+        /// <summary>
+        /// Test if line can be saved
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
         bool line_can_save(LineTotal line)
         {
             var a = from item in line.ListOfStation
@@ -683,6 +827,11 @@ namespace BL
         #endregion
 
         #region StationWithLines
+        /// <summary>
+        /// Get a station with the list of Lines which go through it
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public BO.StationWithLines GetStationWithLines(int code)
         {
             BO.StationWithLines stationWith = new StationWithLines();
@@ -693,12 +842,14 @@ namespace BL
             return stationWith;
         }
 
-
-
-
         #endregion
 
         #region Trip and Stations
+        /// <summary>
+        /// Get a trip with the List of stations with there times
+        /// </summary>
+        /// <param name="tripId"></param>
+        /// <returns></returns>
         public BO.TripAndStations GetTripAndStations(int tripId)
         {
             DO.LineTrip tripDO = dl.GetLineTrip(tripId);
@@ -726,6 +877,12 @@ namespace BL
             tripAndStations.Destination = tripAndStations.ListOfStationTime.Last().Name;
             return tripAndStations;
         }
+
+        /// <summary>
+        /// get all trips lists which pass through this station
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
         public IEnumerable<BO.TripAndStations> GetTripListByStation(int station)
         {
             IEnumerable<DO.LineStation> lineStations = dl.GetAllLineStationBy(st => st.Station == station);
@@ -740,7 +897,12 @@ namespace BL
         }
 
 
-
+        /// <summary>
+        /// update a Tip List with a new timing
+        /// </summary>
+        /// <param name="fullTimingList"></param>
+        /// <param name="newTiming"></param>
+        /// <returns></returns>
         public IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming)
         {
             BO.TripAndStations tripList = fullTimingList.ToList().Find(trip => trip.TripId==newTiming.TripId);
@@ -763,7 +925,51 @@ namespace BL
 
         #endregion
 
+        #region Line Timing
+        /// <summary>
+        /// Get all line timings for a station
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        public IEnumerable<LineTiming> GetLineTimingsByStation(int station)
+        {
+            return GetTripListByStation(station).Select(trip => new LineTiming
+            {
+                TripId = trip.TripId,
+                LineId = trip.LineId,
+                Code = dl.GetLine(trip.LineId).Code,
+                Destination = trip.ListOfStationTime.Last().Name,
+                StartTime = trip.ListOfStationTime.First().timeAtStop,
+                TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop
+            });
+        }
+
+        /// <summary>
+        /// Get all line timings for a station from a list with all stations
+        /// </summary>
+        /// <param name="station"></param>
+        /// <param name="tripAndStations"></param>
+        /// <returns></returns>
+        public IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations)
+        {
+            return tripAndStations.Select(trip => new LineTiming
+            {
+                TripId = trip.TripId,
+                LineId = trip.LineId,
+                Code = dl.GetLine(trip.LineId).Code,
+                Destination = trip.ListOfStationTime.Last().Name,
+                StartTime = trip.ListOfStationTime.First().timeAtStop,
+                TimeAtStop = TimeSpan.FromSeconds(Math.Round(trip.ListOfStationTime.First(t => t.station == station).timeAtStop.TotalSeconds))
+            });
+        }
+
+        #endregion
+
         #region Simulation Timer
+        /// <summary>
+        /// Get the time on the timer
+        /// </summary>
+        /// <returns></returns>
         public TimeSpan GetTime()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -773,6 +979,10 @@ namespace BL
                 return simulation.SimulationTime;
         }
 
+        /// <summary>
+        /// Get the timer rate
+        /// </summary>
+        /// <returns></returns>
         public int GetRate()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -784,6 +994,12 @@ namespace BL
             return simulation.TimerRate;
         }
 
+        /// <summary>
+        /// Start timer simulator
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="Rate"></param>
+        /// <param name="updateTime"></param>
         public void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime)
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -793,6 +1009,9 @@ namespace BL
 
         }
 
+        /// <summary>
+        /// Stop timer Simulator
+        /// </summary>
         public void StopSimulator()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -801,6 +1020,11 @@ namespace BL
         #endregion
 
         #region simulation Driver
+        /// <summary>
+        /// start driver and set station panel
+        /// </summary>
+        /// <param name="station"></param>
+        /// <param name="updateBus"></param>
         public void SetStationPanel(int station, Action<BO.LineTiming> updateBus)
         {
             SimulationDriver driver = SimulationDriver.Instance;
@@ -819,34 +1043,7 @@ namespace BL
         }
         #endregion
 
-        #region Line Timing
-        public IEnumerable<LineTiming> GetLineTimingsByStation(int station)
-        {
-            return GetTripListByStation(station).Select(trip => new LineTiming
-            {
-                TripId=trip.TripId,
-                LineId = trip.LineId,
-                Code = dl.GetLine(trip.LineId).Code,
-                Destination =trip.ListOfStationTime.Last().Name,
-                StartTime = trip.ListOfStationTime.First().timeAtStop,
-                TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop
-            });
-        }
-
-        public IEnumerable<LineTiming> GetLineTimingsFromFullList(int station,IEnumerable<BO.TripAndStations> tripAndStations)
-        {
-            return tripAndStations.Select(trip => new LineTiming
-            {
-                TripId = trip.TripId,
-                LineId = trip.LineId,
-                Code = dl.GetLine(trip.LineId).Code,
-                Destination = trip.ListOfStationTime.Last().Name,
-                StartTime = trip.ListOfStationTime.First().timeAtStop,
-                TimeAtStop = TimeSpan.FromSeconds(Math.Round(trip.ListOfStationTime.First(t => t.station == station).timeAtStop.TotalSeconds))
-            }) ;
-        }
-
-        #endregion
+      
 
 
 
