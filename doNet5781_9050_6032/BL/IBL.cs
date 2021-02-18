@@ -101,6 +101,10 @@ namespace BLAPI
 
         #region Line Timing
         IEnumerable<LineTiming> GetLineTimingsByStation(int station);
+
+        IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList);
+
+        LineTiming LastLineTiming(IEnumerable<LineTiming> timingList);
         #endregion
     }
 }

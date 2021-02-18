@@ -963,6 +963,48 @@ namespace BL
             });
         }
 
+        /// <summary>
+        /// Get a Line Timing list of the first trip of each line
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <returns></returns>
+        public IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList)
+        {
+            TimeSpan timeNow = GetTime();
+            return timingList.
+                Where(t => t.TimeAtStop > timeNow).
+                GroupBy(t => t.LineId).
+                Select(group => group.FirstOrDefault(t => t.TimeAtStop == group.Min(tr => tr.TimeAtStop))).
+                OrderBy(t => t.StartTime);
+        }
+
+        /// <summary>
+        /// returns last Line timing which has past 
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <returns></returns>
+        public LineTiming LastLineTiming(IEnumerable<LineTiming> timingList)
+        {
+            TimeSpan timeNow = GetTime();
+            if (timingList.Where(t => t.TimeAtStop < timeNow).Count() > 0)
+            {
+                return timingList.
+                Where(t => t.TimeAtStop < timeNow).
+                OrderByDescending(t => t.TimeAtStop).
+                First();
+
+            }
+            else if (timingList.Count() > 0)
+            {
+                return timingList.
+                OrderByDescending(t => t.TimeAtStop).
+                First();
+            }
+            else
+            {
+                return null;
+            }
+        }
         #endregion
 
         #region Simulation Timer

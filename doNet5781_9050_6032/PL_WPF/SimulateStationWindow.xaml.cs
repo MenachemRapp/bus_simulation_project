@@ -70,33 +70,21 @@ namespace PL_WPF
 
         private void refreshTimeList()
         {
+           
             TimeSpan timeNow = bl.GetTime();
             timingList = bl.GetLineTimingsFromFullList(stationId, fullTimingList);
-            StationTimeListlb.ItemsSource = timingList.
-                Where(t => t.TimeAtStop > timeNow).
-                GroupBy(t => t.LineId).
-                Select(group => group.FirstOrDefault(t => t.TimeAtStop == group.Min(tr => tr.TimeAtStop))).
-                OrderBy(t => t.StartTime);
-            if (timingList.Where(t => t.TimeAtStop < timeNow).Count()>0)
+            StationTimeListlb.ItemsSource = bl.GetFirstTimingForEachLine(timingList);
+
+            BO.LineTiming lastTiming = bl.LastLineTiming(timingList);
+            if (lastTiming!=null)
             {
-                LastBusSp.DataContext = timingList.
-                Where(t => t.TimeAtStop < timeNow).
-                OrderByDescending(t => t.TimeAtStop).
-                First();
-                
+                LastBusSp.DataContext = lastTiming;
             }
-            else if (timingList.Count() > 0)
-            {
-                LastBusSp.DataContext = timingList.
-                OrderByDescending(t => t.TimeAtStop).
-                First();
-            }
-            else
+            else //no trips in this line
             {
                 LastBusSp.Visibility = Visibility.Collapsed;
                 LastBusTitle.Visibility = Visibility.Collapsed;
-            }
-
+            }                    
             
         }
 
