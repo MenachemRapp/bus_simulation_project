@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for AddTripWindow.xaml
+    /// Add a new trip
     /// </summary>
     public partial class AddTripWindow : Window
     {

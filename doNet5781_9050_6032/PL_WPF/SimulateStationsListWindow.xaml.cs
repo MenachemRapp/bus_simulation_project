@@ -17,7 +17,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for StationsSimulateWindow.xaml
+    /// Interaction logic for Stations Simulatin List Window.xaml
     /// </summary>
     public partial class StationsSimulateListWindow : Window
     {
@@ -28,9 +28,7 @@ namespace PL_WPF
             bl = _bl;
             Refresh();
         }
-
-
-      
+     
 
 
         private void Refresh()

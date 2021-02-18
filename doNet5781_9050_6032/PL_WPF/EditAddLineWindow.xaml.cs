@@ -17,7 +17,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for AddLineWindow.xaml
+    /// Add a new Line
     /// </summary>
     public partial class AddLineWindow : Window
     {
@@ -44,7 +44,7 @@ namespace PL_WPF
                 deleteButton.IsEnabled = true;
                 stationslb.Visibility = System.Windows.Visibility.Visible;
                 stationslb.ItemsSource = line.ListOfStation.ToList();
-                saveButton.IsEnabled = (line.ListOfStation.Count() >= 2) ? true : false;
+                saveButton.IsEnabled = (line.ListOfStation.Count() >= 2) ? true : false;//only allow saving if the list has at least 2 stations
             }
             else
             {
@@ -90,21 +90,13 @@ namespace PL_WPF
         private void AddStationToLine(int newStationCode, int index)
         {
 
-            //bl.AddStatToLine(newStationCode, index, line);
-            /*if (!bl.HasTimeAndDistance(newStationCode, line))
-            {
-                AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code,newStationCode,0);
-                adjacentStationsWindow.SubmitDriveEvent +=(adj,x)=> bl.AddAdjacentStations(adj);
-                adjacentStationsWindow.ShowDialog();
-            }*/
             try
             {
                 bl.AddLastStation(newStationCode, line);
 
             }
-            catch (Exception ex)// type of exception
+            catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message, "Adding Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
@@ -121,7 +113,7 @@ namespace PL_WPF
                 SavedLineEvent(sender, e);
                 Close();
             }
-            catch (Exception ex)// type of exception
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Saving Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -134,17 +126,11 @@ namespace PL_WPF
             AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(station.index).Code, station.index - 1);
             adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
             adjacentStationsWindow.ShowDialog();
-
         }
-
 
 
         private void modifyAdjacent(BO.AdjacentStations adjacent, int index)
         {
-            // bl.UpdateAdjacentStations(adjacent);
-            /* line.ListOfStation.ElementAt(index).Time = adjacent.Time;
-             line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
-             line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;*/
             bl.AddTimeAndDistance(adjacent, line);
             RefreshStationList();
 
@@ -167,7 +153,6 @@ namespace PL_WPF
 
         private void AddTripToLine(TimeSpan tripTime)
         {
-
             bl.AddTripToLine(tripTime, line);
             RefreshTripList();
         }

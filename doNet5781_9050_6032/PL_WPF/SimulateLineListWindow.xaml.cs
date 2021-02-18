@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for ViewLineListWindow.xaml
+    /// Interaction logic for viewing line list window
     /// </summary>
     public partial class ViewLineListWindow : Window
     {
@@ -36,7 +36,7 @@ namespace PL_WPF
         }
 
         /// <summary>
-        /// closes chlidren windows. used when winfow is closed
+        /// closes chlidren windows. used when window is closed
         /// </summary>
         /// <param Name="sender"></param>
         /// <param Name="e"></param>
@@ -51,8 +51,7 @@ namespace PL_WPF
             
         }
 
-
-        
+                
 
         private void PropertiesBusLine_Clicked(object sender, RoutedEventArgs e)
         {

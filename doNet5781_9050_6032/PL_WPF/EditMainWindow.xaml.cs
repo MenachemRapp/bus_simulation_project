@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for SimulationAndViewWindow.xaml
+    /// Main window for editing
     /// </summary>
     public partial class SelectEditWindow : Window
     {
@@ -29,7 +29,7 @@ namespace PL_WPF
         }
 
         /// <summary>
-        /// closes chlidren window. used when winfow is closed
+        /// closes chlidren window. used when window is closed
         /// </summary>
         /// <param Name="sender"></param>
         /// <param Name="e"></param>

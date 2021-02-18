@@ -17,7 +17,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for StationsWindow.xaml
+    /// Interaction logic for selecting a station window
     /// </summary>
 
     

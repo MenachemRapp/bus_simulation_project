@@ -18,7 +18,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for SelectView.xaml
+    /// Interaction logic for Simulation Main Window
     /// </summary>
     public partial class SimulationAndViewWindow : Window
     {
@@ -46,7 +46,11 @@ namespace PL_WPF
             timerworker.WorkerReportsProgress = true;
         }
 
-
+        /// <summary>
+        /// closes chlidren windows. used when window is closed
+        /// </summary>
+        /// <param Name="sender"></param>
+        /// <param Name="e"></param>
         private void CloseChildren(object sender, EventArgs e)
         {
             ViewLineListWindow lineWindow = Application.Current.Windows.OfType<ViewLineListWindow>().FirstOrDefault();
@@ -76,6 +80,7 @@ namespace PL_WPF
             stationWin.Closed += (x, y) => button.IsEnabled = true;
         }
 
+        //start and stop simulation
         private void Timer_clicked(object sender, RoutedEventArgs e)
         {
             if (!isTimerRun && !timerworker.IsBusy)
@@ -108,7 +113,6 @@ namespace PL_WPF
 
 
 
-
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             bl.StartSimulator(setTime, ratio, time => { textTime = time.ToString().Substring(0, 8); timerworker.ReportProgress(55); });
@@ -121,6 +125,7 @@ namespace PL_WPF
 
         }
 
+        //change to editing mode
         private void EditingMode_Click(object sender, RoutedEventArgs e)
         {
             new SelectEditWindow(bl).Show();

@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for StationViewWindow.xaml
+    /// Interaction logic for editing station list window
     /// </summary>
     public partial class StationEditWindow : Window
     {
@@ -31,7 +31,7 @@ namespace PL_WPF
 
 
         /// <summary>
-        /// closes chlidren windows. used when winfow is closed
+        /// closes chlidren windows. used when window is closed
         /// </summary>
         /// <param Name="sender"></param>
         /// <param Name="e"></param>
@@ -84,6 +84,7 @@ namespace PL_WPF
             window.Closing += (x, y) => Refresh();
             window.Show();
         }
+
         private void Delete_Station_Clicked(object sender, RoutedEventArgs e)
         {
             BO.Station SelectedStation = ((sender as Button).DataContext as BO.Station);

@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for StationPropertiesWindow.xaml
+    /// Interaction logic for editing station window
     /// </summary>
     public partial class StationPropertiesWindow : Window
     {

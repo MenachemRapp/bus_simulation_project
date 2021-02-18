@@ -17,7 +17,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for SimulateStationWindow.xaml
+    /// Interaction logic for Simulate Station Window
     /// </summary>
     public partial class SimulateStationWindow : Window
     {

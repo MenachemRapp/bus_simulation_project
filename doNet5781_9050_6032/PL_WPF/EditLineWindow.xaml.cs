@@ -17,13 +17,11 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for LinePropertiesWindow.xaml
+    /// Edit line Properties
     /// </summary>
     public partial class LinePropertiesWindow : Window
     {
         public IBL bl;
-        
-        
         BO.LineTotal line;
    
         public LinePropertiesWindow(IBL _bl, int lineId)
@@ -34,7 +32,7 @@ namespace PL_WPF
             areacb.ItemsSource = Enum.GetValues(typeof(BO.Areas));
             RefreshStationList();
             RefreshTripList();
-           saveButton.IsEnabled = false;
+           saveButton.IsEnabled = false; //cannot save before changes are made
         }
 
 
@@ -54,10 +52,7 @@ namespace PL_WPF
         {
             BO.ListedLineStation station = ((sender as Button).DataContext as BO.ListedLineStation);
             AdjacentStationsWindow adjacentStationsWindow = new AdjacentStationsWindow(bl, station.Code, line.ListOfStation.ElementAt(station.index).Code, station.index-1);
-           // if (station.ThereIsTimeAndDistance)
-                adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
-           // else
-             //   adjacentStationsWindow.SubmitDriveEvent += addAdjacent;
+           adjacentStationsWindow.SubmitDriveEvent += modifyAdjacent;
             adjacentStationsWindow.ShowDialog();
             
         }
@@ -72,20 +67,13 @@ namespace PL_WPF
 
         private void modifyAdjacent(BO.AdjacentStations adjacent, int index)
         {
-            // bl.UpdateAdjacentStations(adjacent);
             line.ListOfStation.ElementAt(index).Time = adjacent.Time;
             line.ListOfStation.ElementAt(index).Distance = adjacent.Distance;
             line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = true;
             RefreshStationList();
             
         }
-/*
-        private void addAdjacent(BO.AdjacentStations adjacent)
-        {
-            //bl.AddAdjacentStations(adjacent);
-            RefreshStationList();
-        }
-*/
+
         private void areacb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsLoaded)
@@ -125,7 +113,7 @@ namespace PL_WPF
                 SavedLineEvent(sender, e);
                 Close();
             }
-            catch (Exception ex)// type of exception
+            catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message, "Saving Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -16,14 +16,14 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for AdjacentStationsWindow.xaml
+    /// Add time and distance between stations
     /// </summary>
     public partial class AdjacentStationsWindow : Window
     {
         IBL bl;
         BO.AdjacentStations adjStations= new BO.AdjacentStations();
         int index;
-        //int station1, station2;
+        
         public AdjacentStationsWindow(IBL _bl, int station1, int station2, int _index)
         {
             InitializeComponent();
@@ -42,6 +42,10 @@ namespace PL_WPF
             {
                 adjStations.Distance = Convert.ToDouble(txtDistance.Text);
                 adjStations.Time = TimeSpan.FromMinutes(Convert.ToDouble(txtTime.Text));
+                if (adjStations.Time<TimeSpan.Zero || adjStations.Distance<0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
 
                 if (SubmitDriveEvent != null)
                     SubmitDriveEvent(adjStations, index);
@@ -56,6 +60,10 @@ namespace PL_WPF
             catch (BO.BadAdjacentStationsException ex)
             {
                 MessageBox.Show(ex.Message, "Bad Stations", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Numbers cannot be negative", "Out of Range", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

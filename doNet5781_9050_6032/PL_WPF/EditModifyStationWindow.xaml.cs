@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for ModifyStationWindow.xaml
+    /// Modify a station
     /// </summary>
     public partial class ModifyStationWindow : Window
     {

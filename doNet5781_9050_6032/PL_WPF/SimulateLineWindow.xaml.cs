@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for VieLinePropertiesWindow.xaml
+    /// Interaction logic for Viewing Line Properties Window
     /// </summary>
     public partial class ViewLinePropertiesWindow : Window
     {

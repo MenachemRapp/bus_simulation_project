@@ -16,7 +16,7 @@ using BLAPI;
 namespace PL_WPF
 {
     /// <summary>
-    /// Interaction logic for LineStationWindow.xaml
+    /// View and edit all  lines
     /// </summary>
     public partial class LineListEditWindow : Window
     {
@@ -37,7 +37,7 @@ namespace PL_WPF
         }
 
         /// <summary>
-        /// closes chlidren windows. used when winfow is closed
+        /// closes chlidren windows. used when window is closed
         /// </summary>
         /// <param Name="sender"></param>
         /// <param Name="e"></param>
@@ -75,7 +75,6 @@ namespace PL_WPF
             {
                 BO.BasicLine selectedLine = (BO.BasicLine)cmd.DataContext;
                 LinePropertiesWindow lineProperties = new LinePropertiesWindow(bl, selectedLine.Id);
-                //lineProperties.updateLineAreaEvent += RefreshList;
                 lineProperties.SavedLineEvent += (x, y) => RefreshList();
                 lineProperties.Show();
             }
