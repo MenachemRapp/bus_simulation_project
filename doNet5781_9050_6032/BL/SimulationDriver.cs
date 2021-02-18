@@ -10,9 +10,9 @@ namespace BL
 {
     sealed class SimulationDriver
     {
-        public event EventHandler UpdatedTiming;
-
-
+     
+        public Action<BO.LineTiming> UpdatedTiming;
+     
         #region singleton
         static readonly SimulationDriver instance = new SimulationDriver();
         static SimulationDriver() { }// static ctor to ensure instance init is done just before first usage
@@ -32,7 +32,7 @@ namespace BL
 
             IEnumerable<BO.TripAndStations> fullTripList = bl.GetTripListByStation(station);
 
-
+            
             TimeSpan timeNow = bl.GetTime();
             int rate = bl.GetRate();
             fullTripList = fullTripList.Select(tr =>
@@ -62,7 +62,11 @@ namespace BL
                         Thread.Sleep(Convert.ToInt32((trip.startTime - timeNow).TotalMilliseconds / rate));
                     }
                     Thread driveThread = new Thread(new ParameterizedThreadStart(drive));
-                    driveThread.Start(trip);
+                    
+                    if (isDriveRun)
+                    {
+                        driveThread.Start(trip);
+                    }
                 }
 
             }
@@ -81,6 +85,15 @@ namespace BL
                 if (isDriveRun)
                 {
                     station.timeAtStop = bl.GetTime();
+                    BO.LineTiming d = (new BO.LineTiming
+                    {
+                        TripId = trip.TripId,
+                        Code = station.station,
+                        Destination = trip.ListOfStationTime.Last().Name,
+                        LineId = trip.LineId,
+                        StartTime = trip.startTime,
+                        TimeAtStop = station.timeAtStop
+                    });
                     UpdateTimingEventArgs args = new UpdateTimingEventArgs(new BO.LineTiming
                     {
                         TripId= trip.TripId,
@@ -92,7 +105,8 @@ namespace BL
                     });
                     if (UpdatedTiming != null)
                     {
-                        UpdatedTiming(this, args);
+                                              
+                        UpdatedTiming(d);
                     }
 
 

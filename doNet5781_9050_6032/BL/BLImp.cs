@@ -1072,20 +1072,33 @@ namespace BL
             SimulationDriver driver = SimulationDriver.Instance;
             if (station == -1)
             {
+                //driver.MyFunc func= GetStation;
+                //LineTiming k=new LineTiming();
+                //updateBus(k);
+                driver.UpdatedTiming -= updateBus;
+                //driver.UpdateTiming -= updateBus.Invoke;
+                 //driver.UpdateTiming -= updateBus.GetInvocationList();
+               // driver.UpdatedTiming -= (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
                 
-                 driver.UpdatedTiming -= (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
                 driver.isDriveRun = false;
+                              
+                
             }
             else
             {
-                driver.UpdatedTiming += (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
+                //delegate void nnn (int b);
+                //driver.UpdateTiming += updateBus.Target;
+             //   driver.UpdatedTiming += (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
+                driver.UpdatedTiming += updateBus;
+
                 driver.isDriveRun = true;
                 driver.run(station);
             }
         }
+        
         #endregion
 
-      
+
 
 
 

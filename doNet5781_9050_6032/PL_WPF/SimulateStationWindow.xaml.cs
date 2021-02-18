@@ -47,14 +47,13 @@ namespace PL_WPF
             StationListlb.ItemsSource = station.ListOfLines.ToList();
 
 
-            this.Closed+=(x,y)=> { bl.SetStationPanel(-1, timing => {driverWorker.ReportProgress(55); }); driverWorker.CancelAsync(); };
+            this.Closed+=(x,y)=> {bl.SetStationPanel(-1, timingAction);};
 
             driverWorker = new BackgroundWorker();
             driverWorker.DoWork += Worker_DoWork;
             driverWorker.ProgressChanged += Worker_ProgressChanged;
             driverWorker.WorkerReportsProgress = true;
-            driverWorker.WorkerSupportsCancellation = true;
-            
+                       
             try
             {
                 bl.GetRate();
@@ -88,9 +87,16 @@ namespace PL_WPF
             
         }
 
+        
+        private void timingAction(BO.LineTiming newTiming)
+        {
+            lineTiming = newTiming;
+            driverWorker.ReportProgress(55);
+        }
+
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
-           bl.SetStationPanel(stationId, timing=> { lineTiming=timing; driverWorker.ReportProgress(55); });
+           bl.SetStationPanel(stationId, timingAction);
         }
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
