@@ -10,9 +10,9 @@ namespace BL
 {
     sealed class SimulationDriver
     {
-     
+
         public Action<BO.LineTiming> UpdatedTiming;
-     
+
         #region singleton
         static readonly SimulationDriver instance = new SimulationDriver();
         static SimulationDriver() { }// static ctor to ensure instance init is done just before first usage
@@ -24,35 +24,50 @@ namespace BL
         IDL dl = DLFactory.GetDL();
 
         static Random rand = new Random(DateTime.Now.Millisecond);
-        public bool isDriveRun;
+        volatile public bool isDriveRun;
+        int rate;
 
-
-        public void run(int station)
+        public List<Thread> threads = new List<Thread>();
+        public void run(int station, IEnumerable<BO.TripAndStations> tripList)
         {
 
-            IEnumerable<BO.TripAndStations> fullTripList = bl.GetTripListByStation(station);
+            // IEnumerable<BO.TripAndStations> fullTripList = bl.GetTripListByStation(station);
+            IEnumerable<BO.TripAndStations> fullTripList = tripList;
 
-            
+
             TimeSpan timeNow = bl.GetTime();
-            int rate = bl.GetRate();
-            fullTripList = fullTripList.Select(tr =>
+            rate = bl.GetRate();
+            IEnumerable<BO.TripAndStations> timedList = fullTripList.
+           Select(tr =>
             {
-                if (tr.startTime > timeNow || tr.ListOfStationTime.Last().timeAtStop < timeNow)//no need or unable to correct list of stations
-                    return tr;
+                if (tr.startTime > timeNow || tr.ListOfStationTime.Last().timeAtStop < timeNow)//no need to start from the middle of the ride
+                    return
+                     new BO.TripAndStations
+                     {
+                         TripId = tr.TripId,
+                         Destination = tr.Destination,
+                         LineId = tr.LineId,
+                         ListOfStationTime = tr.ListOfStationTime.Take(tr.ListOfStationTime.FirstOrDefault(st => st.station == station).index),// stop trips after the selected station
+                         startTime = tr.startTime
+                     };
                 else //driver should start from one of the middle stations
                     return new BO.TripAndStations
                     {
-                        TripId=tr.TripId,
+                        TripId = tr.TripId,
                         Destination = tr.Destination,
                         LineId = tr.LineId,
-                        ListOfStationTime = tr.ListOfStationTime.Where(t => t.timeAtStop > timeNow),
+                        ListOfStationTime = tr.ListOfStationTime.
+                                            Take(tr.ListOfStationTime.FirstOrDefault(st => st.station == station).index)// stop trips after the selected station
+                                            .Where(t => t.timeAtStop > timeNow).ToList(),//driver should start from one of the middle stations
+                                                                                         //for using timeNow, Immediate Execution is needed
                         startTime = tr.ListOfStationTime.FirstOrDefault(t => t.timeAtStop > timeNow).timeAtStop
                     };
             }).
-            Where(tr => tr.startTime > timeNow).// removes all trips which have finished completly
+            Where(tr => tr.startTime > timeNow).ToList().// removes all trips which have finished completly
+                                                         //for using timeNow, Immediate Execution is needed
             OrderBy(tr => tr.startTime);
-
-            foreach (BO.TripAndStations trip in fullTripList)
+        
+            foreach (BO.TripAndStations trip in timedList)
             {
                 if (isDriveRun)
                 {
@@ -62,7 +77,8 @@ namespace BL
                         Thread.Sleep(Convert.ToInt32((trip.startTime - timeNow).TotalMilliseconds / rate));
                     }
                     Thread driveThread = new Thread(new ParameterizedThreadStart(drive));
-                    
+                    driveThread.Name = String.Format("trip Number {0}", trip.TripId);
+                    threads.Add(driveThread);
                     if (isDriveRun)
                     {
                         driveThread.Start(trip);
@@ -78,7 +94,6 @@ namespace BL
 
         public void drive(object tripObj)
         {
-            int rate = bl.GetRate();
             BO.TripAndStations trip = (BO.TripAndStations)tripObj;
             foreach (BO.StationTime station in trip.ListOfStationTime)
             {
@@ -96,7 +111,7 @@ namespace BL
                     });
                     UpdateTimingEventArgs args = new UpdateTimingEventArgs(new BO.LineTiming
                     {
-                        TripId= trip.TripId,
+                        TripId = trip.TripId,
                         Code = station.station,
                         Destination = trip.ListOfStationTime.Last().Name,
                         LineId = trip.LineId,
@@ -105,7 +120,7 @@ namespace BL
                     });
                     if (UpdatedTiming != null)
                     {
-                                              
+
                         UpdatedTiming(d);
                     }
 

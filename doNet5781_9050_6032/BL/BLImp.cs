@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Reflection;
 using BLAPI;
 using BO;
@@ -859,7 +859,7 @@ namespace BL
             {
                 if (st.index == 1)
                 {
-                    return new StationTime { station = st.Code, index = st.index, timeToNextStop = st.Time, timeAtStop = tripDO.StartAt, Name=st.Name };
+                    return new StationTime { station = st.Code, index = st.index, timeToNextStop = st.Time, timeAtStop = tripDO.StartAt, Name = st.Name };
                 }
                 else
                 {
@@ -872,7 +872,7 @@ namespace BL
                         timeAtStop = tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeAtStop + tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeToNextStop
                     };
                 }
-                
+
             });
             tripAndStations.Destination = tripAndStations.ListOfStationTime.Last().Name;
             return tripAndStations;
@@ -1005,6 +1005,27 @@ namespace BL
                 return null;
             }
         }
+
+        /// <summary>
+        /// updates the property TimeFromNow based on the given current time
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <param name="curentTime"></param>
+        /// <returns></returns>
+        public IEnumerable<LineTiming> UpdateTimeNow(IEnumerable<LineTiming> timingList, TimeSpan curentTime)
+        {
+            return timingList.Select(lt => new LineTiming
+            {
+                Code = lt.Code,
+                Destination = lt.Destination,
+                LineId = lt.LineId,
+                StartTime = lt.StartTime,
+                TimeAtStop = lt.TimeAtStop,
+                TripId = lt.TripId,
+                TimeFromNow = TimeSpan.FromSeconds(Math.Round((curentTime -lt.TimeAtStop).TotalSeconds))
+            });
+
+        }
         #endregion
 
         #region Simulation Timer
@@ -1072,27 +1093,23 @@ namespace BL
             SimulationDriver driver = SimulationDriver.Instance;
             if (station == -1)
             {
-                //driver.MyFunc func= GetStation;
-                //LineTiming k=new LineTiming();
-                //updateBus(k);
                 driver.UpdatedTiming -= updateBus;
-                //driver.UpdateTiming -= updateBus.Invoke;
-                 //driver.UpdateTiming -= updateBus.GetInvocationList();
-               // driver.UpdatedTiming -= (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
                 
                 driver.isDriveRun = false;
-                              
+                foreach (Thread thread in driver.threads)
+                {
+                    thread.Interrupt();
+                }              
                 
             }
             else
             {
-                //delegate void nnn (int b);
-                //driver.UpdateTiming += updateBus.Target;
-             //   driver.UpdatedTiming += (x, y) => updateBus.Invoke(((UpdateTimingEventArgs)y).NewValue);
                 driver.UpdatedTiming += updateBus;
 
                 driver.isDriveRun = true;
-                driver.run(station);
+                IEnumerable<BO.TripAndStations> fullTripList = GetTripListByStation(station);
+                //driver.run(station);
+                driver.run(station, fullTripList);
             }
         }
         

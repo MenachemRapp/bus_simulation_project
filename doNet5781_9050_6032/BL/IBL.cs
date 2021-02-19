@@ -105,6 +105,8 @@ namespace BLAPI
         IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList);
 
         LineTiming LastLineTiming(IEnumerable<LineTiming> timingList);
+
+        IEnumerable<LineTiming> UpdateTimeNow(IEnumerable<LineTiming> timingList, TimeSpan curentTime);
         #endregion
     }
 }

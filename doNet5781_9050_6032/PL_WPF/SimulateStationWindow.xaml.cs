@@ -90,8 +90,8 @@ namespace PL_WPF
         
         private void timingAction(BO.LineTiming newTiming)
         {
-            lineTiming = newTiming;
-            driverWorker.ReportProgress(55);
+          //  lineTiming = newTiming;
+            driverWorker.ReportProgress(33,newTiming);
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -101,7 +101,7 @@ namespace PL_WPF
 
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            fullTimingList=bl.UpdateNewTimingInList(fullTimingList,lineTiming);
+            fullTimingList=bl.UpdateNewTimingInList(fullTimingList,(BO.LineTiming)e.UserState);
             refreshTimeList();
         }
 

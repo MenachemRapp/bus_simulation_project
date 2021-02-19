@@ -19,5 +19,7 @@ namespace BO
 
         public TimeSpan TimeAtStop { get; set; }
 
+        public TimeSpan TimeFromNow { get; set; }
+
     }
 }
