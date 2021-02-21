@@ -20,7 +20,7 @@ namespace BL
 
         public Stopwatch stopwatch= new Stopwatch();
         public int TimerRate { get; set; }
-
+        public TimeSpan timerTimeWithDays { get; set; }
 
         public event EventHandler ValueChanged;
         TimeSpan simulationTime;
@@ -32,10 +32,12 @@ namespace BL
             stopwatch.Restart();
             while (stopwatch.IsRunning)
             {
-                TimeSpan timerTime = TimeSpan.FromTicks(stopwatch.Elapsed.Ticks * TimerRate) + startTime;
-                timerTime -= TimeSpan.FromDays(timerTime.Days);
-                SimulationTime = timerTime;
-
+                timerTimeWithDays = TimeSpan.FromTicks(stopwatch.Elapsed.Ticks * TimerRate) + startTime;
+                /* timerTime -= TimeSpan.FromDays(timerTime.Days);
+                 SimulationTime = timerTime;
+                */
+                
+                SimulationTime = timerTimeWithDays- TimeSpan.FromDays(timerTimeWithDays.Days);
                 Thread.Sleep(1000);
             }
 

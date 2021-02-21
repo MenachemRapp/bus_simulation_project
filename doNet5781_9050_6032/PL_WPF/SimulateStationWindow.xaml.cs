@@ -47,12 +47,13 @@ namespace PL_WPF
             StationListlb.ItemsSource = station.ListOfLines.ToList();
 
 
-            this.Closed+=(x,y)=> {bl.SetStationPanel(-1, timingAction);};
+            this.Closed+=(x,y)=> {bl.SetStationPanel(-1, timingAction); driverWorker.CancelAsync(); };
 
             driverWorker = new BackgroundWorker();
             driverWorker.DoWork += Worker_DoWork;
             driverWorker.ProgressChanged += Worker_ProgressChanged;
             driverWorker.WorkerReportsProgress = true;
+            driverWorker.WorkerSupportsCancellation = true;
                        
             try
             {

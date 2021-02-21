@@ -36,17 +36,17 @@
     <LastStation>422345</LastStation>
   </Line>
   <Line>
-    <Id>7</Id>
-    <Code>250</Code>
-    <Area>General</Area>
-    <FirstStation>1089</FirstStation>
-    <LastStation>1091</LastStation>
-  </Line>
-  <Line>
     <Id>8</Id>
     <Code>3</Code>
     <Area>General</Area>
     <FirstStation>1094</FirstStation>
     <LastStation>1089</LastStation>
+  </Line>
+  <Line>
+    <Id>7</Id>
+    <Code>250</Code>
+    <Area>General</Area>
+    <FirstStation>1089</FirstStation>
+    <LastStation>1091</LastStation>
   </Line>
 </ArrayOfLine>

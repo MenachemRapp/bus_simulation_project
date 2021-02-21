@@ -200,12 +200,12 @@ namespace BL
         {
             return stationDoBoAdapter(dl.GetStation(code));
         }
-      /*  public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
-        {
-            return from station in dl.GetAllStationsBy(s => s.Code != prevCode && s.Code != NextCode)
-                   select stationDoBoAdapter(station);
-        }
-      */
+        /*  public IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode)
+          {
+              return from station in dl.GetAllStationsBy(s => s.Code != prevCode && s.Code != NextCode)
+                     select stationDoBoAdapter(station);
+          }
+        */
 
         /// <summary>
         /// Get all Stations
@@ -216,18 +216,18 @@ namespace BL
             return (from station in dl.GetAllStations()
                     select stationDoBoAdapter(station)).OrderBy(station => station.Code);
         }
-/*
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        public IEnumerable<BO.Station> GetAllOtherStations(int code)
-        {
-            return from station in dl.GetAllStationsBy(s => s.Code != code)
-                   select stationDoBoAdapter(station);
-        }
-*/
+        /*
+                /// <summary>
+                /// 
+                /// </summary>
+                /// <param name="code"></param>
+                /// <returns></returns>
+                public IEnumerable<BO.Station> GetAllOtherStations(int code)
+                {
+                    return from station in dl.GetAllStationsBy(s => s.Code != code)
+                           select stationDoBoAdapter(station);
+                }
+        */
 
         /// <summary>
         /// Delete a station
@@ -349,7 +349,7 @@ namespace BL
         /// <returns></returns>
         public bool HasTimeAndDistance(int Code, NewLine line)
         {
-           return GoodAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
+            return GoodAdjacentStations(line.ListOfStation.ElementAt(line.ListOfStation.Count() - 1).Code, Code);
         }
 
         /// <summary>
@@ -470,9 +470,9 @@ namespace BL
         public void AddTimeAndDistance(BO.AdjacentStations adj, NewLine line)
         {
 
-           IEnumerable<BO.ListedLineStation> stationsToUpdateList = line.ListOfStation.Where(station => station.Code == adj.Station1
-                                                                                             && station.index < line.ListOfStation.Count()
-                                                                                              && line.ListOfStation.ElementAt(station.index).Code == adj.Station2);
+            IEnumerable<BO.ListedLineStation> stationsToUpdateList = line.ListOfStation.Where(station => station.Code == adj.Station1
+                                                                                              && station.index < line.ListOfStation.Count()
+                                                                                               && line.ListOfStation.ElementAt(station.index).Code == adj.Station2);
 
             foreach (BO.ListedLineStation station in stationsToUpdateList)
             {
@@ -539,7 +539,7 @@ namespace BL
         {
             IEnumerable<LineTrip> tripsDO = dl.GetAllLineTripsBy(trip => trip.LineId == lineId);
             IEnumerable<ListedLineTrip> tripsBO = new List<ListedLineTrip>();
-            
+
             tripsBO = tripsDO.Select(t => new ListedLineTrip() { Id = t.Id, StartAt = t.StartAt, Valid = true });
             return tripsBO;
         }
@@ -853,7 +853,7 @@ namespace BL
         public BO.TripAndStations GetTripAndStations(int tripId)
         {
             DO.LineTrip tripDO = dl.GetLineTrip(tripId);
-            BO.TripAndStations tripAndStations = new TripAndStations { LineId = tripDO.LineId, startTime = tripDO.StartAt, TripId=tripDO.Id};
+            BO.TripAndStations tripAndStations = new TripAndStations { LineId = tripDO.LineId, startTime = tripDO.StartAt, TripId = tripDO.Id };
             IEnumerable<ListedLineStation> lineTotalStations = GetLineNew(tripDO.LineId).ListOfStation;
             tripAndStations.ListOfStationTime = lineTotalStations.Select(st =>
             {
@@ -905,7 +905,7 @@ namespace BL
         /// <returns></returns>
         public IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming)
         {
-            BO.TripAndStations tripList = fullTimingList.ToList().Find(trip => trip.TripId==newTiming.TripId);
+            BO.TripAndStations tripList = fullTimingList.ToList().Find(trip => trip.TripId == newTiming.TripId);
             BO.StationTime stationTime = tripList.ListOfStationTime.First(st => st.station == newTiming.Code);
             tripList.ListOfStationTime = tripList.ListOfStationTime.Select(t =>
             {
@@ -972,12 +972,31 @@ namespace BL
         {
             TimeSpan timeNow = GetTime();
             return timingList.
-                Where(t => t.TimeAtStop > timeNow).
                 GroupBy(t => t.LineId).
-                Select(group => group.FirstOrDefault(t => t.TimeAtStop == group.Min(tr => tr.TimeAtStop))).
-                OrderBy(t => t.StartTime);
+                Select(group =>
+                {
+                    IEnumerable<LineTiming> timingsFromNow = group.Where(t => t.TimeAtStop > timeNow).ToList();
+                    if (timingsFromNow.Count() > 0)//if there are comming busses later today
+                    {
+                        return timingsFromNow.FirstOrDefault(t => t.TimeAtStop == timingsFromNow.Min(tr => tr.TimeAtStop));
+                    }
+                    else //all busses are tommorow
+                    {
+                        return group.FirstOrDefault(t => t.TimeAtStop == group.Min(tr => tr.TimeAtStop));
+                    }
+                }).
+            OrderBy(t =>
+            {
+                if (timeNow <= t.StartTime)
+                {
+                    return t.StartTime;
+                }
+                else
+                {
+                    return t.StartTime + TimeSpan.FromDays(1); //bus comes tommorow
+                }
+            }).ToList();
         }
-
         /// <summary>
         /// returns last Line timing which has past 
         /// </summary>
@@ -1022,7 +1041,7 @@ namespace BL
                 StartTime = lt.StartTime,
                 TimeAtStop = lt.TimeAtStop,
                 TripId = lt.TripId,
-                TimeFromNow = TimeSpan.FromSeconds(Math.Round((curentTime -lt.TimeAtStop).TotalSeconds))
+                TimeFromNow = TimeSpan.FromSeconds(Math.Round((curentTime - lt.TimeAtStop).TotalSeconds))
             });
 
         }
@@ -1040,6 +1059,19 @@ namespace BL
                 return TimeSpan.Zero;
             else
                 return simulation.SimulationTime;
+        }
+
+        /// <summary>
+        /// Gets the days on the timer
+        /// </summary>
+        /// <returns></returns>
+        public int GetDays()
+        {
+            SimulationTimer simulation = SimulationTimer.Instance;
+            if (!simulation.stopwatch.IsRunning)
+                return 0;
+            else
+                return simulation.timerTimeWithDays.Days;
         }
 
         /// <summary>
@@ -1094,13 +1126,19 @@ namespace BL
             if (station == -1)
             {
                 driver.UpdatedTiming -= updateBus;
-                
+
                 driver.isDriveRun = false;
                 foreach (Thread thread in driver.threads)
                 {
                     thread.Interrupt();
-                }              
-                
+
+                    if (thread.IsAlive)
+                    {
+                        thread.Join();
+                    }
+
+                }
+
             }
             else
             {
@@ -1108,11 +1146,13 @@ namespace BL
 
                 driver.isDriveRun = true;
                 IEnumerable<BO.TripAndStations> fullTripList = GetTripListByStation(station);
-                //driver.run(station);
                 driver.run(station, fullTripList);
+
+
+
             }
         }
-        
+
         #endregion
 
 

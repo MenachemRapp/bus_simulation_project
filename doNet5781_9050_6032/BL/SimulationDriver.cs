@@ -31,63 +31,74 @@ namespace BL
         public void run(int station, IEnumerable<BO.TripAndStations> tripList)
         {
 
-            // IEnumerable<BO.TripAndStations> fullTripList = bl.GetTripListByStation(station);
+            
             IEnumerable<BO.TripAndStations> fullTripList = tripList;
 
 
             TimeSpan timeNow = bl.GetTime();
+            int days = bl.GetDays();
             rate = bl.GetRate();
-            IEnumerable<BO.TripAndStations> timedList = fullTripList.
-           Select(tr =>
-            {
-                if (tr.startTime > timeNow || tr.ListOfStationTime.Last().timeAtStop < timeNow)//no need to start from the middle of the ride
-                    return
-                     new BO.TripAndStations
-                     {
-                         TripId = tr.TripId,
-                         Destination = tr.Destination,
-                         LineId = tr.LineId,
-                         ListOfStationTime = tr.ListOfStationTime.Take(tr.ListOfStationTime.FirstOrDefault(st => st.station == station).index),// stop trips after the selected station
-                         startTime = tr.startTime
-                     };
-                else //driver should start from one of the middle stations
-                    return new BO.TripAndStations
-                    {
-                        TripId = tr.TripId,
-                        Destination = tr.Destination,
-                        LineId = tr.LineId,
-                        ListOfStationTime = tr.ListOfStationTime.
-                                            Take(tr.ListOfStationTime.FirstOrDefault(st => st.station == station).index)// stop trips after the selected station
-                                            .Where(t => t.timeAtStop > timeNow).ToList(),//driver should start from one of the middle stations
-                                                                                         //for using timeNow, Immediate Execution is needed
-                        startTime = tr.ListOfStationTime.FirstOrDefault(t => t.timeAtStop > timeNow).timeAtStop
-                    };
-            }).
-            Where(tr => tr.startTime > timeNow).ToList().// removes all trips which have finished completly
-                                                         //for using timeNow, Immediate Execution is needed
-            OrderBy(tr => tr.startTime);
-        
-            foreach (BO.TripAndStations trip in timedList)
-            {
-                if (isDriveRun)
+            
+                IEnumerable<BO.TripAndStations> timedList = fullTripList.
+               Select(tr =>
                 {
-                    timeNow = bl.GetTime();
-                    if (trip.startTime > timeNow)// need to correct end of day
-                    {
-                        Thread.Sleep(Convert.ToInt32((trip.startTime - timeNow).TotalMilliseconds / rate));
-                    }
-                    Thread driveThread = new Thread(new ParameterizedThreadStart(drive));
-                    driveThread.Name = String.Format("trip Number {0}", trip.TripId);
-                    threads.Add(driveThread);
+                    if (tr.startTime > timeNow || tr.ListOfStationTime.Last().timeAtStop < timeNow)//no need to start from the middle of the ride
+                    return
+                         new BO.TripAndStations
+                         {
+                             TripId = tr.TripId,
+                             Destination = tr.Destination,
+                             LineId = tr.LineId,
+                             ListOfStationTime = tr.ListOfStationTime.Take(tr.ListOfStationTime.FirstOrDefault(st => st.station == station).index),// stop trips after the selected station
+                         startTime = tr.startTime
+                         };
+                    else //driver should start from one of the middle stations
+                    return new BO.TripAndStations
+                        {
+                            TripId = tr.TripId,
+                            Destination = tr.Destination,
+                            LineId = tr.LineId,
+                            ListOfStationTime = tr.ListOfStationTime.
+                                                Take(tr.ListOfStationTime.FirstOrDefault(st => st.station == station).index)// stop trips after the selected station
+                                                .Where(t => t.timeAtStop > timeNow).ToList(),//driver should start from one of the middle stations
+                                                                                             //for using timeNow, Immediate Execution is needed
+                        startTime = tr.ListOfStationTime.FirstOrDefault(t => t.timeAtStop > timeNow).timeAtStop
+                        };
+                }).
+                Where(tr => tr.startTime > timeNow).ToList().// removes all trips which have finished completly
+                                                             //for using timeNow, Immediate Execution is needed
+                OrderBy(tr => tr.startTime);
+            while (isDriveRun)
+            {
+                foreach (BO.TripAndStations trip in timedList)
+                {
                     if (isDriveRun)
                     {
-                        driveThread.Start(trip);
+                        timeNow = bl.GetTime();
+                        if (trip.startTime > timeNow)// need to correct end of day
+                        {
+                            Thread.Sleep(Convert.ToInt32((trip.startTime - timeNow).TotalMilliseconds / rate));
+                        }
+                        Thread driveThread = new Thread(new ParameterizedThreadStart(drive));
+                        driveThread.Name = String.Format("trip Number {0}", trip.TripId);
+                        threads.Add(driveThread);
+                        if (isDriveRun)
+                        {
+                            driveThread.Start(trip);
+                        }
                     }
+                   
+
+
                 }
-
+                //sleep until tommorow zzzzzzz.....
+                fullTripList = tripList;
+                if (bl.GetDays()<=days)
+                {
+                    Thread.Sleep((Convert.ToInt32((TimeSpan.FromDays(1) - timeNow).TotalMilliseconds) / rate));
+                }
+                days++;                
             }
-
-
 
         }
 
@@ -100,7 +111,7 @@ namespace BL
                 if (isDriveRun)
                 {
                     station.timeAtStop = bl.GetTime();
-                    BO.LineTiming d = (new BO.LineTiming
+                    BO.LineTiming newTiming = (new BO.LineTiming
                     {
                         TripId = trip.TripId,
                         Code = station.station,
@@ -109,31 +120,33 @@ namespace BL
                         StartTime = trip.startTime,
                         TimeAtStop = station.timeAtStop
                     });
-                    UpdateTimingEventArgs args = new UpdateTimingEventArgs(new BO.LineTiming
-                    {
-                        TripId = trip.TripId,
-                        Code = station.station,
-                        Destination = trip.ListOfStationTime.Last().Name,
-                        LineId = trip.LineId,
-                        StartTime = trip.startTime,
-                        TimeAtStop = station.timeAtStop
-                    });
+                  
                     if (UpdatedTiming != null)
                     {
-
-                        UpdatedTiming(d);
+                        UpdatedTiming(newTiming); //bus arrived at the station
                     }
 
 
-                    for (int i = station.index; i < trip.ListOfStationTime.Count(); i++)
+                    for (int i = station.index; i < trip.ListOfStationTime.Count(); i++)  //update next stop timings
                     {
                         trip.ListOfStationTime.ElementAt(i).timeAtStop = trip.ListOfStationTime.ElementAt(i - 1).timeAtStop + trip.ListOfStationTime.ElementAt(i - 1).timeToNextStop;
                     }
-                    if (rand.Next(2) == 1)
-                        Thread.Sleep((Convert.ToInt32(station.timeToNextStop.TotalMilliseconds * rand.NextDouble() * 2)) / rate);
-                    else
-                        Thread.Sleep((Convert.ToInt32(station.timeToNextStop.TotalMilliseconds - station.timeToNextStop.TotalMilliseconds * rand.NextDouble() * 0.1)) / rate);
+                    
+                    try
+                    {
+
+                        if (rand.Next(2) == 1)
+                            Thread.Sleep((Convert.ToInt32(station.timeToNextStop.TotalMilliseconds * rand.NextDouble() * 2)) / rate);
+                        else
+                            Thread.Sleep((Convert.ToInt32(station.timeToNextStop.TotalMilliseconds - station.timeToNextStop.TotalMilliseconds * rand.NextDouble() * 0.1)) / rate);
+                    }
+                    catch (ThreadInterruptedException)// thread interrupted intentionally
+                    {
+                       
+                    }
+
                 }
+
             }
 
         }
@@ -143,13 +156,5 @@ namespace BL
 
 
     }
-    public class UpdateTimingEventArgs : EventArgs
-    {
-        public readonly BO.LineTiming NewValue;
-
-        public UpdateTimingEventArgs(BO.LineTiming newTemp)
-        {
-            NewValue = newTemp;
-        }
-    }
+   
 }

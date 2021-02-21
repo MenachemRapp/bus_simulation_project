@@ -91,7 +91,7 @@ namespace BLAPI
         void StopSimulator();
 
         TimeSpan GetTime();
-
+        int GetDays();
         int GetRate();
         #endregion
 
