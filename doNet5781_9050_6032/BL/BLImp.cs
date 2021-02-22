@@ -1141,7 +1141,7 @@ namespace BL
                 driver.UpdatedTiming += updateBus;
 
                 driver.isDriveRun = true;
-                IEnumerable<BO.TripAndStations> fullTripList = GetTripListByStation(station);
+                IEnumerable<BO.TripAndStations> fullTripList = GetTripListByStation(station).ToList();
                 driver.run(station, fullTripList);
 
 
