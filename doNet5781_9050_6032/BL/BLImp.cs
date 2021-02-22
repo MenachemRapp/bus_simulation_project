@@ -85,8 +85,7 @@ namespace BL
             }
         }
         #endregion
-
-       
+               
         #region Station
 
 
@@ -171,18 +170,7 @@ namespace BL
             return (from station in dl.GetAllStations()
                     select stationDoBoAdapter(station)).OrderBy(station => station.Code);
         }
-        /*
-                /// <summary>
-                /// 
-                /// </summary>
-                /// <param name="code"></param>
-                /// <returns></returns>
-                public IEnumerable<BO.Station> GetAllOtherStations(int code)
-                {
-                    return from station in dl.GetAllStationsBy(s => s.Code != code)
-                           select stationDoBoAdapter(station);
-                }
-        */
+     
 
         /// <summary>
         /// Delete a station
@@ -1124,7 +1112,7 @@ namespace BL
 
         #region simulation Driver
         /// <summary>
-        /// start driver and set station panel
+        /// start and stops driver and sets the station panel
         /// </summary>
         /// <param name="station"></param>
         /// <param name="updateBus"></param>

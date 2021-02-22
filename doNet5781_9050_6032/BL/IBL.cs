@@ -12,32 +12,68 @@ namespace BLAPI
         IEnumerable<BO.ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId);
 
         #region BasicLine
+        /// <summary>
+        /// gets a Line based on the line Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         BO.BasicLine GetLine(int id);
+
+        /// <summary>
+        /// get all lines
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<BO.BasicLine> GetAllLines();
 
+        /// <summary>
+        /// delete a line and all it's stations and trips
+        /// </summary>
+        /// <param name="id"></param>
         void DeleteLine(int id);
 
-     //   void UpdateLineArea(int lineId, BO.Areas area);
+
 
         #endregion
 
         #region Station
-
+        /// <summary>
+        /// Get a station by the code
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         BO.Station GetStation(int Code);
 
+        /// <summary>
+        /// Add a new station
+        /// </summary>
+        /// <param name="station"></param>
         void AddStation(BO.Station station);
 
+        /// <summary>
+        /// Update a station
+        /// </summary>
+        /// <param name="station"></param>
         void UpdateStation(BO.Station station);
+
+        /// <summary>
+        /// Get all Stations
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<BO.Station> GetAllStations();
 
-        //IEnumerable<BO.Station> GetAllOtherStations(int prevCode, int NextCode);
-       
-        // IEnumerable<BO.Station> GetAllOtherStations(int code);
-
+        /// <summary>
+        /// Delete a station
+        /// </summary>
+        /// <param name="code"></param>
         void DeleteStation(int code);
         #endregion
 
         #region StationWithLines
+        /// <summary>
+        /// Get a station with the list of Lines which go through it
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         BO.StationWithLines GetStationWithLines(int code);
         #endregion
 
@@ -111,6 +147,45 @@ namespace BLAPI
         IEnumerable<BO.TripAndStations> InitTripListFromNow(IEnumerable<BO.TripAndStations> tripList);
         #endregion
 
+        #region Line Timing
+        /// <summary>
+        /// Get all line timings for a station
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
+        IEnumerable<LineTiming> GetLineTimingsByStation(int station);
+
+        /// <summary>
+        /// Get a Line Timing list of the first trip of each line
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <returns></returns>
+        IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList);
+
+        /// <summary>
+        /// Get all line timings for a station from a list with all stations
+        /// </summary>
+        /// <param name="station"></param>
+        /// <param name="tripAndStations"></param>
+        /// <returns></returns>
+        IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations);
+
+        /// <summary>
+        /// returns last Line timing which has past 
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <returns></returns>
+        LineTiming LastLineTiming(IEnumerable<LineTiming> timingList);
+
+        /// <summary>
+        /// updates the property TimeFromNow based on the given current time
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <param name="curentTime"></param>
+        /// <returns></returns>
+        IEnumerable<LineTiming> UpdateTimeNow(IEnumerable<LineTiming> timingList, TimeSpan curentTime);
+        #endregion
+
         #region SimulationTimer
 
         /// <summary>
@@ -160,46 +235,14 @@ namespace BLAPI
         #endregion
 
         #region simulation Driver
+        /// <summary>
+        /// start and stops driver and sets the station panel
+        /// </summary>
+        /// <param name="station"></param>
+        /// <param name="updateBus"></param>
         void SetStationPanel(int station, Action<LineTiming> updateBus);
         #endregion
 
-        #region Line Timing
-        /// <summary>
-        /// Get all line timings for a station
-        /// </summary>
-        /// <param name="station"></param>
-        /// <returns></returns>
-        IEnumerable<LineTiming> GetLineTimingsByStation(int station);
-
-        /// <summary>
-        /// Get a Line Timing list of the first trip of each line
-        /// </summary>
-        /// <param name="timingList"></param>
-        /// <returns></returns>
-        IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList);
-
-        /// <summary>
-        /// Get all line timings for a station from a list with all stations
-        /// </summary>
-        /// <param name="station"></param>
-        /// <param name="tripAndStations"></param>
-        /// <returns></returns>
-        IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations);
-
-        /// <summary>
-        /// returns last Line timing which has past 
-        /// </summary>
-        /// <param name="timingList"></param>
-        /// <returns></returns>
-        LineTiming LastLineTiming(IEnumerable<LineTiming> timingList);
-
-        /// <summary>
-        /// updates the property TimeFromNow based on the given current time
-        /// </summary>
-        /// <param name="timingList"></param>
-        /// <param name="curentTime"></param>
-        /// <returns></returns>
-        IEnumerable<LineTiming> UpdateTimeNow(IEnumerable<LineTiming> timingList, TimeSpan curentTime);
-        #endregion
+        
     }
 }
