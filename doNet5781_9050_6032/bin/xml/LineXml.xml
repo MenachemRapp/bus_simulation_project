@@ -49,4 +49,11 @@
     <FirstStation>1089</FirstStation>
     <LastStation>1091</LastStation>
   </Line>
+  <Line>
+    <Id>4</Id>
+    <Code>357</Code>
+    <Area>General</Area>
+    <FirstStation>1090</FirstStation>
+    <LastStation>55658</LastStation>
+  </Line>
 </ArrayOfLine>

@@ -90,4 +90,54 @@
     <LineId>7</LineId>
     <StartAt>00:30:00</StartAt>
   </Linetrip>
+  <Linetrip>
+    <Id>19</Id>
+    <LineId>4</LineId>
+    <StartAt>05:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>20</Id>
+    <LineId>4</LineId>
+    <StartAt>06:45:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>21</Id>
+    <LineId>4</LineId>
+    <StartAt>07:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>22</Id>
+    <LineId>4</LineId>
+    <StartAt>13:05:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>23</Id>
+    <LineId>4</LineId>
+    <StartAt>13:45:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>24</Id>
+    <LineId>4</LineId>
+    <StartAt>16:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>25</Id>
+    <LineId>4</LineId>
+    <StartAt>16:30:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>26</Id>
+    <LineId>4</LineId>
+    <StartAt>17:50:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>27</Id>
+    <LineId>4</LineId>
+    <StartAt>20:15:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>28</Id>
+    <LineId>4</LineId>
+    <StartAt>21:00:00</StartAt>
+  </Linetrip>
 </ArrayOfLineTrip>

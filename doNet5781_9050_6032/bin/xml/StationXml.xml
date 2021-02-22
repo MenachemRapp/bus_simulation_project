@@ -1,742 +1,10 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Code>422345</Code>
-    <Name>red</Name>
-    <Longitude>34</Longitude>
-    <Latitude>43</Latitude>
-  </Station>
-  <Station>
-    <Code>157894</Code>
-    <Name>main road</Name>
-    <Longitude>32</Longitude>
-    <Latitude>34.7</Latitude>
-  </Station>
-  <Station>
-    <Code>248965</Code>
-    <Name>green</Name>
-    <Longitude>24</Longitude>
-    <Latitude>31.4</Latitude>
-  </Station>
-  <Station>
-    <Code>598763</Code>
-    <Name>bridge 4</Name>
-    <Longitude>25</Longitude>
-    <Latitude>24.9</Latitude>
-  </Station>
-  <Station>
-    <Code>432</Code>
-    <Name>fifth street 72</Name>
-    <Longitude>342</Longitude>
-    <Latitude>33</Latitude>
-  </Station>
-  <Station>
-    <Code>579564</Code>
-    <Name>Yafo 30</Name>
-    <Longitude>24.3</Longitude>
-    <Latitude>27.4</Latitude>
-  </Station>
-  <Station>
-    <Code>811835</Code>
-    <Name>New Station</Name>
-    <Longitude>35.19</Longitude>
-    <Latitude>32.3</Latitude>
-  </Station>
-  <Station>
-    <Code>900997</Code>
-    <Name>New Station</Name>
-    <Longitude>35.49</Longitude>
-    <Latitude>33.11</Latitude>
-  </Station>
-  <Station>
-    <Code>305431</Code>
-    <Name>New Station</Name>
-    <Longitude>34.44</Longitude>
-    <Latitude>33.21</Latitude>
-  </Station>
-  <Station>
-    <Code>555716</Code>
-    <Name>New Station</Name>
-    <Longitude>34.68</Longitude>
-    <Latitude>31.15</Latitude>
-  </Station>
-  <Station>
-    <Code>411144</Code>
-    <Name>New Station</Name>
-    <Longitude>34.36</Longitude>
-    <Latitude>32.06</Latitude>
-  </Station>
-  <Station>
-    <Code>72389</Code>
-    <Name>New Station</Name>
-    <Longitude>34.31</Longitude>
-    <Latitude>33.06</Latitude>
-  </Station>
-  <Station>
-    <Code>491099</Code>
-    <Name>New Station</Name>
-    <Longitude>34.81</Longitude>
-    <Latitude>31.37</Latitude>
-  </Station>
-  <Station>
-    <Code>357056</Code>
-    <Name>New Station</Name>
-    <Longitude>34.84</Longitude>
-    <Latitude>32.9</Latitude>
-  </Station>
-  <Station>
-    <Code>813912</Code>
-    <Name>New Station</Name>
-    <Longitude>34.95</Longitude>
-    <Latitude>32.08</Latitude>
-  </Station>
-  <Station>
-    <Code>315151</Code>
-    <Name>New Station</Name>
-    <Longitude>34.92</Longitude>
-    <Latitude>32.85</Latitude>
-  </Station>
-  <Station>
-    <Code>765654</Code>
-    <Name>New Station</Name>
-    <Longitude>34.93</Longitude>
-    <Latitude>32.78</Latitude>
-  </Station>
-  <Station>
-    <Code>412626</Code>
-    <Name>New Station</Name>
-    <Longitude>34.69</Longitude>
-    <Latitude>33.03</Latitude>
-  </Station>
-  <Station>
-    <Code>733161</Code>
-    <Name>New Station</Name>
-    <Longitude>34.33</Longitude>
-    <Latitude>31.84</Latitude>
-  </Station>
-  <Station>
-    <Code>580594</Code>
-    <Name>New Station</Name>
-    <Longitude>34.36</Longitude>
-    <Latitude>32.85</Latitude>
-  </Station>
-  <Station>
-    <Code>760912</Code>
-    <Name>New Station</Name>
-    <Longitude>35.41</Longitude>
-    <Latitude>31.77</Latitude>
-  </Station>
-  <Station>
-    <Code>43952</Code>
-    <Name>New Station</Name>
-    <Longitude>34.39</Longitude>
-    <Latitude>31.36</Latitude>
-  </Station>
-  <Station>
-    <Code>955541</Code>
-    <Name>New Station</Name>
-    <Longitude>35.16</Longitude>
-    <Latitude>31.18</Latitude>
-  </Station>
-  <Station>
-    <Code>354528</Code>
-    <Name>New Station</Name>
-    <Longitude>34.85</Longitude>
-    <Latitude>31.67</Latitude>
-  </Station>
-  <Station>
-    <Code>736664</Code>
-    <Name>New Station</Name>
-    <Longitude>34.4</Longitude>
-    <Latitude>32.04</Latitude>
-  </Station>
-  <Station>
-    <Code>422272</Code>
-    <Name>New Station</Name>
-    <Longitude>34.71</Longitude>
-    <Latitude>31.72</Latitude>
-  </Station>
-  <Station>
-    <Code>772664</Code>
-    <Name>New Station</Name>
-    <Longitude>35.36</Longitude>
-    <Latitude>32.22</Latitude>
-  </Station>
-  <Station>
-    <Code>712427</Code>
-    <Name>New Station</Name>
-    <Longitude>35.34</Longitude>
-    <Latitude>31.92</Latitude>
-  </Station>
-  <Station>
-    <Code>936482</Code>
-    <Name>New Station</Name>
-    <Longitude>34.81</Longitude>
-    <Latitude>32.77</Latitude>
-  </Station>
-  <Station>
-    <Code>245227</Code>
-    <Name>New Station</Name>
-    <Longitude>35.04</Longitude>
-    <Latitude>32.78</Latitude>
-  </Station>
-  <Station>
-    <Code>658673</Code>
-    <Name>New Station</Name>
-    <Longitude>35.06</Longitude>
-    <Latitude>32.09</Latitude>
-  </Station>
-  <Station>
-    <Code>553058</Code>
-    <Name>New Station</Name>
-    <Longitude>35.1</Longitude>
-    <Latitude>32.3</Latitude>
-  </Station>
-  <Station>
-    <Code>163572</Code>
-    <Name>New Station</Name>
-    <Longitude>35.4</Longitude>
-    <Latitude>32.76</Latitude>
-  </Station>
-  <Station>
-    <Code>593392</Code>
-    <Name>New Station</Name>
-    <Longitude>35.37</Longitude>
-    <Latitude>31.72</Latitude>
-  </Station>
-  <Station>
-    <Code>958269</Code>
-    <Name>New Station</Name>
-    <Longitude>34.73</Longitude>
-    <Latitude>32</Latitude>
-  </Station>
-  <Station>
-    <Code>356481</Code>
-    <Name>New Station</Name>
-    <Longitude>34.7</Longitude>
-    <Latitude>32.77</Latitude>
-  </Station>
-  <Station>
-    <Code>431117</Code>
-    <Name>New Station</Name>
-    <Longitude>34.88</Longitude>
-    <Latitude>32.93</Latitude>
-  </Station>
-  <Station>
-    <Code>179436</Code>
-    <Name>New Station</Name>
-    <Longitude>34.9</Longitude>
-    <Latitude>31.65</Latitude>
-  </Station>
-  <Station>
-    <Code>444218</Code>
-    <Name>New Station</Name>
-    <Longitude>34.32</Longitude>
-    <Latitude>32.9</Latitude>
-  </Station>
-  <Station>
-    <Code>477308</Code>
-    <Name>New Station</Name>
-    <Longitude>35.2</Longitude>
-    <Latitude>32</Latitude>
-  </Station>
-  <Station>
-    <Code>961026</Code>
-    <Name>New Station</Name>
-    <Longitude>35.25</Longitude>
-    <Latitude>33.12</Latitude>
-  </Station>
-  <Station>
-    <Code>196641</Code>
-    <Name>New Station</Name>
-    <Longitude>34.56</Longitude>
-    <Latitude>31.54</Latitude>
-  </Station>
-  <Station>
-    <Code>53247</Code>
-    <Name>New Station</Name>
-    <Longitude>34.61</Longitude>
-    <Latitude>31.98</Latitude>
-  </Station>
-  <Station>
-    <Code>544493</Code>
-    <Name>New Station</Name>
-    <Longitude>34.52</Longitude>
-    <Latitude>33.27</Latitude>
-  </Station>
-  <Station>
-    <Code>214608</Code>
-    <Name>New Station</Name>
-    <Longitude>35.07</Longitude>
-    <Latitude>31.38</Latitude>
-  </Station>
-  <Station>
-    <Code>759144</Code>
-    <Name>New Station</Name>
-    <Longitude>35.47</Longitude>
-    <Latitude>31.14</Latitude>
-  </Station>
-  <Station>
-    <Code>332124</Code>
-    <Name>New Station</Name>
-    <Longitude>35.37</Longitude>
-    <Latitude>31.64</Latitude>
-  </Station>
-  <Station>
     <Code>4185</Code>
     <Name>New Station</Name>
     <Longitude>34.57</Longitude>
     <Latitude>31.35</Latitude>
-  </Station>
-  <Station>
-    <Code>634048</Code>
-    <Name>New Station</Name>
-    <Longitude>34.75</Longitude>
-    <Latitude>31.38</Latitude>
-  </Station>
-  <Station>
-    <Code>282797</Code>
-    <Name>New Station</Name>
-    <Longitude>35.16</Longitude>
-    <Latitude>33.07</Latitude>
-  </Station>
-  <Station>
-    <Code>941441</Code>
-    <Name>New Station</Name>
-    <Longitude>34.44</Longitude>
-    <Latitude>31.33</Latitude>
-  </Station>
-  <Station>
-    <Code>877972</Code>
-    <Name>New Station</Name>
-    <Longitude>34.43</Longitude>
-    <Latitude>33.1</Latitude>
-  </Station>
-  <Station>
-    <Code>722812</Code>
-    <Name>New Station</Name>
-    <Longitude>35.21</Longitude>
-    <Latitude>31.33</Latitude>
-  </Station>
-  <Station>
-    <Code>202055</Code>
-    <Name>New Station</Name>
-    <Longitude>34.66</Longitude>
-    <Latitude>31.17</Latitude>
-  </Station>
-  <Station>
-    <Code>344340</Code>
-    <Name>New Station</Name>
-    <Longitude>35.36</Longitude>
-    <Latitude>31.7</Latitude>
-  </Station>
-  <Station>
-    <Code>852483</Code>
-    <Name>New Station</Name>
-    <Longitude>35.46</Longitude>
-    <Latitude>32.97</Latitude>
-  </Station>
-  <Station>
-    <Code>118127</Code>
-    <Name>New Station</Name>
-    <Longitude>35.12</Longitude>
-    <Latitude>31.09</Latitude>
-  </Station>
-  <Station>
-    <Code>762235</Code>
-    <Name>New Station</Name>
-    <Longitude>34.47</Longitude>
-    <Latitude>32.99</Latitude>
-  </Station>
-  <Station>
-    <Code>156063</Code>
-    <Name>New Station</Name>
-    <Longitude>35.45</Longitude>
-    <Latitude>32.3</Latitude>
-  </Station>
-  <Station>
-    <Code>767761</Code>
-    <Name>New Station</Name>
-    <Longitude>34.98</Longitude>
-    <Latitude>32.94</Latitude>
-  </Station>
-  <Station>
-    <Code>69871</Code>
-    <Name>New Station</Name>
-    <Longitude>35.22</Longitude>
-    <Latitude>32.24</Latitude>
-  </Station>
-  <Station>
-    <Code>524411</Code>
-    <Name>New Station</Name>
-    <Longitude>35.02</Longitude>
-    <Latitude>31.15</Latitude>
-  </Station>
-  <Station>
-    <Code>847251</Code>
-    <Name>New Station</Name>
-    <Longitude>34.7</Longitude>
-    <Latitude>32.24</Latitude>
-  </Station>
-  <Station>
-    <Code>252518</Code>
-    <Name>New Station</Name>
-    <Longitude>34.34</Longitude>
-    <Latitude>31.5</Latitude>
-  </Station>
-  <Station>
-    <Code>920382</Code>
-    <Name>New Station</Name>
-    <Longitude>34.46</Longitude>
-    <Latitude>32.35</Latitude>
-  </Station>
-  <Station>
-    <Code>204914</Code>
-    <Name>New Station</Name>
-    <Longitude>35.09</Longitude>
-    <Latitude>31.78</Latitude>
-  </Station>
-  <Station>
-    <Code>309219</Code>
-    <Name>New Station</Name>
-    <Longitude>34.5</Longitude>
-    <Latitude>31.08</Latitude>
-  </Station>
-  <Station>
-    <Code>863170</Code>
-    <Name>New Station</Name>
-    <Longitude>34.52</Longitude>
-    <Latitude>33.23</Latitude>
-  </Station>
-  <Station>
-    <Code>276755</Code>
-    <Name>New Station</Name>
-    <Longitude>35.17</Longitude>
-    <Latitude>31.35</Latitude>
-  </Station>
-  <Station>
-    <Code>347802</Code>
-    <Name>New Station</Name>
-    <Longitude>35.45</Longitude>
-    <Latitude>31.46</Latitude>
-  </Station>
-  <Station>
-    <Code>299796</Code>
-    <Name>New Station</Name>
-    <Longitude>34.46</Longitude>
-    <Latitude>32.23</Latitude>
-  </Station>
-  <Station>
-    <Code>536020</Code>
-    <Name>New Station</Name>
-    <Longitude>35.28</Longitude>
-    <Latitude>31.65</Latitude>
-  </Station>
-  <Station>
-    <Code>239243</Code>
-    <Name>New Station</Name>
-    <Longitude>34.31</Longitude>
-    <Latitude>32.44</Latitude>
-  </Station>
-  <Station>
-    <Code>318141</Code>
-    <Name>New Station</Name>
-    <Longitude>35.34</Longitude>
-    <Latitude>32.49</Latitude>
-  </Station>
-  <Station>
-    <Code>279121</Code>
-    <Name>New Station</Name>
-    <Longitude>35.44</Longitude>
-    <Latitude>31.68</Latitude>
-  </Station>
-  <Station>
-    <Code>223845</Code>
-    <Name>New Station</Name>
-    <Longitude>35.4</Longitude>
-    <Latitude>32.8</Latitude>
-  </Station>
-  <Station>
-    <Code>433826</Code>
-    <Name>New Station</Name>
-    <Longitude>35.21</Longitude>
-    <Latitude>32.39</Latitude>
-  </Station>
-  <Station>
-    <Code>505065</Code>
-    <Name>New Station</Name>
-    <Longitude>35.09</Longitude>
-    <Latitude>31.97</Latitude>
-  </Station>
-  <Station>
-    <Code>92289</Code>
-    <Name>New Station</Name>
-    <Longitude>34.98</Longitude>
-    <Latitude>32.41</Latitude>
-  </Station>
-  <Station>
-    <Code>387197</Code>
-    <Name>New Station</Name>
-    <Longitude>35.39</Longitude>
-    <Latitude>31.19</Latitude>
-  </Station>
-  <Station>
-    <Code>52727</Code>
-    <Name>New Station</Name>
-    <Longitude>35.1</Longitude>
-    <Latitude>32.93</Latitude>
-  </Station>
-  <Station>
-    <Code>780598</Code>
-    <Name>New Station</Name>
-    <Longitude>35.49</Longitude>
-    <Latitude>31.69</Latitude>
-  </Station>
-  <Station>
-    <Code>385538</Code>
-    <Name>New Station</Name>
-    <Longitude>34.35</Longitude>
-    <Latitude>31.78</Latitude>
-  </Station>
-  <Station>
-    <Code>955781</Code>
-    <Name>New Station</Name>
-    <Longitude>35.5</Longitude>
-    <Latitude>32.77</Latitude>
-  </Station>
-  <Station>
-    <Code>853175</Code>
-    <Name>New Station</Name>
-    <Longitude>34.45</Longitude>
-    <Latitude>31.08</Latitude>
-  </Station>
-  <Station>
-    <Code>418007</Code>
-    <Name>New Station</Name>
-    <Longitude>35.34</Longitude>
-    <Latitude>31.85</Latitude>
-  </Station>
-  <Station>
-    <Code>927002</Code>
-    <Name>New Station</Name>
-    <Longitude>34.34</Longitude>
-    <Latitude>31.36</Latitude>
-  </Station>
-  <Station>
-    <Code>859727</Code>
-    <Name>New Station</Name>
-    <Longitude>34.48</Longitude>
-    <Latitude>32</Latitude>
-  </Station>
-  <Station>
-    <Code>13468</Code>
-    <Name>New Station</Name>
-    <Longitude>35.42</Longitude>
-    <Latitude>33.21</Latitude>
-  </Station>
-  <Station>
-    <Code>567459</Code>
-    <Name>New Station</Name>
-    <Longitude>35.27</Longitude>
-    <Latitude>31.51</Latitude>
-  </Station>
-  <Station>
-    <Code>457079</Code>
-    <Name>New Station</Name>
-    <Longitude>34.5</Longitude>
-    <Latitude>31.71</Latitude>
-  </Station>
-  <Station>
-    <Code>306719</Code>
-    <Name>New Station</Name>
-    <Longitude>34.44</Longitude>
-    <Latitude>32.43</Latitude>
-  </Station>
-  <Station>
-    <Code>86491</Code>
-    <Name>New Station</Name>
-    <Longitude>34.46</Longitude>
-    <Latitude>32.32</Latitude>
-  </Station>
-  <Station>
-    <Code>843963</Code>
-    <Name>New Station</Name>
-    <Longitude>34.94</Longitude>
-    <Latitude>32.8</Latitude>
-  </Station>
-  <Station>
-    <Code>44555</Code>
-    <Name>New Station</Name>
-    <Longitude>35.02</Longitude>
-    <Latitude>32.74</Latitude>
-  </Station>
-  <Station>
-    <Code>626351</Code>
-    <Name>New Station</Name>
-    <Longitude>34.45</Longitude>
-    <Latitude>32.47</Latitude>
-  </Station>
-  <Station>
-    <Code>681228</Code>
-    <Name>New Station</Name>
-    <Longitude>34.54</Longitude>
-    <Latitude>32.07</Latitude>
-  </Station>
-  <Station>
-    <Code>341597</Code>
-    <Name>New Station</Name>
-    <Longitude>35.22</Longitude>
-    <Latitude>31.14</Latitude>
-  </Station>
-  <Station>
-    <Code>338166</Code>
-    <Name>New Station</Name>
-    <Longitude>35.28</Longitude>
-    <Latitude>31.54</Latitude>
-  </Station>
-  <Station>
-    <Code>116086</Code>
-    <Name>New Station</Name>
-    <Longitude>35.43</Longitude>
-    <Latitude>32.77</Latitude>
-  </Station>
-  <Station>
-    <Code>488504</Code>
-    <Name>New Station</Name>
-    <Longitude>34.78</Longitude>
-    <Latitude>33.2</Latitude>
-  </Station>
-  <Station>
-    <Code>728594</Code>
-    <Name>New Station</Name>
-    <Longitude>34.8</Longitude>
-    <Latitude>31.49</Latitude>
-  </Station>
-  <Station>
-    <Code>601957</Code>
-    <Name>New Station</Name>
-    <Longitude>35.04</Longitude>
-    <Latitude>33.1</Latitude>
-  </Station>
-  <Station>
-    <Code>538306</Code>
-    <Name>New Station</Name>
-    <Longitude>35.23</Longitude>
-    <Latitude>31.02</Latitude>
-  </Station>
-  <Station>
-    <Code>861871</Code>
-    <Name>New Station</Name>
-    <Longitude>34.5</Longitude>
-    <Latitude>31.91</Latitude>
-  </Station>
-  <Station>
-    <Code>180135</Code>
-    <Name>New Station</Name>
-    <Longitude>34.93</Longitude>
-    <Latitude>31.47</Latitude>
-  </Station>
-  <Station>
-    <Code>466650</Code>
-    <Name>New Station</Name>
-    <Longitude>34.77</Longitude>
-    <Latitude>31.23</Latitude>
-  </Station>
-  <Station>
-    <Code>644317</Code>
-    <Name>New Station</Name>
-    <Longitude>35.23</Longitude>
-    <Latitude>33.23</Latitude>
-  </Station>
-  <Station>
-    <Code>844888</Code>
-    <Name>New Station</Name>
-    <Longitude>35.1</Longitude>
-    <Latitude>33.04</Latitude>
-  </Station>
-  <Station>
-    <Code>709439</Code>
-    <Name>New Station</Name>
-    <Longitude>35.46</Longitude>
-    <Latitude>31.69</Latitude>
-  </Station>
-  <Station>
-    <Code>384284</Code>
-    <Name>New Station</Name>
-    <Longitude>35.46</Longitude>
-    <Latitude>31.46</Latitude>
-  </Station>
-  <Station>
-    <Code>801621</Code>
-    <Name>New Station</Name>
-    <Longitude>34.73</Longitude>
-    <Latitude>31.32</Latitude>
-  </Station>
-  <Station>
-    <Code>823287</Code>
-    <Name>New Station</Name>
-    <Longitude>34.68</Longitude>
-    <Latitude>31.43</Latitude>
-  </Station>
-  <Station>
-    <Code>541873</Code>
-    <Name>New Station</Name>
-    <Longitude>34.33</Longitude>
-    <Latitude>32.16</Latitude>
-  </Station>
-  <Station>
-    <Code>726509</Code>
-    <Name>New Station</Name>
-    <Longitude>34.47</Longitude>
-    <Latitude>31.98</Latitude>
-  </Station>
-  <Station>
-    <Code>452793</Code>
-    <Name>New Station</Name>
-    <Longitude>34.88</Longitude>
-    <Latitude>32.37</Latitude>
-  </Station>
-  <Station>
-    <Code>663212</Code>
-    <Name>New Station</Name>
-    <Longitude>34.49</Longitude>
-    <Latitude>31.68</Latitude>
-  </Station>
-  <Station>
-    <Code>30870</Code>
-    <Name>New Station</Name>
-    <Longitude>35.08</Longitude>
-    <Latitude>32.26</Latitude>
-  </Station>
-  <Station>
-    <Code>670570</Code>
-    <Name>New Station</Name>
-    <Longitude>35.31</Longitude>
-    <Latitude>32.43</Latitude>
-  </Station>
-  <Station>
-    <Code>988613</Code>
-    <Name>New Station</Name>
-    <Longitude>35.36</Longitude>
-    <Latitude>32.73</Latitude>
-  </Station>
-  <Station>
-    <Code>326644</Code>
-    <Name>New Station</Name>
-    <Longitude>35.37</Longitude>
-    <Latitude>32.5</Latitude>
-  </Station>
-  <Station>
-    <Code>609978</Code>
-    <Name>New Station</Name>
-    <Longitude>34.48</Longitude>
-    <Latitude>32.85</Latitude>
-  </Station>
-  <Station>
-    <Code>812489</Code>
-    <Name>New Station</Name>
-    <Longitude>34.37</Longitude>
-    <Latitude>32.87</Latitude>
   </Station>
   <Station>
     <Code>18999</Code>
@@ -745,208 +13,16 @@
     <Latitude>31.84</Latitude>
   </Station>
   <Station>
-    <Code>595227</Code>
-    <Name>New Station</Name>
-    <Longitude>35.4</Longitude>
-    <Latitude>32.46</Latitude>
-  </Station>
-  <Station>
-    <Code>544459</Code>
-    <Name>New Station</Name>
-    <Longitude>34.77</Longitude>
-    <Latitude>31.42</Latitude>
-  </Station>
-  <Station>
-    <Code>288471</Code>
-    <Name>New Station</Name>
-    <Longitude>34.36</Longitude>
-    <Latitude>32.86</Latitude>
-  </Station>
-  <Station>
     <Code>6274</Code>
     <Name>New Station</Name>
     <Longitude>34.72</Longitude>
     <Latitude>31.74</Latitude>
   </Station>
   <Station>
-    <Code>650284</Code>
-    <Name>New Station</Name>
-    <Longitude>34.46</Longitude>
-    <Latitude>32.18</Latitude>
-  </Station>
-  <Station>
-    <Code>517680</Code>
-    <Name>New Station</Name>
-    <Longitude>35.3</Longitude>
-    <Latitude>31.99</Latitude>
-  </Station>
-  <Station>
-    <Code>436007</Code>
-    <Name>New Station</Name>
-    <Longitude>34.56</Longitude>
-    <Latitude>31.3</Latitude>
-  </Station>
-  <Station>
-    <Code>853710</Code>
-    <Name>New Station</Name>
-    <Longitude>34.44</Longitude>
-    <Latitude>33.27</Latitude>
-  </Station>
-  <Station>
-    <Code>621563</Code>
-    <Name>New Station</Name>
-    <Longitude>35.07</Longitude>
-    <Latitude>31.96</Latitude>
-  </Station>
-  <Station>
-    <Code>783579</Code>
-    <Name>New Station</Name>
-    <Longitude>34.79</Longitude>
-    <Latitude>32.84</Latitude>
-  </Station>
-  <Station>
-    <Code>88228</Code>
-    <Name>New Station</Name>
-    <Longitude>34.31</Longitude>
-    <Latitude>32.67</Latitude>
-  </Station>
-  <Station>
-    <Code>181183</Code>
-    <Name>New Station</Name>
-    <Longitude>34.39</Longitude>
-    <Latitude>33.13</Latitude>
-  </Station>
-  <Station>
-    <Code>987315</Code>
-    <Name>New Station</Name>
-    <Longitude>34.83</Longitude>
-    <Latitude>32.13</Latitude>
-  </Station>
-  <Station>
-    <Code>566845</Code>
-    <Name>New Station</Name>
-    <Longitude>34.35</Longitude>
-    <Latitude>32.95</Latitude>
-  </Station>
-  <Station>
-    <Code>841207</Code>
-    <Name>New Station</Name>
-    <Longitude>35.02</Longitude>
-    <Latitude>32.84</Latitude>
-  </Station>
-  <Station>
-    <Code>481860</Code>
-    <Name>New Station</Name>
-    <Longitude>34.49</Longitude>
-    <Latitude>33.14</Latitude>
-  </Station>
-  <Station>
-    <Code>302772</Code>
-    <Name>New Station</Name>
-    <Longitude>35.19</Longitude>
-    <Latitude>32.2</Latitude>
-  </Station>
-  <Station>
-    <Code>774690</Code>
-    <Name>New Station</Name>
-    <Longitude>35</Longitude>
-    <Latitude>32.63</Latitude>
-  </Station>
-  <Station>
-    <Code>234611</Code>
-    <Name>New Station</Name>
-    <Longitude>35.19</Longitude>
-    <Latitude>32.84</Latitude>
-  </Station>
-  <Station>
-    <Code>644027</Code>
-    <Name>New Station</Name>
-    <Longitude>35.41</Longitude>
-    <Latitude>32.73</Latitude>
-  </Station>
-  <Station>
-    <Code>763895</Code>
-    <Name>New Station</Name>
-    <Longitude>34.91</Longitude>
-    <Latitude>32.48</Latitude>
-  </Station>
-  <Station>
     <Code>9337</Code>
     <Name>New Station</Name>
     <Longitude>35.4</Longitude>
     <Latitude>31.79</Latitude>
-  </Station>
-  <Station>
-    <Code>596311</Code>
-    <Name>New Station</Name>
-    <Longitude>34.86</Longitude>
-    <Latitude>31.13</Latitude>
-  </Station>
-  <Station>
-    <Code>584892</Code>
-    <Name>New Station</Name>
-    <Longitude>34.94</Longitude>
-    <Latitude>31.9</Latitude>
-  </Station>
-  <Station>
-    <Code>940642</Code>
-    <Name>New Station</Name>
-    <Longitude>35.34</Longitude>
-    <Latitude>31.41</Latitude>
-  </Station>
-  <Station>
-    <Code>285584</Code>
-    <Name>New Station</Name>
-    <Longitude>34.32</Longitude>
-    <Latitude>32.18</Latitude>
-  </Station>
-  <Station>
-    <Code>188291</Code>
-    <Name>New Station</Name>
-    <Longitude>34.47</Longitude>
-    <Latitude>32.1</Latitude>
-  </Station>
-  <Station>
-    <Code>490275</Code>
-    <Name>New Station</Name>
-    <Longitude>34.88</Longitude>
-    <Latitude>32.52</Latitude>
-  </Station>
-  <Station>
-    <Code>279010</Code>
-    <Name>New Station</Name>
-    <Longitude>34.68</Longitude>
-    <Latitude>31.99</Latitude>
-  </Station>
-  <Station>
-    <Code>15110</Code>
-    <Name>New Station</Name>
-    <Longitude>35.44</Longitude>
-    <Latitude>31.77</Latitude>
-  </Station>
-  <Station>
-    <Code>125101</Code>
-    <Name>New Station</Name>
-    <Longitude>34.71</Longitude>
-    <Latitude>32.2</Latitude>
-  </Station>
-  <Station>
-    <Code>739817</Code>
-    <Name>New Station</Name>
-    <Longitude>35.26</Longitude>
-    <Latitude>32.23</Latitude>
-  </Station>
-  <Station>
-    <Code>204280</Code>
-    <Name>New Station</Name>
-    <Longitude>35.3</Longitude>
-    <Latitude>32.58</Latitude>
-  </Station>
-  <Station>
-    <Code>17231</Code>
-    <Name>Yafo 34</Name>
-    <Longitude>34.57</Longitude>
-    <Latitude>31.65</Latitude>
   </Station>
   <Station>
     <Code>20211</Code>
@@ -1837,12 +913,6 @@
     <Latitude>31.251397</Latitude>
   </Station>
   <Station>
-    <Code>11974</Code>
-    <Name>שכונה 23</Name>
-    <Longitude>35.074755</Longitude>
-    <Latitude>31.251106</Latitude>
-  </Station>
-  <Station>
     <Code>11971</Code>
     <Name>שכונה 23</Name>
     <Longitude>35.074791</Longitude>
@@ -1931,5 +1001,83 @@
     <Name>המלאכה</Name>
     <Longitude>35.15</Longitude>
     <Latitude>32.48</Latitude>
+  </Station>
+  <Station>
+    <Code>843963</Code>
+    <Name>הירמוך 17</Name>
+    <Longitude>34.94</Longitude>
+    <Latitude>32.8</Latitude>
+  </Station>
+  <Station>
+    <Code>736664</Code>
+    <Name>התירוש 72</Name>
+    <Longitude>34.4</Longitude>
+    <Latitude>32.04</Latitude>
+  </Station>
+  <Station>
+    <Code>722812</Code>
+    <Name>היציאה מהעיר</Name>
+    <Longitude>35.21</Longitude>
+    <Latitude>31.33</Latitude>
+  </Station>
+  <Station>
+    <Code>598763</Code>
+    <Name>הגשר 4</Name>
+    <Longitude>25</Longitude>
+    <Latitude>24.9</Latitude>
+  </Station>
+  <Station>
+    <Code>579564</Code>
+    <Name>יפו 30</Name>
+    <Longitude>24.3</Longitude>
+    <Latitude>27.4</Latitude>
+  </Station>
+  <Station>
+    <Code>422345</Code>
+    <Name>האומן 12</Name>
+    <Longitude>34</Longitude>
+    <Latitude>43</Latitude>
+  </Station>
+  <Station>
+    <Code>248965</Code>
+    <Name>הירקון 7</Name>
+    <Longitude>24</Longitude>
+    <Latitude>31.4</Latitude>
+  </Station>
+  <Station>
+    <Code>157894</Code>
+    <Name>פאתי העיר</Name>
+    <Longitude>32</Longitude>
+    <Latitude>34.7</Latitude>
+  </Station>
+  <Station>
+    <Code>52727</Code>
+    <Name>מבוא הישיבה</Name>
+    <Longitude>35.1</Longitude>
+    <Latitude>32.93</Latitude>
+  </Station>
+  <Station>
+    <Code>44555</Code>
+    <Name>יפו 58</Name>
+    <Longitude>35.02</Longitude>
+    <Latitude>32.74</Latitude>
+  </Station>
+  <Station>
+    <Code>17231</Code>
+    <Name>מחלף לטרון</Name>
+    <Longitude>34.57</Longitude>
+    <Latitude>31.65</Latitude>
+  </Station>
+  <Station>
+    <Code>11974</Code>
+    <Name>שכונה 27</Name>
+    <Longitude>35.074755</Longitude>
+    <Latitude>31.251106</Latitude>
+  </Station>
+  <Station>
+    <Code>432</Code>
+    <Name>הרחוב החמישי</Name>
+    <Longitude>342</Longitude>
+    <Latitude>33</Latitude>
   </Station>
 </ArrayOfStation>
