@@ -83,10 +83,7 @@ namespace DL
                 throw new BadStationCodeException(station.Code, "Bad Station Code");
         }
 
-        public void UpdateStation(int Code, Action<Station> update)
-        {
-            ((IDL)instance).UpdateStation(Code, update);
-        }
+       
 
         #endregion
               
@@ -103,13 +100,7 @@ namespace DL
                 throw new BadAdjacentStationsException(Adjacent_Stations.Station1, Adjacent_Stations.Station2, "Duplicate adjacent stastion");
         }
 
-        public void DeleteAdjacentStations(int CodeStation1, int CodeStation2)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
+      
         public AdjacentStations GetAdjacentStations(int CodeStation1, int CodeStation2)
         {
             DO.AdjacentStations stations = DataSource.ListAdjacentStations.Find(sta => sta.Station1 == CodeStation1 && sta.Station2 == CodeStation2);
@@ -119,17 +110,7 @@ namespace DL
                 throw new BadAdjacentStationsException(CodeStation1, CodeStation2);
         }
 
-        public IEnumerable<AdjacentStations> GetAllAdjacentStationss()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<AdjacentStations> GetAllAdjacentStationssBy(Predicate<AdjacentStations> predicate)
-        {
-            return ((IDL)instance).GetAllAdjacentStationssBy(predicate);
-        }
-
-
+             
 
         public void UpdateAdjacentStations(AdjacentStations Adjacent_Stations)
         {
@@ -143,12 +124,7 @@ namespace DL
                 throw new BadAdjacentStationsException(Adjacent_Stations.Station1, Adjacent_Stations.Station2, "Adjacent stastion don't exist.");
         }
 
-        public void UpdateAdjacentStations(int CodeStation1, int CodeStation2, Action<AdjacentStations> update)
-        {
-            throw new NotImplementedException();
-        }
-
-
+      
 
         #endregion
 
@@ -221,14 +197,6 @@ namespace DL
                 throw new DO.BadLineIdException(line.Id);
         }
 
-        public void UpdateLine(int Id, Action<Line> update)
-        {
-            throw new NotImplementedException();
-        }
-
-      
-
-
         #endregion
 
         #region LineStation
@@ -239,11 +207,7 @@ namespace DL
                    select sil.Clone();
         }
 
-        public void DeleteLineStation(int LineId, int Station)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public void DeleteLineFromAllStations(int Id)
         {
             DataSource.ListLineStation.RemoveAll(s => s.LineId == Id);
@@ -269,11 +233,7 @@ namespace DL
         #endregion
 
         #region LineTrip
-        public IEnumerable<LineTrip> GetAllLineTrips()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public IEnumerable<LineTrip> GetAllLineTripsBy(Predicate<LineTrip> predicate)
         {
             throw new NotImplementedException();
@@ -285,16 +245,6 @@ namespace DL
         }
 
         public void AddLineTrip(LineTrip line_trip)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateLineTrip(LineTrip line_trip)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateLineTrip(int LicenseNum, Action<LineTrip> update)
         {
             throw new NotImplementedException();
         }

@@ -11,25 +11,18 @@ namespace DLAPI
     {
        #region Station
         IEnumerable<DO.Station> GetAllStations();
-        IEnumerable<DO.Station> GetAllStationsBy(Predicate<DO.Station> predicate);
-        IEnumerable<DO.LineStation> GeLineStationsInLine(int lineId);
+       IEnumerable<DO.LineStation> GeLineStationsInLine(int lineId);
         DO.Station GetStation(int Code);
         void AddStation(DO.Station station);
         void UpdateStation(DO.Station sation);
-        void UpdateStation(int Code, Action<DO.Station> update); //method that knows to updt specific fields in Station
         void DeleteStation(int Code);
 
         #endregion
 
         #region AdjacentStations
-        IEnumerable<DO.AdjacentStations> GetAllAdjacentStationss();
-        IEnumerable<DO.AdjacentStations> GetAllAdjacentStationssBy(Predicate<DO.AdjacentStations> predicate);
         DO.AdjacentStations GetAdjacentStations(int CodeStation1, int CodeStation2);
         void AddAdjacentStations(DO.AdjacentStations Adjacent_Stations);
         void UpdateAdjacentStations(DO.AdjacentStations Adjacent_Stations);
-        void UpdateAdjacentStations(int CodeStation1, int CodeStation2, Action<DO.AdjacentStations> update); //method that knows to updt specific fields in AdjacentStations
-        void DeleteAdjacentStations(int CodeStation1, int CodeStation2);
-
         #endregion
              
         #region Line
@@ -38,7 +31,6 @@ namespace DLAPI
         DO.Line GetLine(int Id);
         int AddLine(DO.Line line);
         void UpdateLine(DO.Line line);
-        void UpdateLine(int Id, Action<DO.Line> update); //method that knows to updt specific fields in Line
         void DeleteLine(int Id);
         #endregion
 
@@ -47,19 +39,14 @@ namespace DLAPI
 
         void AddLineStation(DO.LineStation line_station);
         void UpdateLineArea(int lineId, DO.Areas area);
-
-        void DeleteLineStation(int LineId, int Station);
-
+              
         void DeleteLineFromAllStations(int Id);
         #endregion
 
         #region LineTrip
-        IEnumerable<DO.LineTrip> GetAllLineTrips();
         IEnumerable<DO.LineTrip> GetAllLineTripsBy(Predicate<DO.LineTrip> predicate);
         DO.LineTrip GetLineTrip(int id);
         void AddLineTrip(DO.LineTrip line_trip);
-        void UpdateLineTrip(DO.LineTrip line_trip);
-        void UpdateLineTrip(int id, Action<DO.LineTrip> update); //method that knows to updt specific fields in LineTrip
         void DeleteLineTrip(int id);
         void DeleteLineFromAllTrips(int Id);
 
