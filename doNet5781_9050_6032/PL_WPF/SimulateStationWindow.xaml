@@ -43,7 +43,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
                     <TextBlock Text="Line Code:" Width="105" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <TextBlock Text="{Binding Path= Code}" Width="45" Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    <TextBlock Text="Desination:" Width="120" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Destination:" Width="120" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <TextBlock Text="{Binding Path= Destination}" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
@@ -127,7 +127,7 @@
                     <TextBlock Text="{Binding Path= Code}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FF47EE47"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Desination:" Width="120" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FF47EE47"/>
+                    <TextBlock Text="Destination:" Width="120" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#FF47EE47"/>
                     <TextBlock Text="{Binding Path= Destination}" FontSize="15"  VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#FF47EE47"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="2">

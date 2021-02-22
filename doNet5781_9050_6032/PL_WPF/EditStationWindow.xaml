@@ -6,6 +6,26 @@
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
         Title="Station Properties" Height="450" Width="500">
+    <Window.Resources>
+
+        <DataTemplate x:Key="BusLinesList" >
+
+            <StackPanel Orientation="Horizontal">
+                 <TextBlock Text=" Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Code}"  Width="30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="ID: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Id}"  Width="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Area: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= Area}"  Width="60" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="First Station: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= FirstStation}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="Last Station: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Path= LastStation}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+        </DataTemplate>
+
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -41,7 +61,7 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <ListBox Name="StationListlb" Grid.Row = "3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" />
+        <ListBox Name="StationListlb" Grid.Row = "3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" ItemsSource="{Binding}" ItemTemplate="{StaticResource BusLinesList}" />
         <Button Name="DeleteButton" Grid.Row="4" Content="Delete Station" VerticalAlignment="Center" HorizontalAlignment="Center" Click="DeleteButton_Clicked">
             <Button.Style>
                 <Style TargetType="Button">
