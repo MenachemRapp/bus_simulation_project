@@ -18,6 +18,7 @@ namespace DL
         DLXML() { } // default => private
         public static DLXML Instance { get => instance; }// The public Instance property to use
         #endregion
+      
         #region DS XML Files
         string stationsPath = @"StationXml.xml"; //XMLSerializer
         string lineStationPath= @"LineStationXml.xml"; //XMLSerializer
@@ -399,21 +400,6 @@ namespace DL
         #region temp
 
 
-
-
-        public void AddBus(Bus bus)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddBusOnTrip(BusOnTrip bus_on_trip)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-        
-
         public void DeleteAdjacentStations(int CodeStation1, int CodeStation2)
         {
             throw new NotImplementedException();
@@ -459,26 +445,6 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BusOnTrip> GetAllBusOnTrips()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<BusOnTrip> GetAllBusOnTripsBy(Predicate<BusOnTrip> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Bus> GetAllBuss()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Bus> GetAllBussBy(Predicate<Bus> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
         
        
 
@@ -488,21 +454,7 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public Bus GetBus(int LicenseNum)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BusOnTrip GetBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BusOnTrip GetBusOnTrip(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         
               
 
@@ -511,30 +463,7 @@ namespace DL
             throw new NotImplementedException();
         }
 
-        public void UpdateBus(Bus bus)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateBus(int LicenseNum, Action<Bus> update)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateBusOnTrip(BusOnTrip bus_on_trip)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff, Action<BusOnTrip> update)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateBusOnTrip(int Id, Action<BusOnTrip> update)
-        {
-            throw new NotImplementedException();
-        }
+      
 
 
         public void UpdateLine(int Id, Action<Line> update)

@@ -19,69 +19,7 @@ namespace DL
         #endregion
 
         //Implement IDL methods, CRUD
-        #region Bus
-        public Bus GetBus(int LicenseNum)
-        {
-            DO.Bus bus = DataSource.ListBus.Find(b => b.LicenseNum == LicenseNum);
-            if (bus != null)
-                return bus.Clone();
-            else
-                throw new BadBusLicenseException(LicenseNum);
-        }
-
-        public IEnumerable<Bus> GetAllBuss()
-        {
-            return from bus in DataSource.ListBus
-                   select bus.Clone();
-        }
-
-        //not implemented
-        public IEnumerable<Bus> GetAllBussBy(Predicate<Bus> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddBus(Bus bus)
-        {
-            if (DataSource.ListBus.FirstOrDefault(b => b.LicenseNum == bus.LicenseNum) != null)
-                throw new BadBusLicenseException(bus.LicenseNum, "duplicate license number");
-            DataSource.ListBus.Add(bus.Clone());
-        }
-
-        public void DeleteBus(int LicenseNum)
-        {
-            DO.Bus bus = DataSource.ListBus.Find(b => b.LicenseNum == LicenseNum);
-            if (bus != null)
-            {
-                DataSource.ListBus.Remove(bus);
-            }
-            else
-                throw new BadBusLicenseException(LicenseNum);
-        }
-
-
-
-        public void UpdateBus(Bus bus)
-        {
-            DO.Bus myBus = DataSource.ListBus.Find(b => b.LicenseNum == bus.LicenseNum);
-            if (myBus != null)
-            {
-                DataSource.ListBus.Remove(bus);
-                DataSource.ListBus.Add(bus);
-            }
-            else
-                throw new BadBusLicenseException(bus.LicenseNum);
-        }
-
-        //not implemented
-        public void UpdateBus(int LicenseNum, Action<Bus> update)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        #endregion
-
+    
         #region Station
         public Station GetStation(int Code)
         {
@@ -151,75 +89,7 @@ namespace DL
         }
 
         #endregion
-
-        #region BusOnTrip
-
-        public BusOnTrip GetBusOnTrip(int Id)
-        {
-            DO.BusOnTrip bus = DataSource.ListBusOnTrip.Find(b => b.Id == Id);
-            if (bus != null)
-                return bus.Clone();
-            else
-                throw new BadLineIdException(Id);
-        }
-
-
-        public IEnumerable<BusOnTrip> GetAllBusOnTrips()
-        {
-            return from bus in DataSource.ListBusOnTrip
-                   select bus.Clone();
-        }
-
-        public IEnumerable<BusOnTrip> GetAllBusOnTripsBy(Predicate<BusOnTrip> predicate)
-        {
-            return from bot in DataSource.ListBusOnTrip
-                   where predicate(bot)
-                   select bot.Clone();
-        }
-
-        public BusOnTrip GetBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff)
-        {
-            return ((IDL)instance).GetBusOnTrip(LicenseNum, LineId, PlannedTakeOff);
-        }
-
-
-
-
-        public void AddBusOnTrip(BusOnTrip bus_on_trip)
-        {
-            ((IDL)instance).AddBusOnTrip(bus_on_trip);
-        }
-
-
-        public void DeleteBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff)
-        {
-            ((IDL)instance).DeleteBusOnTrip(LicenseNum, LineId, PlannedTakeOff);
-        }
-
-        public void DeleteBusOnTrip(int Id)
-        {
-            ((IDL)instance).DeleteBusOnTrip(Id);
-        }
-
-
-
-        public void UpdateBusOnTrip(BusOnTrip bus_on_trip)
-        {
-            ((IDL)instance).UpdateBusOnTrip(bus_on_trip);
-        }
-
-        public void UpdateBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff, Action<BusOnTrip> update)
-        {
-            ((IDL)instance).UpdateBusOnTrip(LicenseNum, LineId, PlannedTakeOff, update);
-        }
-
-        public void UpdateBusOnTrip(int Id, Action<BusOnTrip> update)
-        {
-            ((IDL)instance).UpdateBusOnTrip(Id, update);
-        }
-
-        #endregion
-
+              
         #region AdjacentStations
 
         public void AddAdjacentStations(AdjacentStations Adjacent_Stations)

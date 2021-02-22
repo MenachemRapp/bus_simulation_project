@@ -86,52 +86,7 @@ namespace BL
         }
         #endregion
 
-        #region LineAndStations
-        /// <summary>
-        /// get a line with a list of it's stations by the given ID
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public BO.LineAndStations GetLineAndStations(int Id)
-        {
-            BO.LineAndStations lineBO = new BO.LineAndStations();
-            DO.Line lineDO;
-            try
-            {
-                lineDO = dl.GetLine(Id);
-            }
-            catch (Exception ex)
-            {
-                throw new BO.BadLineIdException("line does not exist", ex);
-            }
-            lineDO.CopyPropertiesTo(lineBO);
-            lineBO.ListOfStation = GetStationCodeNameDistanceTimeInLine(Id).ToList();
-
-            lineBO.totalDistance = lineBO.ListOfStation.Sum(s => s.Distance);
-            lineBO.totalTime = TimeSpan.FromTicks(lineBO.ListOfStation.Sum(s => s.Time.Ticks));
-
-            return lineBO;
-
-        }
-
-
-        /*
-        public void UpdateLineArea(int lineId, BO.Areas BOarea)
-        {
-            Enum.TryParse(BOarea.ToString(), out DO.Areas DOarea);
-            try
-            {
-                dl.UpdateLineArea(lineId, DOarea);
-            }
-            catch (DO.BadLineIdException ex)
-            {
-                throw new BO.BadLineIdException("Line ID does not exist", ex);
-            }
-        }
-
-        */
-        #endregion
-
+       
         #region Station
 
 

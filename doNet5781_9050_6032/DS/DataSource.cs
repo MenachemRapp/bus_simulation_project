@@ -10,8 +10,7 @@ namespace DS
     public static class DataSource
     {
         public static List<AdjacentStations> List;
-        public static List<Bus> ListBus;
-        public static List<BusOnTrip> ListBusOnTrip;
+        
         public static List<Line> ListLine;
         public static List<LineStation> ListLineStation;
         public static List<LineTrip> ListLineTrip;
@@ -27,19 +26,7 @@ namespace DS
         }
         static void InitAllLists()
         {
-            ListBus = new List<Bus>
-            {
-                new Bus
-                {
-                    LicenseNum=12345678,
-                    FromDate= DateTime.Today.AddYears(-3),
-                    ToatalTrip=7500,
-                    FuelRemain=350,
-                    Status=BUS_STATUS.AVAILABLE
-
-
-                }
-            };
+          
 
             ListLine = new List<Line>
             {

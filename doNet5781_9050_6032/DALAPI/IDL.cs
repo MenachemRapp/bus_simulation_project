@@ -9,19 +9,10 @@ namespace DLAPI
 {
     public interface IDL
     {
-        #region Bus
-        IEnumerable<DO.Bus> GetAllBuss();
-        IEnumerable<DO.Bus> GetAllBussBy(Predicate<DO.Bus> predicate);
-        DO.Bus GetBus(int LicenseNum);
-        void AddBus(DO.Bus bus);
-        void UpdateBus(DO.Bus bus);
-        void UpdateBus(int LicenseNum, Action<DO.Bus> update); //method that knows to updt specific fields in Bus
-        void DeleteBus(int LicenseNum);
-        #endregion
-
-        #region Station
+       #region Station
         IEnumerable<DO.Station> GetAllStations();
         IEnumerable<DO.Station> GetAllStationsBy(Predicate<DO.Station> predicate);
+        IEnumerable<DO.LineStation> GeLineStationsInLine(int lineId);
         DO.Station GetStation(int Code);
         void AddStation(DO.Station station);
         void UpdateStation(DO.Station sation);
@@ -40,20 +31,7 @@ namespace DLAPI
         void DeleteAdjacentStations(int CodeStation1, int CodeStation2);
 
         #endregion
-
-        #region BusOnTrip
-        IEnumerable<DO.BusOnTrip> GetAllBusOnTrips();
-        IEnumerable<DO.BusOnTrip> GetAllBusOnTripsBy(Predicate<DO.BusOnTrip> predicate);
-        DO.BusOnTrip GetBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff);
-        DO.BusOnTrip GetBusOnTrip(int Id);
-        void AddBusOnTrip(DO.BusOnTrip bus_on_trip);
-        void UpdateBusOnTrip(DO.BusOnTrip bus_on_trip);
-        void UpdateBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff, Action<DO.BusOnTrip> update); //method that knows to updt specific fields in BusOnTrip
-        void UpdateBusOnTrip(int Id, Action<DO.BusOnTrip> update); //method that knows to updt specific fields in BusOnTrip
-        void DeleteBusOnTrip(int LicenseNum, int LineId, TimeSpan PlannedTakeOff);
-        void DeleteBusOnTrip(int Id);
-        #endregion
-
+             
         #region Line
         IEnumerable<DO.Line> GetAllLines();
         IEnumerable<DO.Line> GetAllLinesBy(Predicate<DO.Line> predicate);
@@ -75,8 +53,6 @@ namespace DLAPI
         void DeleteLineFromAllStations(int Id);
         #endregion
 
-
-
         #region LineTrip
         IEnumerable<DO.LineTrip> GetAllLineTrips();
         IEnumerable<DO.LineTrip> GetAllLineTripsBy(Predicate<DO.LineTrip> predicate);
@@ -91,7 +67,7 @@ namespace DLAPI
 
 
 
-        IEnumerable<DO.LineStation> GeLineStationsInLine(int lineId);
+       
         
 
 

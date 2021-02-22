@@ -51,7 +51,6 @@
     <Compile Include="BO\TripAndStations.cs" />
     <Compile Include="BO\LineTiming.cs" />
     <Compile Include="BO\LineTotal.cs" />
-    <Compile Include="BO\LineAndStations.cs" />
     <Compile Include="BO\ListedLineTrip.cs" />
     <Compile Include="BO\ListedLineStation.cs" />
     <Compile Include="BO\NewLine.cs" />

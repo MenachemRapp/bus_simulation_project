@@ -21,11 +21,6 @@ namespace BLAPI
 
         #endregion
 
-        #region LineAndStations
-        BO.LineAndStations GetLineAndStations(int id);
-
-        #endregion
-
         #region Station
 
         BO.Station GetStation(int Code);
