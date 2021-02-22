@@ -386,7 +386,7 @@ namespace BL
         }
 
         /// <summary>
-        /// save  the new line
+        /// save the new line
         /// </summary>
         /// <param name="line"></param>
         public void SaveLine(NewLine line)

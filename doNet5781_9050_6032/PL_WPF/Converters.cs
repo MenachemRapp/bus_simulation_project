@@ -46,7 +46,7 @@ namespace PL_WPF
 
 
     /// <summary>
-    /// converts a field's vissibilty to be "collapsed" if the distance is "-1". this is used to mark the last stop in the line
+    /// converts a field's vissibilty to be "collapsed" if the distance is "-1" there isn't a real time and distance. this is used to mark the last stop in the line
     /// </summary>
     public class StationToVisibilityConverter : IValueConverter
     {
