@@ -10,12 +10,14 @@ namespace BO
     {
         public int station { get; set; }
 
-        public string Name { get; set; }//may not be needed
+        public string Name { get; set; }
 
         public int index { get; set; }
 
         public TimeSpan timeAtStop { get; set; }
 
         public TimeSpan timeToNextStop { get; set; }
+
+        public bool BusArrived { get; set; }
     }
 }

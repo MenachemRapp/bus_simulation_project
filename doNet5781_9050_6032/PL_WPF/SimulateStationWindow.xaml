@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL_WPF"
         mc:Ignorable="d"
-        Title="Simulate Station Window" Height="650" Width="800">
+        Title="Simulate Station Window" Height="650" Width="950">
     <Window.Resources>
-        <local:ShortenStringConverter x:Key="ShortenStringConverter" />
+        <local:TimeFromNowConverter x:Key="TimeFromNowConverter" />
         <DataTemplate x:Key="SignList" >
 
             <Grid>
@@ -41,16 +41,17 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <TextBlock Text="Line Code:" Width="130" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Path= Code}" Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Text="Line Code:" Width="105" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Path= Code}" Width="45" Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <TextBlock Text="Desination:" Width="120" FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <TextBlock Text="{Binding Path= Destination}" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
                     <TextBlock Text="Arrival Time:" Width="130" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding Path= TimeAtStop}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBlock Text="{Binding Path= TimeAtStop}" Width="90" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBlock Text="Time From Now:" Width="160" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding Converter={StaticResource TimeFromNowConverter}}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
                 </StackPanel>
                <Border BorderThickness="0,0,0,4" MinWidth="375"  Grid.Row="3" BorderBrush="#FF47EE47"/>
 
@@ -62,8 +63,8 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>

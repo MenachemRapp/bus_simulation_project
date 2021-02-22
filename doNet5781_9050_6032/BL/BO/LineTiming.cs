@@ -21,5 +21,7 @@ namespace BO
 
         public TimeSpan TimeFromNow { get; set; }
 
+        public bool busArrived { get; set; }
+
     }
 }

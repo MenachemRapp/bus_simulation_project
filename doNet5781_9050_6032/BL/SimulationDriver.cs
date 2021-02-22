@@ -97,6 +97,10 @@ namespace BL
                 {
                     Thread.Sleep((Convert.ToInt32((TimeSpan.FromDays(1) - timeNow).TotalMilliseconds) / rate));
                 }
+                if (UpdatedTiming != null)
+                {
+                    UpdatedTiming(new BO.LineTiming { TripId = -1 }); //informs a new day has started
+                }
                 days++;                
             }
 

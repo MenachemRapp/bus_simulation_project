@@ -23,6 +23,7 @@ namespace BL
         public TimeSpan timerTimeWithDays { get; set; }
 
         public event EventHandler ValueChanged;
+        public Action<TimeSpan> ChangedAction;
         TimeSpan simulationTime;
             
            
@@ -33,10 +34,7 @@ namespace BL
             while (stopwatch.IsRunning)
             {
                 timerTimeWithDays = TimeSpan.FromTicks(stopwatch.Elapsed.Ticks * TimerRate) + startTime;
-                /* timerTime -= TimeSpan.FromDays(timerTime.Days);
-                 SimulationTime = timerTime;
-                */
-                
+                     
                 SimulationTime = timerTimeWithDays- TimeSpan.FromDays(timerTimeWithDays.Days);
                 Thread.Sleep(1000);
             }
@@ -49,6 +47,10 @@ namespace BL
             if (ValueChanged != null)
             {
                 ValueChanged(this, args);
+            }
+            if (ChangedAction!=null)
+            {
+                ChangedAction(args.NewValue);
             }
         }
 

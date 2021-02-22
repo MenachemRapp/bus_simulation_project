@@ -24,59 +24,85 @@ namespace PL_WPF
         IBL bl;
         int stationId;
         IEnumerable<BO.LineTiming> timingList;
-        IEnumerable<BO.TripAndStations> fullTimingList;
-        BO.LineTiming lineTiming;
+        IEnumerable<BO.TripAndStations> fullTimingList, unsetFullTimingList;
         BackgroundWorker driverWorker;
+    
 
         public SimulateStationWindow(IBL _bl, int _stationId)
         {
             InitializeComponent();
             bl = _bl;
             stationId = _stationId;
-            
+
             BO.StationWithLines station = bl.GetStationWithLines(stationId);
-            fullTimingList = bl.GetTripListByStation(stationId);
-            
-            
+            unsetFullTimingList = bl.GetTripListByStation(stationId).ToList();
+
+
             stationsp1.DataContext = station;
             stationsp2.DataContext = station;
             listTitle.DataContext = station.ListOfLines.ToList().Count();
-            tripTitle.DataContext = fullTimingList.ToList().Count();
+            tripTitle.DataContext = unsetFullTimingList.ToList().Count();
+            initializeList();
             refreshTimeList();
 
             StationListlb.ItemsSource = station.ListOfLines.ToList();
 
 
-            this.Closed+=(x,y)=> {bl.SetStationPanel(-1, timingAction); driverWorker.CancelAsync(); };
+            this.Closed += (x, y) =>
+            {
+                bl.SetStationPanel(-1, driverAction);
+                bl.RemoveFromObserver(timerAction);
+                driverWorker.CancelAsync();
+            };
 
             driverWorker = new BackgroundWorker();
-            driverWorker.DoWork += Worker_DoWork;
-            driverWorker.ProgressChanged += Worker_ProgressChanged;
+            driverWorker.DoWork += driverWorker_DoWork;
+            driverWorker.ProgressChanged += driverWorker_ProgressChanged;
             driverWorker.WorkerReportsProgress = true;
             driverWorker.WorkerSupportsCancellation = true;
-                       
+           
             try
             {
-                bl.GetRate();
+                bl.GetRate();//tests is the timer is on
                 driverWorker.RunWorkerAsync();
+                bl.AddToObserver(timerAction);
+                
             }
             catch (Exception)
             {
                 MessageBox.Show("Simulation is off.\n Showing all trips.", "Notificaiton", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            
+
 
         }
 
+        /// <summary>
+        /// initialize timing from the full list
+        /// </summary>
+        private void initializeList()
+        {
+            fullTimingList = bl.InitTripListFromNow(unsetFullTimingList);
+            timingList = bl.GetLineTimingsFromFullList(stationId, fullTimingList);
+        }
+
+        /// <summary>
+        /// refresh if bus has arrived
+        /// </summary>
+        private void refreshBusAtStop()
+        {
+            timingList = bl.GetLineTimingsFromFullList(stationId, fullTimingList);
+        }
+
+        /// <summary>
+        /// set timing lists
+        /// </summary>
         private void refreshTimeList()
         {
-           
-            TimeSpan timeNow = bl.GetTime();
-            timingList = bl.GetLineTimingsFromFullList(stationId, fullTimingList);
+
             StationTimeListlb.ItemsSource = bl.GetFirstTimingForEachLine(timingList);
 
             BO.LineTiming lastTiming = bl.LastLineTiming(timingList);
-            if (lastTiming!=null)
+            if (lastTiming != null)
             {
                 LastBusSp.DataContext = lastTiming;
             }
@@ -84,29 +110,42 @@ namespace PL_WPF
             {
                 LastBusSp.Visibility = Visibility.Collapsed;
                 LastBusTitle.Visibility = Visibility.Collapsed;
-            }                    
-            
+            }
+
         }
 
-        
-        private void timingAction(BO.LineTiming newTiming)
+
+        private void driverAction(BO.LineTiming newTiming)
         {
-          //  lineTiming = newTiming;
-            driverWorker.ReportProgress(33,newTiming);
+            driverWorker.ReportProgress(33, newTiming);
         }
 
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        private void driverWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-           bl.SetStationPanel(stationId, timingAction);
+            bl.SetStationPanel(stationId, driverAction);
         }
 
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void driverWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            fullTimingList=bl.UpdateNewTimingInList(fullTimingList,(BO.LineTiming)e.UserState);
-            refreshTimeList();
+            if (((BO.LineTiming)e.UserState).TripId == -1)// restart the timer for a new day
+            {
+                initializeList();
+                refreshBusAtStop();
+            }
+            else
+            {
+                fullTimingList = bl.UpdateNewTimingInList(fullTimingList, (BO.LineTiming)e.UserState);
+                refreshBusAtStop();
+            }
+        }
+     
+
+        private void timerAction(TimeSpan time)
+        {
+            timingList = bl.UpdateTimeNow(timingList, time);
+            Dispatcher.Invoke(refreshTimeList); //didn't use background worker becuase it happens every seccond            
         }
 
-
-
+     
     }
 }

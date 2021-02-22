@@ -111,5 +111,40 @@ namespace PL_WPF
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// convert time from now in a case the time has passed or the bus comes tommorow
+    /// </summary>
+    public class TimeFromNowConverter : IValueConverter
+    {
+        public object Convert(
+          object value,
+          Type targetType,
+          object parameter,
+          CultureInfo culture)
+        {
+            BO.LineTiming timing = (BO.LineTiming)value;
+            if (timing.busArrived)
+            {
+                return "Tomorrow";
+            }
+            else if (timing.TimeFromNow < TimeSpan.Zero)
+            {
+                return "Bus Ariving";
+            }
+            else
+                return timing.TimeFromNow;
+                        
+        }
+
+        public object ConvertBack(
+          object value,
+          Type targetType,
+          object parameter,
+          CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

@@ -80,19 +80,88 @@ namespace BLAPI
         #endregion
 
         #region Trip and Stations
+
+        /// <summary>
+        /// Get a trip with the List of stations with there times
+        /// </summary>
+        /// <param name="tripId"></param>
+        /// <returns></returns>
         BO.TripAndStations GetTripAndStations(int tripId);
+
+
+        /// <summary>
+        /// get all trips lists which pass through this station
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
         IEnumerable<BO.TripAndStations> GetTripListByStation(int station);
-        IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations);
+      
+        
+
+        /// <summary>
+        /// update a Trip List with a new timing
+        /// </summary>
+        /// <param name="fullTimingList"></param>
+        /// <param name="newTiming"></param>
+        /// <returns></returns>
         IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming);
+       
+
+
+        /// <summary>
+        /// initialize trip list property "BusArived" based on current time
+        /// </summary>
+        /// <param name="tripList"></param>
+        /// <returns></returns>
+        IEnumerable<BO.TripAndStations> InitTripListFromNow(IEnumerable<BO.TripAndStations> tripList);
         #endregion
 
         #region SimulationTimer
+
+        /// <summary>
+        /// Start timer simulator
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="Rate"></param>
+        /// <param name="updateTime"></param>
         void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime);
+
+        /// <summary>
+        /// Stop timer Simulator
+        /// </summary>
         void StopSimulator();
 
+        
+
+        /// <summary>
+        /// Get the time on the timer
+        /// </summary>
+        /// <returns></returns>
         TimeSpan GetTime();
+
+        /// <summary>
+        /// Gets the days on the timer
+        /// </summary>
+        /// <returns></returns>
         int GetDays();
+
+        /// <summary>
+        /// Get the timer rate
+        /// </summary>
+        /// <returns></returns>
         int GetRate();
+
+        /// <summary>
+        /// Add an action when the time has changed
+        /// </summary>
+        /// <param name="updateTime"></param>
+        void AddToObserver(Action<TimeSpan> updateTime);
+
+        /// <summary>
+        /// remove an action when the time has changed 
+        /// </summary>
+        /// <param name="updateTime"></param>
+        void RemoveFromObserver(Action<TimeSpan> updateTime);
         #endregion
 
         #region simulation Driver
@@ -100,12 +169,41 @@ namespace BLAPI
         #endregion
 
         #region Line Timing
+        /// <summary>
+        /// Get all line timings for a station
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
         IEnumerable<LineTiming> GetLineTimingsByStation(int station);
 
+        /// <summary>
+        /// Get a Line Timing list of the first trip of each line
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <returns></returns>
         IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList);
 
+        /// <summary>
+        /// Get all line timings for a station from a list with all stations
+        /// </summary>
+        /// <param name="station"></param>
+        /// <param name="tripAndStations"></param>
+        /// <returns></returns>
+        IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations);
+
+        /// <summary>
+        /// returns last Line timing which has past 
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <returns></returns>
         LineTiming LastLineTiming(IEnumerable<LineTiming> timingList);
 
+        /// <summary>
+        /// updates the property TimeFromNow based on the given current time
+        /// </summary>
+        /// <param name="timingList"></param>
+        /// <param name="curentTime"></param>
+        /// <returns></returns>
         IEnumerable<LineTiming> UpdateTimeNow(IEnumerable<LineTiming> timingList, TimeSpan curentTime);
         #endregion
     }

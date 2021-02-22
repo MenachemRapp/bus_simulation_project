@@ -845,11 +845,7 @@ namespace BL
         #endregion
 
         #region Trip and Stations
-        /// <summary>
-        /// Get a trip with the List of stations with there times
-        /// </summary>
-        /// <param name="tripId"></param>
-        /// <returns></returns>
+    
         public BO.TripAndStations GetTripAndStations(int tripId)
         {
             DO.LineTrip tripDO = dl.GetLineTrip(tripId);
@@ -859,7 +855,7 @@ namespace BL
             {
                 if (st.index == 1)
                 {
-                    return new StationTime { station = st.Code, index = st.index, timeToNextStop = st.Time, timeAtStop = tripDO.StartAt, Name = st.Name };
+                    return new StationTime { station = st.Code, index = st.index, timeToNextStop = st.Time, timeAtStop = tripDO.StartAt, Name = st.Name, BusArrived=false };
                 }
                 else
                 {
@@ -869,7 +865,8 @@ namespace BL
                         Name = st.Name,
                         index = st.index,
                         timeToNextStop = st.Time,
-                        timeAtStop = tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeAtStop + tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeToNextStop
+                        timeAtStop = tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeAtStop + tripAndStations.ListOfStationTime.ElementAt(st.index - 2).timeToNextStop,
+                        BusArrived = false
                     };
                 }
 
@@ -878,11 +875,7 @@ namespace BL
             return tripAndStations;
         }
 
-        /// <summary>
-        /// get all trips lists which pass through this station
-        /// </summary>
-        /// <param name="station"></param>
-        /// <returns></returns>
+        
         public IEnumerable<BO.TripAndStations> GetTripListByStation(int station)
         {
             IEnumerable<DO.LineStation> lineStations = dl.GetAllLineStationBy(st => st.Station == station);
@@ -896,13 +889,41 @@ namespace BL
             return fullTripList;
         }
 
+        public IEnumerable<BO.TripAndStations> InitTripListFromNow(IEnumerable<BO.TripAndStations> tripList)
+        {
+            TimeSpan timeNow = GetTime();
+            return tripList.Select(tr =>
+            new TripAndStations
+            {
+                TripId = tr.TripId,
+                Destination = tr.Destination,
+                LineId = tr.LineId,
+                startTime = tr.startTime,
+                ListOfStationTime=tr.ListOfStationTime
+                .Select(t=>
+                  {
+                      if (timeNow > t.timeAtStop)
+                          return new StationTime
+                          {
+                              index = t.index,
+                              timeAtStop = t.timeAtStop,
+                              timeToNextStop = t.timeToNextStop,
+                              Name = t.Name,
+                              station = t.station,
+                              BusArrived = true
+                          };
+                      else
+                          return new StationTime
+                          {
+                              index = t.index,
+                              timeAtStop = t.timeAtStop,
+                              timeToNextStop = t.timeToNextStop,
+                              Name = t.Name,
+                              station = t.station,
+                              BusArrived = false
+                          };})});
+}
 
-        /// <summary>
-        /// update a Tip List with a new timing
-        /// </summary>
-        /// <param name="fullTimingList"></param>
-        /// <param name="newTiming"></param>
-        /// <returns></returns>
         public IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming)
         {
             BO.TripAndStations tripList = fullTimingList.ToList().Find(trip => trip.TripId == newTiming.TripId);
@@ -911,12 +932,34 @@ namespace BL
             {
                 if (t.index < stationTime.index)
                 {
-                    return t;
+                    return new BO.StationTime
+                    {
+                        index = t.index,
+                        station = t.station,
+                        timeAtStop = t.timeAtStop,
+                        timeToNextStop = t.timeToNextStop,
+                        Name = t.Name,
+                        BusArrived = true
+                    };
                 }
                 else if (t.index == stationTime.index)
-                    return new BO.StationTime { index = t.index, station = t.station, timeAtStop = newTiming.TimeAtStop, timeToNextStop = t.timeToNextStop, Name = t.Name };
+                    return new BO.StationTime { 
+                        index = t.index,
+                        station = t.station,
+                        timeAtStop = newTiming.TimeAtStop,
+                        timeToNextStop = t.timeToNextStop,
+                        Name = t.Name,
+                        BusArrived=true 
+                    };
                 else
-                    return new BO.StationTime { index = t.index, station = t.station, timeAtStop = t.timeAtStop + newTiming.TimeAtStop - stationTime.timeAtStop, timeToNextStop = t.timeToNextStop, Name = t.Name };
+                    return new BO.StationTime {
+                        index = t.index,
+                        station = t.station,
+                        timeAtStop = t.timeAtStop + newTiming.TimeAtStop - stationTime.timeAtStop,
+                        timeToNextStop = t.timeToNextStop,
+                        Name = t.Name,
+                        BusArrived=t.BusArrived
+                    };
             });
 
             fullTimingList = fullTimingList.Where(trip => trip.LineId != newTiming.LineId || trip.startTime != newTiming.StartTime).Append(tripList).OrderBy(t => t.startTime);
@@ -926,11 +969,7 @@ namespace BL
         #endregion
 
         #region Line Timing
-        /// <summary>
-        /// Get all line timings for a station
-        /// </summary>
-        /// <param name="station"></param>
-        /// <returns></returns>
+        
         public IEnumerable<LineTiming> GetLineTimingsByStation(int station)
         {
             return GetTripListByStation(station).Select(trip => new LineTiming
@@ -940,34 +979,51 @@ namespace BL
                 Code = dl.GetLine(trip.LineId).Code,
                 Destination = trip.ListOfStationTime.Last().Name,
                 StartTime = trip.ListOfStationTime.First().timeAtStop,
-                TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop
-            });
+                TimeAtStop = trip.ListOfStationTime.First(t => t.station == station).timeAtStop,
+                busArrived= trip.ListOfStationTime.First(t => t.station == station).BusArrived
+           });
         }
 
-        /// <summary>
-        /// Get all line timings for a station from a list with all stations
-        /// </summary>
-        /// <param name="station"></param>
-        /// <param name="tripAndStations"></param>
-        /// <returns></returns>
+      
         public IEnumerable<LineTiming> GetLineTimingsFromFullList(int station, IEnumerable<BO.TripAndStations> tripAndStations)
         {
-            return tripAndStations.Select(trip => new LineTiming
-            {
-                TripId = trip.TripId,
-                LineId = trip.LineId,
-                Code = dl.GetLine(trip.LineId).Code,
-                Destination = trip.ListOfStationTime.Last().Name,
-                StartTime = trip.ListOfStationTime.First().timeAtStop,
-                TimeAtStop = TimeSpan.FromSeconds(Math.Round(trip.ListOfStationTime.First(t => t.station == station).timeAtStop.TotalSeconds))
-            });
+            return tripAndStations.Select(trip =>
+               new LineTiming
+               {
+                   TripId = trip.TripId,
+                   LineId = trip.LineId,
+                   Code = dl.GetLine(trip.LineId).Code,
+                   Destination = trip.ListOfStationTime.Last().Name,
+                   StartTime = trip.ListOfStationTime.First().timeAtStop,
+                   TimeAtStop = TimeSpan.FromSeconds(Math.Round(trip.ListOfStationTime.First(t => t.station == station).timeAtStop.TotalSeconds)),
+                   busArrived = trip.ListOfStationTime.First(t => t.station == station).BusArrived
+               });
         }
 
-        /// <summary>
-        /// Get a Line Timing list of the first trip of each line
-        /// </summary>
-        /// <param name="timingList"></param>
-        /// <returns></returns>
+
+     
+            public IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList)
+        {
+            TimeSpan timeNow = GetTime();
+            return timingList.
+                GroupBy(t => t.LineId).
+                Select(group =>
+                {
+                    IEnumerable<LineTiming> timingsFromNow = group.Where(t => !t.busArrived).ToList();
+                    if (timingsFromNow.Count() > 0)//if there are comming busses later today
+                    {
+                        return timingsFromNow.FirstOrDefault(t => t.TimeAtStop == timingsFromNow.Min(tr => tr.TimeAtStop));
+                    }
+                    else //all busses are tommorow
+                    {
+                        return group.FirstOrDefault(t => t.TimeAtStop == group.Min(tr => tr.TimeAtStop));
+                    }
+                }).
+
+            OrderBy(t => t.busArrived).ThenBy(t => t.TimeAtStop);
+           
+        }
+        /*
         public IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList)
         {
             TimeSpan timeNow = GetTime();
@@ -987,21 +1043,19 @@ namespace BL
                 }).
             OrderBy(t =>
             {
-                if (timeNow <= t.StartTime)
+                if (timeNow <= t.TimeAtStop)
                 {
-                    return t.StartTime;
+                    return t.TimeAtStop;
                 }
                 else
                 {
-                    return t.StartTime + TimeSpan.FromDays(1); //bus comes tommorow
+                    return t.TimeAtStop + TimeSpan.FromDays(1); //bus comes tommorow
                 }
             }).ToList();
-        }
-        /// <summary>
-        /// returns last Line timing which has past 
-        /// </summary>
-        /// <param name="timingList"></param>
-        /// <returns></returns>
+        }*/
+
+
+       
         public LineTiming LastLineTiming(IEnumerable<LineTiming> timingList)
         {
             TimeSpan timeNow = GetTime();
@@ -1025,13 +1079,8 @@ namespace BL
             }
         }
 
-        /// <summary>
-        /// updates the property TimeFromNow based on the given current time
-        /// </summary>
-        /// <param name="timingList"></param>
-        /// <param name="curentTime"></param>
-        /// <returns></returns>
-        public IEnumerable<LineTiming> UpdateTimeNow(IEnumerable<LineTiming> timingList, TimeSpan curentTime)
+        
+        public IEnumerable<LineTiming> UpdateTimeNow(IEnumerable<LineTiming> timingList, TimeSpan currentTime)
         {
             return timingList.Select(lt => new LineTiming
             {
@@ -1041,17 +1090,19 @@ namespace BL
                 StartTime = lt.StartTime,
                 TimeAtStop = lt.TimeAtStop,
                 TripId = lt.TripId,
-                TimeFromNow = TimeSpan.FromSeconds(Math.Round((curentTime - lt.TimeAtStop).TotalSeconds))
-            });
+                TimeFromNow = TimeSpan.FromSeconds(Math.Round((lt.TimeAtStop- currentTime).TotalSeconds)),
+                busArrived = lt.busArrived
+            }).ToList() ;
 
         }
+
+       // public void updateTimeThread(IEnumerable<LineTiming> timingList)
+       // {
+
         #endregion
 
         #region Simulation Timer
-        /// <summary>
-        /// Get the time on the timer
-        /// </summary>
-        /// <returns></returns>
+        
         public TimeSpan GetTime()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -1061,10 +1112,7 @@ namespace BL
                 return simulation.SimulationTime;
         }
 
-        /// <summary>
-        /// Gets the days on the timer
-        /// </summary>
-        /// <returns></returns>
+       
         public int GetDays()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -1074,10 +1122,7 @@ namespace BL
                 return simulation.timerTimeWithDays.Days;
         }
 
-        /// <summary>
-        /// Get the timer rate
-        /// </summary>
-        /// <returns></returns>
+       
         public int GetRate()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -1089,12 +1134,7 @@ namespace BL
             return simulation.TimerRate;
         }
 
-        /// <summary>
-        /// Start timer simulator
-        /// </summary>
-        /// <param name="startTime"></param>
-        /// <param name="Rate"></param>
-        /// <param name="updateTime"></param>
+        
         public void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime)
         {
             SimulationTimer simulation = SimulationTimer.Instance;
@@ -1104,13 +1144,26 @@ namespace BL
 
         }
 
-        /// <summary>
-        /// Stop timer Simulator
-        /// </summary>
+        
         public void StopSimulator()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
             simulation.stopwatch.Stop();
+        }
+
+        
+        public void AddToObserver(Action<TimeSpan> updateTime)
+        {
+            SimulationTimer simulation = SimulationTimer.Instance;
+
+            simulation.ChangedAction += updateTime;
+        }
+      
+        public void RemoveFromObserver(Action<TimeSpan> updateTime)
+        {
+            SimulationTimer simulation = SimulationTimer.Instance;
+
+            simulation.ChangedAction -= updateTime;
         }
         #endregion
 
