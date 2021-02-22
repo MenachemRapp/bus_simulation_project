@@ -37,6 +37,10 @@ namespace PL_WPF
             InitializeComponent();
             bl = _bl;
             this.Closed += CloseChildren;
+            this.Closed += (x, y) =>
+            {
+                if (isTimerRun) bl.StopSimulator();
+            };
 
 
             isTimerRun = false;
@@ -68,7 +72,7 @@ namespace PL_WPF
             button.IsEnabled = false;
             ViewLineListWindow lineWin = new ViewLineListWindow(bl);
             lineWin.Show();
-            lineWin.Closed+=(x,y)=> button.IsEnabled = true;
+            lineWin.Closed += (x, y) => button.IsEnabled = true;
         }
 
         private void StationView_clicked(object sender, RoutedEventArgs e)
