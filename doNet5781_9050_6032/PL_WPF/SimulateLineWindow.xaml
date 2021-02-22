@@ -7,24 +7,23 @@
         mc:Ignorable="d"
         Title="ViewLinePropertiesWindow" Height="450" Width="800">
     <Window.Resources>
-        <local:ShortenStringConverter x:Key="ShortenStringConverter" />
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-
+        <local:StationToVisibilityConverter x:Key="StationToVisibilityConverter" />
         <DataTemplate x:Key="BusListAndButtons" >
             <StackPanel Orientation="Horizontal">
 
-                <StackPanel Orientation="Vertical" Width="250">
+                <StackPanel Orientation="Vertical" >
 
                     <StackPanel x:Name="codeAndNames" Orientation="Horizontal">
 
                         <TextBlock Text="Code: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="{Binding Path= Code}"  Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Text="Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Path=Name, Converter={StaticResource ShortenStringConverter}}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Name="distanceAndTime">
+                    <StackPanel Orientation="Horizontal" Name="distanceAndTime"  Visibility="{Binding Converter={StaticResource StationToVisibilityConverter}}">
                         
                         <TextBlock Text="Distance: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0">

@@ -38,7 +38,20 @@ namespace PL_WPF
 
         private void RefreshStationList()
         {
-            stationslb.ItemsSource = line.ListOfStation.ToList();
+            stationslb.ItemsSource = line.ListOfStation.
+                Select(st => {
+                    if (st.index==line.ListOfStation.Count())
+                    {
+                        st.Distance = -1;
+                        st.ThereIsTimeAndDistance = false;
+                        return st;
+                    }
+                    else
+                    {
+                        return st;
+                    }
+
+                }).ToList();// mark last station
             stationst.DataContext = line;
             saveButton.IsEnabled = true;
         }

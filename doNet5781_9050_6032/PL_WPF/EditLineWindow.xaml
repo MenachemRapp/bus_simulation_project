@@ -9,6 +9,7 @@
     <Window.Resources>
         <local:ShortenStringConverter x:Key="ShortenStringConverter" />
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <local:StationToVisibilityConverter x:Key="StationToVisibilityConverter" />
 
         <DataTemplate x:Key="BusListAndButtons" >
             <StackPanel Orientation="Horizontal">
@@ -23,8 +24,8 @@
                         <TextBlock Text="{Binding Path=Name, Converter={StaticResource ShortenStringConverter}}"  Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                    
                     </StackPanel>
-                
-                    <StackPanel Orientation="Horizontal" Name="distanceAndTime">
+
+                    <StackPanel Orientation="Horizontal" Name="distanceAndTime" Visibility="{Binding Converter={StaticResource StationToVisibilityConverter}}">
                         <Button x:Name="modifyButton" Content="Modify" Margin="0,5,5,5" Click="ModifyStation_Clicked"/>
                         <TextBlock Text="Distance: " VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0">
