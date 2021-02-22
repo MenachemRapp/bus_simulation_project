@@ -125,7 +125,7 @@ namespace DL
         {
             List<LineStation> ListLineStations = XMLTools.LoadListFromXMLSerializer<LineStation>(lineStationPath);
             if (ListLineStations.Exists(sta => sta.LineId == line_station.LineId && sta.Station == line_station.Station))
-                throw new BadLineStationException();// to do.. already exikt
+                throw new BadLineStationException(line_station.LineId, line_station.Station, "already exist");
             ListLineStations.Add(line_station);
 
             XMLTools.SaveListToXMLSerializer(ListLineStations, lineStationPath);

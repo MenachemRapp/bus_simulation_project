@@ -216,7 +216,7 @@ namespace DL
         public void AddLineStation(DO.LineStation line_station)
         {
             if(DataSource.ListLineStation.Exists(sta=> sta.LineId== line_station.LineId && sta.Station ==line_station.Station))
-                throw new BadLineStationException();// to do.. already exikt
+                throw new BadLineStationException(line_station.LineId, line_station.Station, "already exist");
             DataSource.ListLineStation.Add(line_station.Clone());
 
         }

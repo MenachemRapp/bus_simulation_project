@@ -572,7 +572,7 @@ namespace BL
             catch (Exception)// if station don't exikst
             {
 
-                throw;// to_do
+                throw new BO.BadStationCodeException(station_id, "station dont exsit");
             }
 
 
@@ -669,7 +669,7 @@ namespace BL
                     select item;
             if (a.FirstOrDefault() == line.ListOfStation.LastOrDefault() && line.ListOfStation.Count() >= 2)
             {
-                return true; // to do -עוד בדיקות של כל הקלט
+                return true; 
             }
             return false;
         }
@@ -755,7 +755,7 @@ namespace BL
             catch (DO.BadLineIdException)/// 
             {
 
-                throw; // to do
+                throw new BO.BadLineIdException(Id, "line dose not exist");
             }
             LineTotal new_line = new LineTotal { Area = (BO.Areas)line.Area, Id = line.Id, Code = line.Code };
             new_line.ListOfStation = GetStationCodeNameDistanceTimeInLine(Id);

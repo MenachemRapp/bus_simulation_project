@@ -10,6 +10,8 @@ namespace BO
     public class BadLineIdException : Exception
     {
         public int ID;
+        public BadLineIdException(int id,string message) :
+            base(message) => ID = id;
         public BadLineIdException(string message, Exception innerException) :
             base(message, innerException) => ID = ((DO.BadLineIdException)innerException).ID;
         public override string ToString() => base.ToString() + $", bad line id: {ID}";

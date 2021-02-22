@@ -78,7 +78,13 @@ namespace DO
 
     public class BadLineStationException : Exception
     {
-        //to do
+        public int LineId;
+        public int StationCode;
+        public BadLineStationException(int LineID, int StationCODE) : base() { LineId = LineID; StationCode = StationCODE; }
+        public BadLineStationException(int LineID, int StationCODE, string message) : base(message) { LineId = LineID; StationCode = StationCODE; }
+        public BadLineStationException(int LineID, int StationCODE, string message, Exception innerException) : base(message, innerException) { LineId = LineID; StationCode = StationCODE; }
+        public override string ToString() => base.ToString() + $", bad line station, line= : {LineId} station = {StationCode}";
+
     }
 
 
