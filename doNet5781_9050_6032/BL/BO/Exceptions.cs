@@ -46,8 +46,5 @@ namespace BO
         public override string ToString() => base.ToString() + $", bad trip id: {ID}";
     }
 
-    public class BadSaveLineException : Exception
-    {
-
-    }
+    
 }
