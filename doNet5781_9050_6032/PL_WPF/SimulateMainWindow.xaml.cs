@@ -40,6 +40,7 @@ namespace PL_WPF
             this.Closed += (x, y) =>
             {
                 if (isTimerRun) bl.StopSimulator();
+             //   if (timerworker.IsBusy) timerworker.CancelAsync();
             };
 
 
@@ -48,6 +49,7 @@ namespace PL_WPF
             timerworker.DoWork += Worker_DoWork;
             timerworker.ProgressChanged += Worker_ProgressChanged;
             timerworker.WorkerReportsProgress = true;
+            timerworker.WorkerSupportsCancellation = true;
         }
 
         /// <summary>

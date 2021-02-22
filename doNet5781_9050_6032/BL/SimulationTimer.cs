@@ -22,12 +22,23 @@ namespace BL
         public int TimerRate { get; set; }
         public TimeSpan timerTimeWithDays { get; set; }
 
-        public event EventHandler ValueChanged;
+        event EventHandler ValueChanged;
+        
         public Action<TimeSpan> ChangedAction;
         TimeSpan simulationTime;
-            
-           
-       public void run(TimeSpan startTime, int rate)
+        
+        public void replaceEvent(Action<TimeSpan> newAction)
+        {
+            ValueChanged = null;
+            ValueChanged += (x, y) => newAction(((ValueChangedEventArgs)y).NewValue); 
+        }
+
+        public void clearEvent()
+        {
+            ValueChanged = null;
+        }
+
+        public void run(TimeSpan startTime, int rate)
         {
             TimerRate = rate;
             stopwatch.Restart();
@@ -39,7 +50,7 @@ namespace BL
                 Thread.Sleep(1000);
             }
 
-
+            
         }
         
         void OnValueChanged(ValueChangedEventArgs args)

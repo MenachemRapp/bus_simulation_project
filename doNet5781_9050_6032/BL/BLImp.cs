@@ -1081,8 +1081,7 @@ namespace BL
         public void StartSimulator(TimeSpan startTime, int Rate, Action<TimeSpan> updateTime)
         {
             SimulationTimer simulation = SimulationTimer.Instance;
-
-            simulation.ValueChanged += (x, y) => updateTime(((ValueChangedEventArgs)y).NewValue);
+            simulation.replaceEvent(updateTime);
             simulation.run(startTime, Rate);
 
         }
@@ -1091,6 +1090,7 @@ namespace BL
         public void StopSimulator()
         {
             SimulationTimer simulation = SimulationTimer.Instance;
+            simulation.clearEvent();
             simulation.stopwatch.Stop();
         }
 
