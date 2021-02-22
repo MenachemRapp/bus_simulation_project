@@ -318,4 +318,10 @@
     <Distance>4</Distance>
     <Time>00:14:00</Time>
   </AdjacentStations>
+  <AdjacentStations>
+    <Station1>1088</Station1>
+    <Station2>1091</Station2>
+    <Distance>3</Distance>
+    <Time>00:04:00</Time>
+  </AdjacentStations>
 </ArrayOfAdjacentStations>

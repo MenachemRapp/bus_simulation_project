@@ -71,21 +71,6 @@
     <StartAt>10:45:00</StartAt>
   </Linetrip>
   <Linetrip>
-    <Id>15</Id>
-    <LineId>8</LineId>
-    <StartAt>00:00:00</StartAt>
-  </Linetrip>
-  <Linetrip>
-    <Id>16</Id>
-    <LineId>8</LineId>
-    <StartAt>00:00:00</StartAt>
-  </Linetrip>
-  <Linetrip>
-    <Id>17</Id>
-    <LineId>8</LineId>
-    <StartAt>00:00:00</StartAt>
-  </Linetrip>
-  <Linetrip>
     <Id>18</Id>
     <LineId>7</LineId>
     <StartAt>00:30:00</StartAt>
@@ -139,5 +124,20 @@
     <Id>28</Id>
     <LineId>4</LineId>
     <StartAt>21:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>15</Id>
+    <LineId>8</LineId>
+    <StartAt>05:00:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>16</Id>
+    <LineId>8</LineId>
+    <StartAt>08:45:00</StartAt>
+  </Linetrip>
+  <Linetrip>
+    <Id>17</Id>
+    <LineId>8</LineId>
+    <StartAt>14:00:00</StartAt>
   </Linetrip>
 </ArrayOfLineTrip>

@@ -15,13 +15,6 @@
     <LastStation>1094</LastStation>
   </Line>
   <Line>
-    <Id>3</Id>
-    <Code>486</Code>
-    <Area>Jerusalem</Area>
-    <FirstStation>18999</FirstStation>
-    <LastStation>1092</LastStation>
-  </Line>
-  <Line>
     <Id>6</Id>
     <Code>243</Code>
     <Area>General</Area>
@@ -36,13 +29,6 @@
     <LastStation>422345</LastStation>
   </Line>
   <Line>
-    <Id>8</Id>
-    <Code>3</Code>
-    <Area>General</Area>
-    <FirstStation>1094</FirstStation>
-    <LastStation>1089</LastStation>
-  </Line>
-  <Line>
     <Id>7</Id>
     <Code>250</Code>
     <Area>General</Area>
@@ -55,5 +41,19 @@
     <Area>General</Area>
     <FirstStation>1090</FirstStation>
     <LastStation>55658</LastStation>
+  </Line>
+  <Line>
+    <Id>3</Id>
+    <Code>486</Code>
+    <Area>Center</Area>
+    <FirstStation>18999</FirstStation>
+    <LastStation>1091</LastStation>
+  </Line>
+  <Line>
+    <Id>8</Id>
+    <Code>3</Code>
+    <Area>General</Area>
+    <FirstStation>1094</FirstStation>
+    <LastStation>1089</LastStation>
   </Line>
 </ArrayOfLine>

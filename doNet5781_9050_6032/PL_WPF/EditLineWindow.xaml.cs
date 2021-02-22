@@ -42,9 +42,15 @@ namespace PL_WPF
                 Select(st => {
                     if (st.index==line.ListOfStation.Count())
                     {
-                        st.Distance = -1;
-                        st.ThereIsTimeAndDistance = false;
-                        return st;
+                        return new BO.ListedLineStation
+                        {
+                            Code = st.Code,
+                            index = st.index,
+                            Name = st.Name,
+                            Time = st.Time,
+                            ThereIsTimeAndDistance = false,
+                            Distance = -1                            
+                        };
                     }
                     else
                     {
