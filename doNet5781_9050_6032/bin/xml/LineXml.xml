@@ -15,13 +15,6 @@
     <LastStation>1094</LastStation>
   </Line>
   <Line>
-    <Id>6</Id>
-    <Code>243</Code>
-    <Area>General</Area>
-    <FirstStation>1085</FirstStation>
-    <LastStation>56087</LastStation>
-  </Line>
-  <Line>
     <Id>2</Id>
     <Code>546</Code>
     <Area>General</Area>
@@ -48,6 +41,13 @@
     <Area>Center</Area>
     <FirstStation>18999</FirstStation>
     <LastStation>1091</LastStation>
+  </Line>
+  <Line>
+    <Id>6</Id>
+    <Code>243</Code>
+    <Area>General</Area>
+    <FirstStation>1085</FirstStation>
+    <LastStation>56087</LastStation>
   </Line>
   <Line>
     <Id>8</Id>

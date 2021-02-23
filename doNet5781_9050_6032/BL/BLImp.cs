@@ -665,11 +665,12 @@ namespace BL
         bool line_can_save(LineTotal line)
         {
             var a = from item in line.ListOfStation
-                    where item.Distance == 0 && item.Time == TimeSpan.Zero
+                    where item.Distance == 0 || item.Time == TimeSpan.Zero
                     select item;
-            if (a.FirstOrDefault() == line.ListOfStation.LastOrDefault() && line.ListOfStation.Count() >= 2)
+           
+            if (a.Count()==1 && line.ListOfStation.Count() >= 2)
             {
-                return true; 
+                return true;
             }
             return false;
         }

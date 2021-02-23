@@ -324,4 +324,22 @@
     <Distance>3</Distance>
     <Time>00:04:00</Time>
   </AdjacentStations>
+  <AdjacentStations>
+    <Station1>1090</Station1>
+    <Station2>1089</Station2>
+    <Distance>12</Distance>
+    <Time>00:13:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>1089</Station1>
+    <Station2>56087</Station2>
+    <Distance>12</Distance>
+    <Time>00:14:00</Time>
+  </AdjacentStations>
+  <AdjacentStations>
+    <Station1>11925</Station1>
+    <Station2>1093</Station2>
+    <Distance>12</Distance>
+    <Time>00:10:00</Time>
+  </AdjacentStations>
 </ArrayOfAdjacentStations>
