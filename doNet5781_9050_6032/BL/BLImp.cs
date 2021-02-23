@@ -507,54 +507,7 @@ namespace BL
         #endregion
 
         #region line Total
-        //public LineTotal GetLineNew(int Id)
-        //{
-
-        //    IDL dl = DLFactory.GetDL();
-        //    LineTotal line = new LineTotal();
-        //    Line do_line = dl.GetLine(Id);
-        //    line.Area = (BO.Areas) do_line.Area;
-        //    line.Code = do_line.Code;
-        //    line.Id = do_line.Id;
-
-
-
-
-        //}
-        //void AddStatToLine(int station_id, int index, LineTotal line)
-        //{
-        //    IDL idl = DLFactory.GetDL();
-        //    TimeSpan time;
-        //    double distance;
-        //    DO.Station station;
-        //    try
-        //    {
-        //        station = idl.GetStation(station_id);
-        //    }
-        //    catch (Exception)// if station don't exikst
-        //    {
-
-        //        throw;// to_do
-        //    }
-        //    if (index != 0 && line.ListOfStation.Count()>0)// if There is a station before our station
-        //    {
-
-        //        try// If time and distance already exist 
-        //        {
-        //            DO.AdjacentStations adjacent_stations = idl.GetAdjacentStations(line.ListOfStation.First().Code, station_id);
-        //            time = adjacent_stations.Time;
-        //            distance = adjacent_stations.Distance;
-        //        }
-        //        catch (DO.BadAdjacentStationsException)
-        //        {
-        //            time = TimeSpan.Zero;
-        //            distance = 0;
-        //        }
-        //    }
-        //    line.ListOfStation.ToList().Insert
-        //}
-
-
+       
         /// <summary>
         /// Add a station to the line
         /// </summary>
