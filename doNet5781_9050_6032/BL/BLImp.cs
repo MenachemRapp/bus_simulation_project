@@ -592,6 +592,12 @@ namespace BL
         void update_time_and_distance_of_station(LineTotal line, int index)
         {
             IDL idl = DLFactory.GetDL();
+            if(line.ListOfStation.Count() - 1 == index)//now it last station
+            {
+                line.ListOfStation.ElementAt(index).Distance = 0;
+                line.ListOfStation.ElementAt(index).Time = TimeSpan.Zero;
+                line.ListOfStation.ElementAt(index).ThereIsTimeAndDistance = false;
+            }
             if (index >= 0 && line.ListOfStation.Count() - 2 >= index)
             {
                 try

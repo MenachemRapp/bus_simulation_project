@@ -15,20 +15,6 @@
     <LastStation>1094</LastStation>
   </Line>
   <Line>
-    <Id>2</Id>
-    <Code>546</Code>
-    <Area>General</Area>
-    <FirstStation>598763</FirstStation>
-    <LastStation>422345</LastStation>
-  </Line>
-  <Line>
-    <Id>7</Id>
-    <Code>250</Code>
-    <Area>General</Area>
-    <FirstStation>1089</FirstStation>
-    <LastStation>1091</LastStation>
-  </Line>
-  <Line>
     <Id>4</Id>
     <Code>357</Code>
     <Area>General</Area>
@@ -55,5 +41,19 @@
     <Area>General</Area>
     <FirstStation>1094</FirstStation>
     <LastStation>1089</LastStation>
+  </Line>
+  <Line>
+    <Id>7</Id>
+    <Code>250</Code>
+    <Area>General</Area>
+    <FirstStation>1089</FirstStation>
+    <LastStation>248965</LastStation>
+  </Line>
+  <Line>
+    <Id>2</Id>
+    <Code>546</Code>
+    <Area>General</Area>
+    <FirstStation>598763</FirstStation>
+    <LastStation>432</LastStation>
   </Line>
 </ArrayOfLine>
