@@ -8,13 +8,6 @@
     <LastStation>422345</LastStation>
   </Line>
   <Line>
-    <Id>5</Id>
-    <Code>248</Code>
-    <Area>North</Area>
-    <FirstStation>1082</FirstStation>
-    <LastStation>1094</LastStation>
-  </Line>
-  <Line>
     <Id>4</Id>
     <Code>357</Code>
     <Area>General</Area>
@@ -55,5 +48,12 @@
     <Area>General</Area>
     <FirstStation>598763</FirstStation>
     <LastStation>432</LastStation>
+  </Line>
+  <Line>
+    <Id>5</Id>
+    <Code>248</Code>
+    <Area>South</Area>
+    <FirstStation>1082</FirstStation>
+    <LastStation>736664</LastStation>
   </Line>
 </ArrayOfLine>
