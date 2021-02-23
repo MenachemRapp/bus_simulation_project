@@ -9,7 +9,15 @@ namespace BLAPI
 {
     public interface IBL
     {
+
+        #region Listed Line Station
+        /// <summary>
+        /// get a listed line station
+        /// </summary>
+        /// <param name="LineId"></param>
+        /// <returns></returns>
         IEnumerable<BO.ListedLineStation> GetStationCodeNameDistanceTimeInLine(int LineId);
+        #endregion
 
         #region BasicLine
         /// <summary>
@@ -149,8 +157,7 @@ namespace BLAPI
         /// <param Name="Id">id of line, if=0 new line</param>
         /// <returns>bo line</returns>
         LineTotal GetLineNew(int Id=0);
-        //bool  SaveLine(LineTotal line);
-        //void RefreshLine(LineTotal line);
+       
 
         /// <summary>
         /// Add a station to the line

@@ -93,6 +93,7 @@ namespace BL
                 }
                 //sleep until tommorow zzzzzzz.....
                 fullTripList = tripList;
+                timeNow = bl.GetTime();
                 if (bl.GetDays()<=days)
                 {
                     Thread.Sleep((Convert.ToInt32((TimeSpan.FromDays(1) - timeNow).TotalMilliseconds) / rate));
