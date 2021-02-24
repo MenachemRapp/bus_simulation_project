@@ -824,7 +824,7 @@ namespace BL
                               Name = t.Name,
                               station = t.station,
                               BusArrived = false
-                          };})});
+                          };})}).ToList();
 }
 
         public IEnumerable<BO.TripAndStations> UpdateNewTimingInList(IEnumerable<BO.TripAndStations> fullTimingList, BO.LineTiming newTiming)
@@ -926,39 +926,7 @@ namespace BL
             OrderBy(t => t.busArrived).ThenBy(t => t.TimeAtStop);
            
         }
-        /*
-        public IEnumerable<LineTiming> GetFirstTimingForEachLine(IEnumerable<LineTiming> timingList)
-        {
-            TimeSpan timeNow = GetTime();
-            return timingList.
-                GroupBy(t => t.LineId).
-                Select(group =>
-                {
-                    IEnumerable<LineTiming> timingsFromNow = group.Where(t => t.TimeAtStop > timeNow).ToList();
-                    if (timingsFromNow.Count() > 0)//if there are comming busses later today
-                    {
-                        return timingsFromNow.FirstOrDefault(t => t.TimeAtStop == timingsFromNow.Min(tr => tr.TimeAtStop));
-                    }
-                    else //all busses are tommorow
-                    {
-                        return group.FirstOrDefault(t => t.TimeAtStop == group.Min(tr => tr.TimeAtStop));
-                    }
-                }).
-            OrderBy(t =>
-            {
-                if (timeNow <= t.TimeAtStop)
-                {
-                    return t.TimeAtStop;
-                }
-                else
-                {
-                    return t.TimeAtStop + TimeSpan.FromDays(1); //bus comes tommorow
-                }
-            }).ToList();
-        }*/
-
-
-       
+             
         public LineTiming LastLineTiming(IEnumerable<LineTiming> timingList)
         {
             TimeSpan timeNow = GetTime();

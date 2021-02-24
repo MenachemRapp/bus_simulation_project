@@ -75,7 +75,7 @@ namespace BL
                     if (isDriveRun)
                     {
                         timeNow = bl.GetTime();
-                        if (trip.startTime > timeNow)// need to correct end of day
+                        if (trip.startTime > timeNow)
                         {
                             Thread.Sleep(Convert.ToInt32((trip.startTime - timeNow).TotalMilliseconds / rate));
                         }

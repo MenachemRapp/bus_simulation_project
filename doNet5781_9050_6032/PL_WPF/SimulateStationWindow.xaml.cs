@@ -24,6 +24,7 @@ namespace PL_WPF
         IBL bl;
         int stationId;
         IEnumerable<BO.LineTiming> timingList;
+        IEnumerable<BO.LineTiming> nowTimingList;
         IEnumerable<BO.TripAndStations> fullTimingList, unsetFullTimingList;
         BackgroundWorker driverWorker;
     
@@ -43,6 +44,7 @@ namespace PL_WPF
             listTitle.DataContext = station.ListOfLines.ToList().Count();
             tripTitle.DataContext = unsetFullTimingList.ToList().Count();
             initializeList();
+            nowTimingList = timingList;
             refreshTimeList();
 
             StationListlb.ItemsSource = station.ListOfLines.ToList();
@@ -99,7 +101,7 @@ namespace PL_WPF
         private void refreshTimeList()
         {
 
-            StationTimeListlb.ItemsSource = bl.GetFirstTimingForEachLine(timingList);
+            StationTimeListlb.ItemsSource = bl.GetFirstTimingForEachLine(nowTimingList);
 
             BO.LineTiming lastTiming = bl.LastLineTiming(timingList);
             if (lastTiming != null)
@@ -142,7 +144,7 @@ namespace PL_WPF
 
         private void timerAction(TimeSpan time)
         {
-            timingList = bl.UpdateTimeNow(timingList, time);
+            nowTimingList = bl.UpdateTimeNow(timingList, time);
             Dispatcher.Invoke(refreshTimeList); //didn't use background worker becuase it happens every seccond            
         }
 
